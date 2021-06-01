@@ -1,0 +1,364 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&family=Source+Sans+Pro:wght@200;300&display=swap");
+
+/* ---------- elements ------------ */ 
+
+html, 
+body {
+  background-color: #fbf8ef;
+
+  /* Height and width fallback for older browsers. */
+  height: 100%;
+  width: 100%;
+
+  /* Set the height to match that of the viewport. */
+  height: 100vh;
+
+
+
+  /* Remove any browser-default margins. */
+  margin: 0;
+}
+
+nav {
+  background: #fbf8efb6;
+}
+
+a {
+  color: rgb(65, 93, 250)
+}
+
+a:hover {
+  color: #204d2c;
+  text-decoration: none;
+} 
+
+a.navbar-brand:hover {
+  color: #204d2c;
+}
+
+form input {
+  width: 100%;
+}
+
+div input {
+  width: 100%;
+}
+
+span {
+  font-weight: 700;
+}
+
+hr {
+  padding-bottom: 50px;
+  width: 80%;
+}
+
+form {
+  background:  #fbf8ef;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+footer {
+  text-align:center;
+  color: rgb(65, 93, 250);
+  background: #fbf8ef9c;
+  padding: 15px 0px;
+}
+
+/* ---------- Lisa"s styles ------------ */ 
+
+.main {
+  margin: 0px;
+  padding: 0px;
+}
+
+.intro h5 {
+  font-family: "Source Sans Pro", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 600;
+  padding-bottom: 50px;
+}
+
+.intro h4 {
+  font-family: "Noto Serif", serif;
+  font-size: 25px;
+}
+
+.intro p {
+  font-weight:700;
+}
+
+.intro {
+  color:#204d2c;
+  background-color: #FFCF60;
+  padding-top: 50px;
+}
+
+/* ------------- own classes -------------- */
+
+.headerImg {
+  background-image: url("./images/JungleSwap_Header.png");
+  /* background-image: url("./images/ren-ran-bBiuSdck8tU-unsplash.jpg");   */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 800px;
+}
+
+.image{
+  width: 30rem;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .image{
+   width: 21rem;
+  }
+}
+
+.icon {
+  height: 300px;
+  margin-left: 80px;
+}
+
+.footer-row {
+  background-image: url("./images/JungleSwap_Header.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 200px;
+}
+
+.headerImg h5 {
+  font-family: "Source Sans Pro", sans-serif;
+  text-transform: uppercase;
+  color: #fbf8ef;
+  letter-spacing: 4px;
+  font-weight: 600;
+} 
+
+.title {
+  margin-top: 150px;
+}
+
+
+
+.headerImg h2 {
+  font-family: "Noto Serif", serif;
+  font-size: 60px;
+  letter-spacing: 1px;
+  padding: 15px;
+  color: #fbf8ef;
+  text-align: center;
+}
+@media only screen and (max-width: 768px) {
+  .headerImg h2 {
+    font-size: 40px;
+    margin-left: -45px;
+  }
+}
+
+.borderAround {
+  margin-top: 500px;
+}
+
+.padding{
+  padding-top: 20px;
+}
+
+.container h2{
+  color:#204d2c;
+  font-family: 'Noto Serif', serif;
+  font-size: 60px;
+  letter-spacing: -1px;
+}
+
+.container{
+  margin-bottom: 80px;
+}
+
+
+.miniPicSize {
+  width: 6rem;
+}
+
+.smallPicSize {
+  object-fit: cover;
+  height: 18rem;
+}
+
+.cardSmallWidth {
+  width: 18rem;
+}
+
+.mediumPicSize {
+  object-fit: cover;
+  height: 22rem;
+}
+
+.cardMediumWidth {
+  width: 22rem;
+}
+
+.biggerFontSize {
+  font-family: "Noto Serif", serif;
+  font-weight: bold 700;
+  font-style: italic;
+  letter-spacing: 1px;
+  font-size: 2rem;
+  background:  #fbf8ef;
+  padding: 10px 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .biggerFontSize {
+    font-size: 1rem;
+   
+  }
+}
+
+.smallWidth {
+  width: 30%;
+}
+
+hr{
+  padding-bottom: 50px;
+  width: 80%;
+}
+
+.navbar-toggler{  
+  background: rgb(65, 93, 250);
+}
+
+form{
+  background:  #fbf8ef;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.notFound{
+  text-shadow: 5px black;
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /*centers items on the line (the x-axis by default)*/
+  align-items: center; /*centers items on the cross-axis (y by default)*/
+  color: #fbf8ef;
+  background-image: url('./images/JungleSwap_Lost.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.notFound h3{
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  color: #fbf8ef;
+  letter-spacing: 4px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 0px;
+}
+
+.notFound h2{
+  font-family: 'Noto Serif', serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding: 0px 10px;
+}
+
+
+
+/* ---------------- Bootstrap classes ---------------- */
+
+.navbar-dark 
+.navbar-brand {
+  font-family: "Noto Serif", serif;
+  font-size: 20px;
+  color: rgb(65, 93, 250)
+}
+
+.btn {
+  background: white;
+  letter-spacing: 1px;
+  margin-top:20px;
+  border-radius: 0px;
+}
+
+.btn:hover {
+  
+  background: #fbf8ef;
+  color: black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
+}
+
+.form-control {
+  /*1px solid black;*/
+  margin-bottom:40px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);;
+}
+
+.card-body h5{
+  font-size: 25px;
+  text-align: center;
+  font-family: "Noto Serif", serif;
+  font-weight: 900;
+}
+
+/* -------------- Stripe ------------- */
+
+#card-element {
+  /*border: 1px solid black;*/
+  background-color: white;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);;
+  border-radius: 3px;
+}
+
+.result-message {
+  text-align: center;
+}
+
+.result-message a {
+  color: rgb(79, 167, 100);
+  font-weight: 600;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.card-error {
+  color: rgb(238, 63, 20);
+  text-align: center;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);;
+  border-radius: 3px;
+} 
+
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+  /*border: 1px solid black;*/
+  border: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);;
+  border-radius: 3px;
+}
+
+.spinner {
+  color: #ff474a;
+  margin: 0px auto;
+}
