@@ -152,16 +152,14 @@ Chat model
 
 ### Git
 
-The url to your repository and to your deployed project
+[Client repository Link](https://github.com/christiangerbig/jungle-swap-client)
 
-[Client repository Link](#)
+[Server repository Link](https://github.com/christiangerbig/jungle-swap-server)
 
-[Server repository Link](#)
+### Heroku
 
-[Deployed App Link](#)
+[Deployed App Link](https://jungleswap.herokuapp.com/)
 
 ### Slides
-
-The url to your presentation slides
 
 [Slides Link](https://docs.google.com/presentation/d/1wS-LZpkT3e9NpOnTY1zfjTD6m7hIQNspoF00dOOaNIE/edit#slide=id.gc6f59039d_0_0)
