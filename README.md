@@ -40,32 +40,20 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 | `/chat/:id`               | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Chat with another user to swap      |
 | `/buy/:id`                | NavBar, Stripe, FooterBar      | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
 | `/profile`                | Profile                        | user only `<PrivateRoute>` | Check profile with stat information |
-          
-
+        
 ## Components
 
 - LoginPage
-
 - SignupPage
-
 - NavBar
-
 - FooterBar
-
 - ElementList (All Plants)
-
 - SearchForm
-
 - SearchResults
-
 - ElementInfo (Plant Details)
-
 - AddForm
-
 - EditForm
-
 - ChatForm (Socket.io)
-
 - SellingForm (Stripe)
 
 ## Services
@@ -123,6 +111,7 @@ Chat model
   message: {type: String, required: true},
   recipient: {type: Schema.Types.ObjectId,ref:'User'},
 }
+```
 
 ## API Endpoints (backend routes)
 
