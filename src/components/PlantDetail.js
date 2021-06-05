@@ -1,16 +1,14 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 
 class PlantDetail extends Component {
-
   state = {
     plant: {}
   }
-
   componentDidMount() {
-    let plantId = this.props.match.params.plantId;
+    const { plantId } = this.props.match.params;
     axios.get(
       `${config.API_URL}/api/plants/${plantId}`,
       { withCredentials: true }
@@ -26,7 +24,6 @@ class PlantDetail extends Component {
         }
       );
   }
-
   render() {
     const { plant } = this.state;
     const { onDelete, user } = this.props;
@@ -41,11 +38,7 @@ class PlantDetail extends Component {
         <div className="col">
           <div className="card cardMediumWidth">
             {
-              plant.image ? (
-                <img className="card-img-top mediumPicSize" src={ plant.image } alt={ plant.name } />
-              ) : (
-                null
-              )
+              (plant.image) ? <img className="card-img-top mediumPicSize" src={ plant.image } alt={ plant.name }/> : null
             }
             <div className="ml-2 mt-2"> <span> Name: </span> { plant.name } </div>
             <div className="ml-2 mt-2"> <span> Description: </span> { plant.description } </div>
@@ -57,35 +50,19 @@ class PlantDetail extends Component {
                 <div className="card-body">
                   {
                     (user._id === plant.creator) ? (
-                      <>
+                      <div>
                         <Link to={`/plant/${plant._id}/edit`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Edit </button> </Link>
-                        <button className="btn btn-sm ml-2 btn-outline-dark"
-                          onClick={
-                            () => {
-                              onDelete(plant._id);
-                            }
-                          }
-                        > Delete </button>
-                      </>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(plant._id)}> Delete </button>
+                      </div>
                     ) : (
-                      <>
-                        <Link to={
-                            { 
-                              pathname: `/plant/${plant._id}/checkout`, 
-                              plant: plant 
-                            }
-                        }>
+                      <div>
+                        <Link to={{ pathname: `/plant/${plant._id}/checkout`, plant: plant }}>
                           <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button>
                         </Link>
-                        <Link to={
-                          {
-                            pathname: "/request-form",
-                            plant: plant
-                          }
-                        }>
+                        <Link to={{ pathname: "/request-form", plant: plant }}>
                           <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button>                      
                         </Link>
-                      </>
+                      </div>
                     )
                   }
                   <Link to={"/"}>
@@ -99,7 +76,6 @@ class PlantDetail extends Component {
       </div>
     );
   }
-
 }
 
 export default PlantDetail;

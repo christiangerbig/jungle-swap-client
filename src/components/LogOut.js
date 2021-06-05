@@ -1,10 +1,10 @@
 import React from "react";
 
-function Logout(props) {
+const Logout = (props) => {
   props.onLogOut();
   return (
-    <>
-    </>
+    <div>
+    </div>
   );
 }
 

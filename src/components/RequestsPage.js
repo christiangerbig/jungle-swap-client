@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 class RequestsPage extends Component {
-
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.onMyRequests();
   }
-
   render() {
     const { user, requests } = this.props
     if (!user) {

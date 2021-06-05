@@ -4,13 +4,11 @@ import config from "../config";
 import axios from "axios";
 
 class EditForm extends Component {
-
   state = {
     plant: {}
   }
-
   componentDidMount() {
-    let plantId = this.props.match.params.plantId;
+    const plantId = this.props.match.params.plantId;
     axios.get(`${ config.API_URL }/api/plants/${ plantId }`)
       .then(
         (response) => {
@@ -29,9 +27,8 @@ class EditForm extends Component {
   }
 
   handleNameChange = (event) => {
-    let text = event.target.value;
-    let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-    clonePlant.name = text
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.name = event.target.value;
     this.setState(
       {
         plant: clonePlant
@@ -40,9 +37,8 @@ class EditForm extends Component {
   }
 
   handleDescChange = (event) => {
-    let text = event.target.value;
-    let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-    clonePlant.description = text;
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.description = event.target.value;
     this.setState(
       {
       plant: clonePlant
@@ -51,9 +47,8 @@ class EditForm extends Component {
   }
 
   handleSizeChange = (event) => {
-    let text = event.target.value;
-    let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-    clonePlant.size = text;
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.size = event.target.value;
     this.setState(
       {
         plant: clonePlant
@@ -62,9 +57,8 @@ class EditForm extends Component {
   }
 
   handlePriceChange = (event) => {
-    let text = event.target.value;
-    let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-    clonePlant.price = text;
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.price = event.target.value;
     this.setState(
       {
         plant: clonePlant
@@ -73,9 +67,8 @@ class EditForm extends Component {
   }
 
   handleLocationChange = (event) => {
-    let text = event.target.value;
-    let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-    clonePlant.location = text;
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.location = event.target.value;
     this.setState(
       {
         plant: clonePlant
@@ -84,20 +77,19 @@ class EditForm extends Component {
   }
 
   handleImageChange = (event) => {
-    let image = event.target.files[0];
-    let uploadForm = new FormData();
+    const image = event.target.files[0];
+    const uploadForm = new FormData();
     uploadForm.append("imageUrl", image);
     axios.post(`${ config.API_URL }/api/upload`, uploadForm)
       .then(
         (response) => {
-          let clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+          const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
           clonePlant.image = response.data.image;
           this.setState(
             {
               plant: clonePlant
             }
           );
-          console.log(clonePlant);
         }
       )
       .catch(

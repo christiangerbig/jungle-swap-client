@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class AddForm extends Component {
   render() {
     const { user } = this.props
-    if(!user){
+    if (!user){
       return <Redirect to={'/signup'}/>
     }
     return (
@@ -26,7 +26,7 @@ class AddForm extends Component {
             <input className="mb-4" name="plantImage" type="file"/>
             <div className="col-12">
               <button className="btn btn-sm btn-outline-dark" type="submit" > Add plant </button>
-              <Link to={ `/` }> 
+              <Link to={ "/" }> 
                 <button className="btn btn-sm mx-5"> Go back </button> 
               </Link>
             </div>
