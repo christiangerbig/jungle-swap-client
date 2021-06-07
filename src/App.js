@@ -29,7 +29,7 @@ class App extends Component {
     fetchingUser: true
   }
 
-  // Fetch initial data to be displayed
+  // Fetch initial plants data to be displayed
   fetchAllPlants = () => {
     axios.get(`${config.API_URL}/api/plants`)
       .then(
@@ -47,6 +47,7 @@ class App extends Component {
         }
       );
   }
+
   componentDidMount() {
     this.fetchAllPlants()
     if (!this.state.loggedInUser) {
@@ -93,6 +94,7 @@ class App extends Component {
         }
       );
   }
+  
   handleChange = (event) => {
     const query = event.target.value;
     this.setState(

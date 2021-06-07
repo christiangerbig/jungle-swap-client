@@ -57,7 +57,8 @@ const CheckoutForm = (props) => {
       }
     }
   };
-  // Listen for changes in the CardElement and display any errors as the customer types card details
+
+  // Listen for changes in CardElement and display any errors as customer types card details
   const handleChange = async (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
@@ -104,14 +105,12 @@ const CheckoutForm = (props) => {
         {
           error && (<div className="card-error" role="alert"> {error} </div>)
         }
-        {/* Show a success message upon completion */}
+        {/* Show success message upon completion */}
         <p className={(succeeded) ? "result-message text-center" : "result-message hidden text-center"}>
-          Payment succeeded, see the result in your
-          <a href={`https://dashboard.stripe.com/test/payments`}> {" "} Stripe dashboard. </a>
-          Refresh the page to pay again.
+          Payment succeeded.
         </p>
       </form>
-      <div className="row justify-content-center mt-4">
+      <div className="row justify-content-center">
         <Link to={"/"}>
           <button className="btn btn-sm"> Go back </button>
         </Link>

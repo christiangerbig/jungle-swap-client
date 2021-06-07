@@ -323,9 +323,6 @@ form{
 
 .result-message {
   text-align: center;
-}
-
-.result-message a {
   color: rgb(79, 167, 100);
   font-weight: 600;
   text-align: center;
