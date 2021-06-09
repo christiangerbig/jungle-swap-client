@@ -26,14 +26,14 @@ class Home extends Component {
           </div>
         </header>
         {/* About */}
-        <div class="intro">
-          <div class="intro-centered container">
-            <div class="row">
-              <div class="col-sm-6 col-md-5 col-lg-6">
-                <img class="image" src={image} alt=""/>
+        <div className="intro">
+          <div className="intro-centered container">
+            <div className="row">
+              <div className="col-sm-6 col-md-5 col-lg-6">
+                <img className="image" src={image} alt=""/>
               </div>
               <br />
-              <div class="intro col-sm-6 col-md-5 col-lg-6 px-5">
+              <div className="intro col-sm-6 col-md-5 col-lg-6 px-5">
                 <h4> Welcome to JungleSwap! </h4>
                 <h5> Add green to your Home </h5>
                 <p> It's easy-peasy. <br/>
@@ -43,7 +43,7 @@ class Home extends Component {
                   Don't have any baby plants? <br/>
                   You can simply shop and give a plant a new home.
                 </p>
-                <img class="icon" src={icon} alt="icon"/>
+                <img className="icon" src={icon} alt="icon"/>
               </div>
             </div>
           </div>

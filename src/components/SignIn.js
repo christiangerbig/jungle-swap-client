@@ -14,6 +14,9 @@ const SignIn = (props) => {
             <label htmlFor="InputPassword"> Password </label>
             <input name="password" type="password" className="form-control" id="InputPassword"/>
           </div>
+          {
+            (props.error) ? <p style={{ color: "red" }}> {props.error} </p> : null            
+          }
           <button type="submit" className="btn btn-primary mt-4 btn-outline-dark"> Sign in </button>
         </form>
       </div>

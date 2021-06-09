@@ -18,7 +18,7 @@ class RequestsPage extends Component {
             requests.map(
               (request) => {
                 return (
-                  (request.seller == user._id) ? (
+                  (request.seller === user._id) ? (
                     <div className="card p-3 mt-4 " key={ request._id }>
                       <h4> Request for { request.plant.name } </h4>
                       <p> { request.message} </p>

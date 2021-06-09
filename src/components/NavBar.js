@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { ScrollTo } from "react-scroll-to";
 
 const NavBar = (props) => {
-  const myRef = React.createRef();
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">

@@ -282,7 +282,11 @@ class App extends Component {
       )
       .catch(
         (err) => {
-          console.log("Signin in failed", err);
+          this.setState(
+            {
+              error: err.response.data.error
+            }
+          );
         }
       );
   }
@@ -403,7 +407,7 @@ class App extends Component {
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={this.handleSignIn} {...routeProps}/>
+              return <SignIn onSignIn={this.handleSignIn} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/signup" render={
