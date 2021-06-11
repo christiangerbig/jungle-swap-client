@@ -207,29 +207,31 @@ class App extends Component {
     const imageId = {imageId: plant.imageId}
     axios.post(`${config.API_URL}/api/destroy`, imageId)
       .then(
-        axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
-          .then(
-            () => {
-              let filteredPlants = this.state.plants.filter(
-                (plant) => {
-                  return plant._id !== plant.Id;
-                }
-              );
-              this.setState(
-                {
-                  plants: filteredPlants
-                },
-                () => {
-                  this.props.history.push("/");
-                }
-              );
-            }
-          )
-          .catch(
-            (err) => {
-              console.log("Delete plant failed", err);
-            }
-          )
+        () => {
+          axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
+            .then(
+              () => {
+                let filteredPlants = this.state.plants.filter(
+                  (plant) => {
+                    return plant._id !== plant.Id;
+                  }
+                );
+                this.setState(
+                  {
+                    plants: filteredPlants
+                  },
+                  () => {
+                    this.props.history.push("/");
+                  }
+                );
+              }
+            )
+            .catch(
+              (err) => {
+                console.log("Delete plant failed", err);
+              }
+            )
+        }  
       )
       .catch(
         (err) => {
