@@ -38,7 +38,7 @@ const CheckoutForm = (props) => {
           }
         );
     },
-    []
+    [plant.price]
   );
   const cardStyle = {
     style: {
