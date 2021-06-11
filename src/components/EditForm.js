@@ -79,7 +79,7 @@ class EditForm extends Component {
   handleImageChange = (event) => {
     const image = event.target.files[0];
     const uploadForm = new FormData();
-    uploadForm.append("imageUrl", image);
+    uploadForm.append("image", image);
     axios.post(`${ config.API_URL }/api/upload`, uploadForm)
       .then(
         (response) => {

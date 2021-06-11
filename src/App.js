@@ -115,7 +115,7 @@ class App extends Component {
     const  { name, description, size, price, plantImage, location } = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
-    uploadForm.append("imageUrl", image);
+    uploadForm.append("image", image);
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then(
         (response) => {
