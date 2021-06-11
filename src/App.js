@@ -119,12 +119,12 @@ class App extends Component {
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then(
         (response) => {
-          console.log(response.data.imagePublicId);
           const newPlant = {
             name: name.value,
             description: description.value,
             size: size.value,
             price: price.value,
+            imageId: response.data.imageId,
             image: response.data.image,
             location: location.value
           };
@@ -157,12 +157,13 @@ class App extends Component {
 
   // Edit Plant
   handleEditPlant = (plant) => {
-    const { name, description, size, price, image, location } = plant;
+    const { name, description, size, price, imageId, image, location } = plant;
     const editedPlant = {
       name,
       description,
       size,
       price,
+      imageId,
       image,
       location
     };
@@ -172,11 +173,12 @@ class App extends Component {
           let newPlants = this.state.plants.map(
             (singlePlant) => {
               if (plant._id === singlePlant._id) {
-                const { name, description, size, price, image, location } = plant;
+                const { name, description, size, price, imageId, image, location } = plant;
                 singlePlant.name = name;
                 singlePlant.description = description;
                 singlePlant.size = size;
                 singlePlant.price = price;
+                singlePlant.imageId = imageId;
                 singlePlant.image = image;
                 singlePlant.location = location;
               }
@@ -201,28 +203,36 @@ class App extends Component {
   }
 
   // Delete Plant
-  handleDelete = (plantId) => {
-    axios.delete(`${config.API_URL}/api/plants/${plantId}`)
+  handleDelete = (plant) => {
+    axios.post(`${config.API_URL}/api/destroy`, plant.imageId)
       .then(
-        () => {
-          let filteredPlants = this.state.plants.filter(
-            (plant) => {
-              return plant._id !== plantId;
-            }
-          );
-          this.setState(
-            {
-              plants: filteredPlants
-            },
+        axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
+          .then(
             () => {
-              this.props.history.push("/");
+              let filteredPlants = this.state.plants.filter(
+                (plant) => {
+                  return plant._id !== plant.Id;
+                }
+              );
+              this.setState(
+                {
+                  plants: filteredPlants
+                },
+                () => {
+                  this.props.history.push("/");
+                }
+              );
             }
-          );
-        }
+          )
+          .catch(
+            (err) => {
+              console.log("Delete plant failed", err);
+            }
+          )
       )
       .catch(
         (err) => {
-          console.log("Delete plant failed", err);
+          console.log("Delete plant image failed", err);
         }
       );
   }

@@ -52,7 +52,7 @@ class PlantDetail extends Component {
                     (user._id === plant.creator) ? (
                       <div>
                         <Link to={`/plant/${plant._id}/edit`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Edit </button> </Link>
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(plant._id)}> Delete </button>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(plant)}> Delete </button>
                       </div>
                     ) : (
                       <div>
