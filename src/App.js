@@ -206,7 +206,7 @@ class App extends Component {
         () => {
           const filteredPlants = this.state.plants.filter(
             (plant) => {
-              return plant._id !== plant.Id;
+              return plant._id !== plant;
             }
           );
           this.setState(
