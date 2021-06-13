@@ -124,7 +124,6 @@ class App extends Component {
             description: description.value,
             size: size.value,
             price: price.value,
-            imageId: response.data.imageId,
             image: response.data.image,
             location: location.value
           };
@@ -157,13 +156,12 @@ class App extends Component {
 
   // Edit Plant
   handleEditPlant = (plant) => {
-    const { name, description, size, price, imageId, image, location } = plant;
+    const { name, description, size, price, image, location } = plant;
     const editedPlant = {
       name,
       description,
       size,
       price,
-      imageId,
       image,
       location
     };
@@ -173,12 +171,11 @@ class App extends Component {
           let newPlants = this.state.plants.map(
             (singlePlant) => {
               if (plant._id === singlePlant._id) {
-                const { name, description, size, price, imageId, image, location } = plant;
+                const { name, description, size, price, image, location } = plant;
                 singlePlant.name = name;
                 singlePlant.description = description;
                 singlePlant.size = size;
                 singlePlant.price = price;
-                singlePlant.imageId = imageId;
                 singlePlant.image = image;
                 singlePlant.location = location;
               }
@@ -204,41 +201,30 @@ class App extends Component {
 
   // Delete Plant
   handleDelete = (plant) => {
-    const imageId = {imageId: plant.imageId}
-    axios.post(`${config.API_URL}/api/destroy`, imageId)
+    axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
       .then(
         () => {
-          axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
-            .then(
-              () => {
-                let filteredPlants = this.state.plants.filter(
-                  (plant) => {
-                    return plant._id !== plant.Id;
-                  }
-                );
-                this.setState(
-                  {
-                    plants: filteredPlants
-                  },
-                  () => {
-                    this.props.history.push("/");
-                  }
-                );
-              }
-            )
-            .catch(
-              (err) => {
-                console.log("Delete plant failed", err);
-              }
-            )
-        }  
+          const filteredPlants = this.state.plants.filter(
+            (plant) => {
+              return plant._id !== plant.Id;
+            }
+          );
+          this.setState(
+            {
+              plants: filteredPlants
+            },
+            () => {
+              this.props.history.push("/");
+            }
+          );
+        }
       )
       .catch(
         (err) => {
-          console.log("Delete plant image failed", err);
+          console.log("Delete plant failed", err);
         }
-      );
-  }
+      )
+  }  
 
   // Signup
   handleSignUp = (event) => {
@@ -351,7 +337,7 @@ class App extends Component {
   handleRequestSubmit = (event, plant) => {
     event.preventDefault();
     const { message } = event.target;
-    let user = this.state.loggedInUser;
+    const user = this.state.loggedInUser;
     const request = {
       buyer: user._id,
       seller: plant.creator,
