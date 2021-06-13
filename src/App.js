@@ -200,13 +200,13 @@ class App extends Component {
   }
 
   // Delete Plant
-  handleDelete = (plant) => {
-    axios.delete(`${config.API_URL}/api/plants/${plant._id}`)
+  handleDelete = (plantId) => {
+    axios.delete(`${config.API_URL}/api/plants/${plantId}`)
       .then(
         () => {
           const filteredPlants = this.state.plants.filter(
             (plant) => {
-              return plant._id !== plant;
+              return plant._id !== plantId;
             }
           );
           this.setState(
