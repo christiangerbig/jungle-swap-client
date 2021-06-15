@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { ScrollTo } from "react-scroll-to";
-import image from '../images/JungleSwap_Home.png';
-import icon from '../images/JungleSwap_Icon.png';
+import image from "../images/JungleSwap_Home.png";
+import icon from "../images/JungleSwap_Icon.png";
 
 class Home extends Component {
   render() {
@@ -36,11 +36,11 @@ class Home extends Component {
               <div className="intro col-sm-6 col-md-5 col-lg-6 px-5">
                 <h4> Welcome to JungleSwap! </h4>
                 <h5> Add green to your Home </h5>
-                <p> It's easy-peasy. <br/>
+                <p> It"s easy-peasy. <br/>
                   Share your plant offshoots. <br/>
                   Make money! <br/>
                   Or swap them for another plant. <br/>
-                  Don't have any baby plants? <br/>
+                  Don"t have any baby plants? <br/>
                   You can simply shop and give a plant a new home.
                 </p>
                 <img className="icon" src={icon} alt="icon"/>

@@ -4,9 +4,11 @@ import config from "../config";
 import axios from "axios";
 
 class PlantDetail extends Component {
+
   state = {
     plant: {}
   }
+
   componentDidMount() {
     const { plantId } = this.props.match.params;
     axios.get(
@@ -24,6 +26,7 @@ class PlantDetail extends Component {
         }
       );
   }
+  
   render() {
     const { plant } = this.state;
     const { onDelete, user } = this.props;

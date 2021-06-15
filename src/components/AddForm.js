@@ -5,7 +5,7 @@ class AddForm extends Component {
   render() {
     const { user } = this.props
     if (!user){
-      return <Redirect to={'/signup'}/>
+      return <Redirect to={"/signup"}/>
     }
     return (
       <div className="container row mt-5 fullscreen">

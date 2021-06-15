@@ -20,6 +20,7 @@ import NotFound from './components/NotFound';
 import KommunicateChat from "./components/Chat";
 
 class App extends Component {
+
   state = {
     loggedInUser: null,
     error: null,
@@ -95,6 +96,7 @@ class App extends Component {
       );
   }
   
+  // Search changed
   handleChange = (event) => {
     const query = event.target.value;
     this.setState(
@@ -107,6 +109,102 @@ class App extends Component {
         )
       }
     );
+  }
+
+  // Signup
+  handleSignUp = (event) => {
+    event.preventDefault();
+    const { username, email, password } = event.target;
+    const user = {
+      username: username.value,
+      email: email.value.toLowerCase(),
+      password: password.value
+    };
+    axios.post(`${config.API_URL}/api/signup`, user)
+      .then(
+        (response) => {
+          this.setState(
+            {
+              loggedInUser: response.data
+            },
+            () => {
+              this.props.history.push("/");
+            }
+          );
+        }
+      )
+      .catch(
+        (err) => {
+          this.setState(
+            {
+              error: err.response.data.error
+            }
+          );
+        }
+      );
+  }
+
+  // Signin
+  handleSignIn = (event) => {
+    event.preventDefault();
+    const { email, password } = event.target;
+    const user = {
+      email: email.value,
+      password: password.value
+    };
+    axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
+      .then(
+        (response) => {
+          this.setState(
+            {
+              loggedInUser: response.data
+            },
+            () => {
+              this.props.history.push("/");
+            }
+          );
+        }
+      )
+      .catch(
+        (err) => {
+          this.setState(
+            {
+              error: err.response.data.error
+            }
+          );
+        }
+      );
+  }
+
+  // Clear error messages
+  resetError = () => {
+    this.setState(
+      {
+        error: null
+      }
+    );
+  }
+
+  // Logout
+  handleLogOut = () => {
+    axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
+      .then(
+        () => {
+          this.setState(
+            {
+              loggedInUser: null
+            },
+            () => {
+              this.props.history.push("/");
+            }
+          );
+        }
+      )
+      .catch(
+        (err) => {
+          console.log("Logout failed", err);
+        }
+      );
   }
 
   // Add plant
@@ -226,93 +324,6 @@ class App extends Component {
       )
   }  
 
-  // Signup
-  handleSignUp = (event) => {
-    event.preventDefault();
-    const { username, email, password } = event.target;
-    const user = {
-      username: username.value,
-      email: email.value.toLowerCase(),
-      password: password.value
-    };
-    axios.post(`${config.API_URL}/api/signup`, user)
-      .then(
-        (response) => {
-          this.setState(
-            {
-              loggedInUser: response.data
-            },
-            () => {
-              this.props.history.push("/signin");
-            }
-          );
-        }
-      )
-      .catch(
-        (err) => {
-          this.setState(
-            {
-              error: err.response.data.error
-            }
-          );
-        }
-      );
-  }
-
-  // Signin
-  handleSignIn = (event) => {
-    event.preventDefault();
-    const { email, password } = event.target;
-    const user = {
-      email: email.value,
-      password: password.value
-    };
-    axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
-      .then(
-        (response) => {
-          this.setState(
-            {
-              loggedInUser: response.data
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
-      )
-      .catch(
-        (err) => {
-          this.setState(
-            {
-              error: err.response.data.error
-            }
-          );
-        }
-      );
-  }
-
-  // Logout
-  handleLogOut = () => {
-    axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
-      .then(
-        () => {
-          this.setState(
-            {
-              loggedInUser: null
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
-      )
-      .catch(
-        (err) => {
-          console.log("Logout failed", err);
-        }
-      );
-  }
-
   // Payment
   handleCheckout = (price) => {
     console.log(price);
@@ -407,12 +418,12 @@ class App extends Component {
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={this.handleSignIn} error={error} {...routeProps}/>
+              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/signup" render={
             (routeProps) => {
-              return <SignUp onSignUp={this.handleSignUp} error={error} {...routeProps}/>
+              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/logout" render={
@@ -448,7 +459,7 @@ class App extends Component {
           <Route component={ NotFound }/>
         </Switch>
         <KommunicateChat/>
-        <Footer />
+        <Footer/>
       </div>
     );
   }

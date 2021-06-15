@@ -1,11 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Logout = (props) => {
-  props.onLogOut();
-  return (
-    <div>
-    </div>
-  );
+class LogOut extends Component {
+  
+  componentDidMount() {
+    this.props.onLogOut();
+  }
+
+  render() {
+    return (
+      <div>
+      </div>
+    )
+  }
 }
 
-export default Logout;
+export default LogOut;
