@@ -70,7 +70,7 @@ class Home extends Component {
                         <div className="card-body mb-5">
                           <h5> { name } </h5>
                           <p> { price } € </p>
-                          <Link className="btn btn-outline-dark" to={`/plants/${_id}`}> Details </Link>
+                          <Link className="btn btn-outline-dark" to={`/plants/read/${_id}`}> Details </Link>
                         </div>
                       </div>
                     </div>

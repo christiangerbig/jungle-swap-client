@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import { Route, Switch, withRouter } from "react-router-dom";
 import config from "./config";
 import axios from "axios";
-import Home from "./components/Home";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import AddForm from "./components/AddForm";
-import EditForm from "./components/EditForm";
-import PlantDetail from "./components/PlantDetail";
-import CheckoutPage from "./components/CheckoutPage";
+import Home from "./components/Home";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 import LogOut from "./components/LogOut";
-import RequestForm from "./components/RequestForm";
+import CreatePlantForm from "./components/CreatePlantForm";
+import UpdatePlantForm from "./components/UpdatePlantForm";
+import PlantDetails from "./components/PlantDetails";
+import CheckoutPage from "./components/CheckoutPage";
+import CreateRequestForm from "./components/CreateRequestForm";
 import RequestsPage from "./components/RequestsPage";
 import NotFound from './components/NotFound';
 import KommunicateChat from "./components/Chat";
@@ -32,7 +33,7 @@ class App extends Component {
 
   // Fetch all plants
   fetchAllPlants = () => {
-    axios.get(`${config.API_URL}/api/plants`)
+    axios.get(`${config.API_URL}/api/plants/fetch`)
       .then(
         (response) => this.setState({ plants: response.data})
       )
@@ -87,6 +88,9 @@ class App extends Component {
     );
   }
 
+  // Clear error messages
+  resetError = () => this.setState({ error: null });
+
   // Signup
   handleSignUp = (event) => {
     event.preventDefault();
@@ -127,10 +131,6 @@ class App extends Component {
         (err) => this.setState({ error: err.response.data.error })
       );
   }
-
-  // Clear error messages
-  resetError = () => this.setState({ error: null });
-  
 
   // Logout
   handleLogOut = () => {
@@ -254,7 +254,7 @@ class App extends Component {
 
   // Fetch all requests
   handleFetchAllRequests = () => {
-    axios.get(`${config.API_URL}/api/requests`)
+    axios.get(`${config.API_URL}/api/requests/fetch`)
       .then(
         (response) => {
           console.log("Response -- handleMyRequests():", response.data);
@@ -305,14 +305,14 @@ class App extends Component {
               return <Home onSearchPlant={ this.handleSearchPlant } plants={ plants } query={ query }/>
             }
           }/>
-          <Route path="/signin" render={
-            (routeProps) => {
-              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } error={ error } { ...routeProps }/>
-            }
-          }/>
           <Route path="/signup" render={
             (routeProps) => {
               return <SignUp onSignUp={ this.handleSignUp } onResetError={ this.resetError } error={ error } { ...routeProps }/>
+            }
+          }/>
+          <Route path="/signin" render={
+            (routeProps) => {
+              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/logout" render={
@@ -320,35 +320,35 @@ class App extends Component {
               return <LogOut onLogOut={ this.handleLogOut } { ...routeProps }/>
             }
           }/>
-          <Route path="/add-form" render={
+          <Route path="/plants/create" render={
             () => {
-              return <AddForm onCreatePlant={ this.handleCreatePlant } user={ loggedInUser }/>
+              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } user={ loggedInUser }/>
             }
           }/>
-          <Route path="/plant/:plantId/edit" render={
+          <Route path="/plants/read/:plantId" render={
             (routeProps) => {
-              return <EditForm onUpdatePlant={ this.handleUpdatePlant } { ...routeProps }/>
+              return <PlantDetails onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
             }
           }/>
-          <Route path="/plants/:plantId" render={
+          <Route path="/plants/update/:plantId" render={
             (routeProps) => {
-              return <PlantDetail onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
+              return <UpdatePlantForm onUpdatePlant={ this.handleUpdatePlant } { ...routeProps }/>
             }
           }/>
-          <Route path="/plant/:plantId/checkout" render={
+          <Route path="/plants/checkout/:plantId" render={
             (routeProps) => {
               return <CheckoutPage onCheckout={ this.handleCheckout } { ...routeProps }/>
             }
           }/>
-          <Route path="/request-form" render={
-            (routeProps) => {
-              return <RequestForm onCreateRequest={ this.handleCreateRequest } user={ loggedInUser } { ...routeProps } />
-            }
-          }/>
-          <Route path="/myrequests" render={
+          <Route path="/requests/fetch" render={
               (routeProps) => {
                 return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } user={ loggedInUser } requests={ requests } { ...routeProps }/>
               }
+          }/>
+          <Route path="/requests/create" render={
+            (routeProps) => {
+              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } user={ loggedInUser } { ...routeProps } />
+            }
           }/>
           <Route component={ NotFound }/>
         </Switch>

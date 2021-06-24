@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
-class AddForm extends Component {
+class CreatePlantForm extends Component {
   render() {
     const { user, onCreatePlant } = this.props
     if (!user){
@@ -37,4 +37,4 @@ class AddForm extends Component {
   }
 }
 
-export default AddForm;
+export default CreatePlantForm;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class RequestForm extends Component {
+class CreateRequestForm extends Component {
   render() {
     const { onCreateRequest } = this.props;
     const { plant } = this.props.location;
@@ -14,7 +14,7 @@ class RequestForm extends Component {
               <textarea className="mb-4" name="message" cols="35" rows="4" />
             </div>
             <button className="btn btn-sm btn-outline-dark" type="submit"> Send </button>
-            <Link to={ `/plants/${plant._id}` }>
+            <Link to={ `/plants/read/${plant._id}` }>
               <button className="btn btn-sm mx-2"> Go back </button>
             </Link>
           </form>
@@ -24,4 +24,4 @@ class RequestForm extends Component {
   }
 }
 
-export default RequestForm;
+export default CreateRequestForm;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 
-class EditForm extends Component {
+class UpdatePlantForm extends Component {
 
   state = { plant: {} };
 
@@ -106,4 +106,4 @@ class EditForm extends Component {
   }
 }
 
-export default EditForm;
+export default UpdatePlantForm;

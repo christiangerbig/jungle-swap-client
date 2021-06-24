@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 
-class PlantDetail extends Component {
+class PlantDetails extends Component {
 
   state = {
     plant: {}
@@ -51,21 +51,21 @@ class PlantDetail extends Component {
                   {
                     (user._id === creator) ? (
                       <div>
-                        <Link to={`/plant/${_id}/edit`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Edit </button> </Link>
+                        <Link to={`/plants/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id)}> Delete </button>
                       </div>
                     ) : (
                       <div>
-                        <Link to={{ pathname: `/plant/${_id}/checkout`, plant: plant }}>
+                        <Link to={{ pathname: `/plants/checkout/${_id}`, plant: plant }}>
                           <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button>
                         </Link>
-                        <Link to={{ pathname: "/request-form", plant: plant }}>
+                        <Link to={{ pathname: "/requests/create", plant: plant }}>
                           <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button>                      
                         </Link>
                       </div>
                     )
                   }
-                  <Link to={"/"}>
+                  <Link to={ "/" }>
                     <button className="btn btn-sm ml-2"> Go back </button>
                   </Link>
                 </div>
@@ -78,4 +78,4 @@ class PlantDetail extends Component {
   }
 }
 
-export default PlantDetail;
+export default PlantDetails;

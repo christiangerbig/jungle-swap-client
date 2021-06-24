@@ -25,8 +25,8 @@ class NavBar extends Component {
             {
               (user) ? (
                 <div>
-                  <Link className="p-2" to="/add-form"> Add Plant </Link>
-                  <Link className="p-2" to="/myrequests"> Messages </Link>
+                  <Link className="p-2" to="/plants/create"> Create Plant </Link>
+                  <Link className="p-2" to="/requests/fetch"> Messages </Link>
                 </div>
               ) : (
                 null

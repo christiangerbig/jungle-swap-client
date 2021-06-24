@@ -33,7 +33,7 @@ class RequestsPage extends Component {
               } 
             )
           }
-          <Link to={ `/` }> 
+          <Link to={ "/" }> 
             <button className="btn btn-sm mt-4"> Go back </button> 
           </Link>
         </div>
