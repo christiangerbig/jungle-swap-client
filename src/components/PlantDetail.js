@@ -29,7 +29,7 @@ class PlantDetail extends Component {
   
   render() {
     const { plant } = this.state;
-    const { user, onDelete} = this.props;
+    const { user, onDelete } = this.props;
     const { _id, name, description, size, image, location, price, creator } = plant;
     if (!user) {
       return <Redirect to={ "/signup" }/>

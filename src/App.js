@@ -403,51 +403,51 @@ class App extends Component {
     }
     return (
       <div class="main">
-        <NavBar onLogOut={this.handleLogOut} user={loggedInUser}/>
+        <NavBar onLogOut={ this.handleLogOut } user={ loggedInUser }/>
         <Switch>
           <Route exact path="/" render={
             () => {
-              return <Home onSearch={this.handleChange} plants={plants} query={query}/>
+              return <Home onSearch={ this.handleChange } plants={ plants } query={ query }/>
             }
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} error={error} {...routeProps}/>
+              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/signup" render={
             (routeProps) => {
-              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} error={error} {...routeProps}/>
+              return <SignUp onSignUp={ this.handleSignUp } onResetError={ this.resetError } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/logout" render={
             (routeProps) => {
-              return <LogOut onLogOut={this.handleLogOut} {...routeProps}/>
+              return <LogOut onLogOut={ this.handleLogOut } { ...routeProps }/>
             }
           }/>
            <Route path="/plants/:plantId" render={
             (routeProps) => {
-              return <PlantDetail onDelete={this.handleDeletePlant} user={loggedInUser} {...routeProps}/>
+              return <PlantDetail onDelete={ this.handleDeletePlant } user={loggedInUser} { ...routeProps }/>
             }
           }/>
           <Route path="/add-form" render={
             () => {
-              return <AddForm onAdd={this.handleSubmit} user={loggedInUser}/>
+              return <AddForm onAdd={ this.handleSubmit } user={ loggedInUser }/>
             }
           }/>
           <Route path="/plant/:plantId/edit" render={
             (routeProps) => {
-              return <EditForm onEdit={this.handleEditPlant} {...routeProps}/>
+              return <EditForm onUpdate={ this.handleUpdatePlant } { ...routeProps }/>
             }
           }/>
           <Route path="/plant/:plantId/checkout" render={
             (routeProps) => {
-              return <CheckoutPage onCheckout={this.handleCheckout} {...routeProps}/>
+              return <CheckoutPage onCheckout={ this.handleCheckout } { ...routeProps }/>
             }
           }/>
           <Route path="/request-form" render={
             (routeProps) => {
-              return <RequestForm onRequest={this.handleRequestSubmit} user={loggedInUser} {...routeProps} />
+              return <RequestForm onRequest={ this.handleRequestSubmit } user={ loggedInUser } { ...routeProps } />
             }
           }/>
           <Route path="/myrequests" render={
