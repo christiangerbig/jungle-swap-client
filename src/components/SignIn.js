@@ -27,7 +27,7 @@ class SignIn extends Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 

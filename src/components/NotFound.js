@@ -16,7 +16,7 @@ class NotFound extends Component {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 }
 

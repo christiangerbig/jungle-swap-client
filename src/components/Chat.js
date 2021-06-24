@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 class KommunicateChat extends Component {
+
   componentDidMount() {
     (
       (d, m) => {

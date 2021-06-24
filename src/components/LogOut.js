@@ -10,7 +10,7 @@ class LogOut extends Component {
     return (
       <div>
       </div>
-    )
+    );
   }
 }
 
