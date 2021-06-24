@@ -425,19 +425,19 @@ class App extends Component {
               return <LogOut onLogOut={ this.handleLogOut } { ...routeProps }/>
             }
           }/>
-           <Route path="/plants/:plantId" render={
-            (routeProps) => {
-              return <PlantDetail onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
-            }
-          }/>
           <Route path="/add-form" render={
             () => {
-              return <AddForm onCreatePlant={ this.handleSubmit } user={ loggedInUser }/>
+              return <AddForm onCreatePlant={ this.handleCreatePlant } user={ loggedInUser }/>
             }
           }/>
           <Route path="/plant/:plantId/edit" render={
             (routeProps) => {
               return <EditForm onUpdatePlant={ this.handleUpdatePlant } { ...routeProps }/>
+            }
+          }/>
+          <Route path="/plants/:plantId" render={
+            (routeProps) => {
+              return <PlantDetail onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
             }
           }/>
           <Route path="/plant/:plantId/checkout" render={

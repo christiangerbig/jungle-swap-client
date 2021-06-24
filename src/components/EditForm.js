@@ -4,9 +4,11 @@ import config from "../config";
 import axios from "axios";
 
 class EditForm extends Component {
+
   state = {
     plant: {}
   }
+
   componentDidMount() {
     const { plantId } = this.props.match.params;
     axios.get(`${ config.API_URL }/api/plants/read/${ plantId }`)
@@ -112,7 +114,7 @@ class EditForm extends Component {
     return (
       <div className="container row mt-5 ">
         <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
-          <h2 className="mt-5 mb-4"> Edit your plant </h2>
+          <h2 className="mt-5 mb-4"> Update your plant </h2>
           <div className="card cardSmallWidth mb-5">
             <img className="mb-2 smallPicSize" src={ image } alt={ name }/>
             <div className="card-body">
@@ -127,9 +129,9 @@ class EditForm extends Component {
               </select> <br/>
               <input className="mb-4 smallWidth" name="price" type="number" min="1" onChange={ this.handlePriceChange } value={ price }/> € 
               <div className="row justify-content-around">
-                <button className="btn btn-sm btn-outline-dark" onClick={ () => { onUpdatePlant(plant) } }  > Save changes </button>
-                <Link to={ `/plants/${_id}` }> 
-                  <button className="btn btn-sm mx-2"> Go back </button> 
+                <button className="btn btn-sm btn-outline-dark" onClick={ () => { onUpdatePlant(plant) } }> Save changes </button>
+                <Link to={ `/plants/read/${_id}` }> 
+                  <button className="btn btn-sm mx-2"> Go back </button>
                 </Link>
               </div>
             </div>
