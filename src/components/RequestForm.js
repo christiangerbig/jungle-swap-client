@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 class RequestForm extends Component {
   render() {
-    const { plant, onCreateRequest } = this.props;
+    const { onCreateRequest } = this.props;
+    const { plant } = this.props.location;
     return (
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
