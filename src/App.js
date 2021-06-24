@@ -263,7 +263,7 @@ class App extends Component {
       location,
       price
     };
-    axios.patch(`${config.API_URL}/api/plants/create/${plant._id}`, updatedPlant)
+    axios.patch(`${config.API_URL}/api/plants/update/${plant._id}`, updatedPlant)
       .then(
         () => {
           const updatedPlants = this.state.plants.map(

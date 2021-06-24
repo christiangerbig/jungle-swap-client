@@ -29,7 +29,7 @@ class PlantDetail extends Component {
   
   render() {
     const { plant } = this.state;
-    const { user, onDelete } = this.props;
+    const { user, onDeletePlant } = this.props;
     const { _id, name, description, size, image, location, price, creator } = plant;
     if (!user) {
       return <Redirect to={ "/signup" }/>
@@ -56,7 +56,7 @@ class PlantDetail extends Component {
                     (user._id === creator) ? (
                       <div>
                         <Link to={`/plant/${plant._id}/edit`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Edit </button> </Link>
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(_id)}> Delete </button>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id)}> Delete </button>
                       </div>
                     ) : (
                       <div>
