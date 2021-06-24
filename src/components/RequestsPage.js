@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class RequestsPage extends Component {
 
   componentDidMount() {
-    this.props.onMyRequests();
+    this.props.onFetchAllRequests();
   }
   
   render() {
@@ -19,11 +19,12 @@ class RequestsPage extends Component {
           {
             requests.map(
               (request) => {
+                const { _id, seller, plant, message} = request
                 return (
-                  (request.seller === user._id) ? (
-                    <div className="card p-3 mt-4 " key={ request._id }>
-                      <h4> Request for { request.plant.name } </h4>
-                      <p> { request.message} </p>
+                  (seller === user._id) ? (
+                    <div className="card p-3 mt-4 " key={ _id }>
+                      <h4> Request for { plant.name } </h4>
+                      <p> { message } </p>
                     </div>
                   ) : (
                     null

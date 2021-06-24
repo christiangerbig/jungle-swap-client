@@ -5,6 +5,7 @@ import { ScrollTo } from "react-scroll-to";
 
 class NavBar extends Component {
   render() {
+    const { user } = this.props;
     return (
       <div>
         <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
@@ -16,13 +17,13 @@ class NavBar extends Component {
               <ScrollTo>
                 {({ scroll }) => (
                   <div>
-                    <Link to="/" className="p-2" onClick={() => scroll({ y: 1700, smooth: true })}> All Plants </Link>
+                    <Link to="/" className="p-2" onClick={ () => scroll({ y: 1700, smooth: true }) }> All Plants </Link>
                   </div>
                 )}
               </ScrollTo>
             }
             {
-              (this.props.user) ? (
+              (user) ? (
                 <div>
                   <Link className="p-2" to="/add-form"> Add Plant </Link>
                   <Link className="p-2" to="/myrequests"> Messages </Link>
@@ -32,7 +33,7 @@ class NavBar extends Component {
               )
             }
             {
-              (this.props.user) ? (
+              (user) ? (
                 <div>
                   <Link className="p-2" to="/logout"> Log out </Link>
                 </div>

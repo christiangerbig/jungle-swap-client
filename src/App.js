@@ -252,32 +252,9 @@ class App extends Component {
       );
   }
 
-  // Create request
-  handleRequestSubmit = (event, plant) => {
-    event.preventDefault();
-    const { message } = event.target;
-    const user = this.state.loggedInUser;
-    const request = {
-      buyer: user._id,
-      seller: plant.creator,
-      plant,
-      message: message.value
-    };
-    axios.post(`${config.API_URL}/api/plants/request`, request, { withCredentials: true })
-      .then(
-        (response) => this.setState(
-          { requests: [response.data, ...this.state.requests] },
-          () => this.props.history.push("/")
-        )
-      )
-      .catch(
-        (err) => console.log("Create request failed", err)
-      );
-  }
-
-  // My requests
-  handleMyRequests = () => {
-    axios.get(`${config.API_URL}/api/myrequests`)
+  // Fetch all requests
+  handleFetchAllRequests = () => {
+    axios.get(`${config.API_URL}/api/requests`)
       .then(
         (response) => {
           console.log("Response -- handleMyRequests():", response.data);
@@ -286,6 +263,29 @@ class App extends Component {
       )
       .catch(
         (err) => console.log("Fetching requests failed", err)
+      );
+  }
+
+  // Create request
+  handleCreateRequest = (event, plant) => {
+    event.preventDefault();
+    const { message } = event.target;
+    const user = this.state.loggedInUser;
+    const newRequest = {
+      buyer: user._id,
+      seller: plant.creator,
+      plant,
+      message: message.value
+    };
+    axios.post(`${config.API_URL}/api/requests/create`, newRequest, { withCredentials: true })
+      .then(
+        (response) => this.setState(
+          { requests: [response.data, ...this.state.requests] },
+          () => this.props.history.push("/")
+        )
+      )
+      .catch(
+        (err) => console.log("Create request failed", err)
       );
   }
 
@@ -342,12 +342,12 @@ class App extends Component {
           }/>
           <Route path="/request-form" render={
             (routeProps) => {
-              return <RequestForm onRequest={ this.handleRequestSubmit } user={ loggedInUser } { ...routeProps } />
+              return <RequestForm onCreateRequest={ this.handleCreateRequest } user={ loggedInUser } { ...routeProps } />
             }
           }/>
           <Route path="/myrequests" render={
               (routeProps) => {
-                return <RequestsPage onMyRequests={ this.handleMyRequests } user={ loggedInUser } requests={ requests } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } user={ loggedInUser } requests={ requests } { ...routeProps }/>
               }
           }/>
           <Route component={ NotFound }/>
