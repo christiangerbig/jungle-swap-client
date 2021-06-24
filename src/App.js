@@ -207,10 +207,10 @@ class App extends Component {
       );
   }
 
-  // Add plant
-  handleSubmit = (event) => {
+  // Create plant
+  handleCreatePlant = (event) => {
     event.preventDefault();
-    const  { name, description, size, price, plantImage, location } = event.target;
+    const  { name, description, size, plantImage, location, price } = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -221,9 +221,9 @@ class App extends Component {
             name: name.value,
             description: description.value,
             size: size.value,
-            price: price.value,
             image: response.data.image,
-            location: location.value
+            location: location.value,
+            price: price.value
           };
           axios.post(`${config.API_URL}/api/plants/create`, newPlant, { withCredentials: true })
             .then(
@@ -252,37 +252,37 @@ class App extends Component {
       );
   }
 
-  // Edit Plant
-  handleEditPlant = (plant) => {
-    const { name, description, size, price, image, location } = plant;
-    const editedPlant = {
+  // Update plant
+  handleUpdatePlant = (plant) => {
+    const { name, description, size, image, location, price } = plant;
+    const updatedPlant = {
       name,
       description,
       size,
-      price,
       image,
-      location
+      location,
+      price
     };
-    axios.patch(`${config.API_URL}/api/plants/${plant._id}`, editedPlant)
+    axios.patch(`${config.API_URL}/api/plants/create/${plant._id}`, updatedPlant)
       .then(
         () => {
-          let newPlants = this.state.plants.map(
+          const updatedPlants = this.state.plants.map(
             (singlePlant) => {
               if (plant._id === singlePlant._id) {
-                const { name, description, size, price, image, location } = plant;
+                const { name, description, size, image, location, price } = plant;
                 singlePlant.name = name;
                 singlePlant.description = description;
                 singlePlant.size = size;
-                singlePlant.price = price;
                 singlePlant.image = image;
                 singlePlant.location = location;
+                singlePlant.price = price;
               }
               return singlePlant;
             }
           );
           this.setState(
             {
-              plants: newPlants
+              plants: updatedPlants
             },
             () => {
               this.props.history.push("/");
@@ -292,14 +292,14 @@ class App extends Component {
       )
       .catch(
         (err) => {
-          console.log("Edit plant failed", err);
+          console.log("Update plant failed", err);
         }
       );
   }
 
   // Delete Plant
-  handleDelete = (plantId) => {
-    axios.delete(`${config.API_URL}/api/plants/${plantId}`)
+  handleDeletePlant = (plantId) => {
+    axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
       .then(
         () => {
           const filteredPlants = this.state.plants.filter(
@@ -326,7 +326,6 @@ class App extends Component {
 
   // Payment
   handleCheckout = (price) => {
-    console.log(price);
     axios.post(`${config.API_URL}/api/create-payment-intent`, {}, { withCredentials: true })
       .then(
         () => {
@@ -411,11 +410,6 @@ class App extends Component {
               return <Home onSearch={this.handleChange} plants={plants} query={query}/>
             }
           }/>
-          <Route path="/plants/:plantId" render={
-            (routeProps) => {
-              return <PlantDetail onDelete={this.handleDelete} user={loggedInUser} {...routeProps}/>
-            }
-          }/>
           <Route path="/signin" render={
             (routeProps) => {
               return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} error={error} {...routeProps}/>
@@ -429,6 +423,11 @@ class App extends Component {
           <Route path="/logout" render={
             (routeProps) => {
               return <LogOut onLogOut={this.handleLogOut} {...routeProps}/>
+            }
+          }/>
+           <Route path="/plants/:plantId" render={
+            (routeProps) => {
+              return <PlantDetail onDelete={this.handleDeletePlant} user={loggedInUser} {...routeProps}/>
             }
           }/>
           <Route path="/add-form" render={
