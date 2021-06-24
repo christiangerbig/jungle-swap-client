@@ -11,7 +11,7 @@ const CheckoutForm = (props) => {
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { plant } = props;
+  const { plant, onCheckout } = props;
   
   useEffect(
     () => {
@@ -28,12 +28,12 @@ const CheckoutForm = (props) => {
           }
         )
         .then(
-          res => {
+          (res) => {
             return res.json();
           }
         )
         .then(
-          data => {
+          (data) => {
             setClientSecret(data.clientSecret);
           }
         );
@@ -86,14 +86,15 @@ const CheckoutForm = (props) => {
     }
   }
   
+  const { name, price } = plant;
   return (
     <div className="container col-9">
       <form className="checkoutForm pt-5 mt-5" id="payment-form" onSubmit={ handleSubmit }>
-        <h2 className="text-center mb-2 p-2">  {plant.name} </h2>
-        <h3 className="text-center mb-4 p-2"> {plant.price} € </h3>
-        <CardElement className="p-2" id="card-element" options={cardStyle} onChange={ handleChange } />
+        <h2 className="text-center mb-2 p-2">  { name } </h2>
+        <h3 className="text-center mb-4 p-2"> { price } € </h3>
+        <CardElement className="p-2" id="card-element" options={ cardStyle } onChange={ handleChange } />
         <div className="row justify-content-center">
-          <button onClick={ props.onCheckout } className="btn btn-sm mt-5 mb-4" disabled={processing || disabled || succeeded} id="submit">
+          <button onClick={ onCheckout } className="btn btn-sm mt-5 mb-4" disabled={ processing || disabled || succeeded } id="submit">
             <span id="button-text">
               {
                 (processing) ? <div className="spinner" id="spinner" /> : "Pay now"
@@ -103,7 +104,7 @@ const CheckoutForm = (props) => {
         </div>
         {/* Show any error that happens when processing the payment */}
         {
-          error && (<div className="card-error" role="alert"> {error} </div>)
+          error && (<div className="card-error" role="alert"> { error } </div>)
         }
         {/* Show success message upon completion */}
         <p className={(succeeded) ? "result-message text-center" : "result-message hidden text-center"}>
@@ -111,7 +112,7 @@ const CheckoutForm = (props) => {
         </p>
       </form>
       <div className="row justify-content-center">
-        <Link to={"/"}>
+        <Link to={ "/" }>
           <button className="btn btn-sm"> Go back </button>
         </Link>
       </div>
