@@ -16,14 +16,10 @@ class PlantDetail extends Component {
       { withCredentials: true }
     )
       .then(
-        (response) => {
-          this.setState({ plant: response.data });
-        }
+        (response) => this.setState({ plant: response.data })  
       )
       .catch(
-        () => {
-          console.log("Plant detail fetch failed");
-        }
+        () => console.log("Plant detail fetch failed")
       );
   }
   

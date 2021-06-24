@@ -30,22 +30,14 @@ class App extends Component {
     fetchingUser: true
   }
 
-  // Fetch plants
+  // Fetch all plants
   fetchAllPlants = () => {
     axios.get(`${config.API_URL}/api/plants`)
       .then(
-        (response) => {
-          this.setState(
-            {
-              plants: response.data
-            }
-          );
-        }
+        (response) => this.setState({ plants: response.data})
       )
       .catch(
-        (err) => {
-          console.log("Fetching plants failed", err);
-        }
+        (err) => console.log("Fetching plants failed", err)
       );
   }
 
@@ -54,22 +46,16 @@ class App extends Component {
     if (!this.state.loggedInUser) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then(
-          (response) => {
-            this.setState(
-              {
-                loggedInUser: response.data,
-                fetchingUser: false
-              }
-            );
-          }
+          (response) => this.setState(
+            {
+              loggedInUser: response.data,
+              fetchingUser: false
+            }
+          )
         )
         .catch(
           (err) => {
-            this.setState(
-              {
-                fetchingUser: false
-              }
-            );
+            this.setState({ fetchingUser: false });
             console.log("Initializing fetching failed", err);
           }
         );
@@ -80,19 +66,15 @@ class App extends Component {
   fetchQueryPlants = () => {
     axios.get(`${config.API_URL}/api/plants/search?q=${this.state.query}`)
       .then(
-        (response) => {
-          this.setState(
-            {
-              plants: response.data,
-              ready: true
-            }
-          );
-        }
+        (response) => this.setState(
+          {
+            plants: response.data,
+            ready: true
+          }
+        )
       )
       .catch(
-        (err) => {
-          console.log("Query fetching failed", err);
-        }
+        (err) => console.log("Query fetching failed", err)
       );
   }
   
@@ -101,13 +83,7 @@ class App extends Component {
     const query = event.target.value;
     this.setState(
       { query },
-      () => {
-        query ? (
-          this.fetchQueryPlants()
-        ) : (
-          this.fetchAllPlants()
-        )
-      }
+      () => (query) ? this.fetchQueryPlants() : this.fetchAllPlants()
     );
   }
 
@@ -122,25 +98,13 @@ class App extends Component {
     };
     axios.post(`${config.API_URL}/api/signup`, user)
       .then(
-        (response) => {
-          this.setState(
-            {
-              loggedInUser: response.data
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
+        (response) => this.setState(
+          { loggedInUser: response.data },
+          () => this.props.history.push("/")
+        )
       )
       .catch(
-        (err) => {
-          this.setState(
-            {
-              error: err.response.data.error
-            }
-          );
-        }
+        (err) => this.setState({ error: err.response.data.error })
       );
   }
 
@@ -154,56 +118,31 @@ class App extends Component {
     };
     axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
       .then(
-        (response) => {
-          this.setState(
-            {
-              loggedInUser: response.data
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
+        (response) => this.setState(
+          { loggedInUser: response.data },
+          () => this.props.history.push("/")
+        )
       )
       .catch(
-        (err) => {
-          this.setState(
-            {
-              error: err.response.data.error
-            }
-          );
-        }
+        (err) => this.setState({ error: err.response.data.error })
       );
   }
 
   // Clear error messages
-  resetError = () => {
-    this.setState(
-      {
-        error: null
-      }
-    );
-  }
+  resetError = () => this.setState({ error: null });
+  
 
   // Logout
   handleLogOut = () => {
     axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
       .then(
-        () => {
-          this.setState(
-            {
-              loggedInUser: null
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
+        () => this.setState(
+          { loggedInUser: null },
+          () => this.props.history.push("/")
+        )
       )
       .catch(
-        (err) => {
-          console.log("Logout failed", err);
-        }
+        (err) => console.log("Logout failed", err)
       );
   }
 
@@ -227,28 +166,18 @@ class App extends Component {
           };
           axios.post(`${config.API_URL}/api/plants/create`, newPlant, { withCredentials: true })
             .then(
-              (response) => {
-                this.setState(
-                  {
-                    plants: [response.data, ...this.state.plants]
-                  },
-                  () => {
-                    this.props.history.push("/");
-                  }
-                );
-              }
+              (response) => this.setState(
+                { plants: [response.data, ...this.state.plants] },
+                () => this.props.history.push("/")
+              )
             )
             .catch(
-              (err) => {
-                console.log("Create plant failed", err);
-              }
+              (err) => console.log("Create plant failed", err)
             );
         }
       )
       .catch(
-        (err) => {
-          console.log("Image upload failed", err);
-        }
+        (err) => console.log("Image upload failed", err)
       );
   }
 
@@ -281,19 +210,13 @@ class App extends Component {
             }
           );
           this.setState(
-            {
-              plants: updatedPlants
-            },
-            () => {
-              this.props.history.push("/");
-            }
+            { plants: updatedPlants },
+            () => this.props.history.push("/")
           );
         }
       )
       .catch(
-        (err) => {
-          console.log("Update plant failed", err);
-        }
+        (err) => console.log("Update plant failed", err)
       );
   }
 
@@ -308,19 +231,13 @@ class App extends Component {
             }
           );
           this.setState(
-            {
-              plants: filteredPlants
-            },
-            () => {
-              this.props.history.push("/");
-            }
+            { plants: filteredPlants },
+            () => this.props.history.push("/")
           );
         }
       )
       .catch(
-        (err) => {
-          console.log("Delete plant failed", err);
-        }
+        (err) => console.log("Delete plant failed", err)
       )
   }  
 
@@ -328,18 +245,10 @@ class App extends Component {
   handleCheckout = (price) => {
     axios.post(`${config.API_URL}/api/create-payment-intent`, {}, { withCredentials: true })
       .then(
-        () => {
-          this.setState(
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
+        () => this.setState(() => this.props.history.push("/"))
       )
       .catch(
-        (err) => {
-          console.log("Checkout failed", err);
-        }
+        (err) => console.log("Checkout failed", err)
       );
   }
 
@@ -356,21 +265,13 @@ class App extends Component {
     };
     axios.post(`${config.API_URL}/api/plants/request`, request, { withCredentials: true })
       .then(
-        (response) => {
-          this.setState(
-            {
-              requests: [response.data, ...this.state.requests]
-            },
-            () => {
-              this.props.history.push("/");
-            }
-          );
-        }
+        (response) => this.setState(
+          { requests: [response.data, ...this.state.requests] },
+          () => this.props.history.push("/")
+        )
       )
       .catch(
-        (err) => {
-          console.log("Create request failed", err);
-        }
+        (err) => console.log("Create request failed", err)
       );
   }
 
@@ -380,17 +281,11 @@ class App extends Component {
       .then(
         (response) => {
           console.log("Response -- handleMyRequests():", response.data);
-          this.setState(
-            {
-              requests: response.data
-            }
-          );
+          this.setState({ requests: response.data });
         }
       )
       .catch(
-        (err) => {
-          console.log("Fetching requests failed", err);
-        }
+        (err) => console.log("Fetching requests failed", err)
       );
   }
 

@@ -5,26 +5,16 @@ import axios from "axios";
 
 class EditForm extends Component {
 
-  state = {
-    plant: {}
-  }
+  state = { plant: {} };
 
   componentDidMount() {
     const { plantId } = this.props.match.params;
     axios.get(`${ config.API_URL }/api/plants/read/${ plantId }`)
       .then(
-        (response) => {
-          this.setState(
-            {
-              plant: response.data
-            }
-          );
-        }
+        (response) => this.setState({ plant: response.data })
       )
       .catch(
-        () => {
-          console.log("Plant detail fetch failed");
-        }
+        () => console.log("Plant detail fetch failed")
       );
   }
 
@@ -32,55 +22,35 @@ class EditForm extends Component {
   handleNameChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.name = event.target.value;
-    this.setState(
-      {
-        plant: clonePlant
-      }
-    );
+    this.setState({ plant: clonePlant });
   }
 
   // Plant description changed
   handleDescriptionChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.description = event.target.value;
-    this.setState(
-      {
-      plant: clonePlant
-      }
-    );
+    this.setState({ plant: clonePlant });
   }
 
   // Plant size changed
   handleSizeChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.size = event.target.value;
-    this.setState(
-      {
-        plant: clonePlant
-      }
-    );
+    this.setState({ plant: clonePlant });
   }
 
   // Plant price changed
   handlePriceChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.price = event.target.value;
-    this.setState(
-      {
-        plant: clonePlant
-      }
-    );
+    this.setState({ plant: clonePlant });
   }
 
   // Plant location changed
   handleLocationChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.location = event.target.value;
-    this.setState(
-      {
-        plant: clonePlant
-      }
-    );
+    this.setState({ plant: clonePlant });
   }
 
   // Plant image changed
@@ -93,17 +63,11 @@ class EditForm extends Component {
         (response) => {
           const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
           clonePlant.image = response.data.image;
-          this.setState(
-            {
-              plant: clonePlant
-            }
-          );
+          this.setState({ plant: clonePlant });
         }
       )
       .catch(
-        (err) => {
-          console.log("Image upload failed", err);
-        }
+        (err) => console.log("Image upload failed", err)
       );
   }
 
@@ -129,7 +93,7 @@ class EditForm extends Component {
               </select> <br/>
               <input className="mb-4 smallWidth" name="price" type="number" min="1" onChange={ this.handlePriceChange } value={ price }/> € 
               <div className="row justify-content-around">
-                <button className="btn btn-sm btn-outline-dark" onClick={ () => { onUpdatePlant(plant) } }> Save changes </button>
+                <button className="btn btn-sm btn-outline-dark" onClick={ () => onUpdatePlant(plant) }> Save changes </button>
                 <Link to={ `/plants/read/${_id}` }> 
                   <button className="btn btn-sm mx-2"> Go back </button>
                 </Link>
