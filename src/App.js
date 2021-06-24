@@ -30,7 +30,7 @@ class App extends Component {
     fetchingUser: true
   }
 
-  // Fetch initial plants data to be displayed
+  // Fetch plants
   fetchAllPlants = () => {
     axios.get(`${config.API_URL}/api/plants`)
       .then(
@@ -76,7 +76,7 @@ class App extends Component {
     }
   }
 
-  // Search plant
+  // Fetch query plants
   fetchQueryPlants = () => {
     axios.get(`${config.API_URL}/api/plants/search?q=${this.state.query}`)
       .then(
@@ -96,8 +96,8 @@ class App extends Component {
       );
   }
   
-  // Search changed
-  handleChange = (event) => {
+  // Search plant
+  handleSearchPlant = (event) => {
     const query = event.target.value;
     this.setState(
       { query },
@@ -407,7 +407,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={
             () => {
-              return <Home onSearch={ this.handleChange } plants={ plants } query={ query }/>
+              return <Home onSearchPlant={ this.handleSearchPlant } plants={ plants } query={ query }/>
             }
           }/>
           <Route path="/signin" render={

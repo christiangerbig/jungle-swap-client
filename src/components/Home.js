@@ -6,7 +6,7 @@ import icon from "../images/JungleSwap_Icon.png";
 
 class Home extends Component {
   render() {
-    const { plants, query } = this.props;
+    const { plants, query, onSearchPlant } = this.props;
     return (
       <div>
         {/* Title */}
@@ -18,7 +18,7 @@ class Home extends Component {
               <div className="mb-5">
                 <ScrollTo>
                   {
-                    ({ scroll }) => <Link className="biggerFontSize" onClick={() => scroll({ y: 800, smooth: true })}> Try it! </Link>
+                    ({ scroll }) => <Link className="biggerFontSize" onClick={ () => scroll({ y: 800, smooth: true }) }> Try it! </Link>
                   }
                 </ScrollTo>
               </div>
@@ -30,7 +30,7 @@ class Home extends Component {
           <div className="intro-centered container">
             <div className="row">
               <div className="col-sm-6 col-md-5 col-lg-6">
-                <img className="image" src={image} alt=""/>
+                <img className="image" src={ image } alt=""/>
               </div>
               <br />
               <div className="intro col-sm-6 col-md-5 col-lg-6 px-5">
@@ -43,7 +43,7 @@ class Home extends Component {
                   Don"t have any baby plants? <br/>
                   You can simply shop and give a plant a new home.
                 </p>
-                <img className="icon" src={icon} alt="icon"/>
+                <img className="icon" src={ icon } alt="icon"/>
               </div>
             </div>
           </div>
@@ -56,20 +56,21 @@ class Home extends Component {
             <h4> Search a plant </h4>
           </div>
           <div className="mb-4">
-            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={this.props.onSearch}/>
+            <input className="smallWidth form-control" type="text" placeholder="Search..." value={ query } onChange={ onSearchPlant }/>
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {
               plants.map(
                 (plant) => {
+                  const { _id, name, image, price } = plant;
                   return (
-                    <div className="col mb-5" key={ plant._id }>
+                    <div className="col mb-5" key={ _id }>
                       <div className="card card-medium-width text-center">
-                        <img className="card-img-top mediumPicSize" src={ plant.image } alt={ plant.name }/>
+                        <img className="card-img-top mediumPicSize" src={ image } alt={ name }/>
                         <div className="card-body mb-5">
-                          <h5> { plant.name } </h5>
-                          <p> { plant.price } € </p>
-                          <Link className="btn btn-outline-dark" to={`/plants/${plant._id}`}> Details </Link>
+                          <h5> { name } </h5>
+                          <p> { price } € </p>
+                          <Link className="btn btn-outline-dark" to={`/plants/${_id}`}> Details </Link>
                         </div>
                       </div>
                     </div>
