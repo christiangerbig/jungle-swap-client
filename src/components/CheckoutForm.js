@@ -112,16 +112,18 @@ const CheckoutForm = (props) => {
         </p>
       </form>
       <div className="row justify-content-center">
-        (succeded) ? (
-          <Link to={ "/" }>
-            <button className="btn btn-sm"> Go back </button>
-          </Link>
-        ) 
-        : (
-          <Link to={ `/plants/read/${_id}` }>
-            <button className="btn btn-sm"> Go back </button>
-          </Link>
-        )
+        {
+          (succeeded) ? (
+            <Link to={ "/" }>
+              <button className="btn btn-sm"> Go back </button>
+            </Link>
+          ) 
+          : (
+            <Link to={ `/plants/read/${_id}` }>
+              <button className="btn btn-sm"> Go back </button>
+            </Link>
+          )
+        }
       </div>
     </div>
   );
