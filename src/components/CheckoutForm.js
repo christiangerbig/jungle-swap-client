@@ -86,7 +86,7 @@ const CheckoutForm = (props) => {
     }
   }
   
-  const { name, price } = plant;
+  const { _id, name, price } = plant;
   return (
     <div className="container col-9">
       <form className="checkoutForm pt-5 mt-5" id="payment-form" onSubmit={ handleSubmit }>
@@ -112,9 +112,16 @@ const CheckoutForm = (props) => {
         </p>
       </form>
       <div className="row justify-content-center">
-        <Link to={ "/" }>
-          <button className="btn btn-sm"> Go back </button>
-        </Link>
+        (succeded) ? (
+          <Link to={ "/" }>
+            <button className="btn btn-sm"> Go back </button>
+          </Link>
+        ) 
+        : (
+          <Link to={ `/plants/read/${_id}` }>
+            <button className="btn btn-sm"> Go back </button>
+          </Link>
+        )
       </div>
     </div>
   );
