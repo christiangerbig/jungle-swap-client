@@ -12,7 +12,7 @@ class PlantDetail extends Component {
   componentDidMount() {
     const { plantId } = this.props.match.params;
     axios.get(
-      `${config.API_URL}/api/plants/${plantId}`,
+      `${config.API_URL}/api/plants/read/${plantId}`,
       { withCredentials: true }
     )
       .then(
@@ -22,14 +22,15 @@ class PlantDetail extends Component {
       )
       .catch(
         () => {
-          console.log("Detail fetch failed");
+          console.log("Plant detail fetch failed");
         }
       );
   }
   
   render() {
     const { plant } = this.state;
-    const { onDelete, user } = this.props;
+    const { user, onDelete} = this.props;
+    const { _id, name, description, size, image, location, price, creator } = plant;
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -41,25 +42,25 @@ class PlantDetail extends Component {
         <div className="col">
           <div className="card cardMediumWidth">
             {
-              (plant.image) ? <img className="card-img-top mediumPicSize" src={ plant.image } alt={ plant.name }/> : null
+              (image) ? <img className="card-img-top mediumPicSize" src={ image } alt={ name }/> : null
             }
-            <div className="ml-2 mt-2"> <span> Name: </span> { plant.name } </div>
-            <div className="ml-2 mt-2"> <span> Description: </span> { plant.description } </div>
-            <div className="ml-2 mt-2"> <span> Size: </span> { plant.size } cm </div>
-            <div className="ml-2 mt-2"> <span> Likes: </span> { plant.location } </div>
-            <div className="ml-2 mt-2"> <span> Price: </span> { plant.price } € </div>
+            <div className="ml-2 mt-2"> <span> Name: </span> { name } </div>
+            <div className="ml-2 mt-2"> <span> Description: </span> { description } </div>
+            <div className="ml-2 mt-2"> <span> Size: </span> { size } cm </div>
+            <div className="ml-2 mt-2"> <span> Likes: </span> { location } </div>
+            <div className="ml-2 mt-2"> <span> Price: </span> { price } € </div>
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">
                 <div className="card-body">
                   {
-                    (user._id === plant.creator) ? (
+                    (user._id === creator) ? (
                       <div>
                         <Link to={`/plant/${plant._id}/edit`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Edit </button> </Link>
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(plant._id)}> Delete </button>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDelete(_id)}> Delete </button>
                       </div>
                     ) : (
                       <div>
-                        <Link to={{ pathname: `/plant/${plant._id}/checkout`, plant: plant }}>
+                        <Link to={{ pathname: `/plant/${_id}/checkout`, plant: plant }}>
                           <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button>
                         </Link>
                         <Link to={{ pathname: "/request-form", plant: plant }}>
