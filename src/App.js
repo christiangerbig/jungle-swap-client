@@ -427,17 +427,17 @@ class App extends Component {
           }/>
            <Route path="/plants/:plantId" render={
             (routeProps) => {
-              return <PlantDetail onDelete={ this.handleDeletePlant } user={loggedInUser} { ...routeProps }/>
+              return <PlantDetail onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
             }
           }/>
           <Route path="/add-form" render={
             () => {
-              return <AddForm onAdd={ this.handleSubmit } user={ loggedInUser }/>
+              return <AddForm onCreatePlant={ this.handleSubmit } user={ loggedInUser }/>
             }
           }/>
           <Route path="/plant/:plantId/edit" render={
             (routeProps) => {
-              return <EditForm onUpdate={ this.handleUpdatePlant } { ...routeProps }/>
+              return <EditForm onUpdatePlant={ this.handleUpdatePlant } { ...routeProps }/>
             }
           }/>
           <Route path="/plant/:plantId/checkout" render={
