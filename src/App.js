@@ -281,7 +281,7 @@ class App extends Component {
       .then(
         (response) => this.setState(
           { requests: [response.data, ...this.state.requests] },
-          () => this.props.history.push("/")
+          () => this.props.history.push(`/plants/read/${plant._id}`)
         )
       )
       .catch(
