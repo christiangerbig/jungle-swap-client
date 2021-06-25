@@ -268,7 +268,7 @@ class App extends Component {
     event.preventDefault();
     const { message } = event.target;
     const newRequest = {
-      seller: plant.creator,
+      seller: plant.creator._id,
       plant,
       message: message.value
     };
