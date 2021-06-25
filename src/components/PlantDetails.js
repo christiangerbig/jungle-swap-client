@@ -14,7 +14,9 @@ class PlantDetails extends Component {
       { withCredentials: true }
     )
       .then(
-        (response) => this.setState({ plant: response.data })  
+        (response) => {
+          this.setState({ plant: response.data })
+        }  
       )
       .catch(
         () => console.log("Plant detail fetch failed")
@@ -47,7 +49,7 @@ class PlantDetails extends Component {
               <div className="row-2 justify-content-center">
                 <div className="card-body">
                   {
-                    (user._id === creator._id) ? (
+                    (user._id === creator) ? (
                       <div>
                         <Link to={`/plants/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id)}> Delete </button>
