@@ -256,10 +256,7 @@ class App extends Component {
   handleFetchAllRequests = () => {
     axios.get(`${config.API_URL}/api/requests/fetch`)
       .then(
-        (response) => {
-          console.log("Response -- handleMyRequests():", response.data);
-          this.setState({ requests: response.data });
-        }
+        (response) => this.setState({ requests: response.data })
       )
       .catch(
         (err) => console.log("Fetching requests failed", err)
@@ -270,9 +267,7 @@ class App extends Component {
   handleCreateRequest = (event, plant) => {
     event.preventDefault();
     const { message } = event.target;
-    const user = this.state.loggedInUser;
     const newRequest = {
-      buyer: user._id,
       seller: plant.creator,
       plant,
       message: message.value
