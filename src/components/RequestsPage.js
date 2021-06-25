@@ -20,17 +20,14 @@ class RequestsPage extends Component {
             requests.map(
               (request) => {
                 const { _id, buyer, seller, plant, message} = request
-                
                 return (
                   (seller._id === user._id) ? (
                     <div className="card p-3 mt-4 " key={ _id }>
                       <h4> Request for: { plant.name } </h4>
-                      {console.log(buyer.username)}
+                      <h5> User: { buyer.username } </h5>
                       <p> { message } </p>
                     </div>
-                  ) : (
-                    null
-                  )
+                  ) : null
                 );
               } 
             )
