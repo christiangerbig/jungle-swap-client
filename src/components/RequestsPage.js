@@ -12,6 +12,9 @@ class RequestsPage extends Component {
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
+    if (!requests) {
+      return <div/>
+    }
     return (
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
