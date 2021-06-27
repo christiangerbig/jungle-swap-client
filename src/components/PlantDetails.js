@@ -15,7 +15,11 @@ class PlantDetails extends Component {
     }
     const { _id, name, description, size, image, location, price, creator } = plant;
     if (!creator) {
-      return <div/>
+      return (
+        <div class="spinner-grow text-success m-5" role="status">
+          <span class="visually-hidden"> Loading... </span>
+        </div>
+      )
     }
     return (
       <div className="container mt-5 row row-md-10 offset-md-4">

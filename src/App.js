@@ -354,9 +354,11 @@ class App extends Component {
   render() {
     const { loggedInUser, error, plants, query, plant, requests, fetchingUser } = this.state;
     if (fetchingUser) {
-      <div class="spinner-grow text-success m-5" role="status">
-        <span class="visually-hidden"> Loading... </span>
-      </div>
+      return (
+        <div class="spinner-grow text-success m-5" role="status">
+          <span class="visually-hidden"> Loading... </span>
+        </div>
+      )
     }
     return (
       <div class="main">
