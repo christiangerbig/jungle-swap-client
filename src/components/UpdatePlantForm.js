@@ -1,17 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import config from "../config";
-import axios from "axios";
 
 class UpdatePlantForm extends Component {
-
-  /*componentDidMount() {
-    const { plantId } = this.props.match.params;
-    this.props.onReadPlant(plantId);
-  }*/
-
   render() {
-    const { plant, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange,  onUpdatePlant } = this.props;
+    const { plant, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange, onUpdatePlant } = this.props;
     const { _id, name, description, size, image, price } = plant;
     return (
       <div className="container row mt-5 ">

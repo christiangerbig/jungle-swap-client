@@ -7,12 +7,15 @@ class PlantDetails extends Component {
     const { plantId } = this.props.match.params;
     this.props.onReadPlant(plantId);
   }
-  
+
   render() {
     const { user, plant, onDeletePlant } = this.props;
-    const { _id, name, description, size, image, location, price, creator } = plant;
     if (!user) {
       return <Redirect to={ "/signup" }/>
+    }
+    const { _id, name, description, size, image, location, price, creator } = plant;
+    if (!creator) {
+      return <div/>
     }
     return (
       <div className="container mt-5 row row-md-10 offset-md-4">
@@ -35,7 +38,7 @@ class PlantDetails extends Component {
                   {
                     (user._id === creator._id) ? (
                       <div>
-                        <Link to={`/plants/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
+                        <Link to={ "/plants/update" }> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id)}> Delete </button>
                       </div>
                     ) : (

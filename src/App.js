@@ -392,9 +392,9 @@ class App extends Component {
               return <PlantDetails onReadPlant={ this.handleReadPlant } onDeletePlant={ this.handleDeletePlant } plant={ plant } user={ loggedInUser } { ...routeProps }/>
             }
           }/>
-          <Route path="/plants/update/:plantId" render={
+          <Route path="/plants/update" render={
             (routeProps) => {
-              return <UpdatePlantForm onReadPlant={ this.handleReadPlant } onNameChange={ this.handleNameChange } onDescriptionChange={ this.handleDescriptionChange } onSizeChange={ this.handleSizeChange } onPriceChange={ this.handlePriceChange } onLocationChange={ this.handleLocationChange } onImageChange={ this.handleImageChange } onUpdatePlant={ this.handleUpdatePlant } plant={ plant } { ...routeProps }/>
+              return <UpdatePlantForm onNameChange={ this.handleNameChange } onDescriptionChange={ this.handleDescriptionChange } onSizeChange={ this.handleSizeChange } onPriceChange={ this.handlePriceChange } onLocationChange={ this.handleLocationChange } onImageChange={ this.handleImageChange } onUpdatePlant={ this.handleUpdatePlant } plant={ plant } { ...routeProps }/>
             }
           }/>
           <Route path="/plants/checkout/:plantId" render={
