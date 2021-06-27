@@ -27,6 +27,7 @@ class App extends Component {
     error: null,
     plants: [],
     query: "",
+    plant: {},
     requests: [],
     fetchingUser: true
   }
@@ -181,9 +182,76 @@ class App extends Component {
       );
   }
 
+  // Read plant
+  handleReadPlant = (plantId) => {
+    axios.get(
+      `${config.API_URL}/api/plants/read/${plantId}`,
+      { withCredentials: true }
+    )
+      .then(
+        (response) => this.setState({ plant: response.data })
+      )
+      .catch(
+        () => console.log("Read plant failed")
+      );
+  }
+
+  // Plant name changed
+  handleNameChange = (event) => {
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.name = event.target.value;
+    this.setState({ plant: clonePlant });
+  }
+
+  // Plant description changed
+  handleDescriptionChange = (event) => {
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.description = event.target.value;
+    this.setState({ plant: clonePlant });
+  }
+
+  // Plant size changed
+  handleSizeChange = (event) => {
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.size = event.target.value;
+    this.setState({ plant: clonePlant });
+  }
+
+  // Plant price changed
+  handlePriceChange = (event) => {
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.price = event.target.value;
+    this.setState({ plant: clonePlant });
+  }
+
+  // Plant location changed
+  handleLocationChange = (event) => {
+    const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+    clonePlant.location = event.target.value;
+    this.setState({ plant: clonePlant });
+  }
+
+  // Plant image changed
+  handleImageChange = (event) => {
+    const image = event.target.files[0];
+    const uploadForm = new FormData();
+    uploadForm.append("image", image);
+    axios.post(`${ config.API_URL }/api/upload`, uploadForm)
+      .then(
+        (response) => {
+          const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+          clonePlant.image = response.data.image;
+          this.setState({ plant: clonePlant });
+        }
+      )
+      .catch(
+        (err) => console.log("Image upload failed", err)
+      );
+  }
+
   // Update plant
   handleUpdatePlant = (plant) => {
-    const { name, description, size, image, location, price } = plant;
+    const { _id, name, description, size, image, location, price } = plant;
     const updatedPlant = {
       name,
       description,
@@ -192,13 +260,12 @@ class App extends Component {
       location,
       price
     };
-    axios.patch(`${config.API_URL}/api/plants/update/${plant._id}`, updatedPlant)
+    axios.patch(`${config.API_URL}/api/plants/update/${_id}`, updatedPlant)
       .then(
         () => {
           const updatedPlants = this.state.plants.map(
             (singlePlant) => {
-              if (plant._id === singlePlant._id) {
-                const { name, description, size, image, location, price } = plant;
+              if (_id === singlePlant._id) {
                 singlePlant.name = name;
                 singlePlant.description = description;
                 singlePlant.size = size;
@@ -285,8 +352,8 @@ class App extends Component {
   }
 
   render() {
-    const { plants, loggedInUser, error, query, requests } = this.state;
-    if (this.state.fetchingUser) {
+    const { loggedInUser, error, plants, query, plant, requests, fetchingUser } = this.state;
+    if (fetchingUser) {
       <div class="spinner-grow text-success m-5" role="status">
         <span class="visually-hidden"> Loading... </span>
       </div>
@@ -322,12 +389,12 @@ class App extends Component {
           }/>
           <Route path="/plants/read/:plantId" render={
             (routeProps) => {
-              return <PlantDetails onDeletePlant={ this.handleDeletePlant } user={ loggedInUser } { ...routeProps }/>
+              return <PlantDetails onReadPlant={ this.handleReadPlant } onDeletePlant={ this.handleDeletePlant } plant={ plant } user={ loggedInUser } { ...routeProps }/>
             }
           }/>
           <Route path="/plants/update/:plantId" render={
             (routeProps) => {
-              return <UpdatePlantForm onUpdatePlant={ this.handleUpdatePlant } { ...routeProps }/>
+              return <UpdatePlantForm onReadPlant={ this.handleReadPlant } onNameChange={ this.handleNameChange } onDescriptionChange={ this.handleDescriptionChange } onSizeChange={ this.handleSizeChange } onPriceChange={ this.handlePriceChange } onLocationChange={ this.handleLocationChange } onImageChange={ this.handleImageChange } onUpdatePlant={ this.handleUpdatePlant } plant={ plant } { ...routeProps }/>
             }
           }/>
           <Route path="/plants/checkout/:plantId" render={

@@ -1,31 +1,15 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
-import config from "../config";
-import axios from "axios";
 
 class PlantDetails extends Component {
 
-  state = { plant: {} };
-
   componentDidMount() {
     const { plantId } = this.props.match.params;
-    axios.get(
-      `${config.API_URL}/api/plants/read/${plantId}`,
-      { withCredentials: true }
-    )
-      .then(
-        (response) => {
-          this.setState({ plant: response.data })
-        }  
-      )
-      .catch(
-        () => console.log("Plant detail fetch failed")
-      );
+    this.props.onReadPlant(plantId);
   }
   
   render() {
-    const { plant } = this.state;
-    const { user, onDeletePlant } = this.props;
+    const { user, plant, onDeletePlant } = this.props;
     const { _id, name, description, size, image, location, price, creator } = plant;
     if (!user) {
       return <Redirect to={ "/signup" }/>
