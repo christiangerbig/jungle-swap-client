@@ -58,7 +58,7 @@ class PlantDetails extends Component {
                       </div>
                     )
                   }
-                  <Link to={ "/" }>
+                  <Link to={ "/" } onClick={ scroll.scrollToTop }>
                     <button className="btn btn-sm ml-2"> Go back </button>
                   </Link>
                 </div>
