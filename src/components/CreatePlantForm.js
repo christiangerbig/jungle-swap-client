@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 
 class CreatePlantForm extends Component {
   render() {
-    const { user, onCreatePlant } = this.props
+    const { user, error, onCreatePlant } = this.props
     if (!user){
       return <Redirect to={ "/signup" }/>
     }
@@ -24,6 +24,9 @@ class CreatePlantForm extends Component {
             <br/>
             <input className="mb-4 smallWidth" name="price" type="number" min="1" placeholder="Price"/> € <br/>
             <input className="mb-4" name="plantImage" type="file"/>
+            {
+              (error) ? <p style={{ color: "red" }}> { error } </p> : null            
+            }
             <div className="col-12">
               <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>
               <Link to={ "/" }> 

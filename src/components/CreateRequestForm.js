@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class CreateRequestForm extends Component {
   render() {
-    const { onCreateRequest } = this.props;
+    const { error, onCreateRequest } = this.props;
     const { plant } = this.props.location;
     return (
       <div className="container row mt-5">
@@ -13,6 +13,9 @@ class CreateRequestForm extends Component {
             <div>
               <textarea className="mb-4" name="message" cols="35" rows="4" />
             </div>
+            {
+              (error) ? <p style={{ color: "red" }}> { error } </p> : null            
+            }
             <button className="btn btn-sm btn-outline-dark" type="submit"> Send </button>
             <Link to={ `/plants/read/${plant._id}` }>
               <button className="btn btn-sm mx-2"> Go back </button>

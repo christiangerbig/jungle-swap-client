@@ -89,60 +89,60 @@ User model
 
 ```javascript
 {
-    username: {
-      type: String,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    passwordHash: {
-      type: String,
-      required: true
-    }
+  username: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
   }
+}
 ```
 
 Plant model
 
 ```javascript
- {
-    name: String,
-    description: String,
-    size: Number,
-    image: String,
-    location: {
-      type: String,
-      enum: [
-        "Select location", 
-        "sun", "shade", 
-        "sun and shade"
-      ]
-    },
-    price: Number,
-    creator: {
-      type: Schema.Types.ObjectId,
-      ref: "user"
-    }
+{
+  name: String,
+  description: String,
+  size: Number,
+  image: String,
+  location: {
+    type: String,
+    enum: [
+      "Select location", 
+      "sun", "shade", 
+      "sun and shade"
+    ]
+  },
+  price: Number,
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
   }
+}
 ```
 
 Request model
 
 ```javascript
 {
-    buyer: {
-      type: Schema.Types.ObjectId, 
-      ref: "user"
-    },
-    seller: {
-      type: Schema.Types.ObjectId, 
-      ref: "user"
-    },
-    plant: Object,
-    message: String
-  }
+  buyer: {
+    type: Schema.Types.ObjectId, 
+    ref: "user"
+  },
+  seller: {
+    type: Schema.Types.ObjectId, 
+    ref: "user"
+  },
+  plant: Object,
+  message: String
+}
 ```
 
 ## API Endpoints (backend routes)
