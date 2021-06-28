@@ -385,8 +385,8 @@ class App extends Component {
             }
           }/>
           <Route path="/plants/create" render={
-            () => {
-              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } onResetError={ this.resetError } user={ loggedInUser } error={ error }/>
+            (routeProps) => {
+              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/plants/read/:plantId" render={
