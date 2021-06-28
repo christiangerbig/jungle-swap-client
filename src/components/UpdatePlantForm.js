@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 class UpdatePlantForm extends Component {
+
+  componentDidMount() {
+    scroll.scrollToTop();
+  }
+
   render() {
     const { plant, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange, onUpdatePlant } = this.props;
     const { _id, name, description, size, image, price } = plant;

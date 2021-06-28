@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 class PlantDetails extends Component {
 
   componentDidMount() {
     const { plantId } = this.props.match.params;
     this.props.onReadPlant(plantId);
+    scroll.scrollToTop();
   }
 
   render() {
@@ -19,7 +21,7 @@ class PlantDetails extends Component {
         <div class="spinner-grow text-success m-5" role="status">
           <span class="visually-hidden"> Loading... </span>
         </div>
-      )
+      );
     }
     return (
       <div className="container mt-5 row row-md-10 offset-md-4">

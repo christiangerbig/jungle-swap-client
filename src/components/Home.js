@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { ScrollTo } from "react-scroll-to";
+import { animateScroll as scroll } from "react-scroll"
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
 class Home extends Component {
+
+  componentDidMount() {
+    scroll.scrollToTop();
+  }
+
   render() {
     const { plants, query, onSearchPlant } = this.props;
     return (
@@ -16,11 +21,7 @@ class Home extends Component {
               <h2 className="title mb-2"> JungleSwap </h2>
               <h5 className="mt-3 mb-5"> Share your green heart </h5>
               <div className="mb-5">
-                <ScrollTo>
-                  {
-                    ({ scroll }) => <Link className="biggerFontSize" onClick={ () => scroll({ y: 800, smooth: true }) }> Try it! </Link>
-                  }
-                </ScrollTo>
+                <Link className="biggerFontSize" onClick={ () => scroll.scrollTo(800) }> Try it! </Link>
               </div>
             </div>
           </div>

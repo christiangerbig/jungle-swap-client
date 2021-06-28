@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ScrollTo } from "react-scroll-to";
+import { animateScroll as scroll } from "react-scroll"
 
 class NavBar extends Component {
   render() {
@@ -13,24 +13,16 @@ class NavBar extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {
-              <ScrollTo>
-                {({ scroll }) => (
-                  <div>
-                    <Link to="/" className="p-2" onClick={ () => scroll({ y: 1700, smooth: true }) }> All Plants </Link>
-                  </div>
-                )}
-              </ScrollTo>
-            }
+            <div>
+              <Link to="/" className="p-2" onClick={ () => scroll.scrollTo(1550) }> All Plants </Link>
+            </div>
             {
               (user) ? (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
                   <Link className="p-2" to="/requests/fetch"> Messages </Link>
                 </div>
-              ) : (
-                null
-              )
+              ) : null
             }
             {
               (user) ? (

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 class RequestsPage extends Component {
 
   componentDidMount() {
+    scroll.scrollToTop();
     this.props.onFetchAllRequests();
   }
   
@@ -35,7 +37,7 @@ class RequestsPage extends Component {
               } 
             )
           }
-          <Link to={ "/" }> 
+          <Link to={ "/" } onClick={ scroll.scrollToTop }> 
             <button className="btn btn-sm mt-4"> Go back </button> 
           </Link>
         </div>

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 class CreatePlantForm extends Component {
 
   componentDidMount() {
     this.props.onResetError();
+    scroll.scrollToTop();
   }
 
   render() {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import config from "../config";
 
@@ -33,9 +34,7 @@ const CheckoutForm = (props) => {
           }
         )
         .then(
-          (data) => {
-            setClientSecret(data.clientSecret);
-          }
+          (data) => setClientSecret(data.clientSecret)
         );
     },
     [plant.price]
@@ -58,7 +57,7 @@ const CheckoutForm = (props) => {
     }
   };
 
-  // Listen for changes in CardElement and display any errors as customer types card details
+  // Listen for changes in Card element and display any errors as customer types card details
   const handleChange = async (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
@@ -114,7 +113,7 @@ const CheckoutForm = (props) => {
       <div className="row justify-content-center">
         {
           (succeeded) ? (
-            <Link to={ "/" }>
+            <Link to={ "/" } onClick={ scroll.scrollToTop }>
               <button className="btn btn-sm"> Go back </button>
             </Link>
           ) 

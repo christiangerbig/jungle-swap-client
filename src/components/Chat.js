@@ -25,10 +25,10 @@ class KommunicateChat extends Component {
       window.kommunicate || {}
     );
   }
+  
   render() {
     return (
-      <div>
-      </div>
+      <div/>
     );
   }
 }
