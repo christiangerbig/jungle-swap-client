@@ -173,7 +173,7 @@ class App extends Component {
               )
             )
             .catch(
-              (err) => console.log("Create plant failed", err)
+              (err) => this.setState({ error: err.response.data.error })
             );
         }
       )
@@ -347,7 +347,7 @@ class App extends Component {
         )
       )
       .catch(
-        (err) => console.log("Create request failed", err)
+        (err) => this.setState({ error: err.response.data.error })
       );
   }
 

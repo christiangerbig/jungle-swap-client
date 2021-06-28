@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class CreateRequestForm extends Component {
+
+  componentDidMount() {
+    this.props.onResetError();
+  }
+
   render() {
     const { error, onCreateRequest } = this.props;
     const { plant } = this.props.location;

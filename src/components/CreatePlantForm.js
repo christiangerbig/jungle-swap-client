@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 class CreatePlantForm extends Component {
+
+  componentDidMount() {
+    this.props.onResetError();
+  }
+
   render() {
     const { user, error, onCreatePlant } = this.props
     if (!user){
