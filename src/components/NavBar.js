@@ -14,7 +14,7 @@ class NavBar extends Component {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <div>
-              <Link to="/" className="p-2" onClick={ () => scroll.scrollTo(1550) }> All Plants </Link>
+              <Link to="/" className="p-2" onClick={ () => scroll.scrollTo(1520) }> All Plants </Link>
             </div>
             {
               (user) ? (

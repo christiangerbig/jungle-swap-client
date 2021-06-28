@@ -113,7 +113,7 @@ const CheckoutForm = (props) => {
       <div className="row justify-content-center">
         {
           (succeeded) ? (
-            <Link to={ "/" } onClick={ scroll.scrollToTop }>
+            <Link to={ "/" } onClick={ () => scroll.scrollTo(1520) }>
               <button className="btn btn-sm"> Go back </button>
             </Link>
           ) 

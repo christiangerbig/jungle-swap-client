@@ -17,7 +17,7 @@ class CreatePlantForm extends Component {
     return (
       <div className="container row mt-5 fullscreen">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-6">
-          <h2 className="mt-5 mb-5"> Create a plant </h2>
+          <h2 className="mb-5"> Create a plant </h2>
           <form onSubmit={ onCreatePlant }>
             <input className="mb-4" name="name" type="text" placeholder="Enter name"/>
             <input className="mb-4" name="description" type="text" placeholder="Enter description"/>
@@ -36,7 +36,7 @@ class CreatePlantForm extends Component {
             }
             <div className="col-12">
               <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>
-              <Link to={ "/" } onClick={ scroll.scrollToTop }> 
+              <Link to={ "/" } onClick={ () => scroll.scrollTo(1520) }> 
                 <button className="btn btn-sm mx-5"> Go back </button> 
               </Link>
             </div>

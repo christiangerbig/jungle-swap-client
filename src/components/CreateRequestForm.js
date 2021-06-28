@@ -15,7 +15,7 @@ class CreateRequestForm extends Component {
     return (
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-          <h2 className="mt-5 mb-5"> Your mesage </h2>
+          <h2 className="mb-5"> Your mesage </h2>
           <form onSubmit={ (event) => onCreateRequest(event, plant) }>
             <div>
               <textarea className="mb-4" name="message" cols="35" rows="4" />

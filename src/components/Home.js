@@ -5,11 +5,6 @@ import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
 class Home extends Component {
-
-  componentDidMount() {
-    scroll.scrollToTop();
-  }
-
   render() {
     const { plants, query, onSearchPlant } = this.props;
     return (
@@ -51,7 +46,7 @@ class Home extends Component {
         </div>
         {/* Display plants */}
         <div className="container mt-5">
-          <div className="mt-4 mb-3 pt-5">
+          <div className="mt-5 mb-3 pt-5">
             <h2> Plants </h2>
             <hr/>
             <h4> Search a plant </h4>

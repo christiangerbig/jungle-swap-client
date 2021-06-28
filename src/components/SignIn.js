@@ -13,7 +13,7 @@ class SignIn extends Component {
     return (
       <div className="container row mt-5 custom fullscreen">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-          <h2 className="mt-5 mb-5"> Sign In </h2>
+          <h2 className="mb-5"> Sign In </h2>
           <form onSubmit={ onSignIn }>
             <div className="form-group">
               <label htmlFor="InputEmail"> Email address </label>
