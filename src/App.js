@@ -178,7 +178,7 @@ class App extends Component {
         }
       )
       .catch(
-        (err) => console.log("Image upload failed", err)
+        (err) => this.setState({ error: err.response.data.error })
       );
   }
 
