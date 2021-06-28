@@ -386,7 +386,7 @@ class App extends Component {
           }/>
           <Route path="/plants/create" render={
             () => {
-              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } user={ loggedInUser } error={ error }/>
+              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } onResetError={ this.resetError } user={ loggedInUser } error={ error }/>
             }
           }/>
           <Route path="/plants/read/:plantId" render={
@@ -411,7 +411,7 @@ class App extends Component {
           }/>
           <Route path="/requests/create" render={
             (routeProps) => {
-              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } user={ loggedInUser } error={ error } { ...routeProps } />
+              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps } />
             }
           }/>
           <Route component={ NotFound }/>
