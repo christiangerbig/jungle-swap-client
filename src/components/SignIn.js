@@ -4,7 +4,9 @@ import { animateScroll as scroll } from "react-scroll";
 class SignIn extends Component {
   
   componentDidMount() {
-    this.props.onResetError();
+    const { onResetError, onResetNewRequestsReceived } = this.props;
+    onResetError();
+    onResetNewRequestsReceived();
     scroll.scrollToTop();
   }
 

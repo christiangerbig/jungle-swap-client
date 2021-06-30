@@ -4,7 +4,9 @@ import { animateScroll as scroll } from "react-scroll";
 class LogOut extends Component {
   
   componentDidMount() {
-    this.props.onLogOut();
+    const { onLogOut, onResetNewRequestsReceived } = this.props;
+    onLogOut();
+    onResetNewRequestsReceived();
     scroll.scrollToTop();
   }
 

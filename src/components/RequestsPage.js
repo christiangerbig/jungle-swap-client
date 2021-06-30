@@ -5,8 +5,10 @@ import { animateScroll as scroll } from "react-scroll";
 class RequestsPage extends Component {
 
   componentDidMount() {
+    const { onFetchAllRequests, onResetNewRequestsReceived} = this.props;
+    onFetchAllRequests();
+    onResetNewRequestsReceived();
     scroll.scrollToTop();
-    this.props.onFetchAllRequests();
   }
   
   render() {

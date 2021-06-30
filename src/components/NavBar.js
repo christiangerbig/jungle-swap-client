@@ -1,12 +1,32 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll"
+import { animateScroll as scroll } from "react-scroll";
 
 class NavBar extends Component {
+
+  state = { intervalId: null }
+
+  // Handler for interval timer
+  handleIntervalTimer = () => this.props.onCheckRequests()
+
+  componentDidMount() {
+    // Start interval
+    const intervalId = setInterval(
+      this.handleIntervalTimer, 
+      10000 // every minute
+    );
+    this.setState({ intervalId: intervalId });
+  }
+
+  componentWillUnmount() {
+    // Stop interval
+    clearInterval(this.state.intervalId);
+  }
+
   render() {
-    const { user } = this.props;
-    return (
+    const { user, newRequestsReceived } = this.props;
+      return (
       <div>
         <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
           <Navbar.Brand href="/"> JungleSwap </Navbar.Brand>
@@ -20,7 +40,7 @@ class NavBar extends Component {
               (user) ? (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
-                  <Link className="p-2" to="/requests/fetch"> Messages </Link>
+                  <Link className={ (newRequestsReceived) ? "p-2 alertColor" : "p-2" } to="/requests/fetch"> Messages </Link>
                 </div>
               ) : null
             }

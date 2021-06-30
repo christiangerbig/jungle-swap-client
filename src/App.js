@@ -29,7 +29,10 @@ class App extends Component {
     query: "",
     plant: {},
     requests: [],
-    fetchingUser: true
+    fetchingUser: true,
+    currentRequestsNumber: 0,
+    initRequestsNumber: true,
+    newRequestsReceived: false
   }
 
   // Fetch all plants
@@ -330,6 +333,49 @@ class App extends Component {
       );
   }
 
+  // Check requests for logged in user
+  handleCheckRequests = () => {
+    const { loggedInUser } = this.state;
+    if (loggedInUser) {
+      axios.get(`${config.API_URL}/api/requests/fetch`)
+        .then(
+          (response) => {
+            this.setState({ requests: response.data });
+            const currentRequests = this.state.requests.map(
+              (currentRequest) => {
+                return currentRequest.seller._id === loggedInUser._id
+              } 
+            );
+            const currentRequestsNumber = currentRequests.length;
+            // Save number of requests only once at the beginning
+            if (this.state.initRequestsNumber) {
+              this.setState(
+                { 
+                  currentRequestsNumber: currentRequestsNumber,
+                  initRequestsNumber: false
+                }
+              );
+            }
+            // Check if there are new requests and update number of requests
+            if ((this.state.currentRequestsNumber !== currentRequestsNumber) && (!this.state.initRequestsNumber)) {
+              this.setState(
+                { 
+                  currentRequestsNumber: currentRequestsNumber,
+                  newRequestsReceived: true
+                }
+              );
+            }
+          }
+        )
+        .catch(
+          (err) => console.log("Checking requests failed", err)
+        );
+    }
+  }
+
+  // Reset state for new received requests
+  resetNewRequestsReceived = () => this.setState({ newRequestsReceived: false })
+
   // Create request
   handleCreateRequest = (event, plant) => {
     event.preventDefault();
@@ -352,7 +398,7 @@ class App extends Component {
   }
 
   render() {
-    const { loggedInUser, error, plants, query, plant, requests, fetchingUser } = this.state;
+    const { loggedInUser, error, plants, query, plant, requests, fetchingUser, newRequestsReceived } = this.state;
     if (fetchingUser) {
       return (
         <div class="spinner-grow text-success m-5" role="status">
@@ -362,7 +408,7 @@ class App extends Component {
     }
     return (
       <div class="main">
-        <NavBar onLogOut={ this.handleLogOut } user={ loggedInUser }/>
+        <NavBar onLogOut={ this.handleLogOut } onCheckRequests={this.handleCheckRequests} newRequestsReceived={ newRequestsReceived } user={ loggedInUser }/>
         <Switch>
           <Route exact path="/" render={
             () => {
@@ -371,17 +417,17 @@ class App extends Component {
           }/>
           <Route path="/signup" render={
             (routeProps) => {
-              return <SignUp onSignUp={ this.handleSignUp } onResetError={ this.resetError } error={ error } { ...routeProps }/>
+              return <SignUp onSignUp={ this.handleSignUp } onResetError={ this.resetError } onResetNewRequestsReceived={ this.resetNewRequestsReceived } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } error={ error } { ...routeProps }/>
+              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } onResetNewRequestsReceived={ this.resetNewRequestsReceived } error={ error } { ...routeProps }/>
             }
           }/>
           <Route path="/logout" render={
             (routeProps) => {
-              return <LogOut onLogOut={ this.handleLogOut } { ...routeProps }/>
+              return <LogOut onLogOut={ this.handleLogOut } onResetNewRequestsReceived={ this.resetNewRequestsReceived } { ...routeProps }/>
             }
           }/>
           <Route path="/plants/create" render={
@@ -406,7 +452,7 @@ class App extends Component {
           }/>
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } user={ loggedInUser } requests={ requests } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } { ...routeProps }/>
               }
           }/>
           <Route path="/requests/create" render={

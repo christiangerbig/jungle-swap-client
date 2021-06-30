@@ -98,6 +98,10 @@ footer {
 
 /* ------------- own classes -------------- */
 
+.alertColor {
+  color: #FFCF60;
+}
+
 .headerImg {
   background-image: url("./images/JungleSwap_Header.png");
   /* background-image: url("./images/ren-ran-bBiuSdck8tU-unsplash.jpg");   */
