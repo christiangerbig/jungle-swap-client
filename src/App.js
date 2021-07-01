@@ -397,6 +397,27 @@ class App extends Component {
       );
   }
 
+  // Delete request
+  handleDeleteRequest = (requestId) => {
+    axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
+      .then(
+        () => {
+          const filteredRequests = this.state.requests.filter(
+            (request) => {
+              return request._id !== requestId;
+            }
+          );
+          this.setState(
+            { requests: filteredRequests },
+            () => this.props.history.push("/")
+          );
+        }
+      )
+      .catch(
+        (err) => console.log("Delete requestfailed", err)
+      )
+  }  
+
   render() {
     const { loggedInUser, error, plants, query, plant, requests, fetchingUser, newRequestsReceived } = this.state;
     if (fetchingUser) {
@@ -452,7 +473,7 @@ class App extends Component {
           }/>
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onDeleteRequest={ this.handleDeleteRequest } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } { ...routeProps }/>
               }
           }/>
           <Route path="/requests/create" render={

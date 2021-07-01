@@ -12,7 +12,7 @@ class RequestsPage extends Component {
   }
   
   render() {
-    const { user, requests } = this.props
+    const { user, requests, onDeleteRequest } = this.props
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -33,6 +33,9 @@ class RequestsPage extends Component {
                       <h4> Request for: { plant.name } </h4>
                       <h5> User: { buyer.username } </h5>
                       <p> { message } </p>
+                      <div>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+                      </div>
                     </div>
                   ) : null
                 );
