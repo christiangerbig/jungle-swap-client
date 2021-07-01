@@ -357,7 +357,7 @@ class App extends Component {
               );
             }
             // Check if there are new requests and update number of requests
-            if ((this.state.currentRequestsNumber !== currentRequestsNumber) && (!this.state.initRequestsNumber)) {
+            if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber)) {
               this.setState(
                 { 
                   currentRequestsNumber: currentRequestsNumber,
@@ -409,7 +409,7 @@ class App extends Component {
           );
           this.setState(
             { requests: filteredRequests },
-            () => this.props.history.push("/")
+            //() => this.props.history.push("/")
           );
         }
       )
