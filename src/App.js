@@ -343,27 +343,29 @@ class App extends Component {
             this.setState({ requests: response.data });
             const currentRequests = this.state.requests.map(
               (currentRequest) => {
-                return currentRequest.seller._id === loggedInUser._id
+                return (currentRequest.seller._id === loggedInUser._id) ? currentRequest : null
               } 
             );
             const currentRequestsNumber = currentRequests.length;
-            // Save number of requests only once at the beginning
-            if (this.state.initRequestsNumber) {
-              this.setState(
-                { 
-                  currentRequestsNumber: currentRequestsNumber,
-                  initRequestsNumber: false
-                }
-              );
-            }
-            // Check if there are new requests and update number of requests
-            if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber)) {
-              this.setState(
-                { 
-                  currentRequestsNumber: currentRequestsNumber,
-                  newRequestsReceived: true
-                }
-              );
+            if (currentRequestsNumber !== 0) {
+              // Save number of requests only once at the beginning
+              if (this.state.initRequestsNumber) {
+                this.setState(
+                  { 
+                    currentRequestsNumber: currentRequestsNumber,
+                    initRequestsNumber: false
+                  }
+                );
+              }
+              // Check if there are new requests and update number of requests
+              if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber) && (currentRequests[0].seller._id !== loggedInUser._id)) {
+                this.setState(
+                  { 
+                    currentRequestsNumber: currentRequestsNumber,
+                    newRequestsReceived: true
+                  }
+                );
+              }
             }
           }
         )
