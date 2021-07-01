@@ -29,13 +29,21 @@ class RequestsPage extends Component {
           {
             requests.map(
               (request) => {
-                const { _id, buyer, seller, plant, message } = request
+                const { _id, buyer, seller, plant, message, reply } = request
                 return (
                   (seller._id === user._id) ? (
                     <div className="card p-3 mt-4 " key={ _id }>
                       <h4> Request for: { plant.name } </h4>
                       <h5> User: { buyer.username } </h5>
                       <p> { message } </p>
+                      {
+                        (reply) ? (
+                          <div>
+                            <h5> Reply </h5>
+                            <p> { reply } </p>
+                          </div>
+                        ) : null
+                      }
                       <div>
                         <Link className="btn btn-outline-dark" to={`/requests/update/${_id}`}> Reply </Link>
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
