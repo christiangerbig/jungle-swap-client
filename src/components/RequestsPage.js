@@ -5,14 +5,14 @@ import { animateScroll as scroll } from "react-scroll";
 class RequestsPage extends Component {
 
   componentDidMount() {
-    const { onFetchAllRequests, onResetNewRequestsReceived} = this.props;
+    const { onFetchAllRequests, onResetNewRequestsReceived } = this.props;
     onFetchAllRequests();
     onResetNewRequestsReceived();
     scroll.scrollToTop();
   }
   
   render() {
-    const { user, requests, currentRequestsNumber ,onDeleteRequest } = this.props
+    const { user, requests, currentRequestsNumber, onDeleteRequest } = this.props
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -29,7 +29,7 @@ class RequestsPage extends Component {
           {
             requests.map(
               (request) => {
-                const { _id, buyer, seller, plant, message} = request
+                const { _id, buyer, seller, plant, message } = request
                 return (
                   (seller._id === user._id) ? (
                     <div className="card p-3 mt-4 " key={ _id }>
@@ -37,7 +37,8 @@ class RequestsPage extends Component {
                       <h5> User: { buyer.username } </h5>
                       <p> { message } </p>
                       <div>
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+                        <Link to={ "/requests/update" }> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
                       </div>
                     </div>
                   ) : null
@@ -45,7 +46,6 @@ class RequestsPage extends Component {
               } 
             )
           }
-
           {
             (currentRequestsNumber !== 0) ? (
               <Link to={ "/" } onClick={ scroll.scrollToTop }> 

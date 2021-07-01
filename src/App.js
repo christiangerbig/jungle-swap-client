@@ -12,27 +12,29 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import LogOut from "./components/LogOut";
 import CreatePlantForm from "./components/CreatePlantForm";
-import UpdatePlantForm from "./components/UpdatePlantForm";
 import PlantDetails from "./components/PlantDetails";
+import UpdatePlantForm from "./components/UpdatePlantForm";
 import CheckoutPage from "./components/CheckoutPage";
 import CreateRequestForm from "./components/CreateRequestForm";
 import RequestsPage from "./components/RequestsPage";
+import UpdateRequestForm from "./components/UpdateRequestForm";
 import NotFound from './components/NotFound';
 import KommunicateChat from "./components/Chat";
 
 class App extends Component {
 
   state = {
+    fetchingUser: true,
     loggedInUser: null,
-    error: null,
     plants: [],
     query: "",
     plant: {},
     requests: [],
-    fetchingUser: true,
+    request: {},
     currentRequestsNumber: 0,
     initRequestsNumber: true,
-    newRequestsReceived: false
+    newRequestsReceived: false,
+    error: null
   }
 
   // Fetch all plants
@@ -268,7 +270,7 @@ class App extends Component {
         () => {
           const updatedPlants = this.state.plants.map(
             (singlePlant) => {
-              if (_id === singlePlant._id) {
+              if (singlePlant._id === _id) {
                 singlePlant.name = name;
                 singlePlant.description = description;
                 singlePlant.size = size;
@@ -399,6 +401,42 @@ class App extends Component {
       );
   }
 
+  // Update request
+  handleUpdateRequest = (request) => {
+    const { _id, buyer, seller, plant, message, reply } = request;
+    const updatedRequest = {
+      buyer,
+      seller,
+      plant,
+      message,
+      reply
+    };
+    axios.patch(`${config.API_URL}/api/requests/update/${_id}`, updatedRequest)
+      .then(
+        () => {
+          const updatedRequests = this.state.requests.map(
+            (singleRequest) => {
+              if (singleRequest._id === _id) {
+                singleRequest.buyer = buyer;
+                singleRequest.seller = seller;
+                singleRequest.plant = plant;
+                singleRequest.message = message;
+                singleRequest.reply = reply;
+              }
+              return singleRequest;
+            }
+          );
+          this.setState(
+            { requests: updatedRequests },
+            () => this.props.history.push("/")
+          );
+        }
+      )
+      .catch(
+        (err) => console.log("Update request failed", err)
+      );
+  }
+
   // Delete request
   handleDeleteRequest = (requestId) => {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
@@ -424,7 +462,7 @@ class App extends Component {
   }  
 
   render() {
-    const { loggedInUser, error, plants, query, plant, requests, fetchingUser, newRequestsReceived, currentRequestsNumber } = this.state;
+    const { fetchingUser, loggedInUser, plants, query, plant, requests, request, currentRequestsNumber, newRequestsReceived, error } = this.state;
     if (fetchingUser) {
       return (
         <div class="spinner-grow text-success m-5" role="status">
@@ -484,6 +522,11 @@ class App extends Component {
           <Route path="/requests/create" render={
             (routeProps) => {
               return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps } />
+            }
+          }/>
+          <Route path="/requests/update" render={
+            (routeProps) => {
+              return <UpdateRequestForm onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
             }
           }/>
           <Route component={ NotFound }/>
