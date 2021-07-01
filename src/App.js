@@ -358,7 +358,7 @@ class App extends Component {
                 );
               }
               // Check if there are new requests and update number of requests
-              if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber) && (currentRequests[0].seller._id !== loggedInUser._id)) {
+              if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber) && (currentRequests[0].seller._id === loggedInUser._id)) {
                 this.setState(
                   { 
                     currentRequestsNumber: currentRequestsNumber,
