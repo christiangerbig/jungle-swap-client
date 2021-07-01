@@ -415,6 +415,13 @@ class App extends Component {
       );
   }
 
+  // Create reply
+  handleCreateReply = (event) => {
+    const cloneRequest = JSON.parse(JSON.stringify(this.state.request));
+    cloneRequest.reply = event.target.value;
+    this.setState({ request: cloneRequest });
+  }
+
   // Update request
   handleUpdateRequest = (request) => {
     const { _id, buyer, seller, plant, message, reply } = request;
@@ -540,7 +547,7 @@ class App extends Component {
           }/>
           <Route path="/requests/update/:requestId" render={
             (routeProps) => {
-              return <UpdateRequestForm onReadRequest={ this.handleReadRequest } onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
+              return <UpdateRequestForm onReadRequest={ this.handleReadRequest } onCreateReply={ this.handleCreateReply }  onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
             }
           }/>
           <Route component={ NotFound }/>

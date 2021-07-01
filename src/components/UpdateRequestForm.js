@@ -11,8 +11,7 @@ class UpdateRequestForm extends Component {
   }
 
   render() {
-    const { request, onUpdateRequest } = this.props;
-    console.log(request);
+    const { request, onCreateReply, onUpdateRequest } = this.props;
     const { message } = request;
     return (
       <div className="container row mt-5 ">
@@ -22,11 +21,11 @@ class UpdateRequestForm extends Component {
             <div className="card-body">
               <p> { message } </p>
               <div>
-                <textarea className="mb-4" name="reply" cols="35" rows="4"/>
+                <textarea className="mb-4" name="reply" cols="35" rows="4" onChange={ onCreateReply }/>
               </div>
               <div className="row justify-content-around">
                 <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
-                <Link to={"/requests/fetch"}>
+                <Link to={ "/requests/fetch" }>
                   <button className="btn btn-sm mx-2"> Go back </button>
                 </Link>
               </div>
