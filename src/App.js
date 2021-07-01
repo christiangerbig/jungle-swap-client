@@ -401,6 +401,20 @@ class App extends Component {
       );
   }
 
+  // Read request
+  handleReadRequest = (requestId) => {
+    axios.get(
+      `${config.API_URL}/api/requests/read/${requestId}`,
+      { withCredentials: true }
+    )
+      .then(
+        (response) => this.setState({ request: response.data })
+      )
+      .catch(
+        () => console.log("Read request failed")
+      );
+  }
+
   // Update request
   handleUpdateRequest = (request) => {
     const { _id, buyer, seller, plant, message, reply } = request;
@@ -524,9 +538,9 @@ class App extends Component {
               return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps } />
             }
           }/>
-          <Route path="/requests/update" render={
+          <Route path="/requests/update/:requestId" render={
             (routeProps) => {
-              return <UpdateRequestForm onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
+              return <UpdateRequestForm onReadRequest={ this.handleReadRequest } onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
             }
           }/>
           <Route component={ NotFound }/>

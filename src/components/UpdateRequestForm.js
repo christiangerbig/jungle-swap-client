@@ -5,11 +5,14 @@ import { animateScroll as scroll } from "react-scroll";
 class UpdateRequestForm extends Component {
 
   componentDidMount() {
+    const { requestId } = this.props.match.params;
+    this.props.onReadRequest(requestId);
     scroll.scrollToTop();
   }
 
   render() {
     const { request, onUpdateRequest } = this.props;
+    console.log(request);
     const { message } = request;
     return (
       <div className="container row mt-5 ">

@@ -37,7 +37,7 @@ class RequestsPage extends Component {
                       <h5> User: { buyer.username } </h5>
                       <p> { message } </p>
                       <div>
-                        <Link to={ "/requests/update" }> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
+                        <Link className="btn btn-outline-dark" to={`/requests/update/${_id}`}> Reply </Link>
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
                       </div>
                     </div>
