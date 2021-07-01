@@ -407,10 +407,7 @@ class App extends Component {
               return request._id !== requestId;
             }
           );
-          this.setState(
-            { requests: filteredRequests },
-            //() => this.props.history.push("/")
-          );
+          this.setState({ requests: filteredRequests });
         }
       )
       .catch(

@@ -45,6 +45,9 @@ class RequestsPage extends Component {
               } 
             )
           }
+          <Link to={ "/" } onClick={ scroll.scrollToTop }> 
+            <button className="btn btn-sm mt-4"> Go back </button> 
+          </Link>
         </div>
       </div>
     );
