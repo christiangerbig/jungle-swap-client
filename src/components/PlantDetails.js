@@ -49,18 +49,12 @@ class PlantDetails extends Component {
                       </div>
                     ) : (
                       <div>
-                        <Link to={{ pathname: `/plants/checkout/${_id}`, plant: plant }}>
-                          <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button>
-                        </Link>
-                        <Link to={{ pathname: "/requests/create", plant: plant }}>
-                          <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button>                      
-                        </Link>
+                        <Link to={{ pathname: `/plants/checkout/${_id}`, plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
+                        <Link to={{ pathname: "/requests/create", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
                       </div>
                     )
                   }
-                  <Link to={ "/" } onClick={ () => scroll.scrollTo(1520) }>
-                    <button className="btn btn-sm ml-2"> Go back </button>
-                  </Link>
+                  <Link to={ "/" } onClick={ () => scroll.scrollTo(1520) }> <button className="btn btn-sm ml-2"> Go back </button> </Link>
                 </div>
               </div>
             </div>

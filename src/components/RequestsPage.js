@@ -23,9 +23,7 @@ class RequestsPage extends Component {
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
           <h2 className="mb-5"> Your messages </h2>
-          <Link to={ "/" } onClick={ scroll.scrollToTop }> 
-            <button className="btn btn-sm mt-4"> Go back </button> 
-          </Link>
+          <Link to={ "/" } onClick={ scroll.scrollToTop }> <button className="btn btn-sm mt-4"> Go back </button> </Link>
           {
             requests.map(
               (request) => {
@@ -34,18 +32,20 @@ class RequestsPage extends Component {
                   (seller._id === user._id) ? (
                     <div className="card p-3 mt-4 " key={ _id }>
                       <h4> Request for: { plant.name } </h4>
-                      <h5> User: { buyer.username } </h5>
+                      <h5> by: { buyer.username } </h5>
                       <p> { message } </p>
                       {
                         (reply) ? (
                           <div>
-                            <h5> Reply </h5>
+                            <h5> Your reply: </h5>
                             <p> { reply } </p>
                           </div>
                         ) : null
                       }
                       <div>
-                        <Link className="btn btn-outline-dark" to={`/requests/update/${_id}`}> Reply </Link>
+                        {                  
+                          (reply) ? null : <Link to={ `/requests/update/${_id}` }> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
+                        }
                         <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
                       </div>
                     </div>
@@ -55,11 +55,7 @@ class RequestsPage extends Component {
             )
           }
           {
-            (currentRequestsNumber !== 0) ? (
-              <Link to={ "/" } onClick={ scroll.scrollToTop }> 
-                <button className="btn btn-sm mt-4"> Go back </button> 
-              </Link>
-            ) : null
+            (currentRequestsNumber === 0) ? null : <Link to={ "/" } onClick={ scroll.scrollToTop }> <button className="btn btn-sm mt-4"> Go back </button> </Link>
           }
         </div>
       </div>

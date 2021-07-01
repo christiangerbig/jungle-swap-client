@@ -30,9 +30,7 @@ class UpdatePlantForm extends Component {
               <input className="mb-4 smallWidth" name="price" type="number" min="1" onChange={ onPriceChange } value={ price }/> € 
               <div className="row justify-content-around">
                 <button className="btn btn-sm btn-outline-dark" onClick={ () => onUpdatePlant(plant) }> Save changes </button>
-                <Link to={ `/plants/read/${_id}` }> 
-                  <button className="btn btn-sm mx-2"> Go back </button>
-                </Link>
+                <Link to={ `/plants/read/${_id}` }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
               </div>
             </div>
           </div>

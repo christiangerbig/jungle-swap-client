@@ -18,15 +18,13 @@ class CreateRequestForm extends Component {
           <h2 className="mb-5"> Your mesage </h2>
           <form onSubmit={ (event) => onCreateRequest(event, plant) }>
             <div>
-              <textarea className="mb-4" name="message" cols="35" rows="4" />
+              <textarea className="mb-4" name="message" cols="35" rows="7" />
             </div>
             {
               (error) ? <p style={{ color: "red" }}> { error } </p> : null            
             }
             <button className="btn btn-sm btn-outline-dark" type="submit"> Send </button>
-            <Link to={ `/plants/read/${plant._id}` }>
-              <button className="btn btn-sm mx-2"> Go back </button>
-            </Link>
+            <Link to={ `/plants/read/${plant._id}` }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
           </form>
         </div>
       </div>

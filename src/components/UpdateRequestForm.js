@@ -20,14 +20,10 @@ class UpdateRequestForm extends Component {
           <div className="card cardSmallWidth mb-5">
             <div className="card-body">
               <p> { message } </p>
-              <div>
-                <textarea className="mb-4" name="reply" cols="35" rows="4" onChange={ onCreateReply }/>
-              </div>
-              <div className="row justify-content-around">
-                <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
-                <Link to={ "/requests/fetch" }>
-                  <button className="btn btn-sm mx-2"> Go back </button>
-                </Link>
+                <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={ onCreateReply }/>
+                <div className="row justify-content-around">
+                  <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
+                  <Link to={ "/requests/fetch" }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
               </div>
             </div>
           </div>
