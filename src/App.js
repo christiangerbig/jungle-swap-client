@@ -409,8 +409,13 @@ class App extends Component {
               return (request._id !== requestId) ? request : null
             }
           );
-          this.setState({ requests: filteredRequests });
-          console.log(this.state.requests);
+          const currentRequestsNumber = filteredRequests.length;
+          this.setState(
+            { 
+              requests: filteredRequests,
+              currentRequestsNumber: currentRequestsNumber
+            }
+          );
         }
       )
       .catch(
@@ -419,7 +424,7 @@ class App extends Component {
   }  
 
   render() {
-    const { loggedInUser, error, plants, query, plant, requests, fetchingUser, newRequestsReceived } = this.state;
+    const { loggedInUser, error, plants, query, plant, requests, fetchingUser, newRequestsReceived, currentRequestsNumber } = this.state;
     if (fetchingUser) {
       return (
         <div class="spinner-grow text-success m-5" role="status">
@@ -473,7 +478,7 @@ class App extends Component {
           }/>
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onDeleteRequest={ this.handleDeleteRequest } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onDeleteRequest={ this.handleDeleteRequest } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } currentRequestsNumber={ currentRequestsNumber } { ...routeProps }/>
               }
           }/>
           <Route path="/requests/create" render={

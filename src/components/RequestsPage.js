@@ -12,7 +12,7 @@ class RequestsPage extends Component {
   }
   
   render() {
-    const { user, requests, onDeleteRequest } = this.props
+    const { user, requests, currentRequestsNumber ,onDeleteRequest } = this.props
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -44,6 +44,14 @@ class RequestsPage extends Component {
                 );
               } 
             )
+          }
+
+          {
+            (currentRequestsNumber !== 0) ? (
+              <Link to={ "/" } onClick={ scroll.scrollToTop }> 
+                <button className="btn btn-sm mt-4"> Go back </button> 
+              </Link>
+            ) : null
           }
         </div>
       </div>
