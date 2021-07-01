@@ -297,7 +297,7 @@ class App extends Component {
         () => {
           const filteredPlants = this.state.plants.filter(
             (plant) => {
-              return plant._id !== plantId;
+              return (plant._id !== plantId) ? plant : null
             }
           );
           this.setState(
@@ -406,10 +406,11 @@ class App extends Component {
         () => {
           const filteredRequests = this.state.requests.filter(
             (request) => {
-              return request._id !== requestId;
+              return (request._id !== requestId) ? request : null
             }
           );
           this.setState({ requests: filteredRequests });
+          console.log(this.state.requests);
         }
       )
       .catch(
