@@ -15,10 +15,11 @@ import CreatePlantForm from "./components/CreatePlantForm";
 import PlantDetails from "./components/PlantDetails";
 import UpdatePlantForm from "./components/UpdatePlantForm";
 import CheckoutPage from "./components/CheckoutPage";
-import CreateRequestForm from "./components/CreateRequestForm";
 import RequestsPage from "./components/RequestsPage";
+import CreateRequestForm from "./components/CreateRequestForm";
+import RequestDetails from "./components/RequestDetails";
 import UpdateRequestForm from "./components/UpdateRequestForm";
-import NotFound from './components/NotFound';
+import NotFound from "./components/NotFound";
 import KommunicateChat from "./components/Chat";
 
 class App extends Component {
@@ -473,7 +474,8 @@ class App extends Component {
             { 
               requests: filteredRequests,
               currentRequestsNumber: currentRequestsNumber
-            }
+            },
+            () => this.props.history.push("/requests/fetch")
           );
         }
       )
@@ -542,12 +544,17 @@ class App extends Component {
           }/>
           <Route path="/requests/create" render={
             (routeProps) => {
-              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps } />
+              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps }/>
             }
           }/>
-          <Route path="/requests/update/:requestId" render={
+          <Route path="/requests/read/:requestId" render={
             (routeProps) => {
-              return <UpdateRequestForm onReadRequest={ this.handleReadRequest } onCreateReply={ this.handleCreateReply }  onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
+              return <RequestDetails onReadRequest={ this.handleReadRequest } onDeleteRequest={ this.handleDeleteRequest } request={ request } user={ loggedInUser } { ...routeProps }/>
+            }
+          }/>
+          <Route path="/requests/update" render={
+            (routeProps) => {
+              return <UpdateRequestForm onCreateReply={ this.handleCreateReply }  onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
             }
           }/>
           <Route component={ NotFound }/>

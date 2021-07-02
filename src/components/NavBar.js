@@ -40,14 +40,14 @@ class NavBar extends Component {
               (user) ? (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
-                  <Link className={ (newRequestsReceived) ? "p-2 alertColor" : "p-2" } to="/requests/fetch"> Messages </Link>
+                  <Link className={ (newRequestsReceived) ? "p-2 alertColor" : "p-2" } to="/requests/fetch" title={ (newRequestsReceived) ? "new message" : null }> Messages </Link>
                 </div>
               ) : null
             }
             {
               (user) ? (
                 <div>
-                  <Link className="p-2" to="/logout"> Log out </Link>
+                  <Link className="p-2" to="/logout" title={ user.username }> Log out </Link>
                 </div>
               ) : (
                 <div>

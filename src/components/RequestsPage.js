@@ -12,7 +12,7 @@ class RequestsPage extends Component {
   }
   
   render() {
-    const { user, requests, currentRequestsNumber, onDeleteRequest } = this.props
+    const { user, requests, currentRequestsNumber } = this.props
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -27,26 +27,14 @@ class RequestsPage extends Component {
           {
             requests.map(
               (request) => {
-                const { _id, buyer, seller, plant, message, reply } = request
+                const { _id, buyer, seller, plant } = request;
                 return (
                   (seller._id === user._id) ? (
                     <div className="card p-3 mt-4 " key={ _id }>
                       <h4> Request for: { plant.name } </h4>
                       <h5> by: { buyer.username } </h5>
-                      <p> { message } </p>
-                      {
-                        (reply) ? (
-                          <div>
-                            <h5> Your reply: </h5>
-                            <p> { reply } </p>
-                          </div>
-                        ) : null
-                      }
                       <div>
-                        {                  
-                          (reply) ? null : <Link to={ `/requests/update/${_id}` }> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
-                        }
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
+                        <Link className="btn btn-outline-dark" to={ `/requests/read/${_id}` }> Details </Link>
                       </div>
                     </div>
                   ) : null

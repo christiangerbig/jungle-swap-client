@@ -5,14 +5,12 @@ import { animateScroll as scroll } from "react-scroll";
 class UpdateRequestForm extends Component {
 
   componentDidMount() {
-    const { requestId } = this.props.match.params;
-    this.props.onReadRequest(requestId);
     scroll.scrollToTop();
   }
 
   render() {
     const { request, onCreateReply, onUpdateRequest } = this.props;
-    const { message } = request;
+    const { _id, message } = request;
     return (
       <div className="container row mt-5 ">
         <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
@@ -23,7 +21,7 @@ class UpdateRequestForm extends Component {
                 <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={ onCreateReply }/>
                 <div className="row justify-content-around">
                   <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
-                  <Link to={ "/requests/fetch" }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
+                  <Link to={ `/requests/read/${_id}` }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
               </div>
             </div>
           </div>
