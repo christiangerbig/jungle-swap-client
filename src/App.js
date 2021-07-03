@@ -387,7 +387,7 @@ class App extends Component {
     const { message } = event.target;
     const newRequest = {
       seller: plant.creator._id,
-      plant,
+      plant: plant._id,
       message: message.value
     };
     axios.post(`${config.API_URL}/api/requests/create`, newRequest, { withCredentials: true })
@@ -539,7 +539,7 @@ class App extends Component {
           }/>
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onDeleteRequest={ this.handleDeleteRequest } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } currentRequestsNumber={ currentRequestsNumber } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } currentRequestsNumber={ currentRequestsNumber } { ...routeProps }/>
               }
           }/>
           <Route path="/requests/create" render={

@@ -7,6 +7,13 @@ import icon from "../images/JungleSwap_Icon.png";
 class Home extends Component {
   render() {
     const { plants, query, onSearchPlant } = this.props;
+    if (!plants) {
+      return (
+        <div class="spinner-grow text-success m-5" role="status">
+          <span class="visually-hidden"> Loading... </span>
+        </div>
+      );
+    }
     return (
       <div>
         {/* Title */}
