@@ -12,7 +12,7 @@ class RequestsPage extends Component {
   }
   
   render() {
-    const { user, requests, currentRequestsNumber } = this.props
+    const { user, requests, currentRequestsNumber, onResetNewRequestsReceived } = this.props
     if (!user) {
       return <Redirect to={ "/signup" }/>
     }
@@ -27,7 +27,7 @@ class RequestsPage extends Component {
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
           <h2 className="mb-5"> Your messages </h2>
-          <Link to={ "/" } onClick={ scroll.scrollToTop }> <button className="btn btn-sm mt-4"> Go back </button> </Link>
+          <Link to={ "/" } onClick={ () => { onResetNewRequestsReceived(); scroll.scrollToTop(); } }> <button className="btn btn-sm mt-4"> Go back </button> </Link>
           {
             requests.map(
               (request) => {
