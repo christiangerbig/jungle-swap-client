@@ -13,7 +13,7 @@ class RequestDetails extends Component {
   render() {
     const { request, onDeleteRequest } = this.props;
     const { _id, buyer, plant, message, reply } = request;
-    if (!buyer) {
+    if (!buyer || !plant) {
       return (
         <div class="spinner-grow text-success m-5" role="status">
           <span class="visually-hidden"> Loading... </span>
