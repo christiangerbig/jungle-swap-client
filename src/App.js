@@ -450,7 +450,7 @@ class App extends Component {
           );
           this.setState(
             { requests: updatedRequests },
-            () => this.props.history.push("/requests/fetch")
+            () => this.props.history.push(`/requests/read/${_id}`)
           );
         }
       )
