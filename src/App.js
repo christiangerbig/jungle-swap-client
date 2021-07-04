@@ -25,19 +25,24 @@ import KommunicateChat from "./components/Chat";
 
 class App extends Component {
 
-  state = {
-    fetchingUser: true,
-    loggedInUser: null,
-    plants: [],
-    query: "",
-    plant: {},
-    requests: [],
-    request: {},
-    currentRequestsNumber: 0,
-    initRequestsNumber: true,
-    newRequestsReceived: false,
-    error: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      fetchingUser: true,
+      loggedInUser: null,
+      plants: [],
+      query: "",
+      plant: {},
+      requests: [],
+      request: {},
+      currentRequestsNumber: 0,
+      initRequestsNumber: true,
+      newRequestsReceived: false,
+      error: null
+    };
+  }
+
+  // ---------- Plants ----------
 
   // Fetch all plants
   fetchAllPlants = () => {
@@ -94,64 +99,6 @@ class App extends Component {
       { query },
       () => (query) ? this.fetchQueryPlants() : this.fetchAllPlants()
     );
-  }
-
-  // Clear error messages
-  resetError = () => this.setState({ error: null })
-
-  // Signup
-  handleSignUp = (event) => {
-    event.preventDefault();
-    const { username, email, password } = event.target;
-    const user = {
-      username: username.value,
-      email: email.value.toLowerCase(),
-      password: password.value
-    };
-    axios.post(`${config.API_URL}/api/signup`, user)
-      .then(
-        (response) => this.setState(
-          { loggedInUser: response.data },
-          () => this.props.history.push("/")
-        )
-      )
-      .catch(
-        (err) => this.setState({ error: err.response.data.error })
-      );
-  }
-
-  // Signin
-  handleSignIn = (event) => {
-    event.preventDefault();
-    const { email, password } = event.target;
-    const user = {
-      email: email.value,
-      password: password.value
-    };
-    axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
-      .then(
-        (response) => this.setState(
-          { loggedInUser: response.data },
-          () => this.props.history.push("/")
-        )
-      )
-      .catch(
-        (err) => this.setState({ error: err.response.data.error })
-      );
-  }
-
-  // Logout
-  handleLogOut = () => {
-    axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
-      .then(
-        () => this.setState(
-          { loggedInUser: null },
-          () => this.props.history.push("/")
-        )
-      )
-      .catch(
-        (err) => console.log("Logout failed", err)
-      );
   }
 
   // Create plant
@@ -329,6 +276,8 @@ class App extends Component {
       );
   }
 
+  // ---------- Requests ----------
+
   // Fetch all requests
   handleFetchAllRequests = () => {
     axios.get(`${config.API_URL}/api/requests/fetch`)
@@ -484,7 +433,67 @@ class App extends Component {
       .catch(
         (err) => console.log("Delete requestfailed", err)
       );
-  }  
+  }
+
+  // ---------- Authentification ----------
+
+    // Clear error messages
+    resetError = () => this.setState({ error: null })
+
+    // Signup
+    handleSignUp = (event) => {
+      event.preventDefault();
+      const { username, email, password } = event.target;
+      const user = {
+        username: username.value,
+        email: email.value.toLowerCase(),
+        password: password.value
+      };
+      axios.post(`${config.API_URL}/api/signup`, user)
+        .then(
+          (response) => this.setState(
+            { loggedInUser: response.data },
+            () => this.props.history.push("/")
+          )
+        )
+        .catch(
+          (err) => this.setState({ error: err.response.data.error })
+        );
+    }
+  
+    // Signin
+    handleSignIn = (event) => {
+      event.preventDefault();
+      const { email, password } = event.target;
+      const user = {
+        email: email.value,
+        password: password.value
+      };
+      axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
+        .then(
+          (response) => this.setState(
+            { loggedInUser: response.data },
+            () => this.props.history.push("/")
+          )
+        )
+        .catch(
+          (err) => this.setState({ error: err.response.data.error })
+        );
+    }
+  
+    // Logout
+    handleLogOut = () => {
+      axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
+        .then(
+          () => this.setState(
+            { loggedInUser: null },
+            () => this.props.history.push("/")
+          )
+        )
+        .catch(
+          (err) => console.log("Logout failed", err)
+        );
+    }
 
   render() {
     const { fetchingUser, loggedInUser, plants, query, plant, requests, request, currentRequestsNumber, newRequestsReceived, error } = this.state;

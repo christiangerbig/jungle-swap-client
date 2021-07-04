@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 
 class NavBar extends Component {
-
-  state = { intervalId: null }
-
+  
+    constructor(props) {
+    super(props);
+    this.state = { intervalId: null };
+  }
+  
   // Handler for interval timer
   handleIntervalTimer = () => this.props.onCheckRequests()
 
   componentDidMount() {
-    // Start interval
     const intervalId = setInterval(
       this.handleIntervalTimer, 
       10000 // every minute
@@ -20,7 +22,6 @@ class NavBar extends Component {
   }
 
   componentWillUnmount() {
-    // Stop interval
     clearInterval(this.state.intervalId);
   }
 
