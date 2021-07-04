@@ -13,7 +13,7 @@ class PlantDetails extends Component {
   render() {
     const { user, plant, onDeletePlant } = this.props;
     if (!user) {
-      return <Redirect to={ "/signup" }/>
+      return (<Redirect to={ "/signup" }/>);
     }
     const { _id, name, description, size, image, location, price, creator } = plant;
     if (!creator) {
@@ -45,12 +45,12 @@ class PlantDetails extends Component {
                     (user._id === creator._id) ? (
                       <div>
                         <Link to={ "/plants/update" }> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
-                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id)}> Delete </button>
+                        <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeletePlant(_id) }> Delete </button>
                       </div>
                     ) : (
                       <div>
-                        <Link to={{ pathname: `/plants/checkout/${_id}`, plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
-                        <Link to={{ pathname: "/requests/create", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
+                        <Link to={ {pathname: `/plants/checkout/${_id}`, plant: plant} }> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
+                        <Link to={ {pathname: "/requests/create", plant: plant} }> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
                       </div>
                     )
                   }

@@ -20,7 +20,7 @@ class UpdateRequestForm extends Component {
               <p> { message } </p>
                 <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={ onCreateReply }/>
                 <div className="row justify-content-around">
-                  <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
+                  <button className="btn btn-sm btn-outline-dark" onClick={ () => onUpdateRequest(request) }> Submit </button>
                   <Link to={ `/requests/read/${_id}` }> <button className="btn btn-sm mx-2"> Go back </button> </Link>
               </div>
             </div>

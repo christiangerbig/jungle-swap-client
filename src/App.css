@@ -59,6 +59,10 @@ form {
   margin-bottom: 15px;
 }
 
+textarea {
+  width: 100%;
+}
+
 footer {
   text-align:center;
   color: rgb(65, 93, 250);
@@ -100,6 +104,10 @@ footer {
 
 .alertColor {
   color: #FFCF60;
+}
+
+.warningColor {
+  color: red;
 }
 
 .headerImg {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll"
+import { animateScroll as scroll } from "react-scroll";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
@@ -73,7 +73,7 @@ class Home extends Component {
                         <div className="card-body mb-5">
                           <h5> { name } </h5>
                           <p> { price } € </p>
-                          <Link className="btn btn-outline-dark" to={`/plants/read/${_id}`}> Details </Link>
+                          <Link className="btn btn-outline-dark" to={ `/plants/read/${_id}` }> Details </Link>
                         </div>
                       </div>
                     </div>

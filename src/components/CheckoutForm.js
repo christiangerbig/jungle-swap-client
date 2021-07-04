@@ -22,15 +22,13 @@ const CheckoutForm = (props) => {
           `${config.API_URL}/api/create-payment-intent`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ price: plant.price })
           }
         )
         .then(
           (res) => {
-            return res.json();
+            return (res.json());
           }
         )
         .then(
@@ -46,9 +44,7 @@ const CheckoutForm = (props) => {
         fontFamily: "Arial, sans-serif",
         fontSmoothing: "antialiased",
         fontSize: "16px",
-        "::placeholder": {
-          color: "#32325d"
-        }
+        "::placeholder": { color: "#32325d" }
       },
       invalid: {
         color: "#fa755a",
@@ -68,11 +64,7 @@ const CheckoutForm = (props) => {
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(
       clientSecret,
-      {
-        payment_method: {
-          card: elements.getElement(CardElement)
-        }
-      }
+      { payment_method: { card: elements.getElement(CardElement) } }
     );
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
@@ -96,7 +88,7 @@ const CheckoutForm = (props) => {
           <button onClick={ onCheckout } className="btn btn-sm mt-5 mb-4" disabled={ processing || disabled || succeeded } id="submit">
             <span id="button-text">
               {
-                (processing) ? <div className="spinner" id="spinner" /> : "Pay now"
+                (processing) ? <div className="spinner" id="spinner"/> : "Pay now"
               }
             </span>
           </button>
@@ -106,7 +98,7 @@ const CheckoutForm = (props) => {
           error && (<div className="card-error" role="alert"> { error } </div>)
         }
         {/* Show success message upon completion */}
-        <p className={(succeeded) ? "result-message text-center" : "result-message hidden text-center"}>
+        <p className={ (succeeded) ? "result-message text-center" : "result-message hidden text-center" }>
           Payment succeeded.
         </p>
       </form>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import config from "./config";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -36,7 +37,7 @@ class App extends Component {
     initRequestsNumber: true,
     newRequestsReceived: false,
     error: null
-  }
+  };
 
   // Fetch all plants
   fetchAllPlants = () => {
@@ -50,7 +51,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchAllPlants()
+    this.fetchAllPlants();
     if (!this.state.loggedInUser) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then(
@@ -96,7 +97,7 @@ class App extends Component {
   }
 
   // Clear error messages
-  resetError = () => this.setState({ error: null });
+  resetError = () => this.setState({ error: null })
 
   // Signup
   handleSignUp = (event) => {
@@ -300,18 +301,21 @@ class App extends Component {
         () => {
           const filteredPlants = this.state.plants.filter(
             (plant) => {
-              return (plant._id !== plantId) ? plant : null
+              return (plant._id !== plantId)
             }
           );
           this.setState(
             { plants: filteredPlants },
-            () => this.props.history.push("/")
+            () => {
+              this.props.history.push("/");
+              scroll.scrollTo(1520);
+            }
           );
         }
       )
       .catch(
         (err) => console.log("Delete plant failed", err)
-      )
+      );
   }  
 
   // Payment
@@ -344,31 +348,29 @@ class App extends Component {
         .then(
           (response) => {
             this.setState({ requests: response.data });
-            const currentRequests = this.state.requests.map(
+            const currentRequests = this.state.requests.filter(
               (currentRequest) => {
-                return (currentRequest.seller._id === loggedInUser._id) ? currentRequest : null
+                return (currentRequest.seller._id === loggedInUser._id) 
               } 
             );
             const currentRequestsNumber = currentRequests.length;
-            if (currentRequestsNumber !== 0) {
-              // Save number of requests only once at the beginning
-              if (this.state.initRequestsNumber) {
-                this.setState(
-                  { 
-                    currentRequestsNumber: currentRequestsNumber,
-                    initRequestsNumber: false
-                  }
-                );
-              }
-              // Check if there are new requests and update number of requests
-              if ((this.state.currentRequestsNumber < currentRequestsNumber) && (!this.state.initRequestsNumber) && (currentRequests[0].seller._id === loggedInUser._id)) {
-                this.setState(
-                  { 
-                    currentRequestsNumber: currentRequestsNumber,
-                    newRequestsReceived: true
-                  }
-                );
-              }
+            // Save number of requests only once at the beginning
+            if (this.state.initRequestsNumber) {
+              this.setState(
+                { 
+                  currentRequestsNumber: currentRequestsNumber,
+                  initRequestsNumber: false
+                }
+              );
+            }
+            // Check if there are new requests and update number of requests
+            if ((this.state.currentRequestsNumber < currentRequestsNumber) && (this.state.initRequestsNumber === false) && (currentRequests[0].seller._id === loggedInUser._id)) {
+              this.setState(
+                { 
+                  currentRequestsNumber: currentRequestsNumber,
+                  newRequestsReceived: true
+                }
+              );
             }
           }
         )
@@ -466,7 +468,7 @@ class App extends Component {
         () => {
           const filteredRequests = this.state.requests.filter(
             (request) => {
-              return (request._id !== requestId) ? request : null
+              return (request._id !== requestId)
             }
           );
           const currentRequestsNumber = filteredRequests.length;
@@ -481,7 +483,7 @@ class App extends Component {
       )
       .catch(
         (err) => console.log("Delete requestfailed", err)
-      )
+      );
   }  
 
   render() {
@@ -491,7 +493,7 @@ class App extends Component {
         <div class="spinner-grow text-success m-5" role="status">
           <span class="visually-hidden"> Loading... </span>
         </div>
-      )
+      );
     }
     return (
       <div class="main">
@@ -554,7 +556,7 @@ class App extends Component {
           }/>
           <Route path="/requests/update" render={
             (routeProps) => {
-              return <UpdateRequestForm onCreateReply={ this.handleCreateReply }  onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
+              return <UpdateRequestForm onCreateReply={ this.handleCreateReply } onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
             }
           }/>
           <Route component={ NotFound }/>

@@ -10,9 +10,9 @@ class CreatePlantForm extends Component {
   }
 
   render() {
-    const { user, error, onCreatePlant } = this.props
+    const { user, error, onCreatePlant } = this.props;
     if (!user){
-      return <Redirect to={ "/signup" }/>
+      return (<Redirect to={ "/signup" }/>);
     }
     return (
       <div className="container row mt-5 fullscreen">
@@ -32,7 +32,7 @@ class CreatePlantForm extends Component {
             <input className="mb-4 smallWidth" name="price" type="number" min="1" placeholder="Price"/> € <br/>
             <input className="mb-4" name="plantImage" type="file"/>
             {
-              (error) ? <p style={{ color: "red" }}> { error } </p> : null            
+              (error) ? <p className="warningColor"> { error } </p> : null            
             }
             <div className="col-12">
               <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>

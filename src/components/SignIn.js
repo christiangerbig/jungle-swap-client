@@ -26,7 +26,7 @@ class SignIn extends Component {
               <input name="password" type="password" className="form-control" id="InputPassword"/>
             </div>
             {
-              (error) ? <p style={{ color: "red" }}> { error } </p> : null            
+              (error) ? <p className="warningColor"> { error } </p> : null            
             }
             <button type="submit" className="btn btn-primary mt-4 btn-outline-dark"> Sign in </button>
           </form>

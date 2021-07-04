@@ -39,12 +39,12 @@ class RequestDetails extends Component {
           {                  
             (reply) ? null : <Link to={ `/requests/update/${_id}` }> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
           }
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={ () => onDeleteRequest(_id) }> Delete </button>
         </div>
         <Link to={ "/requests/fetch" } onClick={ scroll.scrollToTop }> <button className="btn btn-sm mt-4"> Go back </button> </Link>
       </div>
       </div>
-    )
+    );
   }
 }
 
