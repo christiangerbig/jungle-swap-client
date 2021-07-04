@@ -243,25 +243,33 @@ class App extends Component {
 
   // Delete Plant
   handleDeletePlant = (plantId) => {
-    axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
+    axios.post(`${config.API_URL}/api/destroy`, { publicID: "g0nmildklkor3gjljnws" })
       .then(
         () => {
-          const filteredPlants = this.state.plants.filter(
-            (plant) => {
-              return (plant._id !== plantId)
-            }
-          );
-          this.setState(
-            { plants: filteredPlants },
-            () => {
-              this.props.history.push("/");
-              scroll.scrollTo(1520);
-            }
-          );
+          axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
+            .then(
+              () => {
+                const filteredPlants = this.state.plants.filter(
+                  (plant) => {
+                    return (plant._id !== plantId)
+                  }
+                );
+                this.setState(
+                  { plants: filteredPlants },
+                  () => {
+                    this.props.history.push("/");
+                    scroll.scrollTo(1520);
+                  }
+                );
+              }
+            )
+            .catch(
+              (err) => console.log("Delete plant failed", err)
+            );
         }
       )
       .catch(
-        (err) => console.log("Delete plant failed", err)
+        (err) => console.log("Delete image failed", err)
       );
   }  
 
