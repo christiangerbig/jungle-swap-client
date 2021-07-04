@@ -243,7 +243,11 @@ class App extends Component {
 
   // Delete Plant
   handleDeletePlant = (plantId) => {
-    axios.post(`${config.API_URL}/api/destroy`, { publicID: "g0nmildklkor3gjljnws" })
+    const publicId = "g0nmildklkor3gjljnws";
+    const destroyData = {
+      publicId
+    }
+    axios.post(`${config.API_URL}/api/destroy`, destroyData)
       .then(
         () => {
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
