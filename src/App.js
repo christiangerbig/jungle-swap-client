@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import React, {Component} from "react";
+import {Route, Switch, withRouter} from "react-router-dom";
+import {animateScroll as scroll} from "react-scroll";
 import config from "./config";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -48,7 +48,7 @@ class App extends Component {
   fetchAllPlants = () => {
     axios.get(`${config.API_URL}/api/plants/fetch`)
       .then(
-        (response) => this.setState({ plants: response.data})
+        (response) => this.setState({plants: response.data})
       )
       .catch(
         (err) => console.log("Fetching plants failed", err)
@@ -96,7 +96,7 @@ class App extends Component {
   handleSearchPlant = (event) => {
     const query = event.target.value;
     this.setState(
-      { query },
+      {query},
       () => (query) ? this.fetchQueryPlants() : this.fetchAllPlants()
     );
   }
@@ -104,7 +104,7 @@ class App extends Component {
   // Create plant
   handleCreatePlant = (event) => {
     event.preventDefault();
-    const  { name, description, size, plantImage, location, price } = event.target;
+    const {name, description, size, plantImage, location, price} = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -120,20 +120,24 @@ class App extends Component {
             location: location.value,
             price: price.value
           };
-          axios.post(`${config.API_URL}/api/plants/create`, newPlant, { withCredentials: true })
+          axios.post(
+            `${config.API_URL}/api/plants/create`, 
+            newPlant, 
+            {withCredentials: true}
+          )
             .then(
               (response) => this.setState(
-                { plants: [response.data, ...this.state.plants] },
+                {plants: [response.data, ...this.state.plants]},
                 () => this.props.history.push("/")
               )
             )
             .catch(
-              (err) => this.setState({ error: err.response.data.error })
+              (err) => this.setState({error: err.response.data.error})
             );
         }
       )
       .catch(
-        (err) => this.setState({ error: err.response.data.error })
+        (err) => this.setState({error: err.response.data.error})
       );
   }
 
@@ -141,10 +145,10 @@ class App extends Component {
   handleReadPlant = (plantId) => {
     axios.get(
       `${config.API_URL}/api/plants/read/${plantId}`,
-      { withCredentials: true }
+      {withCredentials: true}
     )
       .then(
-        (response) => this.setState({ plant: response.data })
+        (response) => this.setState({plant: response.data})
       )
       .catch(
         () => console.log("Read plant failed")
@@ -155,35 +159,35 @@ class App extends Component {
   handleNameChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.name = event.target.value;
-    this.setState({ plant: clonePlant });
+    this.setState({plant: clonePlant});
   }
 
   // Plant description changed
   handleDescriptionChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.description = event.target.value;
-    this.setState({ plant: clonePlant });
+    this.setState({plant: clonePlant});
   }
 
   // Plant size changed
   handleSizeChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.size = event.target.value;
-    this.setState({ plant: clonePlant });
+    this.setState({plant: clonePlant});
   }
 
   // Plant price changed
   handlePriceChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.price = event.target.value;
-    this.setState({ plant: clonePlant });
+    this.setState({plant: clonePlant});
   }
 
   // Plant location changed
   handleLocationChange = (event) => {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.location = event.target.value;
-    this.setState({ plant: clonePlant });
+    this.setState({plant: clonePlant});
   }
 
   // Plant image changed
@@ -191,12 +195,15 @@ class App extends Component {
     const image = event.target.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    axios.post(`${ config.API_URL }/api/upload`, uploadForm)
+    axios.post(
+      `${ config.API_URL }/api/upload`, 
+      uploadForm
+    )
       .then(
         (response) => {
           const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
           clonePlant.image = response.data.image;
-          this.setState({ plant: clonePlant });
+          this.setState({plant: clonePlant});
         }
       )
       .catch(
@@ -206,7 +213,7 @@ class App extends Component {
 
   // Update plant
   handleUpdatePlant = (plant) => {
-    const { _id, name, description, size, image, location, price } = plant;
+    const {_id, name, description, size, image, location, price} = plant;
     const updatedPlant = {
       name,
       description,
@@ -215,7 +222,10 @@ class App extends Component {
       location,
       price
     };
-    axios.patch(`${config.API_URL}/api/plants/update/${_id}`, updatedPlant)
+    axios.patch(
+      `${config.API_URL}/api/plants/update/${_id}`,
+       updatedPlant
+      )
       .then(
         () => {
           const updatedPlants = this.state.plants.map(
@@ -232,7 +242,7 @@ class App extends Component {
             }
           );
           this.setState(
-            { plants: updatedPlants },
+            {plants: updatedPlants},
             () => this.props.history.push("/")
           );
         }
@@ -248,7 +258,10 @@ class App extends Component {
     const destroyData = {
       public_id
     }
-    axios.post(`${config.API_URL}/api/destroy`, destroyData)
+    axios.post(
+      `${config.API_URL}/api/destroy`, 
+      destroyData
+    )
       .then(
         () => {
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
@@ -256,11 +269,11 @@ class App extends Component {
               () => {
                 const filteredPlants = this.state.plants.filter(
                   (plant) => {
-                    return (plant._id !== plantId)
+                    return plant._id !== plantId;
                   }
                 );
                 this.setState(
-                  { plants: filteredPlants },
+                  {plants: filteredPlants},
                   () => {
                     this.props.history.push("/");
                     scroll.scrollTo(1520);
@@ -280,7 +293,11 @@ class App extends Component {
 
   // Payment
   handleCheckout = (price) => {
-    axios.post(`${config.API_URL}/api/create-payment-intent`, {}, { withCredentials: true })
+    axios.post(
+      `${config.API_URL}/api/create-payment-intent`, 
+      {}, 
+      {withCredentials: true}
+    )
       .then(
         () => this.setState(() => this.props.history.push("/"))
       )
@@ -295,7 +312,7 @@ class App extends Component {
   handleFetchAllRequests = () => {
     axios.get(`${config.API_URL}/api/requests/fetch`)
       .then(
-        (response) => this.setState({ requests: response.data })
+        (response) => this.setState({requests: response.data})
       )
       .catch(
         (err) => console.log("Fetching requests failed", err)
@@ -304,15 +321,15 @@ class App extends Component {
 
   // Check requests for logged in user
   handleCheckRequests = () => {
-    const { loggedInUser } = this.state;
+    const {loggedInUser} = this.state;
     if (loggedInUser) {
       axios.get(`${config.API_URL}/api/requests/fetch`)
         .then(
           (response) => {
-            this.setState({ requests: response.data });
+            this.setState({requests: response.data});
             const currentRequests = this.state.requests.filter(
               (currentRequest) => {
-                return (currentRequest.seller._id === loggedInUser._id) 
+                return currentRequest.seller._id === loggedInUser._id;
               } 
             );
             const currentRequestsNumber = currentRequests.length;
@@ -343,21 +360,25 @@ class App extends Component {
   }
 
   // Reset state for new received requests
-  resetNewRequestsReceived = () => this.setState({ newRequestsReceived: false })
+  resetNewRequestsReceived = () => this.setState({newRequestsReceived: false})
 
   // Create request
   handleCreateRequest = (event, plant) => {
     event.preventDefault();
-    const { message } = event.target;
+    const {message} = event.target;
     const newRequest = {
       seller: plant.creator._id,
       plant: plant._id,
       message: message.value
     };
-    axios.post(`${config.API_URL}/api/requests/create`, newRequest, { withCredentials: true })
+    axios.post(
+      `${config.API_URL}/api/requests/create`, 
+      newRequest, 
+      {withCredentials: true}
+    )
       .then(
         (response) => this.setState(
-          { requests: [response.data, ...this.state.requests] },
+          {requests: [response.data, ...this.state.requests]},
           () => this.props.history.push(`/plants/read/${plant._id}`)
         )
       )
@@ -370,10 +391,10 @@ class App extends Component {
   handleReadRequest = (requestId) => {
     axios.get(
       `${config.API_URL}/api/requests/read/${requestId}`,
-      { withCredentials: true }
+      {withCredentials: true}
     )
       .then(
-        (response) => this.setState({ request: response.data })
+        (response) => this.setState({request: response.data})
       )
       .catch(
         () => console.log("Read request failed")
@@ -384,12 +405,12 @@ class App extends Component {
   handleCreateReply = (event) => {
     const cloneRequest = JSON.parse(JSON.stringify(this.state.request));
     cloneRequest.reply = event.target.value;
-    this.setState({ request: cloneRequest });
+    this.setState({request: cloneRequest});
   }
 
   // Update request
   handleUpdateRequest = (request) => {
-    const { _id, buyer, seller, plant, message, reply } = request;
+    const {_id, buyer, seller, plant, message, reply} = request;
     const updatedRequest = {
       buyer,
       seller,
@@ -397,7 +418,10 @@ class App extends Component {
       message,
       reply
     };
-    axios.patch(`${config.API_URL}/api/requests/update/${_id}`, updatedRequest)
+    axios.patch(
+      `${config.API_URL}/api/requests/update/${_id}`, 
+      updatedRequest
+    )
       .then(
         () => {
           const updatedRequests = this.state.requests.map(
@@ -413,7 +437,7 @@ class App extends Component {
             }
           );
           this.setState(
-            { requests: updatedRequests },
+            {requests: updatedRequests},
             () => this.props.history.push(`/requests/read/${_id}`)
           );
         }
@@ -430,7 +454,7 @@ class App extends Component {
         () => {
           const filteredRequests = this.state.requests.filter(
             (request) => {
-              return (request._id !== requestId)
+              return request._id !== requestId;
             }
           );
           const currentRequestsNumber = filteredRequests.length;
@@ -451,41 +475,48 @@ class App extends Component {
   // ---------- Authentification ----------
 
     // Clear error messages
-    resetError = () => this.setState({ error: null })
+    resetError = () => this.setState({error: null})
 
     // Signup
     handleSignUp = (event) => {
       event.preventDefault();
-      const { username, email, password } = event.target;
-      const user = {
+      const {username, email, password} = event.target;
+      const newUser = {
         username: username.value,
         email: email.value.toLowerCase(),
         password: password.value
       };
-      axios.post(`${config.API_URL}/api/signup`, user)
+      axios.post(
+        `${config.API_URL}/api/signup`, 
+        newUser
+      )
         .then(
           (response) => this.setState(
-            { loggedInUser: response.data },
+            {loggedInUser: response.data},
             () => this.props.history.push("/")
           )
         )
         .catch(
-          (err) => this.setState({ error: err.response.data.error })
+          (err) => this.setState({error: err.response.data.error})
         );
     }
   
     // Signin
     handleSignIn = (event) => {
       event.preventDefault();
-      const { email, password } = event.target;
+      const {email, password} = event.target;
       const user = {
         email: email.value,
         password: password.value
       };
-      axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
+      axios.post(
+        `${config.API_URL}/api/signin`, 
+        user, 
+        {withCredentials: true}
+      )
         .then(
           (response) => this.setState(
-            { loggedInUser: response.data },
+            {loggedInUser: response.data},
             () => this.props.history.push("/")
           )
         )
@@ -496,10 +527,14 @@ class App extends Component {
   
     // Logout
     handleLogOut = () => {
-      axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
+      axios.post(
+        `${config.API_URL}/api/logout`, 
+        {}, 
+        {withCredentials: true}
+      )
         .then(
           () => this.setState(
-            { loggedInUser: null },
+            {loggedInUser: null},
             () => this.props.history.push("/")
           )
         )
@@ -509,79 +544,77 @@ class App extends Component {
     }
 
   render() {
-    const { fetchingUser, loggedInUser, plants, query, plant, requests, request, currentRequestsNumber, newRequestsReceived, error } = this.state;
-    if (fetchingUser) {
-      return (
-        <div class="spinner-grow text-success m-5" role="status">
-          <span class="visually-hidden"> Loading... </span>
-        </div>
-      );
-    }
+    const {fetchingUser, loggedInUser, plants, query, plant, requests, request, currentRequestsNumber, newRequestsReceived, error} = this.state;
+    if (fetchingUser) return (
+      <div class="spinner-grow text-success m-5" role="status">
+        <span class="visually-hidden"> Loading... </span>
+      </div>
+    );
     return (
       <div class="main">
-        <NavBar onLogOut={ this.handleLogOut } onCheckRequests={this.handleCheckRequests} newRequestsReceived={ newRequestsReceived } user={ loggedInUser }/>
+        <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser}/>
         <Switch>
           <Route exact path="/" render={
             () => {
-              return <Home onSearchPlant={ this.handleSearchPlant } plants={ plants } query={ query }/>
+              return <Home onSearchPlant={this.handleSearchPlant} plants={plants} query={query}/>
             }
           }/>
           <Route path="/signup" render={
             (routeProps) => {
-              return <SignUp onSignUp={ this.handleSignUp } onResetError={ this.resetError } onResetNewRequestsReceived={ this.resetNewRequestsReceived } error={ error } { ...routeProps }/>
+              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={ this.handleSignIn } onResetError={ this.resetError } onResetNewRequestsReceived={ this.resetNewRequestsReceived } error={ error } { ...routeProps }/>
+              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/logout" render={
             (routeProps) => {
-              return <LogOut onLogOut={ this.handleLogOut } onResetNewRequestsReceived={ this.resetNewRequestsReceived } { ...routeProps }/>
+              return <LogOut onLogOut={this.handleLogOut} onResetNewRequestsReceived={this.resetNewRequestsReceived} {...routeProps}/>
             }
           }/>
           <Route path="/plants/create" render={
             (routeProps) => {
-              return <CreatePlantForm onCreatePlant={ this.handleCreatePlant } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps }/>
+              return <CreatePlantForm onCreatePlant={this.handleCreatePlant} onResetError={this.resetError} user={loggedInUser} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/plants/read/:plantId" render={
             (routeProps) => {
-              return <PlantDetails onReadPlant={ this.handleReadPlant } onDeletePlant={ this.handleDeletePlant } plant={ plant } user={ loggedInUser } { ...routeProps }/>
+              return <PlantDetails onReadPlant={this.handleReadPlant} onDeletePlant={this.handleDeletePlant} plant={plant} user={loggedInUser} {...routeProps}/>
             }
           }/>
           <Route path="/plants/update" render={
             (routeProps) => {
-              return <UpdatePlantForm onNameChange={ this.handleNameChange } onDescriptionChange={ this.handleDescriptionChange } onSizeChange={ this.handleSizeChange } onPriceChange={ this.handlePriceChange } onLocationChange={ this.handleLocationChange } onImageChange={ this.handleImageChange } onUpdatePlant={ this.handleUpdatePlant } plant={ plant } { ...routeProps }/>
+              return <UpdatePlantForm onNameChange={this.handleNameChange} onDescriptionChange={this.handleDescriptionChange} onSizeChange={this.handleSizeChange} onPriceChange={this.handlePriceChange} onLocationChange={this.handleLocationChange} onImageChange={this.handleImageChange} onUpdatePlant={this.handleUpdatePlant} plant={plant} {...routeProps}/>
             }
           }/>
           <Route path="/plants/checkout/:plantId" render={
             (routeProps) => {
-              return <CheckoutPage onCheckout={ this.handleCheckout } { ...routeProps }/>
+              return <CheckoutPage onCheckout={this.handleCheckout} {...routeProps}/>
             }
           }/>
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={ this.handleFetchAllRequests } onResetNewRequestsReceived={ this.resetNewRequestsReceived }  user={ loggedInUser } requests={ requests } currentRequestsNumber={ currentRequestsNumber } { ...routeProps }/>
+                return <RequestsPage onFetchAllRequests={this.handleFetchAllRequests} onResetNewRequestsReceived={this.resetNewRequestsReceived}  user={loggedInUser} requests={requests} currentRequestsNumber={currentRequestsNumber} {...routeProps}/>
               }
           }/>
           <Route path="/requests/create" render={
             (routeProps) => {
-              return <CreateRequestForm onCreateRequest={ this.handleCreateRequest } onResetError={ this.resetError } user={ loggedInUser } error={ error } { ...routeProps }/>
+              return <CreateRequestForm onCreateRequest={this.handleCreateRequest} onResetError={this.resetError} user={loggedInUser} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/requests/read/:requestId" render={
             (routeProps) => {
-              return <RequestDetails onReadRequest={ this.handleReadRequest } onDeleteRequest={ this.handleDeleteRequest } request={ request } user={ loggedInUser } { ...routeProps }/>
+              return <RequestDetails onReadRequest={this.handleReadRequest} onDeleteRequest={this.handleDeleteRequest} request={request} user={loggedInUser} {...routeProps}/>
             }
           }/>
           <Route path="/requests/update" render={
             (routeProps) => {
-              return <UpdateRequestForm onCreateReply={ this.handleCreateReply } onUpdateRequest={ this.handleUpdateRequest } request={ request } { ...routeProps }/>
+              return <UpdateRequestForm onCreateReply={this.handleCreateReply} onUpdateRequest={this.handleUpdateRequest} request={request} {...routeProps}/>
             }
           }/>
-          <Route component={ NotFound }/>
+          <Route component={NotFound}/>
         </Switch>
         <KommunicateChat/>
         <Footer/>

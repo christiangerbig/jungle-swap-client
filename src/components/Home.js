@@ -1,19 +1,17 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import {animateScroll as scroll} from "react-scroll";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
 class Home extends Component {
   render() {
-    const { plants, query, onSearchPlant } = this.props;
-    if (!plants) {
-      return (
-        <div class="spinner-grow text-success m-5" role="status">
-          <span class="visually-hidden"> Loading... </span>
-        </div>
-      );
-    }
+    const {plants, query, onSearchPlant} = this.props;
+    if (!plants) return (
+      <div class="spinner-grow text-success m-5" role="status">
+        <span class="visually-hidden"> Loading... </span>
+      </div>
+    );
     return (
       <div>
         {/* Title */}
@@ -23,7 +21,7 @@ class Home extends Component {
               <h2 className="title mb-2"> JungleSwap </h2>
               <h5 className="mt-3 mb-5"> Share your green heart </h5>
               <div className="mb-5">
-                <Link className="biggerFontSize" onClick={ () => scroll.scrollTo(800) }> Try it! </Link>
+                <Link className="biggerFontSize" onClick={() => scroll.scrollTo(800)}> Try it! </Link>
               </div>
             </div>
           </div>
@@ -33,7 +31,7 @@ class Home extends Component {
           <div className="intro-centered container">
             <div className="row">
               <div className="col-sm-6 col-md-5 col-lg-6">
-                <img className="image" src={ image } alt=""/>
+                <img className="image" src={image} alt="plants"/>
               </div>
               <br />
               <div className="intro col-sm-6 col-md-5 col-lg-6 px-5">
@@ -46,7 +44,7 @@ class Home extends Component {
                   Don"t have any baby plants? <br/>
                   You can simply shop and give a plant a new home.
                 </p>
-                <img className="icon" src={ icon } alt="icon"/>
+                <img className="icon" src={icon} alt="icon"/>
               </div>
             </div>
           </div>
@@ -59,21 +57,21 @@ class Home extends Component {
             <h4> Search a plant </h4>
           </div>
           <div className="mb-4">
-            <input className="smallWidth form-control" type="text" placeholder="Search..." value={ query } onChange={ onSearchPlant }/>
+            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={onSearchPlant}/>
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {
               plants.map(
                 (plant) => {
-                  const { _id, name, image, price } = plant;
+                  const {_id, name, image, price} = plant;
                   return (
                     <div className="col mb-5" key={ _id }>
                       <div className="card card-medium-width text-center">
-                        <img className="card-img-top mediumPicSize" src={ image } alt={ name }/>
+                        <img className="card-img-top mediumPicSize" src={ image } alt={name}/>
                         <div className="card-body mb-5">
                           <h5> { name } </h5>
                           <p> { price } € </p>
-                          <Link className="btn btn-outline-dark" to={ `/plants/read/${_id}` }> Details </Link>
+                          <Link className="btn btn-outline-dark" to={`/plants/read/${_id}`}> Details </Link>
                         </div>
                       </div>
                     </div>

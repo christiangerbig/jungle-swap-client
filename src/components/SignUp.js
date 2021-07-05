@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import {animateScroll as scroll} from "react-scroll";
 
 class SignUp extends Component {
 
   componentDidMount() {
-    const { onResetError, onResetNewRequestsReceived } = this.props;
+    const {onResetError, onResetNewRequestsReceived} = this.props;
     onResetError();
     onResetNewRequestsReceived();
     scroll.scrollToTop();
   }
 
   render() {
-    const { error, onSignUp } = this.props;
+    const {error, onSignUp} = this.props;
     return (
       <div className="container row mt-5">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
           <h2 className="mb-5"> Sign Up </h2>
-          <form onSubmit={ onSignUp }>
+          <form onSubmit={onSignUp}>
             <div className="form-group">
               <label htmlFor="InputUsername"> Username </label>
               <input type="text" className="form-control" id="InputUsername" name="username"/>
@@ -31,11 +31,11 @@ class SignUp extends Component {
               <input name="password" type="password" className="form-control" id="InputPassword"/>
             </div>
             {
-              (error) ? <p className="warningColor"> { error } </p> : null            
+              (error) ? <p className="warningColor"> {error} </p> : null            
             }
             <button type="submit" className="btn btn-primary mt-4 btn-outline-dark"> Sign up </button>
             <p className="padding"> Already have an account? </p>
-            <Link to={ "/signin" }> Sign in </Link>
+            <Link to={"/signin"}> Sign in </Link>
           </form>
         </div>
       </div>

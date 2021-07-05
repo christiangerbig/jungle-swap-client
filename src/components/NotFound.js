@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 class NotFound extends Component {
   render() {
@@ -11,7 +11,7 @@ class NotFound extends Component {
             We think you got lost in the jungle!
           </h2>
           <h3> 404 Not Found </h3>
-          <Link to={ "/" }> <button className="btn btn-sm ml-2"> Take me home </button> </Link>
+          <Link to={"/"}> <button className="btn btn-sm ml-2"> Take me home </button> </Link>
         </div>
       </div>
     );
