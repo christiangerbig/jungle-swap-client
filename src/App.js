@@ -243,7 +243,10 @@ class App extends Component {
           );
           this.setState(
             {plants: updatedPlants},
-            () => this.props.history.push("/")
+            () => {
+              this.props.history.push("/");
+              scroll.scrollTo(1520);
+            }
           );
         }
       )
