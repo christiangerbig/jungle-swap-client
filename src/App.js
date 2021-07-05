@@ -248,6 +248,7 @@ class App extends Component {
     const destroyData = {
       public_id
     }
+    console.log(destroyData);
     axios.post(`${config.API_URL}/api/destroy`, destroyData)
       .then(
         () => {
