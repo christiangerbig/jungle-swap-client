@@ -108,11 +108,10 @@ class App extends Component {
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    console.log("uploadForm",uploadForm);
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then(
         (response) => {
-          console.log("Response",response.data);
+          console.log("Response",response.data.imagePublicId);
           const newPlant = {
             name: name.value,
             description: description.value,
