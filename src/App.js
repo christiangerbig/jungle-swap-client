@@ -111,12 +111,13 @@ class App extends Component {
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then(
         (response) => {
-          console.log("Response",response.data.imagePublicId);
+          const {image, imagePublicId} = response.data;
           const newPlant = {
             name: name.value,
             description: description.value,
             size: size.value,
-            image: response.data.image,
+            image,
+            imagePublicId,
             location: location.value,
             price: price.value
           };
@@ -213,12 +214,13 @@ class App extends Component {
 
   // Update plant
   handleUpdatePlant = (plant) => {
-    const {_id, name, description, size, image, location, price} = plant;
+    const {_id, name, description, size, image, imagePublicId, location, price} = plant;
     const updatedPlant = {
       name,
       description,
       size,
       image,
+      imagePublicId,
       location,
       price
     };
@@ -235,6 +237,7 @@ class App extends Component {
                 singlePlant.description = description;
                 singlePlant.size = size;
                 singlePlant.image = image;
+                singlePlant.imagePublicId = imagePublicId;
                 singlePlant.location = location;
                 singlePlant.price = price;
               }
@@ -256,14 +259,13 @@ class App extends Component {
   }
 
   // Delete Plant
-  handleDeletePlant = (plantId) => {
-    const public_id = "ytpo10utrefbl9hd2tyo"; // For testing purposes this simple way
-    const destroyData = {
-      public_id
+  handleDeletePlant = (plantId, imagePublicId) => {
+    const destroyImageData = {
+      imagePublicId
     }
     axios.post(
       `${config.API_URL}/api/destroy`, 
-      destroyData
+      destroyImageData
     )
       .then(
         (response) => {
