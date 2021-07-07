@@ -257,7 +257,7 @@ class App extends Component {
 
   // Delete Plant
   handleDeletePlant = (plantId) => {
-    const public_id = "g0nmildklkor3gjljnws"; // For testing purposes this simple way
+    const public_id = "ks31l50yp6kyffivmxxe"; // For testing purposes this simple way
     const destroyData = {
       public_id
     }
