@@ -257,7 +257,7 @@ class App extends Component {
 
   // Delete Plant
   handleDeletePlant = (plantId) => {
-    const public_id = "ng9zuzubx2fjtyl1alo1"; // For testing purposes this simple way
+    const public_id = "ytpo10utrefbl9hd2tyo"; // For testing purposes this simple way
     const destroyData = {
       public_id
     }
@@ -267,7 +267,8 @@ class App extends Component {
     )
       .then(
         (response) => {
-          console.log(response.data.msg);
+          console.log(response);
+          console.log(response.data);
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
             .then(
               () => {
