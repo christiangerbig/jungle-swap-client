@@ -213,8 +213,9 @@ class App extends Component {
             .then(
               (response) => {
                 const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-                clonePlant.imagePublicId = response.data.imagePublicId;
-                clonePlant.image = response.data.image;
+                const {imagePublicId, image} = response.data;
+                clonePlant.imagePublicId = imagePublicId;
+                clonePlant.image = image;
                 this.setState({plant: clonePlant});
               }
             )
