@@ -26,7 +26,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {user, newRequestsReceived} = this.props;
+    const {user, newRequestsReceived, headerHeight, introHeight} = this.props;
       return (
       <div>
         <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
@@ -35,7 +35,7 @@ class NavBar extends Component {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <div>
-              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(1520)}> All Plants </Link>
+              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight+introHeight)}> All Plants </Link>
             </div>
             {
               (user) ? (

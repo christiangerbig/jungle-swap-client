@@ -38,11 +38,25 @@ class App extends Component {
       currentRequestsNumber: 0,
       initRequestsNumber: true,
       newRequestsReceived: false,
+      headerHeight: 0,
+      introHeight: 0,
       error: null
     };
   }
 
   // ---------- Plants ----------
+
+  // Get height of header and intro elements
+  getElementsHeight = () => {
+    const headerHeight = Math.round(document.querySelector("#headerId").getBoundingClientRect().height);
+    const introHeight = Math.round(document.querySelector("#introId").getBoundingClientRect().height);
+    this.setState(
+      {
+      headerHeight,
+      introHeight
+      }
+    );
+  }
 
   // Fetch all plants
   fetchAllPlants = () => {
@@ -129,7 +143,11 @@ class App extends Component {
             .then(
               (response) => this.setState(
                 {plants: [response.data, ...this.state.plants]},
-                () => this.props.history.push("/")
+                () => {
+                  this.props.history.push("/");
+                  scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+                }
+               
               )
             )
             .catch(
@@ -265,7 +283,7 @@ class App extends Component {
             {plants: updatedPlants},
             () => {
               this.props.history.push("/");
-              scroll.scrollTo(1520);
+              scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
             }
           );
         }
@@ -298,7 +316,7 @@ class App extends Component {
                   {plants: filteredPlants},
                   () => {
                     this.props.history.push("/");
-                    scroll.scrollTo(1520);
+                    scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
                   }
                 );
               }
@@ -321,7 +339,12 @@ class App extends Component {
       {withCredentials: true}
     )
       .then(
-        () => this.setState(() => this.props.history.push("/"))
+        () => this.setState(
+          () => {
+            this.props.history.push("/");
+            scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+          }
+        )
       )
       .catch(
         (err) => console.log("Checkout failed", err)
@@ -566,7 +589,7 @@ class App extends Component {
     }
 
   render() {
-    const {fetchingUser, loggedInUser, plants, query, plant, requests, request, currentRequestsNumber, newRequestsReceived, error} = this.state;
+    const {fetchingUser, loggedInUser, plants, query, plant, requests, request, headerHeight, introHeight, error, currentRequestsNumber, newRequestsReceived} = this.state;
     if (fetchingUser) return (
       <div class="spinner-grow text-success m-5" role="status">
         <span class="visually-hidden"> Loading... </span>
@@ -574,11 +597,11 @@ class App extends Component {
     );
     return (
       <div class="main">
-        <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser}/>
+        <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight}/>
         <Switch>
           <Route exact path="/" render={
             () => {
-              return <Home onSearchPlant={this.handleSearchPlant} plants={plants} query={query}/>
+              return <Home onSearchPlant={this.handleSearchPlant} onGetElementsHeight={this.getElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
             }
           }/>
           <Route path="/signup" render={
@@ -598,22 +621,22 @@ class App extends Component {
           }/>
           <Route path="/plants/create" render={
             (routeProps) => {
-              return <CreatePlantForm onCreatePlant={this.handleCreatePlant} onResetError={this.resetError} user={loggedInUser} error={error} {...routeProps}/>
+              return <CreatePlantForm onCreatePlant={this.handleCreatePlant} onResetError={this.resetError} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/plants/read/:plantId" render={
             (routeProps) => {
-              return <PlantDetails onReadPlant={this.handleReadPlant} onDeletePlant={this.handleDeletePlant} plant={plant} user={loggedInUser} {...routeProps}/>
+              return <PlantDetails onReadPlant={this.handleReadPlant} onDeletePlant={this.handleDeletePlant} plant={plant} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
             }
           }/>
           <Route path="/plants/update" render={
             (routeProps) => {
-              return <UpdatePlantForm onNameChange={this.handleNameChange} onDescriptionChange={this.handleDescriptionChange} onSizeChange={this.handleSizeChange} onPriceChange={this.handlePriceChange} onLocationChange={this.handleLocationChange} onImageChange={this.handleImageChange} onUpdatePlant={this.handleUpdatePlant} plant={plant} {...routeProps}/>
+              return <UpdatePlantForm onNameChange={this.handleNameChange} onDescriptionChange={this.handleDescriptionChange} onSizeChange={this.handleSizeChange} onPriceChange={this.handlePriceChange} onLocationChange={this.handleLocationChange} onImageChange={this.handleImageChange} onUpdatePlant={this.handleUpdatePlant} plant={plant} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
             }
           }/>
           <Route path="/plants/checkout/:plantId" render={
             (routeProps) => {
-              return <CheckoutPage onCheckout={this.handleCheckout} {...routeProps}/>
+              return <CheckoutPage onCheckout={this.handleCheckout} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
             }
           }/>
           <Route path="/requests/fetch" render={

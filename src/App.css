@@ -30,6 +30,7 @@ a {
 a:hover {
   color: #204d2c;
   text-decoration: none;
+  cursor: pointer;
 } 
 
 a.navbar-brand:hover {

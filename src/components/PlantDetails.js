@@ -11,7 +11,7 @@ class PlantDetails extends Component {
   }
 
   render() {
-    const {user, plant, onDeletePlant} = this.props;
+    const {user, plant, headerHeight, introHeight, onDeletePlant} = this.props;
     if (!user) return (<Redirect to={ "/signup" }/>);
     const {_id, name, description, size, image, imagePublicId, location, price, creator} = plant;
     if (!creator) return (
@@ -50,7 +50,7 @@ class PlantDetails extends Component {
                       </div>
                     )
                   }
-                  <Link to={"/"} onClick={() => scroll.scrollTo(1520)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
+                  <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
                 </div>
               </div>
             </div>

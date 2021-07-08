@@ -12,7 +12,7 @@ const CheckoutForm = (props) => {
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const {plant, onCheckout} = props;
+  const {plant, headerHeight, introHeight, onCheckout} = props;
   
   useEffect(
     () => {
@@ -23,7 +23,7 @@ const CheckoutForm = (props) => {
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price: plant.price })
+            body: JSON.stringify({price: plant.price})
           }
         )
         .then(
@@ -105,7 +105,7 @@ const CheckoutForm = (props) => {
       <div className="row justify-content-center">
         {
           (succeeded) ? (
-            <Link to={"/"} onClick={() => scroll.scrollTo(1520)}> <button className="btn btn-sm"> Go back </button> </Link>
+            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm"> Go back </button> </Link>
           ) 
           : (
             <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>

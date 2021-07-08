@@ -10,7 +10,7 @@ class CreatePlantForm extends Component {
   }
 
   render() {
-    const {user, error, onCreatePlant} = this.props;
+    const {user, headerHeight, introHeight, error, onCreatePlant} = this.props;
     if (!user) return (<Redirect to={"/signup"}/>);
     return (
       <div className="container row mt-5 fullscreen">
@@ -34,7 +34,7 @@ class CreatePlantForm extends Component {
             }
             <div className="col-12">
               <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>
-              <Link to={"/"} onClick={() => scroll.scrollTo(1520)}> <button className="btn btn-sm mx-5"> Go back </button> </Link>
+              <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm mx-5"> Go back </button> </Link>
             </div>
           </form>
         </div>
