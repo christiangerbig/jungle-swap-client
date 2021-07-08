@@ -194,21 +194,37 @@ class App extends Component {
   // Plant image changed
   handleImageChange = (event) => {
     const image = event.target.files[0];
-    const uploadForm = new FormData();
-    uploadForm.append("image", image);
+    const {imagePublicId} = this.state.plant;
+    const destroyImageData = {
+      imagePublicId
+    }
     axios.post(
-      `${ config.API_URL }/api/upload`, 
-      uploadForm
+      `${config.API_URL}/api/destroy`, 
+      destroyImageData
     )
       .then(
-        (response) => {
-          const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
-          clonePlant.image = response.data.image;
-          this.setState({plant: clonePlant});
+        () => {
+          const uploadForm = new FormData();
+          uploadForm.append("image", image);
+          axios.post(
+            `${ config.API_URL }/api/upload`, 
+            uploadForm
+          )
+            .then(
+              (response) => {
+                const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
+                clonePlant.image = response.data.image;
+                clonePlant.imagePublicId = response.data.imagePublicId;
+                this.setState({plant: clonePlant});
+              }
+            )
+            .catch(
+              (err) => console.log("Image upload failed", err)
+            );
         }
       )
       .catch(
-        (err) => console.log("Image upload failed", err)
+        (err) => console.log("Delete old image failed", err)
       );
   }
 
@@ -268,9 +284,7 @@ class App extends Component {
       destroyImageData
     )
       .then(
-        (response) => {
-          console.log(response);
-          console.log(response.data);
+        () => {
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
             .then(
               () => {
@@ -298,7 +312,7 @@ class App extends Component {
       );
   }  
 
-  // Payment
+  // Plant payment
   handleCheckout = (price) => {
     axios.post(
       `${config.API_URL}/api/create-payment-intent`, 
