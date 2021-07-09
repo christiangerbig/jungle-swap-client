@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&family=Source+Sans+Pro:wght@200;300&display=swap");
 
-/* ---------- Elements ------------ */ 
+/* ---------- Elements ---------- */ 
 
 html, 
 body {
@@ -68,7 +68,7 @@ footer {
   padding: 15px 0px;
 }
 
-/* ---------- Lisa"s styles ------------ */ 
+/* ---------- Lisa"s styles ---------- */ 
 
 .main {
   padding: 0px;
@@ -98,14 +98,14 @@ footer {
   font-weight:700;
 }
 
-/* ------------- custom classes -------------- */
+/* ---------- Custom classes ---------- */
 
 .alertColor {
   color: #FFCF60;
 }
 
 .warningColor {
-  color: red;
+  color: #ff474a;
 }
 
 .headerImg {
@@ -265,7 +265,7 @@ footer {
   padding-bottom: 0px;
 }
 
-/* ---------------- Bootstrap classes ---------------- */
+/* ---------- Bootstrap classes ---------- */
 
 .navbar-dark 
 .navbar-brand {
@@ -294,14 +294,14 @@ footer {
   margin-bottom:40px;
 }
 
-.card-body h5{
+.card-body h5 {
   font-family: "Noto Serif", serif;
   font-size: 25px;
   font-weight: 900;
   text-align: center;
 }
 
-/* -------------- Stripe ------------- */
+/* ---------- Stripe ---------- */
 
 #card-element {
   background-color: white;

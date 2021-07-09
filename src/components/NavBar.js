@@ -16,7 +16,7 @@ class NavBar extends Component {
   componentDidMount() {
     const intervalId = setInterval(
       this.handleIntervalTimer, 
-      10000 // every minute
+      10000 // check every minute
     );
     this.setState({intervalId: intervalId});
   }
@@ -33,31 +33,31 @@ class NavBar extends Component {
           <Navbar.Brand href="/"> JungleSwap </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <div>
-              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight+introHeight)}> All Plants </Link>
-            </div>
-            {
-              (user) ? (
-                <div>
-                  <Link className="p-2" to="/plants/create"> Create Plant </Link>
-                  <Link className={(newRequestsReceived) ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={(newRequestsReceived) ? "new message" : null}> Messages </Link>
-                </div>
-              ) : null
-            }
-            {
-              (user) ? (
-                <div>
-                  <Link className="p-2" to="/logout" title={user.username}> Log out </Link>
-                </div>
-              ) : (
-                <div>
-                  <Link className="p-2" to="/signin"> Sign in </Link>
-                  <Link className="p-2" to="/signup"> Sign up </Link>
-                </div>
-              )
-            }
-          </Nav>
+            <Nav className="mr-auto">
+              <div>
+                <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight+introHeight)}> All Plants </Link>
+              </div>
+              {
+                (user) ? (
+                  <div>
+                    <Link className="p-2" to="/plants/create"> Create Plant </Link>
+                    <Link className={(newRequestsReceived) ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={(newRequestsReceived) ? "new message" : null}> Messages </Link>
+                  </div>
+                ) : null
+              }
+              {
+                (user) ? (
+                  <div>
+                    <Link className="p-2" to="/logout" title={user.username}> Log out </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Link className="p-2" to="/signin"> Sign in </Link>
+                    <Link className="p-2" to="/signup"> Sign up </Link>
+                  </div>
+                )
+              }
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       </div>

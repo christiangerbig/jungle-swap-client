@@ -21,26 +21,26 @@ class RequestDetails extends Component {
     return (
       <div className="container row mt-5 ">
         <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Your request </h2>
-        <h4> for: {plant.name} </h4>
-        <h5> by: {buyer.username} </h5>
-        <p> {message} </p>
-        {
-          (reply) ? (
-            <div>
-              <h5> Your reply: </h5>
-              <p> {reply} </p>
-            </div>
-          ) : null
-        }
-        <div>
-          {                  
-            (reply) ? null : <Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
+          <h2 className="mb-5"> Your request </h2>
+          <h4> for: {plant.name} </h4>
+          <h5> by: {buyer.username} </h5>
+          <p> {message} </p>
+          {
+            (reply) ? (
+              <div>
+                <h5> Your reply: </h5>
+                <p> {reply} </p>
+              </div>
+            ) : null
           }
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+          <div>
+            {                  
+              (reply) ? null : <Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
+            }
+            <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+          </div>
+          <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         </div>
-        <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
-      </div>
       </div>
     );
   }

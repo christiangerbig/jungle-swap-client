@@ -46,7 +46,7 @@ class App extends Component {
 
   // ---------- Plants ----------
 
-  // Get height of header and intro elements
+  // Get height of header and about elements
   getElementsHeight = () => {
     const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
     const introHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
@@ -145,9 +145,9 @@ class App extends Component {
                 {plants: [response.data, ...this.state.plants]},
                 () => {
                   this.props.history.push("/");
-                  scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+                  const {headerHeight, introHeight} = this.state;
+                  scroll.scrollTo(headerHeight+introHeight);
                 }
-               
               )
             )
             .catch(
@@ -283,7 +283,8 @@ class App extends Component {
             {plants: updatedPlants},
             () => {
               this.props.history.push("/");
-              scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+              const {headerHeight, introHeight} = this.state;
+              scroll.scrollTo(headerHeight+introHeight);
             }
           );
         }
@@ -316,7 +317,8 @@ class App extends Component {
                   {plants: filteredPlants},
                   () => {
                     this.props.history.push("/");
-                    scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+                    const {headerHeight, introHeight} = this.state;
+                    scroll.scrollTo(headerHeight+introHeight);
                   }
                 );
               }
@@ -342,7 +344,8 @@ class App extends Component {
         () => this.setState(
           () => {
             this.props.history.push("/");
-            scroll.scrollTo(this.state.headerHeight+this.state.introHeight);
+            const {headerHeight, introHeight} = this.state;
+            scroll.scrollTo(headerHeight+introHeight);
           }
         )
       )
@@ -382,7 +385,7 @@ class App extends Component {
             if (this.state.initRequestsNumber) {
               this.setState(
                 { 
-                  currentRequestsNumber: currentRequestsNumber,
+                  currentRequestsNumber,
                   initRequestsNumber: false
                 }
               );
@@ -391,7 +394,7 @@ class App extends Component {
             if ((this.state.currentRequestsNumber < currentRequestsNumber) && (this.state.initRequestsNumber === false) && (currentRequests[0].seller._id === loggedInUser._id)) {
               this.setState(
                 { 
-                  currentRequestsNumber: currentRequestsNumber,
+                  currentRequestsNumber,
                   newRequestsReceived: true
                 }
               );
@@ -428,7 +431,7 @@ class App extends Component {
         )
       )
       .catch(
-        (err) => this.setState({ error: err.response.data.error })
+        (err) => this.setState({error: err.response.data.error})
       );
   }
 
@@ -506,7 +509,7 @@ class App extends Component {
           this.setState(
             { 
               requests: filteredRequests,
-              currentRequestsNumber: currentRequestsNumber
+              currentRequestsNumber
             },
             () => this.props.history.push("/requests/fetch")
           );
@@ -599,24 +602,11 @@ class App extends Component {
       <div class="main">
         <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight}/>
         <Switch>
+
+          {/* ---------- Plants ---------- */}
           <Route exact path="/" render={
             () => {
               return <Home onSearchPlant={this.handleSearchPlant} onGetElementsHeight={this.getElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
-            }
-          }/>
-          <Route path="/signup" render={
-            (routeProps) => {
-              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
-            }
-          }/>
-          <Route path="/signin" render={
-            (routeProps) => {
-              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
-            }
-          }/>
-          <Route path="/logout" render={
-            (routeProps) => {
-              return <LogOut onLogOut={this.handleLogOut} onResetNewRequestsReceived={this.resetNewRequestsReceived} {...routeProps}/>
             }
           }/>
           <Route path="/plants/create" render={
@@ -639,6 +629,8 @@ class App extends Component {
               return <CheckoutPage onCheckout={this.handleCheckout} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
             }
           }/>
+
+          {/* ---------- Requests ---------- */}
           <Route path="/requests/fetch" render={
               (routeProps) => {
                 return <RequestsPage onFetchAllRequests={this.handleFetchAllRequests} onResetNewRequestsReceived={this.resetNewRequestsReceived}  user={loggedInUser} requests={requests} currentRequestsNumber={currentRequestsNumber} {...routeProps}/>
@@ -659,6 +651,24 @@ class App extends Component {
               return <UpdateRequestForm onCreateReply={this.handleCreateReply} onUpdateRequest={this.handleUpdateRequest} request={request} {...routeProps}/>
             }
           }/>
+
+          {/* ---------- Authentication ---------- */}
+          <Route path="/signup" render={
+            (routeProps) => {
+              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
+            }
+          }/>
+          <Route path="/signin" render={
+            (routeProps) => {
+              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
+            }
+          }/>
+          <Route path="/logout" render={
+            (routeProps) => {
+              return <LogOut onLogOut={this.handleLogOut} onResetNewRequestsReceived={this.resetNewRequestsReceived} {...routeProps}/>
+            }
+          }/>
+
           <Route component={NotFound}/>
         </Switch>
         <KommunicateChat/>

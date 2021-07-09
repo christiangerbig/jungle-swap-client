@@ -18,7 +18,7 @@ class CreateRequestForm extends Component {
           <h2 className="mb-5"> Your mesage </h2>
           <form onSubmit={(event) => onCreateRequest(event, plant)}>
             <div>
-              <textarea className="mb-4" name="message" cols="35" rows="7" />
+              <textarea className="mb-4" name="message" cols="35" rows="7"/>
             </div>
             {
               (error) ? <p className="warningColor"> {error} </p> : null            
