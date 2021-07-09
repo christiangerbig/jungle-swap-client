@@ -8,6 +8,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.onGetElementsHeight();
+
   }
 
   render() {
