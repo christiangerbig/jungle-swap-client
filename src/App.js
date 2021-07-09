@@ -602,7 +602,6 @@ class App extends Component {
       <div class="main">
         <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight}/>
         <Switch>
-
           {/* ---------- Plants ---------- */}
           <Route exact path="/" render={
             () => {
@@ -629,7 +628,6 @@ class App extends Component {
               return <CheckoutPage onCheckout={this.handleCheckout} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
             }
           }/>
-
           {/* ---------- Requests ---------- */}
           <Route path="/requests/fetch" render={
               (routeProps) => {
@@ -651,7 +649,6 @@ class App extends Component {
               return <UpdateRequestForm onCreateReply={this.handleCreateReply} onUpdateRequest={this.handleUpdateRequest} request={request} {...routeProps}/>
             }
           }/>
-
           {/* ---------- Authentication ---------- */}
           <Route path="/signup" render={
             (routeProps) => {
