@@ -10,12 +10,9 @@ class NavBar extends Component {
     this.state = {intervalId: null};
   }
   
-  // Handler for interval timer
-  handleIntervalTimer = () => this.props.onCheckRequests()
-
   componentDidMount() {
     const intervalId = setInterval(
-      this.handleIntervalTimer, 
+      () => this.props.onCheckRequests(), 
       10000 // check every minute
     );
     this.setState({intervalId: intervalId});

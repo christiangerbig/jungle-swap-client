@@ -42,12 +42,41 @@ class App extends Component {
       introHeight: 0,
       error: null
     };
+    this.getElementsHeight = this.getElementsHeight.bind(this);
+    // ---------- Plants -----------
+    this.fetchAllPlants = this.fetchAllPlants.bind(this);
+    this.fetchQueryPlants = this.fetchQueryPlants.bind(this);
+    this.handleSearchPlant = this.handleSearchPlant.bind(this);
+    this.handleCreatePlant = this.handleCreatePlant.bind(this);
+    this.handleReadPlant = this.handleReadPlant.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.handleUpdatePlant = this.handleUpdatePlant.bind(this);    
+    this.handleDeletePlant = this.handleDeletePlant.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    // ---------- Requests ----------
+    this.handleFetchAllRequests = this.handleFetchAllRequests.bind(this);
+    this.handleCheckRequests = this.handleCheckRequests.bind(this);
+    this.resetNewRequestsReceived = this.resetNewRequestsReceived.bind(this);
+    this.handleCreateRequest = this.handleCreateRequest.bind(this);
+    this.handleReadRequest = this.handleReadRequest.bind(this);
+    this.handleCreateReply = this.handleCreateReply.bind(this);
+    this.handleUpdateRequest = this.handleUpdateRequest.bind(this);
+    this.handleDeleteRequest = this.handleDeleteRequest.bind(this);
+    // ---------- Authentification ----------
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   // ---------- Plants ----------
 
   // Get height of header and about elements
-  getElementsHeight = () => {
+  getElementsHeight() {
     const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
     const introHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
     this.setState(
@@ -59,7 +88,7 @@ class App extends Component {
   }
 
   // Fetch all plants
-  fetchAllPlants = () => {
+  fetchAllPlants() {
     axios.get(`${config.API_URL}/api/plants/fetch`)
       .then(
         (response) => this.setState({plants: response.data})
@@ -91,7 +120,7 @@ class App extends Component {
   }
 
   // Fetch query plants
-  fetchQueryPlants = () => {
+  fetchQueryPlants() {
     axios.get(`${config.API_URL}/api/plants/search?q=${this.state.query}`)
       .then(
         (response) => this.setState(
@@ -107,7 +136,7 @@ class App extends Component {
   }
   
   // Search plant
-  handleSearchPlant = (event) => {
+  handleSearchPlant(event) {
     const query = event.target.value;
     this.setState(
       {query},
@@ -116,7 +145,7 @@ class App extends Component {
   }
 
   // Create plant
-  handleCreatePlant = (event) => {
+  handleCreatePlant(event) {
     event.preventDefault();
     const {name, description, size, plantImage, location, price} = event.target;
     const image = plantImage.files[0];
@@ -161,7 +190,7 @@ class App extends Component {
   }
 
   // Read plant
-  handleReadPlant = (plantId) => {
+  handleReadPlant(plantId) {
     axios.get(
       `${config.API_URL}/api/plants/read/${plantId}`,
       {withCredentials: true}
@@ -175,42 +204,42 @@ class App extends Component {
   }
 
   // Plant name changed
-  handleNameChange = (event) => {
+  handleNameChange(event) {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.name = event.target.value;
     this.setState({plant: clonePlant});
   }
 
   // Plant description changed
-  handleDescriptionChange = (event) => {
+  handleDescriptionChange(event) {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.description = event.target.value;
     this.setState({plant: clonePlant});
   }
 
   // Plant size changed
-  handleSizeChange = (event) => {
+  handleSizeChange(event) {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.size = event.target.value;
     this.setState({plant: clonePlant});
   }
 
   // Plant price changed
-  handlePriceChange = (event) => {
+  handlePriceChange(event) {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.price = event.target.value;
     this.setState({plant: clonePlant});
   }
 
   // Plant location changed
-  handleLocationChange = (event) => {
+  handleLocationChange(event) {
     const clonePlant = JSON.parse(JSON.stringify(this.state.plant));
     clonePlant.location = event.target.value;
     this.setState({plant: clonePlant});
   }
 
   // Plant image changed
-  handleImageChange = (event) => {
+  handleImageChange(event) {
     const image = event.target.files[0];
     const {imagePublicId} = this.state.plant;
     const destroyImageData = {
@@ -248,7 +277,7 @@ class App extends Component {
   }
 
   // Update plant
-  handleUpdatePlant = (plant) => {
+  handleUpdatePlant(plant) {
     const {_id, name, description, size, image, imagePublicId, location, price} = plant;
     const updatedPlant = {
       name,
@@ -295,7 +324,7 @@ class App extends Component {
   }
 
   // Delete Plant
-  handleDeletePlant = (plantId, imagePublicId) => {
+  handleDeletePlant(plantId, imagePublicId) {
     const destroyImageData = {
       imagePublicId
     }
@@ -334,7 +363,7 @@ class App extends Component {
   }  
 
   // Plant payment
-  handleCheckout = (price) => {
+  handleCheckout(price) {
     axios.post(
       `${config.API_URL}/api/create-payment-intent`, 
       {}, 
@@ -357,7 +386,7 @@ class App extends Component {
   // ---------- Requests ----------
 
   // Fetch all requests
-  handleFetchAllRequests = () => {
+  handleFetchAllRequests() {
     axios.get(`${config.API_URL}/api/requests/fetch`)
       .then(
         (response) => this.setState({requests: response.data})
@@ -368,7 +397,7 @@ class App extends Component {
   }
 
   // Check requests for logged in user
-  handleCheckRequests = () => {
+  handleCheckRequests() {
     const {loggedInUser} = this.state;
     if (loggedInUser) {
       axios.get(`${config.API_URL}/api/requests/fetch`)
@@ -408,10 +437,12 @@ class App extends Component {
   }
 
   // Reset state for new received requests
-  resetNewRequestsReceived = () => this.setState({newRequestsReceived: false})
+  resetNewRequestsReceived() {
+    this.setState({newRequestsReceived: false});
+  }
 
   // Create request
-  handleCreateRequest = (event, plant) => {
+  handleCreateRequest(event, plant) {
     event.preventDefault();
     const {message} = event.target;
     const newRequest = {
@@ -436,7 +467,7 @@ class App extends Component {
   }
 
   // Read request
-  handleReadRequest = (requestId) => {
+  handleReadRequest(requestId) {
     axios.get(
       `${config.API_URL}/api/requests/read/${requestId}`,
       {withCredentials: true}
@@ -450,14 +481,14 @@ class App extends Component {
   }
 
   // Create reply
-  handleCreateReply = (event) => {
+  handleCreateReply(event) {
     const cloneRequest = JSON.parse(JSON.stringify(this.state.request));
     cloneRequest.reply = event.target.value;
     this.setState({request: cloneRequest});
   }
 
   // Update request
-  handleUpdateRequest = (request) => {
+  handleUpdateRequest(request) {
     const {_id, buyer, seller, plant, message, reply} = request;
     const updatedRequest = {
       buyer,
@@ -496,7 +527,7 @@ class App extends Component {
   }
 
   // Delete request
-  handleDeleteRequest = (requestId) => {
+  handleDeleteRequest(requestId) {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
       .then(
         () => {
@@ -522,74 +553,76 @@ class App extends Component {
 
   // ---------- Authentification ----------
 
-    // Clear error messages
-    resetError = () => this.setState({error: null})
+  // Clear error messages
+  resetError() {
+    this.setState({error: null});
+  }
 
-    // Signup
-    handleSignUp = (event) => {
-      event.preventDefault();
-      const {username, email, password} = event.target;
-      const newUser = {
-        username: username.value,
-        email: email.value.toLowerCase(),
-        password: password.value
-      };
-      axios.post(
-        `${config.API_URL}/api/signup`, 
-        newUser
-      )
-        .then(
-          (response) => this.setState(
-            {loggedInUser: response.data},
-            () => this.props.history.push("/")
-          )
+  // Signup
+  handleSignUp(event) {
+    event.preventDefault();
+    const {username, email, password} = event.target;
+    const newUser = {
+      username: username.value,
+      email: email.value.toLowerCase(),
+      password: password.value
+    };
+    axios.post(
+      `${config.API_URL}/api/signup`, 
+      newUser
+    )
+      .then(
+        (response) => this.setState(
+          {loggedInUser: response.data},
+          () => this.props.history.push("/")
         )
-        .catch(
-          (err) => this.setState({error: err.response.data.error})
-        );
-    }
-  
-    // Signin
-    handleSignIn = (event) => {
-      event.preventDefault();
-      const {email, password} = event.target;
-      const user = {
-        email: email.value,
-        password: password.value
-      };
-      axios.post(
-        `${config.API_URL}/api/signin`, 
-        user, 
-        {withCredentials: true}
       )
-        .then(
-          (response) => this.setState(
-            {loggedInUser: response.data},
-            () => this.props.history.push("/")
-          )
+      .catch(
+        (err) => this.setState({error: err.response.data.error})
+      );
+  }
+
+  // Signin
+  handleSignIn(event) {
+    event.preventDefault();
+    const {email, password} = event.target;
+    const user = {
+      email: email.value,
+      password: password.value
+    };
+    axios.post(
+      `${config.API_URL}/api/signin`, 
+      user, 
+      {withCredentials: true}
+    )
+      .then(
+        (response) => this.setState(
+          {loggedInUser: response.data},
+          () => this.props.history.push("/")
         )
-        .catch(
-          (err) => this.setState({ error: err.response.data.error })
-        );
-    }
-  
-    // Logout
-    handleLogOut = () => {
-      axios.post(
-        `${config.API_URL}/api/logout`, 
-        {}, 
-        {withCredentials: true}
       )
-        .then(
-          () => this.setState(
-            {loggedInUser: null},
-            () => this.props.history.push("/")
-          )
+      .catch(
+        (err) => this.setState({ error: err.response.data.error })
+      );
+  }
+
+  // Logout
+  handleLogOut() {
+    axios.post(
+      `${config.API_URL}/api/logout`, 
+      {}, 
+      {withCredentials: true}
+    )
+      .then(
+        () => this.setState(
+          {loggedInUser: null},
+          () => this.props.history.push("/")
         )
-        .catch(
-          (err) => console.log("Logout failed", err)
-        );
-    }
+      )
+      .catch(
+        (err) => console.log("Logout failed", err)
+      );
+  }
 
   render() {
     const {fetchingUser, loggedInUser, plants, query, plant, requests, request, headerHeight, introHeight, error, currentRequestsNumber, newRequestsReceived} = this.state;
