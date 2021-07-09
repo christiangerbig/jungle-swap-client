@@ -11,9 +11,13 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **Login:** As a user I can sign in in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.
 - **Create plant** As a user I can upload my plants. 
-- **Detail Page** As a user I can click on a certain plant to go to the detail page.
+- **Plant detail Page** As a user I can click on a certain plant to go to the detail page.
 - **Update plant** As a user I can update/edit my uploaded plants.
 - **Delete plant** As a user I can delete my uploaded plants.
+- **Create request** As a user I can create a request to swap a plant. 
+- **Plant detail Page** As a user I can click on a certain request to go to the detail page.
+- **Reply request** As a user I can reply a request for my plant.
+- **Delete request** As a user I can delete a request.
 - **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
 
 ## Backlog
