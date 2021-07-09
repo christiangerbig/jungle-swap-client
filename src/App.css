@@ -108,6 +108,10 @@ footer {
   color: #ff474a;
 }
 
+.noOverflow {
+  overflow: hidden;
+}
+
 .headerImg {
   background-image: url("./images/JungleSwap_Header.png");
   background-size: cover;

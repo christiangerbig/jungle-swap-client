@@ -39,7 +39,7 @@ class Home extends Component {
                 <img className="image" src={image} alt="plants"/>
               </div>
               <br />
-              <div className="about col-sm-6 col-md-5 col-lg-6 px-5">
+              <div className="about col-sm-6 col-md-5 col-lg-6 px-5 noOverflow">
                 <h4> Welcome to JungleSwap! </h4>
                 <h5> Add green to your Home </h5>
                 <p> It"s easy-peasy. <br/>
