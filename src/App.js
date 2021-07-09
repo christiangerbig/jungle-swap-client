@@ -48,8 +48,8 @@ class App extends Component {
 
   // Get height of header and intro elements
   getElementsHeight = () => {
-    const headerHeight = Math.round(document.querySelector("#headerId").getBoundingClientRect().height);
-    const introHeight = Math.round(document.querySelector("#introId").getBoundingClientRect().height);
+    const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
+    const introHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
     this.setState(
       {
       headerHeight,

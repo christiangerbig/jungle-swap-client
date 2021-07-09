@@ -17,8 +17,6 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
 
 ## Backlog
-- Random Plant
-- Profile
 - Likes
 
 # Client / Frontend
@@ -28,20 +26,21 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 | -------------------------- | ------------------------------ | ---------------------------| ----------------------------------- |
 | `/`                        | SplashPage, NavBar, PlantList, | public    `<Route>`        | Home page, Shows all plants         |
 |                            | SearchForm, Footer             |                            |                                     |
-| `/signup`                  | SinupPage                      | anon only  `<AnonRoute>`   | Signup form, link to signin         ||                            |                                |                            | navigate to homepage after signup   |
+| `/signup`                  | SinupPage                      | anon only `<AnonRoute>`    | Signup form, link to signin         ||                            |                                |                            | navigate to homepage after signup   |
 | `/signin`                  | LoginPage                      | anon only `<AnonRoute>`    | Login form, link to signup,         |
 |                            |                                |                            | navigate to homepage after signin   |
 | `/logout`                  | n/a                            | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
 |                            |                                |                            | expire session                      |
 | `/profile`                 | Profile                        | user only `<PrivateRoute>` | Check profile with stat information |
+| `/plants/create`           | NavBar, AddForm, FooterBar     | user only `<PrivateRoute>` | Create a plan                       |
 | `/plants/read/:plantId`    | NavBar, Details, FooterBar     | user only `<AnonRoute>`    | Shows plant deails or navigate to   |
 |                            |                                |                            | signup if user is not logged in     |
-| `/plants/create`           | NavBar, AddForm, FooterBar     | user only `<PrivateRoute>` | Create a plan                       |
 | `/plants/update`           | NavBar, EditForm, FooterBar    | user only `<PrivateRoute>` | Update/Edit an plant                |
-| `/plants/delete/:plantId`  | n/a redirect to Home           | user only `<PrivateRoute>` | Delete an plant                     |
 | `/plants/checkout/:plantId`| NavBar, Stripe, FooterBar      | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
 | `/requests/fetch`          | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Fetch all requests for the user     |
 | `/requests/create`         | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Create request to swap              |
+| `/requests/read/:requestId`| NavBar, Details, FooterBar     | user only `<PrivateRoute>` | Shows request deails                |
+| `/requests/update`         | NavBar, EditForm, FooterBar    | user only `<PrivateRoute>` | reply a request                     |
       
 ## Components
 
@@ -57,8 +56,10 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - CheckoutPage (Stripe)
 - CheckoutForm (Stripe)
 - Chat (Socket.io)
-- CreateRequestForm
 - RequestsPage
+- CreateRequestForm
+- RequestDetails
+- UpdateRequestForm
 - NotFound
 
 ## Services
@@ -74,6 +75,12 @@ With this app you can upload your indoor plant offshoots to swap for another pla
   - plants.details(id)
   - plants.update()
   - plants.delete(id)
+
+- Requests Service
+  - requests.create()
+  - requests.details(id)
+  - requests.update()
+  - requests.delete(id)
 
 - External API
   - API for purchase
@@ -112,6 +119,7 @@ Plant model
   description: String,
   size: Number,
   image: String,
+  imagePublicId: String,
   location: {
     type: String,
     enum: [
@@ -140,8 +148,12 @@ Request model
     type: Schema.Types.ObjectId, 
     ref: "user"
   },
-  plant: Object,
-  message: String
+  plant: {
+    type: Schema.Types.ObjectId, 
+    ref: "plant"
+  },
+  message: String,
+  reply: String
 }
 ```
 
@@ -170,6 +182,7 @@ Request model
 | GET         | `/requests/fetch`       | {buyer,seller,plant,message}| 200             | 500          | Fetch all requests              |
 | POST        | `/requests/create`      | {buyer,seller,plant,message}| 200             | 500          | Create new request              |
 | POST        | `/cloudinary/upload`    |                             | 200             |              | Upload plant picture            |
+| POST        | `/cloudinary/destroy`   | {imagePublicId}             | 200             |              | Delete plant picture            |
 | POST        | `/create-payment-intent`|                             |                 |              |                                 |
 
 ## Links

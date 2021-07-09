@@ -8,7 +8,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.onGetElementsHeight();
-
   }
 
   render() {
@@ -21,7 +20,7 @@ class Home extends Component {
     return (
       <div>
         {/* Title */}
-        <header className="text-center pt-5 pb-5 headerImg" id="headerId">
+        <header className="text-center pt-5 pb-5 headerImg" id="titleId">
           <div className="row my-5">
             <div className="col-6 offset-3 my-5 borderAround">
               <h2 className="title mb-2"> JungleSwap </h2>
@@ -33,14 +32,14 @@ class Home extends Component {
           </div>
         </header>
         {/* About */}
-        <div className="intro" id="introId">
-          <div className="intro-centered container">
+        <section id="aboutId">
+          <div className="about centered container">
             <div className="row">
               <div className="col-sm-6 col-md-5 col-lg-6">
                 <img className="image" src={image} alt="plants"/>
               </div>
               <br />
-              <div className="intro col-sm-6 col-md-5 col-lg-6 px-5">
+              <div className="about col-sm-6 col-md-5 col-lg-6 px-5">
                 <h4> Welcome to JungleSwap! </h4>
                 <h5> Add green to your Home </h5>
                 <p> It"s easy-peasy. <br/>
@@ -54,39 +53,41 @@ class Home extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </section>
         {/* Display plants */}
-        <div className="container mt-5">
-          <div className="mt-5 mb-3">
-            <h2> Plants </h2>
-            <hr/>
-            <h4> Search a plant </h4>
-          </div>
-          <div className="mb-4">
-            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={onSearchPlant}/>
-          </div>
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {
-              plants.map(
-                (plant) => {
-                  const {_id, name, image, price} = plant;
-                  return (
-                    <div className="col mb-5" key={_id}>
-                      <div className="card card-medium-width text-center">
-                        <img className="card-img-top mediumPicSize" src={image} alt={name}/>
-                        <div className="card-body mb-5">
-                          <h5> {name} </h5>
-                          <p> {price} € </p>
-                          <Link className="btn btn-outline-dark" to={`/plants/read/${_id}`}> Details </Link>
+        <section>
+          <div className="container mt-5">
+            <div className="mt-5 mb-3">
+              <h2> Plants </h2>
+              <hr/>
+              <h4> Search a plant </h4>
+            </div>
+            <div className="mb-4">
+              <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={onSearchPlant}/>
+            </div>
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              {
+                plants.map(
+                  (plant) => {
+                    const {_id, name, image, price} = plant;
+                    return (
+                      <div className="col mb-5" key={_id}>
+                        <div className="card card-medium-width text-center h-100">
+                          <img className="card-img-top mediumPicSize" src={image} alt={name}/>
+                          <div className="card-body mb-5">
+                            <h5> {name} </h5>
+                            <p> {price} € </p>
+                            <Link className="btn btn-outline-dark" to={`/plants/read/${_id}`}> Details </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                }
-              )
-            }
+                    );
+                  }
+                )
+              }
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }
