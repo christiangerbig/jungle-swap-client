@@ -43,6 +43,7 @@ class App extends Component {
       error: null
     };
     this.getElementsHeight = this.getElementsHeight.bind(this);
+    this.resetError = this.resetError.bind(this);
     // ---------- Plants -----------
     this.fetchAllPlants = this.fetchAllPlants.bind(this);
     this.fetchQueryPlants = this.fetchQueryPlants.bind(this);
@@ -73,8 +74,6 @@ class App extends Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
-  // ---------- Plants ----------
-
   // Get height of header and about elements
   getElementsHeight() {
     const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
@@ -86,6 +85,13 @@ class App extends Component {
       }
     );
   }
+
+  // Clear error messages
+  resetError() {
+    this.setState({error: null});
+  }
+
+  // ---------- Plants ----------
 
   // Fetch all plants
   fetchAllPlants() {
@@ -552,11 +558,6 @@ class App extends Component {
   }
 
   // ---------- Authentification ----------
-
-  // Clear error messages
-  resetError() {
-    this.setState({error: null});
-  }
 
   // Signup
   handleSignUp(event) {
