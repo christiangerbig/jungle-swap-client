@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const CreatePlantForm = ({user, headerHeight, introHeight, error, onCreatePlant}) => {
+const CreatePlantForm = ({user, headerHeight, introHeight, error, onCreatePlant, onResetError}) => {
   useEffect(
     () => {
-      this.props.onResetError();
+      onResetError();
       scroll.scrollToTop();
     },
     []
