@@ -34,7 +34,7 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
           data => setClientSecret(data.clientSecret)
         );
     },
-    [plant.price]
+    []
   );
 
   // Card styling
