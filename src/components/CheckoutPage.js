@@ -22,25 +22,4 @@ const CheckoutPage = ({location, headerHeight, introHeight, onCheckout}) => {
   );
 }
 
-/*class CheckoutPage extends Component {
-
-  componentDidMount() {
-    scroll.scrollToTop();
-  }
-
-  render() {
-    const {headerHeight, introHeight, onCheckout} = this.props;
-    const {plant} = this.props.location;
-    return (
-      <div className="container row mt-5">
-        <div className="mt-5 col-11 col-md-6 offset-1 offset-md-5 App">
-          <Elements stripe={promise}>
-            <CheckoutForm onCheckout={onCheckout} plant={plant} headerHeight={headerHeight} introHeight={introHeight}/>
-          </Elements>
-        </div>
-      </div>
-    );
-  }
-}*/
-
 export default CheckoutPage;
