@@ -21,7 +21,7 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
           `${config.API_URL}/api/create-payment-intent`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({price: plant.price})
           }
         )
