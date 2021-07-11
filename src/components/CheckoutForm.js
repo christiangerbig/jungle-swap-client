@@ -26,12 +26,12 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
           }
         )
         .then(
-          (res) => {
+          res => {
             return res.json();
           }
         )
         .then(
-          (data) => setClientSecret(data.clientSecret)
+          data => setClientSecret(data.clientSecret)
         );
     },
     [plant.price]
@@ -55,12 +55,13 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
   };
 
   // Listen for changes in Card element and display any errors as customer types card details
-  const handleChange = async (event) => {
+  const handleChange = async event => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
 
-  const handleSubmit = async (event) => {
+  // Handle payment
+  const handleSubmit = async event => {
     event.preventDefault();
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(
@@ -89,7 +90,7 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
           <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={processing || disabled || succeeded} id="submit">
             <span id="button-text">
               {
-                (processing) ? <div className="spinner" id="spinner"/> : "Pay now"
+                processing ? <div className="spinner" id="spinner"/> : "Pay now"
               }
             </span>
           </button>
@@ -97,13 +98,13 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
         {/* Show any error that happens when processing the payment */
           error && (<div className="card-error" role="alert"> {error} </div>)
         /* Show success message upon completion */}
-        <p className={(succeeded) ? "result-message text-center" : "result-message hidden text-center"}>
+        <p className={succeeded ? "result-message text-center" : "result-message hidden text-center"}>
           Payment succeeded.
         </p>
       </form>
       <div className="row justify-content-center">
         {
-          (succeeded) ? (
+          succeeded ? (
             <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm"> Go back </button> </Link>
           ) 
           : (
