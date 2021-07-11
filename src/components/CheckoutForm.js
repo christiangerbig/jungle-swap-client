@@ -4,7 +4,7 @@ import {animateScroll as scroll} from "react-scroll";
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import config from "../config";
 
-const CheckoutForm = (props) => {
+const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
@@ -12,7 +12,6 @@ const CheckoutForm = (props) => {
   const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const {plant, headerHeight, introHeight, onCheckout} = props;
   
   useEffect(
     () => {
@@ -28,7 +27,7 @@ const CheckoutForm = (props) => {
         )
         .then(
           (res) => {
-            return (res.json());
+            return res.json();
           }
         )
         .then(
@@ -37,6 +36,8 @@ const CheckoutForm = (props) => {
     },
     [plant.price]
   );
+
+  // Card styling
   const cardStyle = {
     style: {
       base: {
@@ -93,11 +94,9 @@ const CheckoutForm = (props) => {
             </span>
           </button>
         </div>
-        {/* Show any error that happens when processing the payment */}
-        {
+        {/* Show any error that happens when processing the payment */
           error && (<div className="card-error" role="alert"> {error} </div>)
-        }
-        {/* Show success message upon completion */}
+        /* Show success message upon completion */}
         <p className={(succeeded) ? "result-message text-center" : "result-message hidden text-center"}>
           Payment succeeded.
         </p>
