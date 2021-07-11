@@ -1,18 +1,17 @@
-import React, {Component} from "react";
+import React, {useEffect} from "react";
 import {animateScroll as scroll} from "react-scroll";
 
-class LogOut extends Component {
-  
-  componentDidMount() {
-    const {onLogOut, onResetNewRequestsReceived} = this.props;
-    onLogOut();
-    onResetNewRequestsReceived();
-    scroll.scrollToTop();
-  }
+const LogOut = ({onLogOut, onResetNewRequestsReceived}) => {
+  useEffect(
+    () => {
+      onLogOut();
+      onResetNewRequestsReceived();
+      scroll.scrollToTop();
+    },
+    []
+  );
 
-  render() {
-    return (<div/>);
-  }
+  return (<div/>);
 }
 
 export default LogOut;
