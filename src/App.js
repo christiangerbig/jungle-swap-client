@@ -42,7 +42,7 @@ class App extends Component {
       introHeight: 0,
       error: null
     };
-    this.getElementsHeight = this.getElementsHeight.bind(this);
+    this.handleElementsHeight = this.handleElementsHeight.bind(this);
     this.resetError = this.resetError.bind(this);
     // ---------- Plants -----------
     this.fetchAllPlants = this.fetchAllPlants.bind(this);
@@ -75,7 +75,7 @@ class App extends Component {
   }
 
   // Get height of header and about elements
-  getElementsHeight() {
+  handleElementsHeight() {
     const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
     const introHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
     this.setState(
@@ -639,7 +639,7 @@ class App extends Component {
           {/* ---------- Plants ---------- */}
           <Route exact path="/" render={
             () => {
-              return <Home onSearchPlant={this.handleSearchPlant} onGetElementsHeight={this.getElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
+              return <Home onSearchPlant={this.handleSearchPlant} onHandleElementsHeight={this.handleElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
             }
           }/>
           <Route path="/plants/create" render={
