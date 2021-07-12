@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const CreatePlantForm = ({user, headerHeight, introHeight, error, onCreatePlant, onResetError}) => {
+const CreatePlantForm = ({user, headerHeight, aboutHeight, error, onCreatePlant, onClearError}) => {
   useEffect(
     () => {
-      onResetError();
+      onClearError();
       scroll.scrollToTop();
     },
     []
@@ -34,7 +34,7 @@ const CreatePlantForm = ({user, headerHeight, introHeight, error, onCreatePlant,
           }
           <div className="col-12">
             <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>
-            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm mx-5"> Go back </button> </Link>
+            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> <button className="btn btn-sm mx-5"> Go back </button> </Link>
           </div>
         </form>
       </div>

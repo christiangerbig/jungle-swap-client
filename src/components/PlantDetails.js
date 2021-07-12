@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const PlantDetails = ({match, user, plant, headerHeight, introHeight, onReadPlant, onDeletePlant}) => {
+const PlantDetails = ({match, user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant}) => {
   useEffect(
     () => {
       onReadPlant(match.params.plantId);
@@ -49,7 +49,7 @@ const PlantDetails = ({match, user, plant, headerHeight, introHeight, onReadPlan
                     </div>
                   )
                 }
-                <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
+                <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
               </div>
             </div>
           </div>

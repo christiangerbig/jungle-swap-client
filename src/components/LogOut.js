@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {animateScroll as scroll} from "react-scroll";
 
-const LogOut = ({onLogOut, onResetNewRequestsReceived}) => {
+const LogOut = ({onLogOut, onClearRequestsReceived}) => {
   useEffect(
     () => {
       onLogOut();
-      onResetNewRequestsReceived();
+      onClearRequestsReceived();
       scroll.scrollToTop();
     },
     []

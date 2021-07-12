@@ -4,7 +4,7 @@ import {animateScroll as scroll} from "react-scroll";
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import config from "../config";
 
-const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
+const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
@@ -105,7 +105,7 @@ const CheckoutForm = ({plant, headerHeight, introHeight, onCheckout}) => {
       <div className="row justify-content-center">
         {
           succeeded ? (
-            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight+introHeight)}> <button className="btn btn-sm"> Go back </button> </Link>
+            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> <button className="btn btn-sm"> Go back </button> </Link>
           ) 
           : (
             <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>

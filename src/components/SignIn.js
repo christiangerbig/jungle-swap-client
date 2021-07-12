@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import {animateScroll as scroll} from "react-scroll";
 
-const SignIn = ({error, onSignIn, onResetError, onResetNewRequestsReceived}) => {
+const SignIn = ({error, onSignIn, onClearError, onClearRequestsReceived}) => {
   useEffect(
     () => {
-      onResetError();
-      onResetNewRequestsReceived();
+      onClearError();
+      onClearRequestsReceived();
       scroll.scrollToTop();
     },
     []

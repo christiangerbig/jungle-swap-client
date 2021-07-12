@@ -3,11 +3,11 @@ import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const NavBar = ({user, newRequestsReceived, headerHeight, introHeight, onCheckRequests}) => {
+const NavBar = ({user, newRequestsReceived, headerHeight, aboutHeight, onCheckNewRequests}) => {
   useEffect(
     () => {
       const intervalId =  setInterval(
-        () => onCheckRequests(), 
+        () => onCheckNewRequests(), 
         10000 // check every minute
       );
       return () => clearInterval(intervalId);
@@ -23,7 +23,7 @@ const NavBar = ({user, newRequestsReceived, headerHeight, introHeight, onCheckRe
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <div>
-              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight+introHeight)}> All Plants </Link>
+              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> All Plants </Link>
             </div>
             {
               user ? (

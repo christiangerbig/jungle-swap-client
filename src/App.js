@@ -39,14 +39,14 @@ class App extends Component {
       initRequestsNumber: true,
       newRequestsReceived: false,
       headerHeight: 0,
-      introHeight: 0,
+      aboutHeight: 0,
       error: null
     };
-    this.handleElementsHeight = this.handleElementsHeight.bind(this);
-    this.resetError = this.resetError.bind(this);
+    this.handleGetElementsHeight = this.handleGetElementsHeight.bind(this);
+    this.handleClearError = this.handleClearError.bind(this);
     // ---------- Plants -----------
-    this.fetchAllPlants = this.fetchAllPlants.bind(this);
-    this.fetchQueryPlants = this.fetchQueryPlants.bind(this);
+    this.handleFetchAllPlants = this.handleFetchAllPlants.bind(this);
+    this.handleFetchQueryPlants = this.handleFetchQueryPlants.bind(this);
     this.handleSearchPlant = this.handleSearchPlant.bind(this);
     this.handleCreatePlant = this.handleCreatePlant.bind(this);
     this.handleReadPlant = this.handleReadPlant.bind(this);
@@ -61,8 +61,8 @@ class App extends Component {
     this.handleCheckout = this.handleCheckout.bind(this);
     // ---------- Requests ----------
     this.handleFetchAllRequests = this.handleFetchAllRequests.bind(this);
-    this.handleCheckRequests = this.handleCheckRequests.bind(this);
-    this.resetNewRequestsReceived = this.resetNewRequestsReceived.bind(this);
+    this.handleCheckNewRequests = this.handleCheckNewRequests.bind(this);
+    this.handleClearRequestsReceived = this.handleClearRequestsReceived.bind(this);
     this.handleCreateRequest = this.handleCreateRequest.bind(this);
     this.handleReadRequest = this.handleReadRequest.bind(this);
     this.handleCreateReply = this.handleCreateReply.bind(this);
@@ -75,26 +75,26 @@ class App extends Component {
   }
 
   // Get height of header and about elements
-  handleElementsHeight() {
+  handleGetElementsHeight() {
     const headerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
-    const introHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
+    const aboutHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
     this.setState(
       {
       headerHeight,
-      introHeight
+      aboutHeight
       }
     );
   }
 
-  // Clear error messages
-  resetError() {
+  // Clear error message
+  handleClearError() {
     this.setState({error: null});
   }
 
   // ---------- Plants ----------
 
   // Fetch all plants
-  fetchAllPlants() {
+  handleFetchAllPlants() {
     axios.get(`${config.API_URL}/api/plants/fetch`)
       .then(
         (response) => this.setState({plants: response.data})
@@ -105,7 +105,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchAllPlants();
+    this.handleFetchAllPlants();
     if (!this.state.loggedInUser) {
       axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then(
@@ -126,7 +126,7 @@ class App extends Component {
   }
 
   // Fetch query plants
-  fetchQueryPlants() {
+  handleFetchQueryPlants() {
     axios.get(`${config.API_URL}/api/plants/search?q=${this.state.query}`)
       .then(
         (response) => this.setState(
@@ -146,7 +146,7 @@ class App extends Component {
     const query = event.target.value;
     this.setState(
       {query},
-      () => (query) ? this.fetchQueryPlants() : this.fetchAllPlants()
+      () => (query) ? this.handleFetchQueryPlants() : this.handleFetchAllPlants()
     );
   }
 
@@ -180,8 +180,8 @@ class App extends Component {
                 {plants: [response.data, ...this.state.plants]},
                 () => {
                   this.props.history.push("/");
-                  const {headerHeight, introHeight} = this.state;
-                  scroll.scrollTo(headerHeight+introHeight);
+                  const {headerHeight, aboutHeight} = this.state;
+                  scroll.scrollTo(headerHeight + aboutHeight);
                 }
               )
             )
@@ -318,8 +318,8 @@ class App extends Component {
             {plants: updatedPlants},
             () => {
               this.props.history.push("/");
-              const {headerHeight, introHeight} = this.state;
-              scroll.scrollTo(headerHeight+introHeight);
+              const {headerHeight, aboutHeight} = this.state;
+              scroll.scrollTo(headerHeight+aboutHeight);
             }
           );
         }
@@ -352,8 +352,8 @@ class App extends Component {
                   {plants: filteredPlants},
                   () => {
                     this.props.history.push("/");
-                    const {headerHeight, introHeight} = this.state;
-                    scroll.scrollTo(headerHeight+introHeight);
+                    const {headerHeight, aboutHeight} = this.state;
+                    scroll.scrollTo(headerHeight + aboutHeight);
                   }
                 );
               }
@@ -379,8 +379,8 @@ class App extends Component {
         () => this.setState(
           () => {
             this.props.history.push("/");
-            const {headerHeight, introHeight} = this.state;
-            scroll.scrollTo(headerHeight+introHeight);
+            const {headerHeight, aboutHeight} = this.state;
+            scroll.scrollTo(headerHeight + aboutHeight);
           }
         )
       )
@@ -402,8 +402,8 @@ class App extends Component {
       );
   }
 
-  // Check requests for logged in user
-  handleCheckRequests() {
+  // Check new requests for logged in user
+  handleCheckNewRequests() {
     const {loggedInUser} = this.state;
     if (loggedInUser) {
       axios.get(`${config.API_URL}/api/requests/fetch`)
@@ -442,8 +442,8 @@ class App extends Component {
     }
   }
 
-  // Reset state for new received requests
-  resetNewRequestsReceived() {
+  // Clear state for new received requests
+  handleClearRequestsReceived() {
     this.setState({newRequestsReceived: false});
   }
 
@@ -626,7 +626,7 @@ class App extends Component {
   }
 
   render() {
-    const {fetchingUser, loggedInUser, plants, query, plant, requests, request, headerHeight, introHeight, error, currentRequestsNumber, newRequestsReceived} = this.state;
+    const {fetchingUser, loggedInUser, plants, query, plant, requests, request, headerHeight, aboutHeight, error, currentRequestsNumber, newRequestsReceived} = this.state;
     if (fetchingUser) return (
       <div class="spinner-grow text-success m-5" role="status">
         <span class="visually-hidden"> Loading... </span>
@@ -634,43 +634,43 @@ class App extends Component {
     );
     return (
       <div class="main">
-        <NavBar onLogOut={this.handleLogOut} onCheckRequests={this.handleCheckRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight}/>
+        <NavBar onLogOut={this.handleLogOut} onCheckNewRequests={this.handleCheckNewRequests} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight}/>
         <Switch>
           {/* ---------- Plants ---------- */}
           <Route exact path="/" render={
             () => {
-              return <Home onSearchPlant={this.handleSearchPlant} onHandleElementsHeight={this.handleElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
+              return <Home onSearchPlant={this.handleSearchPlant} onGetElementsHeight={this.handleGetElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
             }
           }/>
           <Route path="/plants/create" render={
             (routeProps) => {
-              return <CreatePlantForm onCreatePlant={this.handleCreatePlant} onResetError={this.resetError} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight} error={error} {...routeProps}/>
+              return <CreatePlantForm onCreatePlant={this.handleCreatePlant} onClearError={this.handleClearError} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/plants/read/:plantId" render={
             (routeProps) => {
-              return <PlantDetails onReadPlant={this.handleReadPlant} onDeletePlant={this.handleDeletePlant} plant={plant} user={loggedInUser} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
+              return <PlantDetails onReadPlant={this.handleReadPlant} onDeletePlant={this.handleDeletePlant} plant={plant} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
             }
           }/>
           <Route path="/plants/update" render={
             (routeProps) => {
-              return <UpdatePlantForm onNameChange={this.handleNameChange} onDescriptionChange={this.handleDescriptionChange} onSizeChange={this.handleSizeChange} onPriceChange={this.handlePriceChange} onLocationChange={this.handleLocationChange} onImageChange={this.handleImageChange} onUpdatePlant={this.handleUpdatePlant} plant={plant} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
+              return <UpdatePlantForm onNameChange={this.handleNameChange} onDescriptionChange={this.handleDescriptionChange} onSizeChange={this.handleSizeChange} onPriceChange={this.handlePriceChange} onLocationChange={this.handleLocationChange} onImageChange={this.handleImageChange} onUpdatePlant={this.handleUpdatePlant} plant={plant} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
             }
           }/>
           <Route path="/plants/checkout/:plantId" render={
             (routeProps) => {
-              return <CheckoutPage onCheckout={this.handleCheckout} headerHeight={headerHeight} introHeight={introHeight} {...routeProps}/>
+              return <CheckoutPage onCheckout={this.handleCheckout} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
             }
           }/>
           {/* ---------- Requests ---------- */}
           <Route path="/requests/fetch" render={
               (routeProps) => {
-                return <RequestsPage onFetchAllRequests={this.handleFetchAllRequests} onResetNewRequestsReceived={this.resetNewRequestsReceived}  user={loggedInUser} requests={requests} currentRequestsNumber={currentRequestsNumber} {...routeProps}/>
+                return <RequestsPage onFetchAllRequests={this.handleFetchAllRequests} onClearRequestsReceived={this.handleClearRequestsReceived}  user={loggedInUser} requests={requests} currentRequestsNumber={currentRequestsNumber} {...routeProps}/>
               }
           }/>
           <Route path="/requests/create" render={
             (routeProps) => {
-              return <CreateRequestForm onCreateRequest={this.handleCreateRequest} onResetError={this.resetError} user={loggedInUser} error={error} {...routeProps}/>
+              return <CreateRequestForm onCreateRequest={this.handleCreateRequest} onClearError={this.handleClearError} user={loggedInUser} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/requests/read/:requestId" render={
@@ -686,17 +686,17 @@ class App extends Component {
           {/* ---------- Authentication ---------- */}
           <Route path="/signup" render={
             (routeProps) => {
-              return <SignUp onSignUp={this.handleSignUp} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
+              return <SignUp onSignUp={this.handleSignUp} onClearError={this.handleClearError} onClearRequestsReceived={this.handleClearRequestsReceived} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/signin" render={
             (routeProps) => {
-              return <SignIn onSignIn={this.handleSignIn} onResetError={this.resetError} onResetNewRequestsReceived={this.resetNewRequestsReceived} error={error} {...routeProps}/>
+              return <SignIn onSignIn={this.handleSignIn} onClearError={this.handleClearError} onClearRequestsReceived={this.handleClearRequestsReceived} error={error} {...routeProps}/>
             }
           }/>
           <Route path="/logout" render={
             (routeProps) => {
-              return <LogOut onLogOut={this.handleLogOut} onResetNewRequestsReceived={this.resetNewRequestsReceived} {...routeProps}/>
+              return <LogOut onLogOut={this.handleLogOut} onClearRequestsReceived={this.handleClearRequestsReceived} {...routeProps}/>
             }
           }/>
 

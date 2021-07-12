@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests, onResetNewRequestsReceived}) => {
+const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests, onClearRequestsReceived}) => {
 
   const handleGoBack = () => {
-    onResetNewRequestsReceived();
+    onClearRequestsReceived();
     scroll.scrollToTop();
   }
 

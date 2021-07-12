@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const CreateRequestForm = ({location, error, onCreateRequest, onResetError}) => {
+const CreateRequestForm = ({location, error, onCreateRequest, onClearError}) => {
   useEffect(
     () => {
-      onResetError();
+      onClearError();
       scroll.scrollToTop();
     },
     []

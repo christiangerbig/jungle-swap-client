@@ -2,11 +2,11 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const SignUp = ({error, onSignUp, onResetError, onResetNewRequestsReceived}) => {
+const SignUp = ({error, onSignUp, onClearError, onClearRequestsReceived}) => {
   useEffect(
     () => {
-      onResetError();
-      onResetNewRequestsReceived();
+      onClearError();
+      onClearRequestsReceived();
       scroll.scrollToTop();
     },
     []
