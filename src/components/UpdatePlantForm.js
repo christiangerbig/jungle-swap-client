@@ -2,12 +2,9 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const UpdatePlantForm = ({match, plant, onReadRequest, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange, onUpdatePlant}) => {
+const UpdatePlantForm = ({plant, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange, onUpdatePlant}) => {
   useEffect(
-    () => {
-      onReadRequest(match.params.requestId);
-      scroll.scrollToTop();
-    },
+    () => scroll.scrollToTop(),
     []
   );
 

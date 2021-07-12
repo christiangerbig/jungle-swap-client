@@ -2,12 +2,9 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const UpdateRequestForm = ({match, request, onReadRequest, onCreateReply, onUpdateRequest}) => {
+const UpdateRequestForm = ({request, onCreateReply, onUpdateRequest}) => {
   useEffect(
-    () => {
-      onReadRequest(match.params.requestId);
-      scroll.scrollToTop();
-    },
+    () => scroll.scrollToTop(),
     []
   );
 
