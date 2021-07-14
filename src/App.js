@@ -481,6 +481,13 @@ const App = (props) => {
       );
   }
 
+  useEffect(
+    () => {
+      props.history.push("/requests/fetch");
+    },
+    [requests]
+  );
+
   // Delete request
   const handleDeleteRequest = requestId => {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
@@ -491,14 +498,12 @@ const App = (props) => {
               return request._id !== requestId;
             }
           );
-          const currentRequestsNumber = filteredRequests.length;
           setRequests(filteredRequests);
-          setRequestsNumber(currentRequestsNumber);
-          props.history.push("/requests/fetch");
+          setRequestsNumber(filteredRequests.length);
         }
       )
       .catch(
-        (err) => console.log("Delete requestfailed", err)
+        (err) => console.log("Delete request failed", err)
       );
   }
 
