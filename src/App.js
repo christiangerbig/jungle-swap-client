@@ -102,8 +102,13 @@ const App = (props) => {
   const handleSearchPlant = event => {
     const query = event.target.value;
     setQuery(query);
-    query ? handleFetchQueryPlants() : handleFetchAllPlants()
   }
+
+  // Handle plant search result
+  useEffect(
+    () => query ? handleFetchQueryPlants() : handleFetchAllPlants(),
+    [query]
+  );
 
   // Create plant
   const handleCreatePlant = event => {
