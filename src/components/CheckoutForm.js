@@ -61,7 +61,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   };
 
   // Handle payment
-  const handleSubmit = async event => {
+  const handleSubmitPayment = async event => {
     event.preventDefault();
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(
@@ -82,7 +82,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   const {_id, name, price} = plant;
   return (
     <div className="container col-9">
-      <form className="checkoutForm mt-5" id="payment-form" onSubmit={handleSubmit}>
+      <form className="checkoutForm mt-5" id="payment-form" onSubmit={handleSubmitPayment}>
         <h2 className="text-center mb-2 p-2">  {name} </h2>
         <h3 className="text-center mb-4 p-2"> {price} € </h3>
         <CardElement className="p-2" id="card-element" options={cardStyle} onChange={handleChange}/>

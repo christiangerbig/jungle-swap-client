@@ -134,7 +134,7 @@ const App = (props) => {
               (response) => {
                 setPlants([response.data, ...plants]);
                 props.history.push("/");
-                scroll.scrollTo(headerHeight + aboutHeight);
+                //scroll.scrollTo(headerHeight + aboutHeight);
               } 
             )
             .catch(
