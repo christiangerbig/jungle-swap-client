@@ -4,8 +4,8 @@ import {animateScroll as scroll} from "react-scroll";
 
 const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onClearRequestsReceived}) => {
 
-  // Handle go back to main screen
-  const handleRestartAll = () => {
+  // Handle go back
+  const handleResetAll = () => {
     onClearRequestsReceived();
     scroll.scrollToTop();
   }
@@ -13,9 +13,9 @@ const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onCle
   useEffect(
     () => {
       onFetchAllRequests();
-      handleRestartAll();
+      handleResetAll();
       return () => {
-        handleRestartAll();
+        handleResetAll();
       }
     },
     []

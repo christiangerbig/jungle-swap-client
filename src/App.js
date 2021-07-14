@@ -61,7 +61,7 @@ const App = (props) => {
       );
   }
 
-  // Initialize and
+  // Initialize page
   useEffect(
     () => {
       handleFetchAllPlants();
@@ -134,7 +134,6 @@ const App = (props) => {
               (response) => {
                 setPlants([response.data, ...plants]);
                 props.history.push("/");
-                //scroll.scrollTo(headerHeight + aboutHeight);
               } 
             )
             .catch(
@@ -318,10 +317,7 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        () => {
-          props.history.push("/");
-          
-        }
+        () => props.history.push("/")
       )
       .catch(
         (err) => console.log("Checkout failed", err)

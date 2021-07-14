@@ -33,6 +33,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         .then(
           data => setClientSecret(data.clientSecret)
         );
+        return () => scroll.scrollTo(headerHeight + aboutHeight)
     },
     []
   );
@@ -105,7 +106,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
       <div className="row justify-content-center">
         {
           succeeded ? (
-            <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> <button className="btn btn-sm"> Go back </button> </Link>
+            <Link to={"/"}> <button className="btn btn-sm"> Go back </button> </Link>
           ) 
           : (
             <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>
