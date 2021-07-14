@@ -481,13 +481,6 @@ const App = (props) => {
       );
   }
 
-  useEffect(
-    () => {
-      props.history.push("/requests/fetch");
-    },
-    [requests]
-  );
-
   // Delete request
   const handleDeleteRequest = requestId => {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
@@ -499,7 +492,8 @@ const App = (props) => {
             }
           );
           setRequests(filteredRequests);
-          setRequestsNumber(filteredRequests.length);
+          setRequestsNumber((requestsNumber) => requestsNumber -1);
+          props.history.push("/requests/fetch");
         }
       )
       .catch(
