@@ -20,7 +20,7 @@ const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onCle
     },
     []
   );
-  
+
   if (!user) return (<Redirect to={"/signup"}/>);
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
