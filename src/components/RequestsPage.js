@@ -2,9 +2,10 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests, onClearRequestsReceived}) => {
+const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onClearRequestsReceived}) => {
 
-  const handleGoBack = () => {
+  // Handle go back to main screen
+  const handleRestartAll = () => {
     onClearRequestsReceived();
     scroll.scrollToTop();
   }
@@ -12,11 +13,14 @@ const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests
   useEffect(
     () => {
       onFetchAllRequests();
-      handleGoBack();
+      handleRestartAll();
+      return () => {
+        handleRestartAll();
+      }
     },
     []
   );
-
+  
   if (!user) return (<Redirect to={"/signup"}/>);
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
@@ -26,8 +30,9 @@ const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Your messages </h2>
-        <Link to={"/"} onClick={handleGoBack}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
+        <h2 > Your messages </h2>
+        <h3 className="mb-4"> [{requestsNumber}] </h3>
+        <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         {
           requests.map(
             (request) => {
@@ -47,7 +52,7 @@ const RequestsPage = ({user, requests, currentRequestsNumber, onFetchAllRequests
           )
         }
         {
-          currentRequestsNumber === 0 ? null : <Link to={"/"} onClick={handleGoBack}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
+          requestsNumber === 0 ? null : <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         }
       </div>
     </div>

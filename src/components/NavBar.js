@@ -1,20 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const NavBar = ({user, newRequestsReceived, headerHeight, aboutHeight, onCheckNewRequests}) => {
-  useEffect(
-    () => {
-      const intervalId =  setInterval(
-        () => onCheckNewRequests(), 
-        10000 // check every minute
-      );
-      return () => clearInterval(intervalId);
-    },
-    []
-  );
-
+const NavBar = ({user, newRequestsReceived, headerHeight, aboutHeight}) => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">

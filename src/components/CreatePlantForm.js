@@ -7,6 +7,7 @@ const CreatePlantForm = ({user, headerHeight, aboutHeight, error, onCreatePlant,
     () => {
       onClearError();
       scroll.scrollToTop();
+      return () => scroll.scrollTo(headerHeight + aboutHeight)
     },
     []
   );
