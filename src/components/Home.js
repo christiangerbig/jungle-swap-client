@@ -4,9 +4,12 @@ import {animateScroll as scroll} from "react-scroll";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
-const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight}) => {
+const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight, onInitAll}) => {
   useEffect(
-    () => onGetElementsHeight(),
+    () => {
+      onGetElementsHeight();
+      onInitAll();
+    },
     []
   );
 

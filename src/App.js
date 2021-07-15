@@ -63,8 +63,8 @@ const App = (props) => {
   }
 
   // Initialize page
-  useEffect(
-    () => {
+
+    const handleInitAll = () => {
       handleFetchAllPlants();
       if (!loggedInUser) {
         axios.get(`${config.API_URL}/api/user`, {withCredentials: true})
@@ -84,9 +84,7 @@ const App = (props) => {
       return () => {
         if (intervalId) clearInterval(intervalId);
       }
-    },
-    []
-  );
+    }
 
   // Fetch query plants
   const handleFetchQueryPlants = () => {
@@ -588,7 +586,7 @@ const App = (props) => {
         {/* ---------- Plants ---------- */}
         <Route exact path="/" render={
           () => {
-            return <Home onSearchPlant={handleSearchPlant} onGetElementsHeight={handleGetElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
+            return <Home onInitAll={handleInitAll} onSearchPlant={handleSearchPlant} onGetElementsHeight={handleGetElementsHeight} plants={plants} query={query} headerHeight={headerHeight}/>
           }
         }/>
         <Route path="/plants/create" render={
