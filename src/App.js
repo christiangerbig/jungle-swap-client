@@ -334,28 +334,30 @@ const App = (props) => {
   // Start requests check if user changes
   useEffect(
     () => {
-      axios.get(`${config.API_URL}/api/requests/fetch`)
-        .then(
-          (response) => {
-            setRequests(response.data);
-            const currentRequests = requests.filter(
-              (currentRequest) => {
-                return currentRequest.seller._id === loggedInUser._id;
-              } 
-            );
-            setRequestsNumber(currentRequests.length);
-            if (loggedInUser) { 
-              const interval = setInterval(
-                () => setCounter(counter => counter + 1), 
-                10000 // every minute
+      if (loggedInUser) {
+        axios.get(`${config.API_URL}/api/requests/fetch`)
+          .then(
+            (response) => {
+              setRequests(response.data);
+              const currentRequests = requests.filter(
+                (currentRequest) => {
+                  return currentRequest.seller._id === loggedInUser._id;
+                } 
               );
-              setIntervalId(interval);
+              setRequestsNumber(currentRequests.length);
+              if (loggedInUser) { 
+                const interval = setInterval(
+                  () => setCounter(counter => counter + 1), 
+                  10000 // every minute
+                );
+                setIntervalId(interval);
+              }
             }
-          }
-        )
-        .catch(
-          (err) => console.log("Checking requests failed", err)
-        );
+          )
+          .catch(
+            (err) => console.log("Checking requests failed", err)
+          );
+      }
     },
     [loggedInUser]
   );
