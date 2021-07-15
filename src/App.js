@@ -26,6 +26,7 @@ import KommunicateChat from "./components/Chat";
 const App = (props) => {
   const [fetchingUser, setFetchingUser] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [userChange, setUserChange] = useState(false);
   const [plants, setPlants] = useState([]);
   const [query, setQuery] = useState("");
   const [plant, setPlant] = useState({});
@@ -334,7 +335,8 @@ const App = (props) => {
   // Start requests check if user changes
   useEffect(
     () => {
-      if (loggedInUser) {
+      if (loggedInUser && userChange) {
+          setUserChange(false);
           axios.get(`${config.API_URL}/api/requests/fetch`)
           .then(
             (response) => {
@@ -355,9 +357,6 @@ const App = (props) => {
           .catch(
             (err) => console.log("Checking requests failed", err)
           );
-      }
-      else {
-        props.history.push("/");
       }
     },
     [loggedInUser]
@@ -522,7 +521,11 @@ const App = (props) => {
       newUser
     )
       .then(
-        (response) => setLoggedInUser(response.data)  
+        (response) => {
+          setLoggedInUser(response.data);
+          setUserChange(true);
+          props.history.push("/");
+        }
       )
       .catch(
         (err) => setError(err.response.data.error)
@@ -545,6 +548,7 @@ const App = (props) => {
       .then(
         (response) => {
           setLoggedInUser(response.data);
+          setUserChange(true);
           props.history.push("/");
         }
       )
