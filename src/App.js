@@ -346,11 +346,8 @@ const App = (props) => {
             setRequestsNumber(currentRequests.length);
             if (loggedInUser) { 
               const interval = setInterval(
-                () => {
-                  setCounter(
-                    counter => counter + 1
-                  );
-                }, 10000 // every minute
+                () => setCounter(counter => counter + 1), 
+                10000 // every minute
               );
               setIntervalId(interval);
             }
@@ -390,7 +387,7 @@ const App = (props) => {
   );
 
   // Clear state for new received requests
-  const handleClearRequestsReceived = () => setNewRequestsReceived(false);
+  const handleClearRequestsReceived = () => setNewRequestsReceived(false)
   
   // Fetch all requests
   const handleFetchAllRequests = () => {
@@ -497,7 +494,7 @@ const App = (props) => {
             }
           );
           setRequests(filteredRequests);
-          setRequestsNumber((requestsNumber) => requestsNumber -1);
+          setRequestsNumber((requestsNumber) => requestsNumber - 1);
           props.history.push("/requests/fetch");
         }
       )

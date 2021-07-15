@@ -27,7 +27,7 @@ const SignIn = ({error, onSignIn, onClearError, onClearRequestsReceived}) => {
           {
             error ? <p className="warningColor"> {error} </p> : null            
           }
-          <button type="submit" className="btn btn-primary mt-4 btn-outline-dark"> Sign in </button>
+          <button type="submit" className="btn btn-primary mt-4 btn-outline-dark" formnovalidate="formnovalidate"> Sign in </button>
         </form>
       </div>
     </div>

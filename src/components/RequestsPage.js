@@ -14,9 +14,7 @@ const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onCle
     () => {
       onFetchAllRequests();
       handleResetAll();
-      return () => {
-        handleResetAll();
-      }
+      return () => handleResetAll()
     },
     []
   );

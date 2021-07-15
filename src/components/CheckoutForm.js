@@ -26,9 +26,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
           }
         )
         .then(
-          res => {
-            return res.json();
-          }
+          res => res.json()
         )
         .then(
           data => setClientSecret(data.clientSecret)

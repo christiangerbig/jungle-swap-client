@@ -32,7 +32,7 @@ const SignUp = ({error, onSignUp, onClearError, onClearRequestsReceived}) => {
           {
             error ? <p className="warningColor"> {error} </p> : null            
           }
-          <button type="submit" className="btn btn-primary mt-4 btn-outline-dark"> Sign up </button>
+          <button type="submit" className="btn btn-primary mt-4 btn-outline-dark" formnovalidate="formnovalidate"> Sign up </button>
           <p className="padding"> Already have an account? </p>
           <Link to={"/signin"}> Sign in </Link>
         </form>
