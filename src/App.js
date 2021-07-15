@@ -543,7 +543,10 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        (response) => setLoggedInUser(response.data)
+        (response) => {
+          setLoggedInUser(response.data);
+          props.history.push("/");
+        }
       )
       .catch(
         (err) => setError(err.response.data.error)
