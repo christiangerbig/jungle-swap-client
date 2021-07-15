@@ -335,7 +335,7 @@ const App = (props) => {
   useEffect(
     () => {
       if (loggedInUser) {
-        axios.get(`${config.API_URL}/api/requests/fetch`)
+          axios.get(`${config.API_URL}/api/requests/fetch`)
           .then(
             (response) => {
               setRequests(response.data);
@@ -345,18 +345,19 @@ const App = (props) => {
                 } 
               );
               setRequestsNumber(currentRequests.length);
-              if (loggedInUser) { 
-                const interval = setInterval(
-                  () => setCounter(counter => counter + 1), 
-                  10000 // every minute
-                );
-                setIntervalId(interval);
-              }
+              const interval = setInterval(
+                () => setCounter(counter => counter + 1), 
+                10000 // every minute
+              );
+              setIntervalId(interval);
             }
           )
           .catch(
             (err) => console.log("Checking requests failed", err)
           );
+      }
+      else {
+        props.history.push("/");
       }
     },
     [loggedInUser]
@@ -506,11 +507,6 @@ const App = (props) => {
   }
 
   // ---------- Authentification ----------
-
-  useEffect(
-    () => props.history.push("/"),
-    [loggedInUser]
-  );
 
   // Signup
   const handleSignUp = event => {
