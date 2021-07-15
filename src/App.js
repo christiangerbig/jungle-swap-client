@@ -35,7 +35,7 @@ const App = (props) => {
   const [requestsNumber, setRequestsNumber] = useState(0);
   const [newRequestsReceived, setNewRequestsReceived] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
-  const [counter, setCounter] = useState(0);
+  const [minutesCounter, setMinutesCounter] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [aboutHeight, setAboutHeight] = useState(0);
   const [error, setError] = useState(null);
@@ -335,28 +335,28 @@ const App = (props) => {
   // Start requests check if user changes
   useEffect(
     () => {
-      if (loggedInUser) {
-          setUserChange(false);
-          axios.get(`${config.API_URL}/api/requests/fetch`)
-          .then(
-            (response) => {
-              setRequests(response.data);
-              const currentRequests = requests.filter(
-                (currentRequest) => {
-                  return currentRequest.seller._id === loggedInUser._id;
-                } 
-              );
-              setRequestsNumber(currentRequests.length);
-              const interval = setInterval(
-                () => setCounter(counter => counter + 1), 
-                10000 // every minute
-              );
-              setIntervalId(interval);
-            }
-          )
-          .catch(
-            (err) => console.log("Checking requests failed", err)
-          );
+      if (loggedInUser && userChange) {
+        setUserChange(false);
+        axios.get(`${config.API_URL}/api/requests/fetch`)
+        .then(
+          (response) => {
+            setRequests(response.data);
+            const currentRequests = requests.filter(
+              (currentRequest) => {
+                return currentRequest.seller._id === loggedInUser._id;
+              } 
+            );
+            setRequestsNumber(currentRequests.length);
+            const interval = setInterval(
+              () => setMinutesCounter(minutesCounter => minutesCounter + 1), 
+              10000 // every minute
+            );
+            setIntervalId(interval);
+          }
+        )
+        .catch(
+          (err) => console.log("Checking requests failed", err)
+        );
       }
     },
     [userChange]
@@ -385,7 +385,7 @@ const App = (props) => {
         (err) => console.log("Checking requests failed", err)
       );
     },
-    [counter]
+    [minutesCounter]
   );
 
   // Clear state for new received requests
