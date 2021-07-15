@@ -568,6 +568,7 @@ const App = (props) => {
         () => {
           setLoggedInUser(null);
           clearInterval(intervalId);
+          props.history.push("/");
         }
       )
       .catch(
