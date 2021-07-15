@@ -335,7 +335,7 @@ const App = (props) => {
   // Start requests check if user changes
   useEffect(
     () => {
-      if (loggedInUser && userChange) {
+      if (loggedInUser) {
           setUserChange(false);
           axios.get(`${config.API_URL}/api/requests/fetch`)
           .then(
@@ -359,7 +359,7 @@ const App = (props) => {
           );
       }
     },
-    [loggedInUser]
+    [userChange]
   );
 
   // Check new requests for logged in user every minute
