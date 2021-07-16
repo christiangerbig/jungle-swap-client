@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 
 const KommunicateChat = () => {
+  // Create launcher icon as soon as page loads
   useEffect(
     () => {
       (

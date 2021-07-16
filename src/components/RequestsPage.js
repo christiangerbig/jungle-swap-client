@@ -4,7 +4,7 @@ import {animateScroll as scroll} from "react-scroll";
 
 const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest}) => {
 
-  // Handle go back
+  // Handle initializing and cleanup
   const handleResetAll = () => {
     onClearNewRequest();
     scroll.scrollToTop();

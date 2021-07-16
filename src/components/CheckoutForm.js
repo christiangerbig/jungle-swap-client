@@ -13,9 +13,9 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   const stripe = useStripe();
   const elements = useElements();
   
+  // Create PaymentIntent as soon as page loads
   useEffect(
     () => {
-      // Create PaymentIntent as soon as the page loads
       window
         .fetch(
           `${config.API_URL}/api/create-payment-intent`,

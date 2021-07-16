@@ -62,7 +62,7 @@ const App = (props) => {
       );
   }
 
-  // Initialize page
+  // Load plants and user data as soon as page loads
   useEffect(
     () => {
       handleFetchAllPlants();
