@@ -5,11 +5,11 @@ import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import config from "../config";
 
 const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
-  const [succeeded, setSucceeded] = useState(false);
-  const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [isSucceeded, setIsSucceeded] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
+  const [error, setError] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
   
@@ -55,26 +55,26 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
 
   // Listen for changes in Card element and display any errors as customer types card details
   const handleChange = async event => {
-    setDisabled(event.empty);
+    setIsDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
 
   // Handle payment
   const handleSubmitPayment = async event => {
     event.preventDefault();
-    setProcessing(true);
+    setIsProcessing(true);
     const payload = await stripe.confirmCardPayment(
       clientSecret,
       {payment_method: {card: elements.getElement(CardElement)}}
     );
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
+      setIsProcessing(false);
     }
     else {
       setError(null);
-      setProcessing(false);
-      setSucceeded(true);
+      setIsProcessing(false);
+      setIsSucceeded(true);
     }
   }
   
@@ -86,10 +86,10 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         <h3 className="text-center mb-4 p-2"> {price} € </h3>
         <CardElement className="p-2" id="card-element" options={cardStyle} onChange={handleChange}/>
         <div className="row justify-content-center">
-          <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={processing || disabled || succeeded} id="submit">
+          <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
               {
-                processing ? <div className="spinner" id="spinner"/> : "Pay now"
+                isProcessing ? <div className="spinner" id="spinner"/> : "Pay now"
               }
             </span>
           </button>
@@ -97,13 +97,13 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         {/* Show any error that happens when processing the payment */
           error && (<div className="card-error" role="alert"> {error} </div>)
         /* Show success message upon completion */}
-        <p className={succeeded ? "result-message text-center" : "result-message hidden text-center"}>
+        <p className={isSucceeded ? "result-message text-center" : "result-message hidden text-center"}>
           Payment succeeded.
         </p>
       </form>
       <div className="row justify-content-center">
         {
-          succeeded ? (
+          isSucceeded ? (
             <Link to={"/"}> <button className="btn btn-sm"> Go back </button> </Link>
           ) 
           : (
