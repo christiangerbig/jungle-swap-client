@@ -3,7 +3,7 @@ import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const NavBar = ({user, newRequestsReceived, headerHeight, aboutHeight}) => {
+const NavBar = ({user, isNewRequest, headerHeight, aboutHeight}) => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
@@ -18,7 +18,7 @@ const NavBar = ({user, newRequestsReceived, headerHeight, aboutHeight}) => {
               user ? (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
-                  <Link className={newRequestsReceived ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={newRequestsReceived ? "new message" : null}> Messages </Link>
+                  <Link className={isNewRequest ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={isNewRequest ? "new message" : null}> Messages </Link>
                 </div>
               ) : null
             }

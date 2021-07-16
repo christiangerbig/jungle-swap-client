@@ -24,16 +24,16 @@ import NotFound from "./components/NotFound";
 import KommunicateChat from "./components/Chat";
 
 const App = (props) => {
-  const [fetchingUser, setFetchingUser] = useState(true);
+  const [isFetchingUser, setIsFetchingUser] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [userChange, setUserChange] = useState(false);
+  const [isUserChange, setIsUserChange] = useState(false);
   const [plants, setPlants] = useState([]);
   const [query, setQuery] = useState("");
   const [plant, setPlant] = useState({});
   const [requests, setRequests] = useState([]);
   const [request, setRequest] = useState({});
-  const [requestsNumber, setRequestsNumber] = useState(0);
-  const [newRequestsReceived, setNewRequestsReceived] = useState(false);
+  const [amountOfRequests, setAmountOfRequests] = useState(0);
+  const [isNewRequest, setIsNewRequest] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [minutesCounter, setMinutesCounter] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -71,12 +71,12 @@ const App = (props) => {
           .then(
             (response) => {
               setLoggedInUser(response.data);
-              setFetchingUser(false);
+              setIsFetchingUser(false);
             }
           )
           .catch(
             (err) => {
-              setFetchingUser(false);
+              setIsFetchingUser(false);
               console.log("Initializing fetching failed", err);
             }
           );
@@ -332,11 +332,11 @@ const App = (props) => {
 
   // ---------- Requests ----------
 
-  // Start requests check if user changes
+  // Start request check if user changes
   useEffect(
     () => {
-      if (userChange) {
-        setUserChange(false);
+      if (isUserChange) {
+        setIsUserChange(false);
         axios.get(`${config.API_URL}/api/requests/fetch`)
         .then(
           (response) => {
@@ -346,7 +346,7 @@ const App = (props) => {
                 return currentRequest.seller._id === loggedInUser._id;
               } 
             );
-            setRequestsNumber(currentRequests.length);
+            setAmountOfRequests(currentRequests.length);
             const interval = setInterval(
               () => setMinutesCounter(minutesCounter => minutesCounter + 1), 
               10000 // every minute
@@ -359,7 +359,7 @@ const App = (props) => {
         );
       }
     },
-    [userChange]
+    [isUserChange]
   );
 
   // Check new requests for logged in user every minute
@@ -374,10 +374,10 @@ const App = (props) => {
               return currentRequest.seller._id === loggedInUser._id;
             } 
           );
-          const currentRequestsNumber = currentRequests.length;
-          if (requestsNumber < currentRequestsNumber) {
-            setRequestsNumber(currentRequestsNumber);
-            setNewRequestsReceived(true);
+          const currentAmountOfRequests = currentRequests.length;
+          if (amountOfRequests < currentAmountOfRequests) {
+            setAmountOfRequests(currentAmountOfRequests);
+            setIsNewRequest(true);
           }
         }
       )
@@ -389,7 +389,7 @@ const App = (props) => {
   );
 
   // Clear state for new received requests
-  const handleClearRequestsReceived = () => setNewRequestsReceived(false)
+  const handleClearNewRequest = () => setIsNewRequest(false)
   
   // Fetch all requests
   const handleFetchAllRequests = () => {
@@ -496,7 +496,7 @@ const App = (props) => {
             }
           );
           setRequests(filteredRequests);
-          setRequestsNumber((requestsNumber) => requestsNumber - 1);
+          setAmountOfRequests((amountOfRequests) => amountOfRequests - 1);
           props.history.push("/requests/fetch");
         }
       )
@@ -523,7 +523,7 @@ const App = (props) => {
       .then(
         (response) => {
           setLoggedInUser(response.data);
-          setUserChange(true);
+          setIsUserChange(true);
           props.history.push("/");
         }
       )
@@ -548,7 +548,7 @@ const App = (props) => {
       .then(
         (response) => {
           setLoggedInUser(response.data);
-          setUserChange(true);
+          setIsUserChange(true);
           props.history.push("/");
         }
       )
@@ -576,14 +576,14 @@ const App = (props) => {
       );
   }
 
-  if (fetchingUser) return (
+  if (isFetchingUser) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
   return (
     <div class="main">
-      <NavBar onLogOut={handleLogOut} newRequestsReceived={newRequestsReceived} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight}/>
+      <NavBar onLogOut={handleLogOut} isNewRequest={isNewRequest} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight}/>
       <Switch>
         {/* ---------- Plants ---------- */}
         <Route exact path="/" render={
@@ -614,7 +614,7 @@ const App = (props) => {
         {/* ---------- Requests ---------- */}
         <Route path="/requests/fetch" render={
             (routeProps) => {
-              return <RequestsPage onFetchAllRequests={handleFetchAllRequests} onClearRequestsReceived={handleClearRequestsReceived}  user={loggedInUser} requests={requests} requestsNumber={requestsNumber} {...routeProps}/>
+              return <RequestsPage onFetchAllRequests={handleFetchAllRequests} onClearNewRequest={handleClearNewRequest}  user={loggedInUser} requests={requests} amountOfRequests={amountOfRequests} {...routeProps}/>
             }
         }/>
         <Route path="/requests/create" render={
@@ -635,17 +635,17 @@ const App = (props) => {
         {/* ---------- Authentication ---------- */}
         <Route path="/signup" render={
           (routeProps) => {
-            return <SignUp onSignUp={handleSignUp} onClearError={handleClearError} onClearRequestsReceived={handleClearRequestsReceived} error={error} {...routeProps}/>
+            return <SignUp onSignUp={handleSignUp} onClearError={handleClearError} onClearNewRequest={handleClearNewRequest} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/signin" render={
           (routeProps) => {
-            return <SignIn onSignIn={handleSignIn} onClearError={handleClearError} onClearRequestsReceived={handleClearRequestsReceived} error={error} {...routeProps}/>
+            return <SignIn onSignIn={handleSignIn} onClearError={handleClearError} onClearNewRequest={handleClearNewRequest} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/logout" render={
           (routeProps) => {
-            return <LogOut onLogOut={handleLogOut} onClearRequestsReceived={handleClearRequestsReceived} {...routeProps}/>
+            return <LogOut onLogOut={handleLogOut} onClearNewRequest={handleClearNewRequest} {...routeProps}/>
           }
         }/>
 

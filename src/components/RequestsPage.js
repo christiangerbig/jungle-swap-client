@@ -2,11 +2,11 @@ import React, {useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onClearRequestsReceived}) => {
+const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest}) => {
 
   // Handle go back
   const handleResetAll = () => {
-    onClearRequestsReceived();
+    onClearNewRequest();
     scroll.scrollToTop();
   }
 
@@ -29,7 +29,7 @@ const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onCle
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 > Your messages </h2>
-        <h3 className="mb-4"> [{requestsNumber}] </h3>
+        <h3 className="mb-4"> [{amountOfRequests}] </h3>
         <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         {
           requests.map(
@@ -50,7 +50,7 @@ const RequestsPage = ({user, requests, requestsNumber, onFetchAllRequests, onCle
           )
         }
         {
-          requestsNumber === 0 ? null : <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
+          amountOfRequests === 0 ? null : <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         }
       </div>
     </div>
