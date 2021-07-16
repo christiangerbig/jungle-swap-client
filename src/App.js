@@ -406,9 +406,10 @@ const App = (props) => {
   const handleCreateRequest = (event, plant) => {
     event.preventDefault();
     const {message} = event.target;
+    const {_id, creator} = plant;
     const newRequest = {
-      seller: plant.creator._id,
-      plant: plant._id,
+      seller: creator._id,
+      plant: _id,
       message: message.value
     };
     axios.post(
