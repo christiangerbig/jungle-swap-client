@@ -88,9 +88,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         <div className="row justify-content-center">
           <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
-              {
-                isProcessing ? <div className="spinner" id="spinner"/> : "Pay now"
-              }
+              {isProcessing ? <div className="spinner" id="spinner"/> : "Pay now"}
             </span>
           </button>
         </div>

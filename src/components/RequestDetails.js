@@ -25,17 +25,15 @@ const RequestDetails = ({match, request, onReadRequest, onDeleteRequest}) => {
         <h5> by: {buyer.username} </h5>
         <p> {message} </p>
         {
-          reply ? (
+          reply && (
             <div>
               <h5> Your reply: </h5>
               <p> {reply} </p>
             </div>
-          ) : null
+          )
         }
         <div>
-          {                  
-            reply ? null : <Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>
-          }
+          {!reply && (<Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>)}
           <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
         </div>
         <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>

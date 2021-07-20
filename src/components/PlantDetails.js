@@ -25,9 +25,7 @@ const PlantDetails = ({match, user, plant, headerHeight, aboutHeight, onReadPlan
       </div>
       <div className="col">
         <div className="card cardMediumWidth">
-          {
-            image ? <img className="card-img-top mediumPicSize" src={image} alt={name}/> : null
-          }
+          {image && (<img className="card-img-top mediumPicSize" src={image} alt={name}/>)}
           <div className="ml-2 mt-2"> <span> Name: </span> {name} </div>
           <div className="ml-2 mt-2"> <span> Description: </span> {description} </div>
           <div className="ml-2 mt-2"> <span> Size: </span> {size} cm </div>

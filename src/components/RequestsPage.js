@@ -36,7 +36,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
             request => {
               const {_id, buyer, seller, plant} = request;
               return (
-                seller._id === user._id ? (
+                seller._id === user._id && (
                   <div className="card p-3 mt-4 " key={_id}>
                     <h4> Request for: {plant.name} </h4>
                     <h5> by: {buyer.username} </h5>
@@ -44,7 +44,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
                       <Link className="btn btn-outline-dark" to={`/requests/read/${_id}`}> Details </Link>
                     </div>
                   </div>
-                ) : null
+                )
               );
             } 
           )
