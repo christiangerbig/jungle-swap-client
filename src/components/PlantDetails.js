@@ -11,7 +11,7 @@ const PlantDetails = ({match, user, plant, headerHeight, aboutHeight, onReadPlan
     []
   );
 
-  if (!user) return (<Redirect to={ "/signup" }/>);
+  if (!user) return (<Redirect to={"/signup"}/>);
   const {_id, name, description, size, image, imagePublicId, location, price, creator} = plant;
   if (!creator) return (
     <div class="spinner-grow text-success m-5" role="status">

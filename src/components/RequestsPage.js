@@ -33,7 +33,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
         <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
         {
           requests.map(
-            (request) => {
+            request => {
               const {_id, buyer, seller, plant} = request;
               return (
                 seller._id === user._id ? (

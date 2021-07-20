@@ -66,7 +66,7 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {
               plants.map(
-                (plant) => {
+                plant => {
                   const {_id, name, image, price} = plant;
                   return (
                     <div className="col mb-5" key={_id}>

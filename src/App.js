@@ -23,7 +23,7 @@ import UpdateRequestForm from "./components/UpdateRequestForm";
 import NotFound from "./components/NotFound";
 import KommunicateChat from "./components/Chat";
 
-const App = (props) => {
+const App = props => {
   const [isFetchingUser, setIsFetchingUser] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isUserChange, setIsUserChange] = useState(false);
@@ -55,10 +55,10 @@ const App = (props) => {
   const handleFetchAllPlants = () => {
     axios.get(`${config.API_URL}/api/plants/fetch`)
       .then(
-        (response) => setPlants(response.data)
+        response => setPlants(response.data)
       )
       .catch(
-        (err) => console.log("Fetching plants failed", err)
+        err => console.log("Fetching plants failed", err)
       );
   }
 
@@ -69,13 +69,13 @@ const App = (props) => {
       if (!loggedInUser) {
         axios.get(`${config.API_URL}/api/user`, {withCredentials: true})
           .then(
-            (response) => {
+            response => {
               setLoggedInUser(response.data);
               setIsFetchingUser(false);
             }
           )
           .catch(
-            (err) => {
+            err => {
               setIsFetchingUser(false);
               console.log("Initializing fetching failed", err);
             }
@@ -92,10 +92,10 @@ const App = (props) => {
   const handleFetchQueryPlants = () => {
     axios.get(`${config.API_URL}/api/plants/search?q=${query}`)
       .then(
-        (response) => setPlants(response.data)
+        response => setPlants(response.data)
       )
       .catch(
-        (err) => console.log("Query fetching failed", err)
+        err => console.log("Query fetching failed", err)
       );
   }
 
@@ -120,7 +120,7 @@ const App = (props) => {
     uploadForm.append("image", image);
     axios.post(`${config.API_URL}/api/upload`, uploadForm)
       .then(
-        (response) => {
+        response => {
           const {image, imagePublicId} = response.data;
           const newPlant = {
             name: name.value,
@@ -137,18 +137,18 @@ const App = (props) => {
             {withCredentials: true}
           )
             .then(
-              (response) => {
+              response => {
                 setPlants([response.data, ...plants]);
                 props.history.push("/");
               } 
             )
             .catch(
-              (err) => setError(err.response.data.error)
+              err => setError(err.response.data.error)
             );
         }
       )
       .catch(
-        (err) => setError(err.response.data.error)
+        err => setError(err.response.data.error)
       );
   }
 
@@ -159,7 +159,7 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        (response) => setPlant(response.data)
+        response => setPlant(response.data)
       )
       .catch(
         () => console.log("Read plant failed")
@@ -221,7 +221,7 @@ const App = (props) => {
             uploadForm
           )
             .then(
-              (response) => {
+              response => {
                 const clonePlant = JSON.parse(JSON.stringify(plant));
                 const {imagePublicId, image} = response.data;
                 clonePlant.imagePublicId = imagePublicId;
@@ -230,12 +230,12 @@ const App = (props) => {
               }
             )
             .catch(
-              (err) => console.log("Image upload failed", err)
+              err => console.log("Image upload failed", err)
             );
         }
       )
       .catch(
-        (err) => console.log("Delete old image failed", err)
+        err => console.log("Delete old image failed", err)
       );
   }
 
@@ -254,11 +254,11 @@ const App = (props) => {
     axios.patch(
       `${config.API_URL}/api/plants/update/${_id}`,
        updatedPlant
-      )
+    )
       .then(
         () => {
           const updatedPlants = plants.map(
-            (singlePlant) => {
+            singlePlant => {
               if (singlePlant._id === _id) {
                 singlePlant.name = name;
                 singlePlant.description = description;
@@ -277,7 +277,7 @@ const App = (props) => {
         }
       )
       .catch(
-        (err) => console.log("Update plant failed", err)
+        err => console.log("Update plant failed", err)
       );
   }
 
@@ -295,23 +295,19 @@ const App = (props) => {
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
             .then(
               () => {
-                const filteredPlants = plants.filter(
-                  (plant) => {
-                    return plant._id !== plantId;
-                  }
-                );
+                const filteredPlants = plants.filter(plant => plant._id !== plantId);
                 setPlants(filteredPlants);
                 props.history.push("/");
                 scroll.scrollTo(headerHeight + aboutHeight);
               }
             )
             .catch(
-              (err) => console.log("Delete plant failed", err)
+              err => console.log("Delete plant failed", err)
             );
         }
       )
       .catch(
-        (err) => console.log("Delete image failed", err)
+        err => console.log("Delete image failed", err)
       );
   }  
 
@@ -326,7 +322,7 @@ const App = (props) => {
         () => props.history.push("/")
       )
       .catch(
-        (err) => console.log("Checkout failed", err)
+        err => console.log("Checkout failed", err)
       );
   }
 
@@ -338,25 +334,21 @@ const App = (props) => {
       if (isUserChange) {
         setIsUserChange(false);
         axios.get(`${config.API_URL}/api/requests/fetch`)
-        .then(
-          (response) => {
-            setRequests(response.data);
-            const currentRequests = requests.filter(
-              (currentRequest) => {
-                return currentRequest.seller._id === loggedInUser._id;
-              } 
-            );
-            setAmountOfRequests(currentRequests.length);
-            const interval = setInterval(
-              () => setMinutesCounter(minutesCounter => minutesCounter + 1), 
-              10000 // every minute
-            );
-            setIntervalId(interval);
-          }
-        )
-        .catch(
-          (err) => console.log("Checking requests failed", err)
-        );
+          .then(
+            response => {
+              setRequests(response.data);
+              const currentRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id);
+              setAmountOfRequests(currentRequests.length);
+              const interval = setInterval(
+                () => setMinutesCounter(minutesCounter => minutesCounter + 1), 
+                10000 // every minute
+              );
+              setIntervalId(interval);
+            }
+          )
+          .catch(
+            err => console.log("Checking requests failed", err)
+          );
       }
     },
     [isUserChange]
@@ -366,24 +358,20 @@ const App = (props) => {
   useEffect(
     () => {
       axios.get(`${config.API_URL}/api/requests/fetch`)
-      .then(
-        (response) => {
-          setRequests(response.data);
-          const currentRequests = requests.filter(
-            (currentRequest) => {
-              return currentRequest.seller._id === loggedInUser._id;
-            } 
-          );
-          const currentAmountOfRequests = currentRequests.length;
-          if (amountOfRequests < currentAmountOfRequests) {
-            setAmountOfRequests(currentAmountOfRequests);
-            setIsNewRequest(true);
+        .then(
+          response => {
+            setRequests(response.data);
+            const currentRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id);
+            const currentAmountOfRequests = currentRequests.length;
+            if (amountOfRequests < currentAmountOfRequests) {
+              setAmountOfRequests(currentAmountOfRequests);
+              setIsNewRequest(true);
+            }
           }
-        }
-      )
-      .catch(
-        (err) => console.log("Checking requests failed", err)
-      );
+        )
+        .catch(
+          err => console.log("Checking requests failed", err)
+        );
     },
     [minutesCounter]
   );
@@ -395,10 +383,10 @@ const App = (props) => {
   const handleFetchAllRequests = () => {
     axios.get(`${config.API_URL}/api/requests/fetch`)
       .then(
-        (response) => setRequests(response.data)
+        response => setRequests(response.data)
       )
       .catch(
-        (err) => console.log("Fetching requests failed", err)
+        err => console.log("Fetching requests failed", err)
       );
   }
 
@@ -418,13 +406,13 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        (response) => {
+        response => {
           setRequests([response.data, ...requests]);
           props.history.push(`/plants/read/${plant._id}`);
         }
       )
       .catch(
-        (err) => setError(err.response.data.error)
+        err => setError(err.response.data.error)
       );
   }
 
@@ -435,7 +423,7 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        (response) => setRequest(response.data)
+        response => setRequest(response.data)
       )
       .catch(
         () => console.log("Read request failed")
@@ -466,7 +454,7 @@ const App = (props) => {
       .then(
         () => {
           const updatedRequests = requests.map(
-            (singleRequest) => {
+            singleRequest => {
               if (singleRequest._id === _id) {
                 singleRequest.buyer = buyer;
                 singleRequest.seller = seller;
@@ -482,7 +470,7 @@ const App = (props) => {
         }
       )
       .catch(
-        (err) => console.log("Update request failed", err)
+        err => console.log("Update request failed", err)
       );
   }
 
@@ -491,18 +479,14 @@ const App = (props) => {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
       .then(
         () => {
-          const filteredRequests = requests.filter(
-            (request) => {
-              return request._id !== requestId;
-            }
-          );
+          const filteredRequests = requests.filter(request => request._id !== requestId);
           setRequests(filteredRequests);
-          setAmountOfRequests((amountOfRequests) => amountOfRequests - 1);
+          setAmountOfRequests(amountOfRequests => amountOfRequests - 1);
           props.history.push("/requests/fetch");
         }
       )
       .catch(
-        (err) => console.log("Delete request failed", err)
+        err => console.log("Delete request failed", err)
       );
   }
 
@@ -522,14 +506,14 @@ const App = (props) => {
       newUser
     )
       .then(
-        (response) => {
+        response => {
           setLoggedInUser(response.data);
           setIsUserChange(true);
           props.history.push("/");
         }
       )
       .catch(
-        (err) => setError(err.response.data.error)
+        err => setError(err.response.data.error)
       );
   }
 
@@ -547,14 +531,14 @@ const App = (props) => {
       {withCredentials: true}
     )
       .then(
-        (response) => {
+        response => {
           setLoggedInUser(response.data);
           setIsUserChange(true);
           props.history.push("/");
         }
       )
       .catch(
-        (err) => setError(err.response.data.error)
+        err => setError(err.response.data.error)
       );
   }
 
@@ -573,7 +557,7 @@ const App = (props) => {
         }
       )
       .catch(
-        (err) => console.log("Logout failed", err)
+        err => console.log("Logout failed", err)
       );
   }
 
@@ -593,59 +577,59 @@ const App = (props) => {
           }
         }/>
         <Route path="/plants/create" render={
-          (routeProps) => {
+          routeProps => {
             return <CreatePlantForm onCreatePlant={handleCreatePlant} onClearError={handleClearError} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/plants/read/:plantId" render={
-          (routeProps) => {
+          routeProps => {
             return <PlantDetails onReadPlant={handleReadPlant} onDeletePlant={handleDeletePlant} plant={plant} user={loggedInUser} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
           }
         }/>
         <Route path="/plants/update" render={
-          (routeProps) => {
+          routeProps => {
             return <UpdatePlantForm onNameChange={handleNameChange} onDescriptionChange={handleDescriptionChange} onSizeChange={handleSizeChange} onPriceChange={handlePriceChange} onLocationChange={handleLocationChange} onImageChange={handleImageChange} onUpdatePlant={handleUpdatePlant} plant={plant} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
           }
         }/>
         <Route path="/plants/checkout/:plantId" render={
-          (routeProps) => {
+          routeProps => {
             return <CheckoutPage onCheckout={handleCheckout} headerHeight={headerHeight} aboutHeight={aboutHeight} {...routeProps}/>
           }
         }/>
         {/* ---------- Requests ---------- */}
         <Route path="/requests/fetch" render={
-            (routeProps) => {
+            routeProps => {
               return <RequestsPage onFetchAllRequests={handleFetchAllRequests} onClearNewRequest={handleClearNewRequest}  user={loggedInUser} requests={requests} amountOfRequests={amountOfRequests} {...routeProps}/>
             }
         }/>
         <Route path="/requests/create" render={
-          (routeProps) => {
+          routeProps => {
             return <CreateRequestForm onCreateRequest={handleCreateRequest} onClearError={handleClearError} user={loggedInUser} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/requests/read/:requestId" render={
-          (routeProps) => {
+          routeProps => {
             return <RequestDetails onReadRequest={handleReadRequest} onDeleteRequest={handleDeleteRequest} request={request} user={loggedInUser} {...routeProps}/>
           }
         }/>
         <Route path="/requests/update" render={
-          (routeProps) => {
+          routeProps => {
             return <UpdateRequestForm onCreateReply={handleCreateReply} onUpdateRequest={handleUpdateRequest} request={request} {...routeProps}/>
           }
         }/>
         {/* ---------- Authentication ---------- */}
         <Route path="/signup" render={
-          (routeProps) => {
+          routeProps => {
             return <SignUp onSignUp={handleSignUp} onClearError={handleClearError} onClearNewRequest={handleClearNewRequest} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/signin" render={
-          (routeProps) => {
+          routeProps => {
             return <SignIn onSignIn={handleSignIn} onClearError={handleClearError} onClearNewRequest={handleClearNewRequest} error={error} {...routeProps}/>
           }
         }/>
         <Route path="/logout" render={
-          (routeProps) => {
+          routeProps => {
             return <LogOut onLogOut={handleLogOut} onClearNewRequest={handleClearNewRequest} {...routeProps}/>
           }
         }/>
