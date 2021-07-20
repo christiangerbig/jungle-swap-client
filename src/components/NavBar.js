@@ -7,7 +7,7 @@ const NavBar = ({user, isNewRequest, headerHeight, aboutHeight}) => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
-        <Navbar.Brand> <Link to="/" onClick={() => scroll.scrollToTop()}> JungleSwap </Link> </Navbar.Brand>
+        <Navbar.Brand> <Link to="/" onClick={scroll.scrollToTop}> JungleSwap </Link> </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
