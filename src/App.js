@@ -340,7 +340,7 @@ const App = props => {
               const currentRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id);
               setAmountOfRequests(currentRequests.length);
               const interval = setInterval(
-                () => setMinutesCounter(minutesCounter => minutesCounter + 1), 
+                () => setMinutesCounter(minutesCounter => minutesCounter += 1), 
                 10000 // every minute
               );
               setIntervalId(interval);
@@ -481,7 +481,7 @@ const App = props => {
         () => {
           const filteredRequests = requests.filter(request => request._id !== requestId);
           setRequests(filteredRequests);
-          setAmountOfRequests(amountOfRequests => amountOfRequests - 1);
+          setAmountOfRequests(amountOfRequests => amountOfRequests -= 1);
           props.history.push("/requests/fetch");
         }
       )
