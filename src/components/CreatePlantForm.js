@@ -30,9 +30,7 @@ const CreatePlantForm = ({user, headerHeight, aboutHeight, error, onCreatePlant,
           <br/>
           <input className="mb-4 smallWidth" name="price" type="number" min="1" placeholder="Price"/> € <br/>
           <input className="mb-4" name="plantImage" type="file"/>
-          {
-            error ? <p className="warningColor"> {error} </p> : null            
-          }
+          {error && (<p className="warningColor"> {error} </p>)}
           <div className="col-12">
             <button className="btn btn-sm btn-outline-dark" type="submit" > Create </button>
             <Link to={"/"}> <button className="btn btn-sm mx-5"> Go back </button> </Link>

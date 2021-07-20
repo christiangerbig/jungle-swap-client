@@ -20,9 +20,7 @@ const CreateRequestForm = ({location, error, onCreateRequest, onClearError}) => 
           <div>
             <textarea className="mb-4" name="message" cols="35" rows="7"/>
           </div>
-          {
-            error ? <p className="warningColor"> {error} </p> : null            
-          }
+          {error && (<p className="warningColor"> {error} </p>)}
           <button className="btn btn-sm btn-outline-dark" type="submit"> Send </button>
           <Link to={`/plants/read/${plant._id}`}> <button className="btn btn-sm mx-2"> Go back </button> </Link>
         </form>

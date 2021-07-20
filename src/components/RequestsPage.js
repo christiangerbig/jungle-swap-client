@@ -49,9 +49,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
             } 
           )
         }
-        {
-          amountOfRequests === 0 ? null : <Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
-        }
+        {amountOfRequests !== 0 && (<Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>)}
       </div>
     </div>
   );

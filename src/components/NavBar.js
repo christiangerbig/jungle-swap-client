@@ -15,12 +15,12 @@ const NavBar = ({user, isNewRequest, headerHeight, aboutHeight}) => {
               <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> All Plants </Link>
             </div>
             {
-              user ? (
+              user && (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
                   <Link className={isNewRequest ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={isNewRequest ? "new message" : null}> Messages </Link>
                 </div>
-              ) : null
+              )
             }
             {
               user ? (
