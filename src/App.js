@@ -100,10 +100,7 @@ const App = props => {
   }
 
   // Search plant
-  const handleSearchPlant = event => {
-    const query = event.target.value;
-    setQuery(query);
-  }
+  const handleSearchPlant = event => setQuery(event.target.value)
 
   // Handle plant search result
   useEffect(
