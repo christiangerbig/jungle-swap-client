@@ -254,21 +254,22 @@ const App = props => {
     )
       .then(
         () => {
-          const updatedPlants = plants.map(
-            singlePlant => {
-              if (singlePlant._id === _id) {
-                singlePlant.name = name;
-                singlePlant.description = description;
-                singlePlant.size = size;
-                singlePlant.image = image;
-                singlePlant.imagePublicId = imagePublicId;
-                singlePlant.location = location;
-                singlePlant.price = price;
+          setPlants(
+            plants.map(
+              singlePlant => {
+                if (singlePlant._id === _id) {
+                  singlePlant.name = name;
+                  singlePlant.description = description;
+                  singlePlant.size = size;
+                  singlePlant.image = image;
+                  singlePlant.imagePublicId = imagePublicId;
+                  singlePlant.location = location;
+                  singlePlant.price = price;
+                }
+                return singlePlant;
               }
-              return singlePlant;
-            }
+            )
           );
-          setPlants(updatedPlants);
           props.history.push("/");
           scroll.scrollTo(headerHeight + aboutHeight);
         }
@@ -292,8 +293,7 @@ const App = props => {
           axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
             .then(
               () => {
-                const filteredPlants = plants.filter(plant => plant._id !== plantId);
-                setPlants(filteredPlants);
+                setPlants(plants.filter(plant => plant._id !== plantId));
                 props.history.push("/");
                 scroll.scrollTo(headerHeight + aboutHeight);
               }
@@ -334,8 +334,7 @@ const App = props => {
           .then(
             response => {
               setRequests(response.data);
-              const currentRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id);
-              setAmountOfRequests(currentRequests.length);
+              setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length);
               const interval = setInterval(
                 () => setMinutesCounter(minutesCounter => minutesCounter += 1), 
                 10000 // every minute
@@ -358,8 +357,7 @@ const App = props => {
         .then(
           response => {
             setRequests(response.data);
-            const currentRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id);
-            const currentAmountOfRequests = currentRequests.length;
+            const currentAmountOfRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length;
             if (amountOfRequests < currentAmountOfRequests) {
               setAmountOfRequests(currentAmountOfRequests);
               setIsNewRequest(true);
@@ -450,19 +448,20 @@ const App = props => {
     )
       .then(
         () => {
-          const updatedRequests = requests.map(
-            singleRequest => {
-              if (singleRequest._id === _id) {
-                singleRequest.buyer = buyer;
-                singleRequest.seller = seller;
-                singleRequest.plant = plant;
-                singleRequest.message = message;
-                singleRequest.reply = reply;
+          setRequests(
+            requests.map(
+              singleRequest => {
+                if (singleRequest._id === _id) {
+                  singleRequest.buyer = buyer;
+                  singleRequest.seller = seller;
+                  singleRequest.plant = plant;
+                  singleRequest.message = message;
+                  singleRequest.reply = reply;
+                }
+                return singleRequest;
               }
-              return singleRequest;
-            }
+            )
           );
-          setRequests(updatedRequests);
           props.history.push(`/requests/read/${_id}`);
         }
       )
@@ -476,8 +475,7 @@ const App = props => {
     axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
       .then(
         () => {
-          const filteredRequests = requests.filter(request => request._id !== requestId);
-          setRequests(filteredRequests);
+          setRequests(requests.filter(request => request._id !== requestId));
           setAmountOfRequests(amountOfRequests => amountOfRequests -= 1);
           props.history.push("/requests/fetch");
         }
