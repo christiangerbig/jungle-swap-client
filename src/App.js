@@ -3,8 +3,9 @@ import {Route, Switch, withRouter} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 import config from "./config";
 import axios from "axios";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "./App.min.css";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -561,6 +562,7 @@ const App = props => {
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
+  
   return (
     <div class="main">
       <NavBar 
@@ -571,7 +573,7 @@ const App = props => {
         aboutHeight={aboutHeight}
       />
       <Switch>
-        {/* ---------- Plants ---------- */}
+
         <Route exact path="/" render={
           () => {
             return (
@@ -642,7 +644,7 @@ const App = props => {
             );
           }
         }/>
-        {/* ---------- Requests ---------- */}
+
         <Route path="/requests/fetch" render={
             routeProps => {
               return (
@@ -694,10 +696,18 @@ const App = props => {
             );
           }
         }/>
-        {/* ---------- Authentication ---------- */}
+
         <Route path="/signup" render={
           routeProps => {
-            return <SignUp onSignUp={handleSignUp} onClearError={handleClearError} onClearNewRequest={handleClearNewRequest} error={error} {...routeProps}/>
+            return (
+              <SignUp 
+                onSignUp={handleSignUp} 
+                onClearError={handleClearError} 
+                onClearNewRequest={handleClearNewRequest} 
+                error={error} 
+                {...routeProps}
+                />
+            );
           }
         }/>
         <Route path="/signin" render={
