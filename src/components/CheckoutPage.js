@@ -15,7 +15,12 @@ const CheckoutPage = ({location, headerHeight, aboutHeight, onCheckout}) => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-6 offset-1 offset-md-5 App">
         <Elements stripe={promise}>
-          <CheckoutForm onCheckout={onCheckout} plant={location.plant} headerHeight={headerHeight} aboutHeight={aboutHeight}/>
+          <CheckoutForm 
+            onCheckout={onCheckout} 
+            plant={location.plant} 
+            headerHeight={headerHeight} 
+            aboutHeight={aboutHeight}
+          />
         </Elements>
       </div>
     </div>

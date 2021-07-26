@@ -84,7 +84,12 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
       <form className="checkoutForm mt-5" id="payment-form" onSubmit={handleSubmitPayment}>
         <h2 className="text-center mb-2 p-2">  {name} </h2>
         <h3 className="text-center mb-4 p-2"> {price} € </h3>
-        <CardElement className="p-2" id="card-element" options={cardStyle} onChange={handleChange}/>
+        <CardElement 
+          className="p-2" 
+          id="card-element" 
+          options={cardStyle} 
+          onChange={handleChange}
+        />
         <div className="row justify-content-center">
           <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
