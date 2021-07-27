@@ -1,10 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&family=Source+Sans+Pro:wght@200;300&display=swap")
 
+
+/ * Color values */
+
+$transparentFloralWhite1: #fbf8efb6 /* navbar */
+$transparentFloralWhite2: #fbf8ef9c /* footer */
+$floralWhite: #fbf8ef
+$royalBlue: #415dfa
+$gold: #ffcf60
+$darkGreen: #204d2c
+$tomato: #ff474a
+
+
 /* Elements */ 
 
 html, 
 body 
-  background-color: #fbf8ef
+  background-color: $floralWhite
 
   /* Height and width fallback for older browsers. */
   width: 100%
@@ -18,20 +30,20 @@ body
 
 
 nav 
-  background-color: #fbf8efb6
+  background-color: $transparentFloralWhite1
 
 
 a 
-  color: rgb(65, 93, 250)
+  color: $royalBlue
 
 
 a:hover 
   text-decoration: none
-  color: #204d2c
+  color: $darkGreen
  
 
 a.navbar-brand:hover 
-  color: #204d2c
+  color: $darkGreen
 
 
 div input 
@@ -48,7 +60,7 @@ hr
 
 
 form 
-  background-color: #fbf8ef
+  background-color: $floralWhite
   padding: 15px
   margin-bottom: 15px
 
@@ -62,8 +74,8 @@ textarea
 
 footer 
   text-align: center
-  background-color: #fbf8ef9c
-  color: rgb(65, 93, 250)
+  background-color: $transparentFloralWhite2
+  color: $royalBlue
   padding: 15px 0px
 
 
@@ -75,8 +87,8 @@ footer
 
 
 .about 
-  background-color: #FFCF60
-  color: #204d2c
+  background-color: $gold
+  color: $darkGreen
   padding-top: 50px
 
   h5
@@ -100,11 +112,11 @@ footer
 /* Custom classes */
 
 .alertColor 
-  color: #FFCF60
+  color: $gold
 
 
 .warningColor 
-  color: #ff474a
+  color: $tomato
 
 
 .noOverflow 
@@ -126,7 +138,7 @@ footer
     size: 60px
   letter-spacing: 1px
   text-align: center
-  color: #fbf8ef
+  color: $floralWhite
   padding: 15px
 
 
@@ -142,7 +154,7 @@ footer
     weight: 600
   letter-spacing: 4px
   text-transform: uppercase
-  color: #fbf8ef
+  color: $floralWhite
  
 
 .image 
@@ -189,7 +201,7 @@ footer
     family: "Noto Serif", serif
     size: 60px
   letter-spacing: -1px
-  color:#204d2c
+  color: $darkGreen
 
 
 .miniPicSize 
@@ -221,7 +233,7 @@ footer
     style: italic
     weight: bold 700
   letter-spacing: 1px
-  background-color: #fbf8ef
+  background-color: $floralWhite
   padding: 10px 50px
 
 
@@ -235,7 +247,7 @@ footer
 
 
 .navbar-toggler   
-  background-color: rgb(65, 93, 250)
+  background-color: $royalBlue
 
 
 .notFound 
@@ -249,7 +261,7 @@ footer
   align-items: center /*centers items on the cross-axis (y by default)*/
   width: 100%
   height: 100vh
-  color: #fbf8ef
+  color: $floralWhite
   background:
     image: url("./images/JungleSwap_Lost.jpg")
     size: cover
@@ -270,7 +282,7 @@ footer
     weight: 600
   letter-spacing: 4px
   text-transform: uppercase
-  color: #fbf8ef
+  color: $floralWhite
   padding:
     top: 50px
     bottom: 0px
@@ -283,7 +295,7 @@ footer
   font:
     family: "Noto Serif", serif
     size: 20px
-  color: rgb(65, 93, 250)
+  color: $royalBlue
 
 
 .btn 
@@ -294,7 +306,7 @@ footer
 
 
 .btn:hover 
-  background-color: #fbf8ef
+  background-color: $floralWhite
   color: black
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
 
@@ -356,5 +368,5 @@ button:disabled
 
 
 .spinner 
-  color: #ff474a
+  color: $tomato
   margin: 0px auto
