@@ -587,7 +587,7 @@ const App = props => {
           }
         }/>
         <Route path="/plants/create" render={
-          routeProps => {
+          () => {
             return (
               <CreatePlantForm 
                 onCreatePlant={handleCreatePlant} 
@@ -595,13 +595,13 @@ const App = props => {
                 user={loggedInUser} 
                 headerHeight={headerHeight} 
                 aboutHeight={aboutHeight} 
-                error={error} {...routeProps}
+                error={error} 
               />
             );
           }
         }/>
         <Route path="/plants/read/:plantId" render={
-          routeProps => {
+          (routeProps) => {
             return (
               <PlantDetails 
                 onReadPlant={handleReadPlant} 
@@ -615,7 +615,7 @@ const App = props => {
           }
         }/>
         <Route path="/plants/update" render={
-          routeProps => {
+          () => {
             return (
               <UpdatePlantForm 
                 onNameChange={handleNameChange} 
@@ -626,8 +626,7 @@ const App = props => {
                 onImageChange={handleImageChange} 
                 onUpdatePlant={handleUpdatePlant} 
                 plant={plant} headerHeight={headerHeight} 
-                aboutHeight={aboutHeight} 
-                {...routeProps}
+                aboutHeight={aboutHeight}
               />
             );
           }
@@ -646,14 +645,13 @@ const App = props => {
         }/>
 
         <Route path="/requests/fetch" render={
-            routeProps => {
+            () => {
               return (
                 <RequestsPage 
                   onFetchAllRequests={handleFetchAllRequests} 
                   onClearNewRequest={handleClearNewRequest}  
                   user={loggedInUser} requests={requests} 
                   amountOfRequests={amountOfRequests} 
-                  {...routeProps}
                 />
               );
             }
@@ -685,51 +683,47 @@ const App = props => {
           }
         }/>
         <Route path="/requests/update" render={
-          routeProps => {
+          () => {
             return (
               <UpdateRequestForm 
                 onCreateReply={handleCreateReply} 
                 onUpdateRequest={handleUpdateRequest} 
-                request={request} 
-                {...routeProps} 
+                request={request}
               />
             );
           }
         }/>
 
         <Route path="/signup" render={
-          routeProps => {
+          () => {
             return (
               <SignUp 
                 onSignUp={handleSignUp} 
                 onClearError={handleClearError} 
                 onClearNewRequest={handleClearNewRequest} 
                 error={error} 
-                {...routeProps}
                 />
             );
           }
         }/>
         <Route path="/signin" render={
-          routeProps => {
+          () => {
             return (
               <SignIn 
                 onSignIn={handleSignIn} 
                 onClearError={handleClearError} 
                 onClearNewRequest={handleClearNewRequest} 
-                error={error} 
-                {...routeProps}
+                error={error}
               />
             );
           }
         }/>
         <Route path="/logout" render={
-          routeProps => {
+          () => {
             return (
               <LogOut 
                 onLogOut={handleLogOut} 
                 onClearNewRequest={handleClearNewRequest} 
-                {...routeProps}
               />
             );
           }
