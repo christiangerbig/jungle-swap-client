@@ -632,7 +632,7 @@ const App = props => {
             );
           }
         }/>
-        <Route path="/plants/checkout/:plantId" render={
+        <Route path="/plants/checkout" render={
           routeProps => {
             return (
               <CheckoutPage 

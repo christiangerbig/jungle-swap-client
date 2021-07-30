@@ -41,7 +41,7 @@ informed when you got a new request.
 | `/plants/read/:plantId`    | NavBar, Details, FooterBar     | user only `<AnonRoute>`    | Shows plant deails or navigate to   |
 |                            |                                |                            | signup if user is not logged in     |
 | `/plants/update`           | NavBar, EditForm, FooterBar    | user only `<PrivateRoute>` | Update/Edit an plant                |
-| `/plants/checkout/:plantId`| NavBar, Stripe, FooterBar      | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
+| `/plants/checkout`         | NavBar, Stripe, FooterBar      | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
 | `/requests/fetch`          | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Fetch all requests for the user     |
 | `/requests/create`         | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Create request to swap              |
 | `/requests/read/:requestId`| NavBar, Details, FooterBar     | user only `<PrivateRoute>` | Shows request deails                |
