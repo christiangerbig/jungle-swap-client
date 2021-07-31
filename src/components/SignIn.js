@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {animateScroll as scroll} from "react-scroll";
 
 const SignIn = ({error, onSignIn, onClearError, onClearNewRequest}) => {
+  // Clear values and scroll to top as soon as page loads
   useEffect(
     () => {
       onClearError();

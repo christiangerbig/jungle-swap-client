@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
 const SignUp = ({error, onSignUp, onClearError, onClearNewRequest}) => {
+  // Clear values and scroll to top as soon as page loads
   useEffect(
     () => {
       onClearError();

@@ -5,6 +5,7 @@ import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
 const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight}) => {
+  // Get height of header and about elements as soon as page loads
   useEffect(
     () => onGetElementsHeight(),
     []
@@ -15,9 +16,9 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
+  
   return (
     <div>
-      {/* Title */}
       <header className="text-center pt-5 pb-5 headerImg" id="titleId">
         <div className="row my-5">
           <div className="col-6 offset-3 my-5 borderAround">
@@ -29,7 +30,7 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
           </div>
         </div>
       </header>
-      {/* About */}
+
       <section id="aboutId">
         <div className="about centered container">
           <div className="row">
@@ -52,7 +53,7 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
           </div>
         </div>
       </section>
-      {/* Display plants */}
+
       <section>
         <div className="container mt-5">
           <div className="mt-5 mb-3">

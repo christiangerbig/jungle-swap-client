@@ -1,11 +1,13 @@
-import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect}  from "react";
+import {Link, useParams} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const RequestDetails = ({match, request, onReadRequest, onDeleteRequest}) => {
+const RequestDetails = ({request, onReadRequest, onDeleteRequest}) => {
+  const {requestId} = useParams();
+  // Read request and scroll to top as soon as page loads
   useEffect(
     () => {
-      onReadRequest(match.params.requestId);
+      onReadRequest(requestId);
       scroll.scrollToTop();
     },
     []
@@ -17,6 +19,7 @@ const RequestDetails = ({match, request, onReadRequest, onDeleteRequest}) => {
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
+  
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

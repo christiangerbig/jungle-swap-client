@@ -31,7 +31,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         .then(
           data => setClientSecret(data.clientSecret)
         );
-        return () => scroll.scrollTo(headerHeight + aboutHeight)
+        return () => scroll.scrollTo(headerHeight + aboutHeight);
     },
     []
   );
@@ -82,7 +82,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   return (
     <div className="container col-9">
       <form className="checkoutForm mt-5" id="payment-form" onSubmit={handleSubmitPayment}>
-        <h2 className="text-center mb-2 p-2">  {name} </h2>
+        <h2 className="text-center mb-2 p-2"> {name} </h2>
         <h3 className="text-center mb-4 p-2"> {price} € </h3>
         <CardElement 
           className="p-2" 

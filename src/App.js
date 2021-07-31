@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Route, Switch, withRouter} from "react-router-dom";
+import {Route, Switch, withRouter, useHistory} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 import config from "./config";
 import axios from "axios";
@@ -24,7 +24,7 @@ import UpdateRequestForm from "./components/UpdateRequestForm";
 import NotFound from "./components/NotFound";
 import KommunicateChat from "./components/Chat";
 
-const App = props => {
+const App = () => {
   const [isFetchingUser, setIsFetchingUser] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isUserChange, setIsUserChange] = useState(false);
@@ -40,7 +40,9 @@ const App = props => {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [aboutHeight, setAboutHeight] = useState(0);
   const [error, setError] = useState(null);
-   
+
+  const history = useHistory();
+  
   // Get height of header and about elements
   const handleGetElementsHeight = () => {
     setHeaderHeight(Math.round(document.querySelector("#titleId").getBoundingClientRect().height));
@@ -82,30 +84,29 @@ const App = props => {
             }
           );
       }
-      return () => {
-        if (intervalId) clearInterval(intervalId);
-      }
+      return () => intervalId && clearInterval(intervalId);
     },
     []
   );
-
-  // Fetch query plants
-  const handleFetchQueryPlants = () => {
-    axios.get(`${config.API_URL}/api/plants/search?q=${query}`)
-      .then(
-        response => setPlants(response.data)
-      )
-      .catch(
-        err => console.log("Query fetching failed", err)
-      );
-  }
 
   // Search plant
   const handleSearchPlant = event => setQuery(event.target.value)
 
   // Handle plant search result
   useEffect(
-    () => query ? handleFetchQueryPlants() : handleFetchAllPlants(),
+    () => {
+      // Fetch query plants
+      const handleFetchQueryPlants = () => {
+        axios.get(`${config.API_URL}/api/plants/search?q=${query}`)
+          .then(
+            response => setPlants(response.data)
+          )
+          .catch(
+            err => console.log("Query fetching failed", err)
+          );
+      }
+      query ? handleFetchQueryPlants() : handleFetchAllPlants()
+    },
     [query]
   );
 
@@ -137,7 +138,7 @@ const App = props => {
             .then(
               response => {
                 setPlants([response.data, ...plants]);
-                props.history.push("/");
+                history.push("/");
               } 
             )
             .catch(
@@ -215,7 +216,7 @@ const App = props => {
           const uploadForm = new FormData();
           uploadForm.append("image", image);
           axios.post(
-            `${ config.API_URL }/api/upload`, 
+            `${config.API_URL}/api/upload`, 
             uploadForm
           )
             .then(
@@ -271,7 +272,7 @@ const App = props => {
               }
             )
           );
-          props.history.push("/");
+          history.push("/");
           scroll.scrollTo(headerHeight + aboutHeight);
         }
       )
@@ -295,7 +296,7 @@ const App = props => {
             .then(
               () => {
                 setPlants(plants.filter(plant => plant._id !== plantId));
-                props.history.push("/");
+                history.push("/");
                 scroll.scrollTo(headerHeight + aboutHeight);
               }
             )
@@ -317,7 +318,7 @@ const App = props => {
       {withCredentials: true}
     )
       .then(
-        () => props.history.push("/")
+        () => history.push("/")
       )
       .catch(
         err => console.log("Checkout failed", err)
@@ -336,11 +337,12 @@ const App = props => {
             response => {
               setRequests(response.data);
               setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length);
-              const interval = setInterval(
-                () => setMinutesCounter(minutesCounter => minutesCounter += 1), 
-                10000 // every minute
+              setIntervalId(
+                setInterval(
+                  () => setMinutesCounter(minutesCounter => minutesCounter += 1), 
+                  10000 // every minute
+                )
               );
-              setIntervalId(interval);
             }
           )
           .catch(
@@ -404,7 +406,7 @@ const App = props => {
       .then(
         response => {
           setRequests([response.data, ...requests]);
-          props.history.push(`/plants/read/${plant._id}`);
+          history.push(`/plants/read/${plant._id}`);
         }
       )
       .catch(
@@ -463,7 +465,7 @@ const App = props => {
               }
             )
           );
-          props.history.push(`/requests/read/${_id}`);
+          history.push(`/requests/read/${_id}`);
         }
       )
       .catch(
@@ -478,7 +480,7 @@ const App = props => {
         () => {
           setRequests(requests.filter(request => request._id !== requestId));
           setAmountOfRequests(amountOfRequests => amountOfRequests -= 1);
-          props.history.push("/requests/fetch");
+          history.push("/requests/fetch");
         }
       )
       .catch(
@@ -505,7 +507,7 @@ const App = props => {
         response => {
           setLoggedInUser(response.data);
           setIsUserChange(true);
-          props.history.push("/");
+          history.push("/");
         }
       )
       .catch(
@@ -530,7 +532,7 @@ const App = props => {
         response => {
           setLoggedInUser(response.data);
           setIsUserChange(true);
-          props.history.push("/");
+          history.push("/");
         }
       )
       .catch(
@@ -549,7 +551,7 @@ const App = props => {
         () => {
           setLoggedInUser(null);
           clearInterval(intervalId);
-          props.history.push("/");
+          history.push("/");
         }
       )
       .catch(
@@ -573,161 +575,108 @@ const App = props => {
         aboutHeight={aboutHeight}
       />
       <Switch>
+        <Route exact path="/">
+          <Home 
+            onSearchPlant={handleSearchPlant} 
+            onGetElementsHeight={handleGetElementsHeight} 
+            plants={plants} query={query} 
+            headerHeight={headerHeight}
+          />
+        </Route>
+        <Route path="/plants/create">
+        <CreatePlantForm 
+          onCreatePlant={handleCreatePlant} 
+          onClearError={handleClearError} 
+          user={loggedInUser} 
+          headerHeight={headerHeight} 
+          aboutHeight={aboutHeight} 
+          error={error} 
+        />
+      </Route>
+      <Route path="/plants/read/:plantId">
+        <PlantDetails 
+          onReadPlant={handleReadPlant} 
+          onDeletePlant={handleDeletePlant} 
+          plant={plant} user={loggedInUser} 
+          headerHeight={headerHeight} 
+          aboutHeight={aboutHeight}
+        />
+      </Route>
+        <Route path="/plants/update">
+          <UpdatePlantForm 
+            onNameChange={handleNameChange} 
+            onDescriptionChange={handleDescriptionChange} 
+            onSizeChange={handleSizeChange} 
+            onPriceChange={handlePriceChange} 
+            onLocationChange={handleLocationChange} 
+            onImageChange={handleImageChange} 
+            onUpdatePlant={handleUpdatePlant} 
+            plant={plant} headerHeight={headerHeight} 
+            aboutHeight={aboutHeight}
+          />
+        </Route>
+        <Route path="/plants/checkout">
+          <CheckoutPage 
+            onCheckout={handleCheckout} 
+            headerHeight={headerHeight} 
+            aboutHeight={aboutHeight}
+          />
+        </Route>
 
-        <Route exact path="/" render={
-          () => {
-            return (
-              <Home 
-                onSearchPlant={handleSearchPlant} 
-                onGetElementsHeight={handleGetElementsHeight} 
-                plants={plants} query={query} 
-                headerHeight={headerHeight}
-              />
-            );
-          }
-        }/>
-        <Route path="/plants/create" render={
-          () => {
-            return (
-              <CreatePlantForm 
-                onCreatePlant={handleCreatePlant} 
-                onClearError={handleClearError} 
-                user={loggedInUser} 
-                headerHeight={headerHeight} 
-                aboutHeight={aboutHeight} 
-                error={error} 
-              />
-            );
-          }
-        }/>
-        <Route path="/plants/read/:plantId" render={
-          (routeProps) => {
-            return (
-              <PlantDetails 
-                onReadPlant={handleReadPlant} 
-                onDeletePlant={handleDeletePlant} 
-                plant={plant} user={loggedInUser} 
-                headerHeight={headerHeight} 
-                aboutHeight={aboutHeight} 
-                {...routeProps}
-              />
-            );
-          }
-        }/>
-        <Route path="/plants/update" render={
-          () => {
-            return (
-              <UpdatePlantForm 
-                onNameChange={handleNameChange} 
-                onDescriptionChange={handleDescriptionChange} 
-                onSizeChange={handleSizeChange} 
-                onPriceChange={handlePriceChange} 
-                onLocationChange={handleLocationChange} 
-                onImageChange={handleImageChange} 
-                onUpdatePlant={handleUpdatePlant} 
-                plant={plant} headerHeight={headerHeight} 
-                aboutHeight={aboutHeight}
-              />
-            );
-          }
-        }/>
-        <Route path="/plants/checkout" render={
-          routeProps => {
-            return (
-              <CheckoutPage 
-                onCheckout={handleCheckout} 
-                headerHeight={headerHeight} 
-                aboutHeight={aboutHeight} 
-                {...routeProps}
-              />
-            );
-          }
-        }/>
+        <Route path="/requests/fetch">
+          <RequestsPage 
+            onFetchAllRequests={handleFetchAllRequests} 
+            onClearNewRequest={handleClearNewRequest}  
+            user={loggedInUser} requests={requests} 
+            amountOfRequests={amountOfRequests} 
+          />
+        </Route>
+        <Route path="/requests/create">
+          <CreateRequestForm 
+            onCreateRequest={handleCreateRequest} 
+            onClearError={handleClearError} 
+            user={loggedInUser} 
+            error={error}
+          />
+        </Route>
+        <Route path="/requests/read/:requestId">
+          <RequestDetails 
+            onReadRequest={handleReadRequest} 
+            onDeleteRequest={handleDeleteRequest} 
+            request={request} 
+            user={loggedInUser}
+          />
+        </Route>
+        <Route path="/requests/update">
+          <UpdateRequestForm 
+            onCreateReply={handleCreateReply} 
+            onUpdateRequest={handleUpdateRequest} 
+            request={request}
+          />
+        </Route>
 
-        <Route path="/requests/fetch" render={
-            () => {
-              return (
-                <RequestsPage 
-                  onFetchAllRequests={handleFetchAllRequests} 
-                  onClearNewRequest={handleClearNewRequest}  
-                  user={loggedInUser} requests={requests} 
-                  amountOfRequests={amountOfRequests} 
-                />
-              );
-            }
-        }/>
-        <Route path="/requests/create" render={
-          routeProps => {
-            return (
-              <CreateRequestForm 
-                onCreateRequest={handleCreateRequest} 
-                onClearError={handleClearError} 
-                user={loggedInUser} 
-                error={error} 
-                {...routeProps}
-              />
-            );
-          }
-        }/>
-        <Route path="/requests/read/:requestId" render={
-          routeProps => {
-            return (
-              <RequestDetails 
-                onReadRequest={handleReadRequest} 
-                onDeleteRequest={handleDeleteRequest} 
-                request={request} 
-                user={loggedInUser} 
-                {...routeProps}
-              />
-            );
-          }
-        }/>
-        <Route path="/requests/update" render={
-          () => {
-            return (
-              <UpdateRequestForm 
-                onCreateReply={handleCreateReply} 
-                onUpdateRequest={handleUpdateRequest} 
-                request={request}
-              />
-            );
-          }
-        }/>
-
-        <Route path="/signup" render={
-          () => {
-            return (
-              <SignUp 
-                onSignUp={handleSignUp} 
-                onClearError={handleClearError} 
-                onClearNewRequest={handleClearNewRequest} 
-                error={error} 
-                />
-            );
-          }
-        }/>
-        <Route path="/signin" render={
-          () => {
-            return (
-              <SignIn 
-                onSignIn={handleSignIn} 
-                onClearError={handleClearError} 
-                onClearNewRequest={handleClearNewRequest} 
-                error={error}
-              />
-            );
-          }
-        }/>
-        <Route path="/logout" render={
-          () => {
-            return (
-              <LogOut 
-                onLogOut={handleLogOut} 
-                onClearNewRequest={handleClearNewRequest} 
-              />
-            );
-          }
-        }/>
+        <Route path="/signup">
+          <SignUp 
+            onSignUp={handleSignUp} 
+            onClearError={handleClearError} 
+            onClearNewRequest={handleClearNewRequest} 
+            error={error} 
+          />
+        </Route>
+        <Route path="/signin">
+          <SignIn 
+            onSignIn={handleSignIn} 
+            onClearError={handleClearError} 
+            onClearNewRequest={handleClearNewRequest} 
+            error={error}
+          />
+        </Route>
+        <Route path="/logout">
+         <LogOut 
+            onLogOut={handleLogOut} 
+            onClearNewRequest={handleClearNewRequest} 
+          />
+        </Route>
 
         <Route component={NotFound}/>
       </Switch>

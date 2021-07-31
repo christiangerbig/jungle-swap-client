@@ -3,15 +3,14 @@ import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
 const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest}) => {
-
-  // Handle initializing and cleanup
-  const handleResetAll = () => {
-    onClearNewRequest();
-    scroll.scrollToTop();
-  }
-
+  // Fetch all requests and reset values as soon as page loads and reset values during cleanup
   useEffect(
     () => {
+      const handleResetAll = () => {
+        onClearNewRequest();
+        scroll.scrollToTop();
+      }
+
       onFetchAllRequests();
       handleResetAll();
       return () => handleResetAll()
@@ -20,11 +19,13 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
   );
 
   if (!user) return (<Redirect to={"/signup"}/>);
+
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
+  
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

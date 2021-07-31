@@ -1,23 +1,27 @@
 import React, {useEffect} from "react";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useParams} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
-const PlantDetails = ({match, user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant}) => {
+const PlantDetails = ({user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant}) => {
+  const {plantId} = useParams();
+  // Read plant data and scroll to top as soon as page loads  
   useEffect(
     () => {
-      onReadPlant(match.params.plantId);
+      onReadPlant(plantId);
       scroll.scrollToTop();
     },
     []
   );
 
   if (!user) return (<Redirect to={"/signup"}/>);
+
   const {_id, name, description, size, image, imagePublicId, location, price, creator} = plant;
   if (!creator) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
+  
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
       <div className="mt-4 mb-3 pt-4 container">
@@ -42,7 +46,7 @@ const PlantDetails = ({match, user, plant, headerHeight, aboutHeight, onReadPlan
                     </div>
                   ) : (
                     <div>
-                      <Link to={{pathname: `/plants/checkout/${_id}`, plant: plant}}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
+                      <Link to={{pathname: "/plants/checkout", plant: plant}}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
                       <Link to={{pathname: "/requests/create", plant: plant}}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
                     </div>
                   )

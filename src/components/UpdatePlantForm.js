@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
 const UpdatePlantForm = ({plant, onNameChange, onDescriptionChange, onSizeChange, onPriceChange, onLocationChange, onImageChange, onUpdatePlant}) => {
+  // Scroll to top as soon as page loads
   useEffect(
     () => scroll.scrollToTop(),
     []

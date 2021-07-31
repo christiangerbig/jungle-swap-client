@@ -3,16 +3,18 @@ import {Link, Redirect} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
 const CreatePlantForm = ({user, headerHeight, aboutHeight, error, onCreatePlant, onClearError}) => {
+  // Scroll to top as soon as page loads and scroll to plants section during cleanup
   useEffect(
     () => {
       onClearError();
       scroll.scrollToTop();
-      return () => scroll.scrollTo(headerHeight + aboutHeight)
+      return () => scroll.scrollTo(headerHeight + aboutHeight);
     },
     []
   );
 
   if (!user) return (<Redirect to={"/signup"}/>);
+
   return (
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-6">

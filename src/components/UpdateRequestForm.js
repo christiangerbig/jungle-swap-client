@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {animateScroll as scroll} from "react-scroll";
 
 const UpdateRequestForm = ({request, onCreateReply, onUpdateRequest}) => {
+  // Scroll to top as soon as page loads
   useEffect(
     () => scroll.scrollToTop(),
     []
