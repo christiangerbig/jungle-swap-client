@@ -165,43 +165,31 @@ const App = () => {
       );
   }
 
-  // Plant name changed
-  const handleNameChange = event => {
+  // Plant values changed
+  const handlePlantEntryChange = ({target}, itemNumber) => {
     const clonePlant = JSON.parse(JSON.stringify(plant));
-    clonePlant.name = event.target.value;
-    setPlant(clonePlant);
-  }
-
-  // Plant description changed
-  const handleDescriptionChange = event => {
-    const clonePlant = JSON.parse(JSON.stringify(plant));
-    clonePlant.description = event.target.value;
-    setPlant(clonePlant);
-  }
-
-  // Plant size changed
-  const handleSizeChange = event => {
-    const clonePlant = JSON.parse(JSON.stringify(plant));
-    clonePlant.size = event.target.value;
-    setPlant(clonePlant);
-  }
-
-  // Plant price changed
-  const handlePriceChange = event => {
-    const clonePlant = JSON.parse(JSON.stringify(plant));
-    clonePlant.price = event.target.value;
-    setPlant(clonePlant);
-  }
-
-  // Plant location changed
-  const handleLocationChange = event => {
-    const clonePlant = JSON.parse(JSON.stringify(plant));
-    clonePlant.location = event.target.value;
+    // eslint-disable-next-line default-case
+    switch (itemNumber) {
+      case 0:
+        clonePlant.name = target.value;
+        break;
+      case 1:
+        clonePlant.description = target.value;
+        break;
+      case 2:
+        clonePlant.size = target.value;
+        break;
+      case 3:
+        clonePlant.location = target.value;
+        break;
+      case 4:
+        clonePlant.price = target.value;
+    }
     setPlant(clonePlant);
   }
 
   // Plant image changed
-  const handleImageChange = event => {
+  const handleImageChange = (event, plant) => {
     const image = event.target.files[0];
     const {imagePublicId} = plant;
     const destroyImageData = {
@@ -239,8 +227,7 @@ const App = () => {
   }
 
   // Update plant
-  const handleUpdatePlant = plant => {
-    const {_id, name, description, size, image, imagePublicId, location, price} = plant;
+  const handleUpdatePlant = ({_id, name, description, size, image, imagePublicId, location, price}) => {
     const updatedPlant = {
       name,
       description,
@@ -389,10 +376,9 @@ const App = () => {
   }
 
   // Create request
-  const handleCreateRequest = (event, plant) => {
+  const handleCreateRequest = (event, {_id, creator}) => {
     event.preventDefault();
     const {message} = event.target;
-    const {_id, creator} = plant;
     const newRequest = {
       seller: creator._id,
       plant: _id,
@@ -406,7 +392,7 @@ const App = () => {
       .then(
         response => {
           setRequests([response.data, ...requests]);
-          history.push(`/plants/read/${plant._id}`);
+          history.push(`/plants/read/${_id}`);
         }
       )
       .catch(
@@ -436,8 +422,7 @@ const App = () => {
   }
 
   // Update request
-  const handleUpdateRequest = request => {
-    const {_id, buyer, seller, plant, message, reply} = request;
+  const handleUpdateRequest = ({_id, buyer, seller, plant, message, reply}) => {
     const updatedRequest = {
       buyer,
       seller,
@@ -603,13 +588,9 @@ const App = () => {
         />
       </Route>
         <Route path="/plants/update">
-          <UpdatePlantForm 
-            onNameChange={handleNameChange} 
-            onDescriptionChange={handleDescriptionChange} 
-            onSizeChange={handleSizeChange} 
-            onPriceChange={handlePriceChange} 
-            onLocationChange={handleLocationChange} 
+          <UpdatePlantForm
             onImageChange={handleImageChange} 
+            onPlantEntryChange={handlePlantEntryChange}
             onUpdatePlant={handleUpdatePlant} 
             plant={plant} headerHeight={headerHeight} 
             aboutHeight={aboutHeight}
