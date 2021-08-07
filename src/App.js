@@ -416,9 +416,9 @@ const App = () => {
   }
 
   // Create reply
-  const handleCreateReply = ({ target }) => {
+  const handleCreateReply = event => {
     const cloneRequest = JSON.parse(JSON.stringify(request));
-    cloneRequest.reply = target.value;
+    cloneRequest.reply = event.target.value;
     setRequest(cloneRequest);
   }
 
