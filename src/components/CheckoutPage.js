@@ -7,7 +7,7 @@ import CheckoutForm from "./CheckoutForm";
 
 const promise = loadStripe("pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv");
 
-const CheckoutPage = ({ headerHeight, aboutHeight, onCheckout }) => {
+const CheckoutPage = ({ headerContainerHeight, aboutContainerHeight, onCheckout }) => {
   const location = useLocation();
   // Scroll to top as soon as page loads
   useEffect(
@@ -23,8 +23,8 @@ const CheckoutPage = ({ headerHeight, aboutHeight, onCheckout }) => {
           <CheckoutForm
             onCheckout={onCheckout}
             plant={plant}
-            headerHeight={headerHeight}
-            aboutHeight={aboutHeight}
+            headerContainerHeight={headerContainerHeight}
+            aboutContainerHeight={aboutContainerHeight}
           />
         </Elements>
       </div>

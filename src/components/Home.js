@@ -4,7 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
-const Home = ({ plants, query, headerHeight, onSearchPlant, onGetElementsHeight }) => {
+const Home = ({ plants, query, headerContainerHeight, onSearchPlant, onGetElementsHeight }) => {
   // Get height of header and about elements as soon as page loads
   useEffect(
     () => onGetElementsHeight(),
@@ -25,7 +25,7 @@ const Home = ({ plants, query, headerHeight, onSearchPlant, onGetElementsHeight 
             <h2 className="title mb-2"> JungleSwap </h2>
             <h5 className="mt-3 mb-5"> Share your green heart </h5>
             <div className="mb-5">
-              <Link className="biggerFontSize" onClick={() => scroll.scrollTo(headerHeight)}> Try it! </Link>
+              <Link className="biggerFontSize" onClick={() => scroll.scrollTo(headerContainerHeight)}> Try it! </Link>
             </div>
           </div>
         </div>

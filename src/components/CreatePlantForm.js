@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 
-const CreatePlantForm = ({ user, headerHeight, aboutHeight, error, onCreatePlant, onClearError }) => {
+const CreatePlantForm = ({ user, headerContainerHeight, aboutContainerHeight, error, onCreatePlant, onClearError }) => {
   // Scroll to top as soon as page loads and scroll to plants section during cleanup
   useEffect(
     () => {
       onClearError();
       scroll.scrollToTop();
-      return () => scroll.scrollTo(headerHeight + aboutHeight);
+      return () => scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
     },
     []
   );

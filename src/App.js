@@ -37,8 +37,8 @@ const App = () => {
   const [isNewRequest, setIsNewRequest] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [minutesCounter, setMinutesCounter] = useState(0);
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [aboutHeight, setAboutHeight] = useState(0);
+  const [headerContainerHeight, setHeaderContainerHeight] = useState(0);
+  const [aboutContainerHeight, setAboutContainerHeight] = useState(0);
   const [error, setError] = useState(null);
 
   const history = useHistory();
@@ -46,8 +46,8 @@ const App = () => {
 
   // Get height of header and about elements
   const handleGetElementsHeight = () => {
-    setHeaderHeight(Math.round(document.querySelector("#titleId").getBoundingClientRect().height));
-    setAboutHeight(Math.round(document.querySelector("#aboutId").getBoundingClientRect().height));
+    setHeaderContainerHeight(Math.round(document.querySelector("#titleId").getBoundingClientRect().height));
+    setAboutContainerHeight(Math.round(document.querySelector("#aboutId").getBoundingClientRect().height));
   }
 
   // Clear error message
@@ -261,7 +261,7 @@ const App = () => {
             )
           );
           history.push("/");
-          scroll.scrollTo(headerHeight + aboutHeight);
+          scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
         }
       )
       .catch(
@@ -285,7 +285,7 @@ const App = () => {
               () => {
                 setPlants(plants.filter(plant => plant._id !== plantId));
                 history.push("/");
-                scroll.scrollTo(headerHeight + aboutHeight);
+                scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
               }
             )
             .catch(
@@ -557,8 +557,8 @@ const App = () => {
         onLogOut={handleLogOut}
         isNewRequest={isNewRequest}
         user={loggedInUser}
-        headerHeight={headerHeight}
-        aboutHeight={aboutHeight}
+        headerContainerHeight={headerContainerHeight}
+        aboutContainerHeight={aboutContainerHeight}
       />
       <Switch>
         <Route exact path="/">
@@ -567,7 +567,7 @@ const App = () => {
             onGetElementsHeight={handleGetElementsHeight}
             plants={plants}
             query={query}
-            headerHeight={headerHeight}
+            headerContainerHeight={headerContainerHeight}
           />
         </Route>
         <Route path="/plants/create">
@@ -575,8 +575,8 @@ const App = () => {
             onCreatePlant={handleCreatePlant}
             onClearError={handleClearError}
             user={loggedInUser}
-            headerHeight={headerHeight}
-            aboutHeight={aboutHeight}
+            headerContainerHeight={headerContainerHeight}
+            aboutContainerHeight={aboutContainerHeight}
             error={error}
           />
         </Route>
@@ -586,8 +586,8 @@ const App = () => {
             onDeletePlant={handleDeletePlant}
             plant={plant}
             user={loggedInUser}
-            headerHeight={headerHeight}
-            aboutHeight={aboutHeight}
+            headerContainerHeight={headerContainerHeight}
+            aboutContainerHeight={aboutContainerHeight}
           />
         </Route>
         <Route path="/plants/update">
@@ -596,15 +596,15 @@ const App = () => {
             onPlantEntryChange={handlePlantEntryChange}
             onUpdatePlant={handleUpdatePlant}
             plant={plant}
-            headerHeight={headerHeight}
-            aboutHeight={aboutHeight}
+            headerContainerHeight={headerContainerHeight}
+            aboutContainerHeight={aboutContainerHeight}
           />
         </Route>
         <Route path="/plants/checkout">
           <CheckoutPage
             onCheckout={handleCheckout}
-            headerHeight={headerHeight}
-            aboutHeight={aboutHeight}
+            headerContainerHeight={headerContainerHeight}
+            aboutContainerHeight={aboutContainerHeight}
           />
         </Route>
 

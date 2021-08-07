@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 
-const PlantDetails = ({ user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant }) => {
+const PlantDetails = ({ user, plant, headerContainerHeight, aboutContainerHeight, onReadPlant, onDeletePlant }) => {
   const { plantId } = useParams();
   // Read plant data and scroll to top as soon as page loads  
   useEffect(
@@ -51,7 +51,7 @@ const PlantDetails = ({ user, plant, headerHeight, aboutHeight, onReadPlant, onD
                     </div>
                   )
                 }
-                <Link to={"/"} onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
+                <Link to={"/"} onClick={() => scroll.scrollTo(headerContainerHeight + aboutContainerHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
               </div>
             </div>
           </div>

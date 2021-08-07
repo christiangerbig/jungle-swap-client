@@ -4,7 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import config from "../config";
 
-const CheckoutForm = ({ plant, headerHeight, aboutHeight, onCheckout }) => {
+const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCheckout }) => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -31,7 +31,7 @@ const CheckoutForm = ({ plant, headerHeight, aboutHeight, onCheckout }) => {
         .then(
           data => setClientSecret(data.clientSecret)
         );
-      return () => scroll.scrollTo(headerHeight + aboutHeight);
+      return () => scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
     },
     []
   );

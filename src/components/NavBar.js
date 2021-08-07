@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 
-const NavBar = ({ user, isNewRequest, headerHeight, aboutHeight }) => {
+const NavBar = ({ user, isNewRequest, headerContainerHeight, aboutContainerHeight }) => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
@@ -12,7 +12,7 @@ const NavBar = ({ user, isNewRequest, headerHeight, aboutHeight }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <div>
-              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerHeight + aboutHeight)}> All Plants </Link>
+              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerContainerHeight + aboutContainerHeight)}> All Plants </Link>
             </div>
             {
               user && (
