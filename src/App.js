@@ -190,8 +190,8 @@ const App = () => {
   }
 
   // Plant image changed
-  const handleImageChange = (event, plant) => {
-    const image = event.target.files[0];
+  const handleImageChange = ({ target }, plant) => {
+    const image = target.files[0];
     const { imagePublicId } = plant;
     const destroyImageData = {
       imagePublicId
@@ -416,9 +416,9 @@ const App = () => {
   }
 
   // Create reply
-  const handleCreateReply = event => {
+  const handleCreateReply = ({ target }) => {
     const cloneRequest = JSON.parse(JSON.stringify(request));
-    cloneRequest.reply = event.target.value;
+    cloneRequest.reply = target.value;
     setRequest(cloneRequest);
   }
 
