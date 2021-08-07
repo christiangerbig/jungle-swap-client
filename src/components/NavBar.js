@@ -1,9 +1,9 @@
 import React from "react";
-import {Navbar, Nav} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const NavBar = ({user, isNewRequest, headerHeight, aboutHeight}) => {
+const NavBar = ({ user, isNewRequest, headerHeight, aboutHeight }) => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">

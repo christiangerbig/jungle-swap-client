@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
-import {Route, Switch, withRouter, useHistory} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useState, useEffect } from "react";
+import { Route, Switch, withRouter, useHistory } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import config from "./config";
 import axios from "axios";
 
@@ -43,7 +43,7 @@ const App = () => {
 
   const history = useHistory();
   const rootPath = `${config.API_URL}/api`;
-  
+
   // Get height of header and about elements
   const handleGetElementsHeight = () => {
     setHeaderHeight(Math.round(document.querySelector("#titleId").getBoundingClientRect().height));
@@ -71,7 +71,7 @@ const App = () => {
     () => {
       handleFetchAllPlants();
       if (!loggedInUser) {
-        axios.get(`${rootPath}/user`, {withCredentials: true})
+        axios.get(`${rootPath}/user`, { withCredentials: true })
           .then(
             response => {
               setLoggedInUser(response.data);
@@ -114,14 +114,14 @@ const App = () => {
   // Create plant
   const handleCreatePlant = event => {
     event.preventDefault();
-    const {name, description, size, plantImage, location, price} = event.target;
+    const { name, description, size, plantImage, location, price } = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     axios.post(`${rootPath}/upload`, uploadForm)
       .then(
         response => {
-          const {image, imagePublicId} = response.data;
+          const { image, imagePublicId } = response.data;
           const newPlant = {
             name: name.value,
             description: description.value,
@@ -132,15 +132,15 @@ const App = () => {
             price: price.value
           };
           axios.post(
-            `${rootPath}/plants/create`, 
-            newPlant, 
-            {withCredentials: true}
+            `${rootPath}/plants/create`,
+            newPlant,
+            { withCredentials: true }
           )
             .then(
               response => {
                 setPlants([response.data, ...plants]);
                 history.push("/");
-              } 
+              }
             )
             .catch(
               err => setError(err.response.data.error)
@@ -156,7 +156,7 @@ const App = () => {
   const handleReadPlant = plantId => {
     axios.get(
       `${rootPath}/plants/read/${plantId}`,
-      {withCredentials: true}
+      { withCredentials: true }
     )
       .then(
         response => setPlant(response.data)
@@ -167,7 +167,7 @@ const App = () => {
   }
 
   // Plant values changed
-  const handlePlantEntryChange = ({target}, itemNumber) => {
+  const handlePlantEntryChange = ({ target }, itemNumber) => {
     const clonePlant = JSON.parse(JSON.stringify(plant));
     // eslint-disable-next-line default-case
     switch (itemNumber) {
@@ -192,12 +192,12 @@ const App = () => {
   // Plant image changed
   const handleImageChange = (event, plant) => {
     const image = event.target.files[0];
-    const {imagePublicId} = plant;
+    const { imagePublicId } = plant;
     const destroyImageData = {
       imagePublicId
     }
     axios.post(
-      `${rootPath}/destroy`, 
+      `${rootPath}/destroy`,
       destroyImageData
     )
       .then(
@@ -205,13 +205,13 @@ const App = () => {
           const uploadForm = new FormData();
           uploadForm.append("image", image);
           axios.post(
-            `${rootPath}/upload`, 
+            `${rootPath}/upload`,
             uploadForm
           )
             .then(
               response => {
                 const clonePlant = JSON.parse(JSON.stringify(plant));
-                const {imagePublicId, image} = response.data;
+                const { imagePublicId, image } = response.data;
                 clonePlant.imagePublicId = imagePublicId;
                 clonePlant.image = image;
                 setPlant(clonePlant);
@@ -228,7 +228,7 @@ const App = () => {
   }
 
   // Update plant
-  const handleUpdatePlant = ({_id, name, description, size, image, imagePublicId, location, price}) => {
+  const handleUpdatePlant = ({ _id, name, description, size, image, imagePublicId, location, price }) => {
     const updatedPlant = {
       name,
       description,
@@ -240,7 +240,7 @@ const App = () => {
     };
     axios.patch(
       `${rootPath}/plants/update/${_id}`,
-       updatedPlant
+      updatedPlant
     )
       .then(
         () => {
@@ -275,7 +275,7 @@ const App = () => {
       imagePublicId
     }
     axios.post(
-      `${rootPath}/destroy`, 
+      `${rootPath}/destroy`,
       destroyImageData
     )
       .then(
@@ -296,14 +296,14 @@ const App = () => {
       .catch(
         err => console.log("Delete image failed", err)
       );
-  }  
+  }
 
   // Plant payment
   const handleCheckout = () => {
     axios.post(
-      `${rootPath}/create-payment-intent`, 
-      {}, 
-      {withCredentials: true}
+      `${rootPath}/create-payment-intent`,
+      {},
+      { withCredentials: true }
     )
       .then(
         () => history.push("/")
@@ -327,7 +327,7 @@ const App = () => {
               setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length);
               setIntervalId(
                 setInterval(
-                  () => setMinutesCounter(minutesCounter => minutesCounter += 1), 
+                  () => setMinutesCounter(minutesCounter => minutesCounter += 1),
                   10000 // every minute
                 )
               );
@@ -364,7 +364,7 @@ const App = () => {
 
   // Clear state for new received requests
   const handleClearNewRequest = () => setIsNewRequest(false)
-  
+
   // Fetch all requests
   const handleFetchAllRequests = () => {
     axios.get(`${rootPath}/requests/fetch`)
@@ -377,18 +377,18 @@ const App = () => {
   }
 
   // Create request
-  const handleCreateRequest = (event, {_id, creator}) => {
+  const handleCreateRequest = (event, { _id, creator }) => {
     event.preventDefault();
-    const {message} = event.target;
+    const { message } = event.target;
     const newRequest = {
       seller: creator._id,
       plant: _id,
       message: message.value
     };
     axios.post(
-      `${rootPath}/requests/create`, 
-      newRequest, 
-      {withCredentials: true}
+      `${rootPath}/requests/create`,
+      newRequest,
+      { withCredentials: true }
     )
       .then(
         response => {
@@ -405,7 +405,7 @@ const App = () => {
   const handleReadRequest = requestId => {
     axios.get(
       `${rootPath}/requests/read/${requestId}`,
-      {withCredentials: true}
+      { withCredentials: true }
     )
       .then(
         response => setRequest(response.data)
@@ -423,7 +423,7 @@ const App = () => {
   }
 
   // Update request
-  const handleUpdateRequest = ({_id, buyer, seller, plant, message, reply}) => {
+  const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }) => {
     const updatedRequest = {
       buyer,
       seller,
@@ -432,7 +432,7 @@ const App = () => {
       reply
     };
     axios.patch(
-      `${rootPath}/requests/update/${_id}`, 
+      `${rootPath}/requests/update/${_id}`,
       updatedRequest
     )
       .then(
@@ -479,14 +479,14 @@ const App = () => {
   // Signup
   const handleSignUp = event => {
     event.preventDefault();
-    const {username, email, password} = event.target;
+    const { username, email, password } = event.target;
     const newUser = {
       username: username.value,
       email: email.value.toLowerCase(),
       password: password.value
     };
     axios.post(
-      `${rootPath}/signup`, 
+      `${rootPath}/signup`,
       newUser
     )
       .then(
@@ -504,15 +504,15 @@ const App = () => {
   // Signin
   const handleSignIn = event => {
     event.preventDefault();
-    const {email, password} = event.target;
+    const { email, password } = event.target;
     const user = {
       email: email.value,
       password: password.value
     };
     axios.post(
-      `${rootPath}/signin`, 
-      user, 
-      {withCredentials: true}
+      `${rootPath}/signin`,
+      user,
+      { withCredentials: true }
     )
       .then(
         response => {
@@ -529,9 +529,9 @@ const App = () => {
   // Logout
   const handleLogOut = () => {
     axios.post(
-      `${rootPath}/logout`, 
-      {}, 
-      {withCredentials: true}
+      `${rootPath}/logout`,
+      {},
+      { withCredentials: true }
     )
       .then(
         () => {
@@ -550,120 +550,124 @@ const App = () => {
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
-  
+
   return (
     <div class="main">
-      <NavBar 
-        onLogOut={handleLogOut} 
-        isNewRequest={isNewRequest} 
-        user={loggedInUser} 
-        headerHeight={headerHeight} 
+      <NavBar
+        onLogOut={handleLogOut}
+        isNewRequest={isNewRequest}
+        user={loggedInUser}
+        headerHeight={headerHeight}
         aboutHeight={aboutHeight}
       />
       <Switch>
         <Route exact path="/">
-          <Home 
-            onSearchPlant={handleSearchPlant} 
-            onGetElementsHeight={handleGetElementsHeight} 
-            plants={plants} query={query} 
+          <Home
+            onSearchPlant={handleSearchPlant}
+            onGetElementsHeight={handleGetElementsHeight}
+            plants={plants}
+            query={query}
             headerHeight={headerHeight}
           />
         </Route>
         <Route path="/plants/create">
-        <CreatePlantForm 
-          onCreatePlant={handleCreatePlant} 
-          onClearError={handleClearError} 
-          user={loggedInUser} 
-          headerHeight={headerHeight} 
-          aboutHeight={aboutHeight} 
-          error={error} 
-        />
-      </Route>
-      <Route path="/plants/read/:plantId">
-        <PlantDetails 
-          onReadPlant={handleReadPlant} 
-          onDeletePlant={handleDeletePlant} 
-          plant={plant} user={loggedInUser} 
-          headerHeight={headerHeight} 
-          aboutHeight={aboutHeight}
-        />
-      </Route>
+          <CreatePlantForm
+            onCreatePlant={handleCreatePlant}
+            onClearError={handleClearError}
+            user={loggedInUser}
+            headerHeight={headerHeight}
+            aboutHeight={aboutHeight}
+            error={error}
+          />
+        </Route>
+        <Route path="/plants/read/:plantId">
+          <PlantDetails
+            onReadPlant={handleReadPlant}
+            onDeletePlant={handleDeletePlant}
+            plant={plant}
+            user={loggedInUser}
+            headerHeight={headerHeight}
+            aboutHeight={aboutHeight}
+          />
+        </Route>
         <Route path="/plants/update">
           <UpdatePlantForm
-            onImageChange={handleImageChange} 
+            onImageChange={handleImageChange}
             onPlantEntryChange={handlePlantEntryChange}
-            onUpdatePlant={handleUpdatePlant} 
-            plant={plant} headerHeight={headerHeight} 
+            onUpdatePlant={handleUpdatePlant}
+            plant={plant}
+            headerHeight={headerHeight}
             aboutHeight={aboutHeight}
           />
         </Route>
         <Route path="/plants/checkout">
-          <CheckoutPage 
-            onCheckout={handleCheckout} 
-            headerHeight={headerHeight} 
+          <CheckoutPage
+            onCheckout={handleCheckout}
+            headerHeight={headerHeight}
             aboutHeight={aboutHeight}
           />
         </Route>
 
         <Route path="/requests/fetch">
-          <RequestsPage 
-            onFetchAllRequests={handleFetchAllRequests} 
-            onClearNewRequest={handleClearNewRequest}  
-            user={loggedInUser} requests={requests} 
-            amountOfRequests={amountOfRequests} 
+          <RequestsPage
+            onFetchAllRequests={handleFetchAllRequests}
+            onClearNewRequest={handleClearNewRequest}
+            user={loggedInUser}
+            requests={requests}
+            amountOfRequests={amountOfRequests}
           />
         </Route>
         <Route path="/requests/create">
-          <CreateRequestForm 
-            onCreateRequest={handleCreateRequest} 
-            onClearError={handleClearError} 
-            user={loggedInUser} 
+          <CreateRequestForm
+            onCreateRequest={handleCreateRequest}
+            onClearError={handleClearError}
+            user={loggedInUser}
             error={error}
           />
         </Route>
         <Route path="/requests/read/:requestId">
-          <RequestDetails 
-            onReadRequest={handleReadRequest} 
-            onDeleteRequest={handleDeleteRequest} 
-            request={request} 
+          <RequestDetails
+            onReadRequest={handleReadRequest}
+            onDeleteRequest={handleDeleteRequest}
+            request={request}
             user={loggedInUser}
           />
         </Route>
         <Route path="/requests/update">
-          <UpdateRequestForm 
-            onCreateReply={handleCreateReply} 
-            onUpdateRequest={handleUpdateRequest} 
+          <UpdateRequestForm
+            onCreateReply={handleCreateReply}
+            onUpdateRequest={handleUpdateRequest}
             request={request}
           />
         </Route>
 
         <Route path="/signup">
-          <SignUp 
-            onSignUp={handleSignUp} 
-            onClearError={handleClearError} 
-            onClearNewRequest={handleClearNewRequest} 
-            error={error} 
+          <SignUp
+            onSignUp={handleSignUp}
+            onClearError={handleClearError}
+            onClearNewRequest={handleClearNewRequest}
+            error={error}
           />
         </Route>
         <Route path="/signin">
-          <SignIn 
-            onSignIn={handleSignIn} 
-            onClearError={handleClearError} 
-            onClearNewRequest={handleClearNewRequest} 
+          <SignIn
+            onSignIn={handleSignIn}
+            onClearError={handleClearError}
+            onClearNewRequest={handleClearNewRequest}
             error={error}
           />
         </Route>
         <Route path="/logout">
-         <LogOut 
-            onLogOut={handleLogOut} 
-            onClearNewRequest={handleClearNewRequest} 
+          <LogOut
+            onLogOut={handleLogOut}
+            onClearNewRequest={handleClearNewRequest}
           />
         </Route>
 
-        <Route component={NotFound}/>
+        <Route component={NotFound} />
       </Switch>
-      <KommunicateChat/>
-      <Footer/>
+      <KommunicateChat />
+      <Footer />
     </div>
   );
 }

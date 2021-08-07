@@ -1,9 +1,9 @@
-import React, {useEffect}  from "react";
-import {Link, useParams} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const RequestDetails = ({request, onReadRequest, onDeleteRequest}) => {
-  const {requestId} = useParams();
+const RequestDetails = ({ request, onReadRequest, onDeleteRequest }) => {
+  const { requestId } = useParams();
   // Read request and scroll to top as soon as page loads
   useEffect(
     () => {
@@ -13,13 +13,13 @@ const RequestDetails = ({request, onReadRequest, onDeleteRequest}) => {
     []
   );
 
-  const {_id, buyer, plant, message, reply} = request;
+  const { _id, buyer, plant, message, reply } = request;
   if (!buyer || !plant) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
-  
+
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

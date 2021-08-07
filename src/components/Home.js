@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
-const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight}) => {
+const Home = ({ plants, query, headerHeight, onSearchPlant, onGetElementsHeight }) => {
   // Get height of header and about elements as soon as page loads
   useEffect(
     () => onGetElementsHeight(),
@@ -16,7 +16,7 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
-  
+
   return (
     <div>
       <header className="text-center pt-5 pb-5 headerImg" id="titleId">
@@ -35,20 +35,20 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
         <div className="about centered container">
           <div className="row">
             <div className="col-sm-6 col-md-5 col-lg-6">
-              <img className="image" src={image} alt="plants"/>
+              <img className="image" src={image} alt="plants" />
             </div>
             <br />
             <div className="about col-sm-6 col-md-5 col-lg-6 px-5 noOverflow">
               <h4> Welcome to JungleSwap! </h4>
               <h5> Add green to your Home </h5>
-              <p> It"s easy-peasy. <br/>
-                Share your plant offshoots. <br/>
-                Make money! <br/>
-                Or swap them for another plant. <br/>
-                Don"t have any baby plants? <br/>
+              <p> It"s easy-peasy. <br />
+                Share your plant offshoots. <br />
+                Make money! <br />
+                Or swap them for another plant. <br />
+                Don"t have any baby plants? <br />
                 You can simply shop and give a plant a new home.
               </p>
-              <img className="icon" src={icon} alt="icon"/>
+              <img className="icon" src={icon} alt="icon" />
             </div>
           </div>
         </div>
@@ -58,21 +58,21 @@ const Home = ({plants, query, headerHeight, onSearchPlant, onGetElementsHeight})
         <div className="container mt-5">
           <div className="mt-5 mb-3">
             <h2> Plants </h2>
-            <hr/>
+            <hr />
             <h4> Search a plant </h4>
           </div>
           <div className="mb-4">
-            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={onSearchPlant}/>
+            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={onSearchPlant} />
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {
               plants.map(
                 plant => {
-                  const {_id, name, image, price} = plant;
+                  const { _id, name, image, price } = plant;
                   return (
                     <div className="col mb-5" key={_id}>
                       <div className="card card-medium-width text-center h-100">
-                        <img className="card-img-top mediumPicSize" src={image} alt={name}/>
+                        <img className="card-img-top mediumPicSize" src={image} alt={name} />
                         <div className="card-body mb-5">
                           <h5> {name} </h5>
                           <p> {price} € </p>

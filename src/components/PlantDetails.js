@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
-import {Link, Redirect, useParams} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link, Redirect, useParams } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const PlantDetails = ({user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant}) => {
-  const {plantId} = useParams();
+const PlantDetails = ({ user, plant, headerHeight, aboutHeight, onReadPlant, onDeletePlant }) => {
+  const { plantId } = useParams();
   // Read plant data and scroll to top as soon as page loads  
   useEffect(
     () => {
@@ -13,15 +13,15 @@ const PlantDetails = ({user, plant, headerHeight, aboutHeight, onReadPlant, onDe
     []
   );
 
-  if (!user) return (<Redirect to={"/signup"}/>);
+  if (!user) return (<Redirect to={"/signup"} />);
 
-  const {_id, name, description, size, image, imagePublicId, location, price, creator} = plant;
+  const { _id, name, description, size, image, imagePublicId, location, price, creator } = plant;
   if (!creator) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
-  
+
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
       <div className="mt-4 mb-3 pt-4 container">
@@ -29,7 +29,7 @@ const PlantDetails = ({user, plant, headerHeight, aboutHeight, onReadPlant, onDe
       </div>
       <div className="col">
         <div className="card cardMediumWidth">
-          {image && (<img className="card-img-top mediumPicSize" src={image} alt={name}/>)}
+          {image && (<img className="card-img-top mediumPicSize" src={image} alt={name} />)}
           <div className="ml-2 mt-2"> <span> Name: </span> {name} </div>
           <div className="ml-2 mt-2"> <span> Description: </span> {description} </div>
           <div className="ml-2 mt-2"> <span> Size: </span> {size} cm </div>
@@ -46,8 +46,8 @@ const PlantDetails = ({user, plant, headerHeight, aboutHeight, onReadPlant, onDe
                     </div>
                   ) : (
                     <div>
-                      <Link to={{pathname: "/plants/checkout", plant: plant}}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
-                      <Link to={{pathname: "/requests/create", plant: plant}}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
+                      <Link to={{ pathname: "/plants/checkout", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
+                      <Link to={{ pathname: "/requests/create", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
                     </div>
                   )
                 }

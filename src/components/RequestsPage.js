@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
-import {Link, Redirect} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest}) => {
+const RequestsPage = ({ user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest }) => {
   // Fetch all requests and reset values as soon as page loads and reset values during cleanup
   useEffect(
     () => {
@@ -18,14 +18,14 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
     []
   );
 
-  if (!user) return (<Redirect to={"/signup"}/>);
+  if (!user) return (<Redirect to={"/signup"} />);
 
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
       <span class="visually-hidden"> Loading... </span>
     </div>
   );
-  
+
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
@@ -35,7 +35,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
         {
           requests.map(
             request => {
-              const {_id, buyer, seller, plant} = request;
+              const { _id, buyer, seller, plant } = request;
               return (
                 seller._id === user._id && (
                   <div className="card p-3 mt-4 " key={_id}>
@@ -47,7 +47,7 @@ const RequestsPage = ({user, requests, amountOfRequests, onFetchAllRequests, onC
                   </div>
                 )
               );
-            } 
+            }
           )
         }
         {amountOfRequests !== 0 && (<Link to={"/"}> <button className="btn btn-sm mt-4"> Go back </button> </Link>)}

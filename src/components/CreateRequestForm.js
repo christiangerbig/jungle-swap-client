@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const CreateRequestForm = ({error, onCreateRequest, onClearError}) => {
+const CreateRequestForm = ({ error, onCreateRequest, onClearError }) => {
   const location = useLocation();
   // Scroll to top as soon as page loads
   useEffect(
@@ -13,7 +13,7 @@ const CreateRequestForm = ({error, onCreateRequest, onClearError}) => {
     []
   );
 
-  const {plant} = location;
+  const { plant } = location;
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
@@ -21,7 +21,7 @@ const CreateRequestForm = ({error, onCreateRequest, onClearError}) => {
         <h3 className="mb-4"> {plant.name} </h3>
         <form onSubmit={(event) => onCreateRequest(event, plant)}>
           <div>
-            <textarea className="mb-4" name="message" cols="35" rows="7"/>
+            <textarea className="mb-4" name="message" cols="35" rows="7" />
           </div>
           {error && (<p className="warningColor"> {error} </p>)}
           <button className="btn btn-sm btn-outline-dark" type="submit"> Send </button>

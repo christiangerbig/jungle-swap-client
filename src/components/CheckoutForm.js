@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
-import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import config from "../config";
 
-const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
+const CheckoutForm = ({ plant, headerHeight, aboutHeight, onCheckout }) => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -12,7 +12,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
   const [error, setError] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-  
+
   // Create PaymentIntent as soon as page loads
   useEffect(
     () => {
@@ -21,8 +21,8 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
           `${config.API_URL}/api/create-payment-intent`,
           {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({price: plant.price})
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ price: plant.price })
           }
         )
         .then(
@@ -31,7 +31,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         .then(
           data => setClientSecret(data.clientSecret)
         );
-        return () => scroll.scrollTo(headerHeight + aboutHeight);
+      return () => scroll.scrollTo(headerHeight + aboutHeight);
     },
     []
   );
@@ -44,7 +44,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         fontFamily: "Arial, sans-serif",
         fontSmoothing: "antialiased",
         fontSize: "16px",
-        "::placeholder": {color: "#32325d"}
+        "::placeholder": { color: "#32325d" }
       },
       invalid: {
         color: "#fa755a",
@@ -65,7 +65,7 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
     setIsProcessing(true);
     const payload = await stripe.confirmCardPayment(
       clientSecret,
-      {payment_method: {card: elements.getElement(CardElement)}}
+      { payment_method: { card: elements.getElement(CardElement) } }
     );
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
@@ -77,23 +77,23 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
       setIsSucceeded(true);
     }
   }
-  
-  const {_id, name, price} = plant;
+
+  const { _id, name, price } = plant;
   return (
     <div className="container col-9">
       <form className="checkoutForm mt-5" id="payment-form" onSubmit={handleSubmitPayment}>
         <h2 className="text-center mb-2 p-2"> {name} </h2>
         <h3 className="text-center mb-4 p-2"> {price} € </h3>
-        <CardElement 
-          className="p-2" 
-          id="card-element" 
-          options={cardStyle} 
+        <CardElement
+          className="p-2"
+          id="card-element"
+          options={cardStyle}
           onChange={handleChange}
         />
         <div className="row justify-content-center">
           <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
-              {isProcessing ? <div className="spinner" id="spinner"/> : "Pay now"}
+              {isProcessing ? <div className="spinner" id="spinner" /> : "Pay now"}
             </span>
           </button>
         </div>
@@ -108,10 +108,10 @@ const CheckoutForm = ({plant, headerHeight, aboutHeight, onCheckout}) => {
         {
           isSucceeded ? (
             <Link to={"/"}> <button className="btn btn-sm"> Go back </button> </Link>
-          ) 
-          : (
-            <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>
           )
+            : (
+              <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>
+            )
         }
       </div>
     </div>

@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
-import {animateScroll as scroll} from "react-scroll";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
-const SignUp = ({error, onSignUp, onClearError, onClearNewRequest}) => {
+const SignUp = ({ error, onSignUp, onClearError, onClearNewRequest }) => {
   // Clear values and scroll to top as soon as page loads
   useEffect(
     () => {
@@ -20,15 +20,15 @@ const SignUp = ({error, onSignUp, onClearError, onClearNewRequest}) => {
         <form onSubmit={onSignUp}>
           <div className="form-group">
             <label htmlFor="InputUsername"> Username </label>
-            <input type="text" className="form-control" id="InputUsername" name="username"/>
+            <input type="text" className="form-control" id="InputUsername" name="username" />
           </div>
           <div className="form-group">
             <label htmlFor="InputEmail"> Email address </label>
-            <input type="email" className="form-control" id="InputEmail" name="email"/>
+            <input type="email" className="form-control" id="InputEmail" name="email" />
           </div>
           <div className="form-group">
             <label htmlFor="InputPassword"> Password </label>
-            <input name="password" type="password" className="form-control" id="InputPassword"/>
+            <input name="password" type="password" className="form-control" id="InputPassword" />
           </div>
           {error && (<p className="warningColor"> {error} </p>)}
           <button type="submit" className="btn btn-primary mt-4 btn-outline-dark" formnovalidate="formnovalidate"> Sign up </button>
