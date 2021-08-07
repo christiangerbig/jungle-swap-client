@@ -42,6 +42,7 @@ const App = () => {
   const [error, setError] = useState(null);
 
   const history = useHistory();
+  const rootPath = `${config.API_URL}/api`;
   
   // Get height of header and about elements
   const handleGetElementsHeight = () => {
@@ -56,7 +57,7 @@ const App = () => {
 
   // Fetch all plants
   const handleFetchAllPlants = () => {
-    axios.get(`${config.API_URL}/api/plants/fetch`)
+    axios.get(`${rootPath}/plants/fetch`)
       .then(
         response => setPlants(response.data)
       )
@@ -70,7 +71,7 @@ const App = () => {
     () => {
       handleFetchAllPlants();
       if (!loggedInUser) {
-        axios.get(`${config.API_URL}/api/user`, {withCredentials: true})
+        axios.get(`${rootPath}/user`, {withCredentials: true})
           .then(
             response => {
               setLoggedInUser(response.data);
@@ -97,7 +98,7 @@ const App = () => {
     () => {
       // Fetch query plants
       const handleFetchQueryPlants = () => {
-        axios.get(`${config.API_URL}/api/plants/search?q=${query}`)
+        axios.get(`${rootPath}/plants/search?q=${query}`)
           .then(
             response => setPlants(response.data)
           )
@@ -117,7 +118,7 @@ const App = () => {
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    axios.post(`${config.API_URL}/api/upload`, uploadForm)
+    axios.post(`${rootPath}/upload`, uploadForm)
       .then(
         response => {
           const {image, imagePublicId} = response.data;
@@ -131,7 +132,7 @@ const App = () => {
             price: price.value
           };
           axios.post(
-            `${config.API_URL}/api/plants/create`, 
+            `${rootPath}/plants/create`, 
             newPlant, 
             {withCredentials: true}
           )
@@ -154,7 +155,7 @@ const App = () => {
   // Read plant
   const handleReadPlant = plantId => {
     axios.get(
-      `${config.API_URL}/api/plants/read/${plantId}`,
+      `${rootPath}/plants/read/${plantId}`,
       {withCredentials: true}
     )
       .then(
@@ -196,7 +197,7 @@ const App = () => {
       imagePublicId
     }
     axios.post(
-      `${config.API_URL}/api/destroy`, 
+      `${rootPath}/destroy`, 
       destroyImageData
     )
       .then(
@@ -204,7 +205,7 @@ const App = () => {
           const uploadForm = new FormData();
           uploadForm.append("image", image);
           axios.post(
-            `${config.API_URL}/api/upload`, 
+            `${rootPath}/upload`, 
             uploadForm
           )
             .then(
@@ -238,7 +239,7 @@ const App = () => {
       price
     };
     axios.patch(
-      `${config.API_URL}/api/plants/update/${_id}`,
+      `${rootPath}/plants/update/${_id}`,
        updatedPlant
     )
       .then(
@@ -274,12 +275,12 @@ const App = () => {
       imagePublicId
     }
     axios.post(
-      `${config.API_URL}/api/destroy`, 
+      `${rootPath}/destroy`, 
       destroyImageData
     )
       .then(
         () => {
-          axios.delete(`${config.API_URL}/api/plants/delete/${plantId}`)
+          axios.delete(`${rootPath}/plants/delete/${plantId}`)
             .then(
               () => {
                 setPlants(plants.filter(plant => plant._id !== plantId));
@@ -300,7 +301,7 @@ const App = () => {
   // Plant payment
   const handleCheckout = () => {
     axios.post(
-      `${config.API_URL}/api/create-payment-intent`, 
+      `${rootPath}/create-payment-intent`, 
       {}, 
       {withCredentials: true}
     )
@@ -319,7 +320,7 @@ const App = () => {
     () => {
       if (isUserChange) {
         setIsUserChange(false);
-        axios.get(`${config.API_URL}/api/requests/fetch`)
+        axios.get(`${rootPath}/requests/fetch`)
           .then(
             response => {
               setRequests(response.data);
@@ -343,7 +344,7 @@ const App = () => {
   // Check new requests for logged in user every minute
   useEffect(
     () => {
-      axios.get(`${config.API_URL}/api/requests/fetch`)
+      axios.get(`${rootPath}/requests/fetch`)
         .then(
           response => {
             setRequests(response.data);
@@ -366,7 +367,7 @@ const App = () => {
   
   // Fetch all requests
   const handleFetchAllRequests = () => {
-    axios.get(`${config.API_URL}/api/requests/fetch`)
+    axios.get(`${rootPath}/requests/fetch`)
       .then(
         response => setRequests(response.data)
       )
@@ -385,7 +386,7 @@ const App = () => {
       message: message.value
     };
     axios.post(
-      `${config.API_URL}/api/requests/create`, 
+      `${rootPath}/requests/create`, 
       newRequest, 
       {withCredentials: true}
     )
@@ -403,7 +404,7 @@ const App = () => {
   // Read request
   const handleReadRequest = requestId => {
     axios.get(
-      `${config.API_URL}/api/requests/read/${requestId}`,
+      `${rootPath}/requests/read/${requestId}`,
       {withCredentials: true}
     )
       .then(
@@ -431,7 +432,7 @@ const App = () => {
       reply
     };
     axios.patch(
-      `${config.API_URL}/api/requests/update/${_id}`, 
+      `${rootPath}/requests/update/${_id}`, 
       updatedRequest
     )
       .then(
@@ -460,7 +461,7 @@ const App = () => {
 
   // Delete request
   const handleDeleteRequest = requestId => {
-    axios.delete(`${config.API_URL}/api/requests/delete/${requestId}`)
+    axios.delete(`${rootPath}/requests/delete/${requestId}`)
       .then(
         () => {
           setRequests(requests.filter(request => request._id !== requestId));
@@ -485,7 +486,7 @@ const App = () => {
       password: password.value
     };
     axios.post(
-      `${config.API_URL}/api/signup`, 
+      `${rootPath}/signup`, 
       newUser
     )
       .then(
@@ -509,7 +510,7 @@ const App = () => {
       password: password.value
     };
     axios.post(
-      `${config.API_URL}/api/signin`, 
+      `${rootPath}/signin`, 
       user, 
       {withCredentials: true}
     )
@@ -528,7 +529,7 @@ const App = () => {
   // Logout
   const handleLogOut = () => {
     axios.post(
-      `${config.API_URL}/api/logout`, 
+      `${rootPath}/logout`, 
       {}, 
       {withCredentials: true}
     )
