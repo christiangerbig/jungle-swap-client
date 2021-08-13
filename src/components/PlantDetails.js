@@ -1,26 +1,41 @@
 import React, { useEffect } from "react";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, Redirect, useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { readPlant, deletePlant, scrollToPlants } from "../Reducer/jungleSwapSlice";
 
-const PlantDetails = ({ user, plant, headerContainerHeight, aboutContainerHeight, onReadPlant, onDeletePlant }) => {
+const PlantDetails = () => {
+  const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const plant = useSelector(state => state.jungleSwap.plant);
   const { plantId } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // Read plant data and scroll to top as soon as page loads  
   useEffect(
     () => {
-      onReadPlant(plantId);
+      dispatch(readPlant(plantId));
       scroll.scrollToTop();
     },
     []
   );
 
-  if (!user) return (<Redirect to={"/signup"} />);
+  // Delete plant
+  const handleDeletePlant = (imagePublicId, plantId) => {
+    dispatch(deletePlant(imagePublicId, plantId));
+    history.push("/");
+    dispatch(scrollToPlants());
+  }
 
-  const { _id, name, description, size, image, imagePublicId, location, price, creator } = plant;
+  if (!loggedInUser) return (<Redirect to={"/signup"} />);
+
+  const { _id, name, description, size, imageUrl, imagePublicId, location, price, creator } = plant;
   if (!creator) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> Loading... </span>
+      <span class="visually-hidden"> <br/> <br/> Loading plant details... </span>
     </div>
   );
+
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
@@ -29,7 +44,7 @@ const PlantDetails = ({ user, plant, headerContainerHeight, aboutContainerHeight
       </div>
       <div className="col">
         <div className="card cardMediumWidth">
-          {image && (<img className="card-img-top mediumPicSize" src={image} alt={name} />)}
+          {imageUrl && (<img className="card-img-top mediumPicSize" src={imageUrl} alt={name} />)}
           <div className="ml-2 mt-2"> <span> Name: </span> {name} </div>
           <div className="ml-2 mt-2"> <span> Description: </span> {description} </div>
           <div className="ml-2 mt-2"> <span> Size: </span> {size} cm </div>
@@ -39,19 +54,19 @@ const PlantDetails = ({ user, plant, headerContainerHeight, aboutContainerHeight
             <div className="row-2 justify-content-center">
               <div className="card-body">
                 {
-                  user._id === creator._id ? (
+                  loggedInUser._id === creator._id ? (
                     <div>
                       <Link to={"/plants/update"}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
-                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeletePlant(_id, imagePublicId)}> Delete </button>
+                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeletePlant(imagePublicId, _id)}> Delete </button>
                     </div>
                   ) : (
                     <div>
-                      <Link to={{ pathname: "/plants/checkout", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
-                      <Link to={{ pathname: "/requests/create", plant: plant }}> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
+                      <Link to="/plants/checkout"> <button className="btn btn-sm ml-2 btn-outline-dark"> Buy </button> </Link>
+                      <Link to="/requests/create"> <button className="btn btn-sm ml-2 btn-outline-dark"> Swap </button> </Link>
                     </div>
                   )
                 }
-                <Link to={"/"} onClick={() => scroll.scrollTo(headerContainerHeight + aboutContainerHeight)}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
+                <Link to={"/"} onClick={() => dispatch(scrollToPlants())}> <button className="btn btn-sm ml-2"> Go back </button> </Link>
               </div>
             </div>
           </div>

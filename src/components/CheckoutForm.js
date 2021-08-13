@@ -1,37 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import config from "../config";
+import { payPlant, createPayment, scrollToPlants } from "../Reducer/jungleSwapSlice";
 
-const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCheckout }) => {
+const CheckoutForm = () => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState("");
-  const [error, setError] = useState(null);
+  const [paymentError, setPaymentError] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const clientSecret = useSelector(state => state.jungleSwap.clientSecret);
+  const plant = useSelector(state => state.jungleSwap.plant);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  // Create PaymentIntent as soon as page loads
+  // Create payment as soon as page loads
   useEffect(
     () => {
-      window
-        .fetch(
-          `${config.API_URL}/api/create-payment-intent`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price: plant.price })
-          }
-        )
-        .then(
-          res => res.json()
-        )
-        .then(
-          data => setClientSecret(data.clientSecret)
-        );
-      return () => scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
+      dispatch(createPayment(plant))
+      return () => {
+        history.push("/");
+        dispatch(scrollToPlants());
+      }
     },
     []
   );
@@ -53,13 +45,20 @@ const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCh
     }
   };
 
+  // Plant payment
+  const handlePayPlant = () => {
+    dispatch(payPlant);
+    history.push("/");
+    dispatch(scrollToPlants());
+  }
+
   // Listen for changes in Card element and display any errors as customer types card details
   const handleChange = async event => {
     setIsDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
+    setPaymentError(event.error ? event.error.message : "");
   };
 
-  // Handle payment
+  // Submit payment
   const handleSubmitPayment = async event => {
     event.preventDefault();
     setIsProcessing(true);
@@ -68,11 +67,11 @@ const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCh
       { payment_method: { card: elements.getElement(CardElement) } }
     );
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
+      setPaymentError(`Payment failed ${payload.error.message}`);
       setIsProcessing(false);
     }
     else {
-      setError(null);
+      setPaymentError(null);
       setIsProcessing(false);
       setIsSucceeded(true);
     }
@@ -91,14 +90,14 @@ const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCh
           onChange={handleChange}
         />
         <div className="row justify-content-center">
-          <button onClick={onCheckout} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
+          <button onClick={handlePayPlant} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
               {isProcessing ? <div className="spinner" id="spinner" /> : "Pay now"}
             </span>
           </button>
         </div>
         {/* Show any error that happens when processing the payment */
-          error && (<div className="card-error" role="alert"> {error} </div>)
+          paymentError && (<div className="card-error" role="alert"> {paymentError} </div>)
         /* Show success message upon completion */}
         <p className={isSucceeded ? "result-message text-center" : "result-message hidden text-center"}>
           Payment succeeded.
@@ -107,7 +106,7 @@ const CheckoutForm = ({ plant, headerContainerHeight, aboutContainerHeight, onCh
       <div className="row justify-content-center">
         {
           isSucceeded ? (
-            <Link to={"/"}> <button className="btn btn-sm"> Go back </button> </Link>
+            <Link to={"/"} onClick={() => dispatch(scrollToPlants())}> <button className="btn btn-sm"> Go back </button> </Link>
           )
             : (
               <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm"> Go back </button> </Link>

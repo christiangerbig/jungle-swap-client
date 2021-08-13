@@ -1,25 +1,43 @@
 import React, { useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { createPlant, setError, scrollToPlants } from "../Reducer/jungleSwapSlice";
 
-const CreatePlantForm = ({ user, headerContainerHeight, aboutContainerHeight, error, onCreatePlant, onClearError }) => {
+const CreatePlantForm = () => {
+  const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const error = useSelector(state => state.jungleSwap.error);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // Scroll to top as soon as page loads and scroll to plants section during cleanup
   useEffect(
     () => {
-      onClearError();
+      dispatch(setError(null));
       scroll.scrollToTop();
-      return () => scroll.scrollTo(headerContainerHeight + aboutContainerHeight);
+      return () => dispatch(scrollToPlants);
     },
     []
   );
 
-  if (!user) return (<Redirect to={"/signup"} />);
+  // Create plant
+  const handleCreatePlant = event => {
+    event.preventDefault();
+    const { plantImage } = event.target;
+    const image = plantImage.files[0];
+    const uploadForm = new FormData();
+    uploadForm.append("image", image);
+    dispatch(createPlant(uploadForm, event.target));
+    history.push("/");
+  }
+
+  if (!loggedInUser) return (<Redirect to={"/signup"} />);
 
   return (
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-6">
         <h2 className="mb-5"> Create a plant </h2>
-        <form onSubmit={onCreatePlant}>
+        <form onSubmit={handleCreatePlant}>
           <input className="mb-4" name="name" type="text" placeholder="Enter name" />
           <input className="mb-4" name="description" type="text" placeholder="Enter description" />
           <input className="mb-4 smallWidth" name="size" type="number" min="1" placeholder="Size" /> cm <br />

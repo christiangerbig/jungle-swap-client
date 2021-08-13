@@ -1,28 +1,35 @@
 import React, { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { fetchAllRequests, setIsNewRequest } from "../Reducer/jungleSwapSlice";
 
-const RequestsPage = ({ user, requests, amountOfRequests, onFetchAllRequests, onClearNewRequest }) => {
+const RequestsPage = () => {
+  const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const requests = useSelector(state => state.jungleSwap.requests);
+  const amountOfRequests = useSelector(state => state.jungleSwap.amountOfRequests);
+  const dispatch = useDispatch();
+
   // Fetch all requests and reset values as soon as page loads and reset values during cleanup
   useEffect(
     () => {
       const handleResetAll = () => {
-        onClearNewRequest();
+        dispatch(setIsNewRequest(false));
         scroll.scrollToTop();
       }
 
-      onFetchAllRequests();
+      dispatch(fetchAllRequests());
       handleResetAll();
       return () => handleResetAll()
     },
     []
   );
 
-  if (!user) return (<Redirect to={"/signup"} />);
+  if (!loggedInUser) return (<Redirect to={"/signup"} />);
 
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> Loading... </span>
+      <span class="visually-hidden"> <br/> <br/> Loading requests... </span>
     </div>
   );
 
@@ -37,7 +44,7 @@ const RequestsPage = ({ user, requests, amountOfRequests, onFetchAllRequests, on
             request => {
               const { _id, buyer, seller, plant } = request;
               return (
-                seller._id === user._id && (
+                seller._id === loggedInUser._id && (
                   <div className="card p-3 mt-4 " key={_id}>
                     <h4> Request for: {plant.name} </h4>
                     <h5> by: {buyer.username} </h5>

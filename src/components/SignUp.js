@@ -1,23 +1,43 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { setError, setIsNewRequest, signUp, setIsUserChange } from "../Reducer/jungleSwapSlice";
 
-const SignUp = ({ error, onSignUp, onClearError, onClearNewRequest }) => {
-  // Clear values and scroll to top as soon as page loads
+const SignUp = () => {
+  const error = useSelector(state => state.jungleSwap.error);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  // Clear variables and scroll to top as soon as page loads
   useEffect(
     () => {
-      onClearError();
-      onClearNewRequest();
+      dispatch(setError(null));
+      dispatch(setIsNewRequest(false));
       scroll.scrollToTop();
     },
     []
   );
 
+  // Sign up
+  const handleSignUp = event => {
+    event.preventDefault();
+    const { username, email, password } = event.target;
+    const newUser = {
+      username: username.value,
+      email: email.value.toLowerCase(),
+      password: password.value
+    };
+    dispatch(signUp(newUser));
+    dispatch(setIsUserChange(true));
+    history.push("/");
+  }
+
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Sign Up </h2>
-        <form onSubmit={onSignUp}>
+        <form onSubmit={handleSignUp}>
           <div className="form-group">
             <label htmlFor="InputUsername"> Username </label>
             <input type="text" className="form-control" id="InputUsername" name="username" />

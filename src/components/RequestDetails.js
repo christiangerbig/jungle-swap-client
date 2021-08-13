@@ -1,22 +1,35 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { readRequest, deleteRequest, decreaseAmountOfRequests } from "../Reducer/jungleSwapSlice";
 
-const RequestDetails = ({ request, onReadRequest, onDeleteRequest }) => {
+const RequestDetails = () => {
+  const request = useSelector(state => state.jungleSwap.request);
   const { requestId } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // Read request and scroll to top as soon as page loads
   useEffect(
     () => {
-      onReadRequest(requestId);
+      dispatch(readRequest(requestId));
       scroll.scrollToTop();
     },
     []
   );
 
+  // Delete request
+  const handleDeleteRequest = requestId => {
+    dispatch(deleteRequest(requestId));
+    dispatch(decreaseAmountOfRequests());
+    history.push("/requests/fetch");
+  }
+
   const { _id, buyer, plant, message, reply } = request;
   if (!buyer || !plant) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> Loading... </span>
+      <span class="visually-hidden"> <br/> <br/> Loading request... </span>
     </div>
   );
 
@@ -37,7 +50,7 @@ const RequestDetails = ({ request, onReadRequest, onDeleteRequest }) => {
         }
         <div>
           {!reply && (<Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>)}
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => onDeleteRequest(_id)}> Delete </button>
+          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeleteRequest(_id)}> Delete </button>
         </div>
         <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
       </div>

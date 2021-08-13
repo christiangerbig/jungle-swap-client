@@ -1,13 +1,39 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { setRequest, updateRequest } from "../Reducer/jungleSwapSlice";
 
-const UpdateRequestForm = ({ request, onCreateReply, onUpdateRequest }) => {
+const UpdateRequestForm = () => {
+  const request = useSelector(state => state.jungleSwap.request);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // Scroll to top as soon as page loads
   useEffect(
     () => scroll.scrollToTop(),
     []
   );
+
+  // Create reply
+  const handleCreateReply = ({ target }, request) => {
+    const cloneRequest = JSON.parse(JSON.stringify(request));
+    cloneRequest.reply = target.value;
+    dispatch(setRequest(cloneRequest));
+  }
+
+  // Update request
+  const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }) => {
+    const updatedRequest = {
+      buyer,
+      seller,
+      plant,
+      message,
+      reply
+    };
+    dispatch(updateRequest(_id, updatedRequest));
+    history.push(`/requests/read/${_id}`);
+  }
 
   const { _id, message } = request;
   return (
@@ -17,9 +43,9 @@ const UpdateRequestForm = ({ request, onCreateReply, onUpdateRequest }) => {
         <div className="card cardSmallWidth mb-5">
           <div className="card-body">
             <p> {message} </p>
-            <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={onCreateReply} />
+            <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={event => handleCreateReply(event, request)} />
             <div className="row justify-content-around">
-              <button className="btn btn-sm btn-outline-dark" onClick={() => onUpdateRequest(request)}> Submit </button>
+              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdateRequest(request)}> Submit </button>
               <Link to={`/requests/read/${_id}`}> <button className="btn btn-sm mx-2"> Go back </button> </Link>
             </div>
           </div>

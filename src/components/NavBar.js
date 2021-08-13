@@ -1,9 +1,63 @@
-import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { Navbar, Nav } from "react-bootstrap";
+import { fetchAllRequests, setIsUserChange, setIntervalId, increaseMinutesCounter, setMinutesCounter, setAmountOfRequests, setIsNewRequest, scrollToPlants } from "../Reducer/jungleSwapSlice";
 
-const NavBar = ({ user, isNewRequest, headerContainerHeight, aboutContainerHeight }) => {
+const NavBar = () => {
+  const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const isUserChange = useSelector(state => state.jungleSwap.isUserChange);
+  const requests = useSelector(state => state.jungleSwap.requests);
+  const isNewRequest = useSelector(state => state.jungleSwap.isNewRequest);
+  const intervalId = useSelector(state => state.jungleSwap.intervalId);
+  const minutesCounter = useSelector(state => state.jungleSwap.minutesCounter);
+  const amountOfRequests = useSelector(state => state.jungleSwap.amountOfRequests);
+  const dispatch = useDispatch();
+
+  // Stop interval at cleanup
+  useEffect(
+    () => {
+      return () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          dispatch(setIntervalId(null));
+          dispatch(setMinutesCounter(0));
+        }
+      }
+    },
+    []
+  );
+
+  // Start request check if user changes
+  useEffect(
+    () => {
+      if (isUserChange) {
+        dispatch(fetchAllRequests());
+        dispatch(setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length));
+        dispatch(setIntervalId(setInterval(
+          () => dispatch(increaseMinutesCounter()),
+          10000 // every minute
+        )));
+        dispatch(setIsUserChange(false));
+      }
+    },
+    [loggedInUser]
+  );
+
+  // Check new requests for logged in user every minute
+  useEffect(
+    () => {
+      dispatch(fetchAllRequests());
+      const currentAmountOfRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length;
+      if (amountOfRequests < currentAmountOfRequests) {
+        dispatch(setAmountOfRequests(currentAmountOfRequests));
+        dispatch(setIsNewRequest(true));
+      }
+    },
+    [minutesCounter]
+  );
+  
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
@@ -12,10 +66,10 @@ const NavBar = ({ user, isNewRequest, headerContainerHeight, aboutContainerHeigh
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <div>
-              <Link to="/" className="p-2" onClick={() => scroll.scrollTo(headerContainerHeight + aboutContainerHeight)}> All Plants </Link>
+              <Link to="/" className="p-2" onClick={() => dispatch(scrollToPlants())}> All Plants </Link>
             </div>
             {
-              user && (
+              loggedInUser && (
                 <div>
                   <Link className="p-2" to="/plants/create"> Create Plant </Link>
                   <Link className={isNewRequest ? "p-2 alertColor" : "p-2"} to="/requests/fetch" title={isNewRequest ? "new message" : null}> Messages </Link>
@@ -23,9 +77,9 @@ const NavBar = ({ user, isNewRequest, headerContainerHeight, aboutContainerHeigh
               )
             }
             {
-              user ? (
+              loggedInUser ? (
                 <div>
-                  <Link className="p-2" to="/logout" title={user.username}> Log out </Link>
+                  <Link className="p-2" to="/logout" title={loggedInUser.username}> Log out </Link>
                 </div>
               ) : (
                 <div>
