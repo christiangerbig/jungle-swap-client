@@ -20,7 +20,7 @@ const CreateRequestForm = () => {
   );
 
   // Create request
-  const handleCreateRequest = (event, { _id, creator }) => {
+  const handleCreateRequest = (event, { _id, creator }, history) => {
     event.preventDefault();
     const { message } = event.target;
     const newRequest = {
@@ -28,8 +28,7 @@ const CreateRequestForm = () => {
       plant: _id,
       message: message.value
     };
-    dispatch(createRequest(newRequest));
-    history.push(`/plants/read/${_id}`);
+    dispatch(createRequest({newRequest, history}));
   }
 
   const { _id, name } = plant;
@@ -38,7 +37,7 @@ const CreateRequestForm = () => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-4"> Your mesage </h2>
         <h3 className="mb-4"> {name} </h3>
-        <form onSubmit={(event) => handleCreateRequest(event, plant)}>
+        <form onSubmit={(event) => handleCreateRequest(event, plant, history)}>
           <div>
             <textarea className="mb-4" name="message" cols="35" rows="7" />
           </div>

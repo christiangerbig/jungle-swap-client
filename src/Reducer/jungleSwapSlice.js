@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useHistory } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
@@ -55,14 +56,14 @@ export const fetchQueryPlants = createAsyncThunk(
 // Create plant
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
-  async ({ uploadForm, plant }, { dispatch }) => {
+  async ({ uploadForm, plant, history }, { dispatch }) => {
     const { name, description, size, location, price } = plant;
     try {
-      let response = await axios.post(
+      const responseImage = await axios.post(
         `${rootPath}/upload`,
         uploadForm
       );
-      const { imageUrl, imagePublicId } = response.data;
+      const { imageUrl, imagePublicId } = responseImage.data;
       const newPlant = {
         name,
         description,
@@ -73,19 +74,20 @@ export const createPlant = createAsyncThunk(
         price
       };
       try {
-        response = await axios.post(
+        const responsePlant = await axios.post(
           `${rootPath}/plants/create`,
           newPlant,
           { withCredentials: true }
         );
-        dispatch(addPlant(response.data));
+        dispatch(addPlant(responsePlant.data));
+        history.push("/");
       }
       catch (err) {
-        dispatch(setError(err.response.data.error));
+        dispatch(setError(err.responsePlant.data.error));
       }
     }
     catch (err) {
-      dispatch(setError(err.response.data.error));
+      dispatch(setError(err.responseInmage.data.error));
     }
   }
 );
@@ -142,13 +144,15 @@ export const imageChange = createAsyncThunk(
 // Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async ({ plantId, updatedPlant }, { dispatch }) => {
+  async ({ plantId, updatedPlant, history }, { dispatch }) => {
     try {
       const response = await axios.patch(
         `${rootPath}/plants/update/${plantId}`,
         updatedPlant
       );
       dispatch(setPlantChanges(response.data));
+      history.push("/");
+      dispatch(scrollToPlants());
     }
     catch (err) {
       console.log("Update plant failed", err);
@@ -159,7 +163,7 @@ export const updatePlant = createAsyncThunk(
 // Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
-  async ({ imagePublicId, plantId }, { dispatch }) => {
+  async ({ imagePublicId, plantId, history }, { dispatch }) => {
     try {
       const destroyImageData = {
         imagePublicId
@@ -171,6 +175,8 @@ export const deletePlant = createAsyncThunk(
       try {
         await axios.delete(`${rootPath}/plants/delete/${plantId}`);
         dispatch(removePlant(plantId));
+        history.push("/");
+        dispatch(scrollToPlants());
       }
       catch (err) {
         console.log("Delete plant failed", err);
@@ -191,7 +197,7 @@ export const createPayment = createAsyncThunk(
         `${rootPath}/create-payment-intent`,
         { price: plant.price }
       );
-      dispatch(setClientSecret(response.data));
+      dispatch(setClientSecret(response.data.clientSecret));
     }
     catch (err) {
       console.log("Create payment failed", err);
@@ -202,13 +208,15 @@ export const createPayment = createAsyncThunk(
 // Pay plant
 export const payPlant = createAsyncThunk(
   "jungleSwap/payPlant",
-  async (options, { dispatch }) => {
+  async ({ history }, { dispatch }) => {
     try {
       await axios.post(
         `${rootPath}/create-payment-intent`,
         {},
         { withCredentials: true }
       );
+      history.push("/");
+      dispatch(scrollToPlants());
     }
     catch (err) {
       console.log("Checkout failed", err);
@@ -234,7 +242,7 @@ export const fetchAllRequests = createAsyncThunk(
 // Create request
 export const createRequest = createAsyncThunk(
   "jungleSwap/createRequest",
-  async (newRequest, { dispatch }) => {
+  async ({ newRequest, history }, { dispatch }) => {
     try {
       const response = await axios.post(
         `${rootPath}/requests/create`,
@@ -242,6 +250,7 @@ export const createRequest = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(addRequest(response.data));
+      history.push(`/plants/read/${response.data.plant._id}`);
     }
     catch (err) {
       dispatch(setError(err.response.data.error));
@@ -269,13 +278,14 @@ export const readRequest = createAsyncThunk(
 // Update request
 export const updateRequest = createAsyncThunk(
   "jungleSwap/updateRequest",
-  async ({ requestId, updatedRequest }, { dispatch }) => {
+  async ({ requestId, updatedRequest, history }, { dispatch }) => {
     try {
       const response = await axios.patch(
         `${rootPath}/requests/update/${requestId}`,
         updatedRequest
       );
       dispatch(setRequestChanges(response.data));
+      history.push(`/requests/read/${requestId}`);
     }
     catch (err) {
       console.log("Update request failed", err);
@@ -286,10 +296,11 @@ export const updateRequest = createAsyncThunk(
 // Delete request
 export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
-  async (requestId, { dispatch }) => {
+  async ({ requestId, history }, { dispatch }) => {
     try {
       await axios.delete(`${rootPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
+      history.push("/requests/fetch");
     }
     catch (err) {
       console.log("Delete request failed", err);
@@ -320,13 +331,15 @@ export const readUser = createAsyncThunk(
 // Sign up
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
-  async (newUser, { dispatch }) => {
+  async ({ newUser, history }, { dispatch }) => {
     try {
       const response = await axios.post(
         `${rootPath}/signup`,
         newUser
       );
       dispatch(setLoggedInUser(response.data));
+      dispatch(setIsUserChange(true));
+      history.push("/");
     }
     catch (err) {
       dispatch(setError(err.response.data.error));
@@ -337,7 +350,7 @@ export const signUp = createAsyncThunk(
 // Sign in
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
-  async (user, { dispatch }) => {
+  async ({ user, history }, { dispatch }) => {
     try {
       const response = await axios.post(
         `${rootPath}/signin`,
@@ -345,6 +358,8 @@ export const signIn = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(setLoggedInUser(response.data));
+      dispatch(setIsUserChange(true));
+      history.push("/");
     }
     catch (err) {
       dispatch(setError(err.response.data.error));
@@ -355,7 +370,7 @@ export const signIn = createAsyncThunk(
 // LogOut
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
-  async (options, { dispatch }) => {
+  async ({ intervalId, history }, { dispatch }) => {
     try {
       await axios.post(
         `${rootPath}/logout`,
@@ -363,7 +378,12 @@ export const logOut = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(setLoggedInUser(null));
-
+      clearInterval(intervalId);
+      dispatch(setIntervalId(null));
+      dispatch(setMinutesCounter(0));
+      dispatch(setIsNewRequest(false));
+      history.push("/");
+      scroll.scrollToTop();
     }
     catch (err) {
       console.log("Logout failed", err);

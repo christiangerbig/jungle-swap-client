@@ -46,10 +46,8 @@ const CheckoutForm = () => {
   };
 
   // Plant payment
-  const handlePayPlant = () => {
-    dispatch(payPlant);
-    history.push("/");
-    dispatch(scrollToPlants());
+  const handlePayPlant = (history) => {
+    dispatch(payPlant(history));
   }
 
   // Listen for changes in Card element and display any errors as customer types card details
@@ -90,7 +88,7 @@ const CheckoutForm = () => {
           onChange={handleChange}
         />
         <div className="row justify-content-center">
-          <button onClick={handlePayPlant} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
+          <button onClick={() => handlePayPlant(history)} className="btn btn-sm mt-5 mb-4" disabled={isProcessing || isDisabled || isSucceeded} id="submit">
             <span id="button-text">
               {isProcessing ? <div className="spinner" id="spinner" /> : "Pay now"}
             </span>

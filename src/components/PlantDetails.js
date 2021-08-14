@@ -21,10 +21,8 @@ const PlantDetails = () => {
   );
 
   // Delete plant
-  const handleDeletePlant = (imagePublicId, plantId) => {
-    dispatch(deletePlant({ imagePublicId, plantId }));
-    history.push("/");
-    dispatch(scrollToPlants());
+  const handleDeletePlant = (imagePublicId, plantId, history) => {
+    dispatch(deletePlant({ imagePublicId, plantId, history }));
   }
 
   if (!loggedInUser) return (<Redirect to={"/signup"} />);
@@ -57,7 +55,7 @@ const PlantDetails = () => {
                   loggedInUser._id === creator._id ? (
                     <div>
                       <Link to={"/plants/update"}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
-                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeletePlant(imagePublicId, _id)}> Delete </button>
+                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeletePlant(imagePublicId, _id, history)}> Delete </button>
                     </div>
                   ) : (
                     <div>

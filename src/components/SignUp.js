@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setError, setIsNewRequest, signUp, setIsUserChange } from "../Reducer/jungleSwapSlice";
+import { setError, setIsNewRequest, signUp } from "../Reducer/jungleSwapSlice";
 
 const SignUp = () => {
   const error = useSelector(state => state.jungleSwap.error);
@@ -28,9 +28,7 @@ const SignUp = () => {
       email: email.value.toLowerCase(),
       password: password.value
     };
-    dispatch(signUp(newUser));
-    dispatch(setIsUserChange(true));
-    history.push("/");
+    dispatch(signUp({ newUser, history }));
   }
 
   return (

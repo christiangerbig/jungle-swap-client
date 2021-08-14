@@ -23,7 +23,7 @@ const UpdateRequestForm = () => {
   }
 
   // Update request
-  const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }) => {
+  const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }, history) => {
     const updatedRequest = {
       buyer,
       seller,
@@ -31,8 +31,7 @@ const UpdateRequestForm = () => {
       message,
       reply
     };
-    dispatch(updateRequest({ requestId: _id, updatedRequest }));
-    history.push(`/requests/read/${_id}`);
+    dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
   }
 
   const { _id, message } = request;
@@ -45,7 +44,7 @@ const UpdateRequestForm = () => {
             <p> {message} </p>
             <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={event => handleCreateReply(event, request)} />
             <div className="row justify-content-around">
-              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdateRequest(request)}> Submit </button>
+              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdateRequest(request, history)}> Submit </button>
               <Link to={`/requests/read/${_id}`}> <button className="btn btn-sm mx-2"> Go back </button> </Link>
             </div>
           </div>

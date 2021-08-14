@@ -20,16 +20,15 @@ const RequestDetails = () => {
   );
 
   // Delete request
-  const handleDeleteRequest = requestId => {
-    dispatch(deleteRequest(requestId));
+  const handleDeleteRequest = (requestId, history) => {
+    dispatch(deleteRequest({ requestId, history }));
     dispatch(decreaseAmountOfRequests());
-    history.push("/requests/fetch");
   }
 
   const { _id, buyer, plant, message, reply } = request;
   if (!buyer || !plant) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> <br/> <br/> Loading request... </span>
+      <span class="visually-hidden"> <br /> <br /> Loading request... </span>
     </div>
   );
 
@@ -50,7 +49,7 @@ const RequestDetails = () => {
         }
         <div>
           {!reply && (<Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>)}
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeleteRequest(_id)}> Delete </button>
+          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeleteRequest(_id, history)}> Delete </button>
         </div>
         <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
       </div>

@@ -23,20 +23,18 @@ const CreatePlantForm = () => {
   // Create plant
   const handleCreatePlant = event => {
     event.preventDefault();
-    const { plantImage } = event.target;
+    const { name, description, size, plantImage, location, price } = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    const { name, description, size, location, price } = event.target;
     const plant = {
       name: name.value,
-      decription: description.value,
+      description: description.value,
       size: size.value,
       location: location.value,
       price: price.value
     }
-    dispatch(createPlant({ uploadForm, plant }));
-    history.push("/");
+    dispatch(createPlant({ uploadForm, plant, history }));
   }
 
   if (!loggedInUser) return (<Redirect to={"/signup"} />);

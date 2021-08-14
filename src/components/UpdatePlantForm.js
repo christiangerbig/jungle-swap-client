@@ -58,9 +58,7 @@ const UpdatePlantForm = () => {
       location,
       price
     };
-    dispatch(updatePlant({ plantId: _id, updatedPlant }));
-    history.push("/");
-    dispatch(scrollToPlants());
+    dispatch(updatePlant({ plantId: _id, updatedPlant, history }));
   }
 
   const { _id, name, description, size, imageUrl, price } = plant;
