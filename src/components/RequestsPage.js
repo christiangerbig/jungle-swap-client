@@ -32,7 +32,7 @@ const RequestsPage = () => {
       <span class="visually-hidden"> <br/> <br/> Loading requests... </span>
     </div>
   );
-
+  console.log(requests);
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

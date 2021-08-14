@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useHistory } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";

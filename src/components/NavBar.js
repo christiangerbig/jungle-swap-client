@@ -33,26 +33,28 @@ const NavBar = () => {
   useEffect(
     () => {
       if (isUserChange) {
+        dispatch(setIsUserChange(false));
         dispatch(fetchAllRequests());
         dispatch(setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length));
         dispatch(setIntervalId(setInterval(
           () => dispatch(increaseMinutesCounter()),
           10000 // every minute
         )));
-        dispatch(setIsUserChange(false));
       }
     },
-    [loggedInUser]
+    [isUserChange]
   );
 
   // Check new requests for logged in user every minute
   useEffect(
     () => {
-      dispatch(fetchAllRequests());
-      const currentAmountOfRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length;
-      if (amountOfRequests < currentAmountOfRequests) {
-        dispatch(setAmountOfRequests(currentAmountOfRequests));
-        dispatch(setIsNewRequest(true));
+      if (loggedInUser) {
+        dispatch(fetchAllRequests());
+        const currentAmountOfRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length;
+        if (amountOfRequests < currentAmountOfRequests) {
+          dispatch(setAmountOfRequests(currentAmountOfRequests));
+          dispatch(setIsNewRequest(true));
+        }
       }
     },
     [minutesCounter]
