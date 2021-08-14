@@ -33,9 +33,8 @@ const NavBar = () => {
   useEffect(
     () => {
       if (isUserChange) {
+        dispatch(fetchAllRequests(isUserChange));
         dispatch(setIsUserChange(false));
-        dispatch(fetchAllRequests());
-        dispatch(setAmountOfRequests(requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length));
         dispatch(setIntervalId(setInterval(
           () => dispatch(increaseMinutesCounter()),
           10000 // every minute
@@ -49,7 +48,7 @@ const NavBar = () => {
   useEffect(
     () => {
       if (loggedInUser) {
-        dispatch(fetchAllRequests());
+        dispatch(fetchAllRequests(isUserChange));
         const currentAmountOfRequests = requests.filter(currentRequest => currentRequest.seller._id === loggedInUser._id).length;
         if (amountOfRequests < currentAmountOfRequests) {
           dispatch(setAmountOfRequests(currentAmountOfRequests));
@@ -59,7 +58,7 @@ const NavBar = () => {
     },
     [minutesCounter]
   );
-  
+
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">

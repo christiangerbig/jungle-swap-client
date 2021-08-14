@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { readPlant, deletePlant, scrollToPlants } from "../Reducer/jungleSwapSlice";
+import { readPlant, deletePlant, deleteRequest, scrollToPlants } from "../Reducer/jungleSwapSlice";
 
 const PlantDetails = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const requests = useSelector(state => state.jungleSwap.requests);
   const plant = useSelector(state => state.jungleSwap.plant);
   const { plantId } = useParams();
   const dispatch = useDispatch();
@@ -21,7 +22,14 @@ const PlantDetails = () => {
   );
 
   // Delete plant
-  const handleDeletePlant = (imagePublicId, plantId, history) => {
+  const handleDeletePlant = (imagePublicId, plantId, history, requests) => {
+    requests.forEach(
+      request => {
+        if (request.plant._id === plantId) {
+          dispatch(deleteRequest({requestId: request._id, history: null}));
+        }
+      }
+    );
     dispatch(deletePlant({ imagePublicId, plantId, history }));
   }
 
@@ -55,7 +63,7 @@ const PlantDetails = () => {
                   loggedInUser._id === creator._id ? (
                     <div>
                       <Link to={"/plants/update"}> <button className="btn btn-sm ml-2 btn-outline-dark"> Update </button> </Link>
-                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeletePlant(imagePublicId, _id, history)}> Delete </button>
+                      <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeletePlant(imagePublicId, _id, history, requests)}> Delete </button>
                     </div>
                   ) : (
                     <div>

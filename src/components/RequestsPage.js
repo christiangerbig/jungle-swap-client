@@ -6,6 +6,7 @@ import { fetchAllRequests, setIsNewRequest } from "../Reducer/jungleSwapSlice";
 
 const RequestsPage = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);
+  const isUserChange = useSelector(state => state.jungleSwap.isUserChange);
   const requests = useSelector(state => state.jungleSwap.requests);
   const amountOfRequests = useSelector(state => state.jungleSwap.amountOfRequests);
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const RequestsPage = () => {
         scroll.scrollToTop();
       }
 
-      dispatch(fetchAllRequests());
+      dispatch(fetchAllRequests(isUserChange));
       handleResetAll();
       return () => handleResetAll()
     },
@@ -29,10 +30,10 @@ const RequestsPage = () => {
 
   if (!requests) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> <br/> <br/> Loading requests... </span>
+      <span class="visually-hidden"> <br /> <br /> Loading requests... </span>
     </div>
   );
-  console.log(requests);
+
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

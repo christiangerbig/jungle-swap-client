@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { readRequest, deleteRequest, decreaseAmountOfRequests } from "../Reducer/jungleSwapSlice";
+import { readRequest, deleteRequest } from "../Reducer/jungleSwapSlice";
 
 const RequestDetails = () => {
   const request = useSelector(state => state.jungleSwap.request);
   const { requestId } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useHistory;
 
   // Read request and scroll to top as soon as page loads
   useEffect(
@@ -21,8 +21,7 @@ const RequestDetails = () => {
 
   // Delete request
   const handleDeleteRequest = (requestId, history) => {
-    dispatch(deleteRequest({ requestId, history }));
-    dispatch(decreaseAmountOfRequests());
+    dispatch(deleteRequest({requestId, history}));
   }
 
   const { _id, buyer, plant, message, reply } = request;

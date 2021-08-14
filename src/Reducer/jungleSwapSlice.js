@@ -43,7 +43,7 @@ export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
   async (query, { dispatch }) => {
     try {
-      const response = axios.get(`${rootPath}/plants/search?q=${query}`);
+      const response = await axios.get(`${rootPath}/plants/search?q=${query}`);
       dispatch(setPlants(response.data));
     }
     catch (err) {
@@ -227,10 +227,11 @@ export const payPlant = createAsyncThunk(
 // Fetch all requests
 export const fetchAllRequests = createAsyncThunk(
   "jungleSwap/fetchAllRequests",
-  async (options, { dispatch }) => {
+  async (isUserChange, { dispatch }) => {
     try {
       const response = await axios.get(`${rootPath}/requests/fetch`);
       dispatch(setRequests(response.data));
+      if (isUserChange) dispatch(setStartAmountOfRequests());
     }
     catch (err) {
       console.log("Fetching requests failed", err);
@@ -295,11 +296,12 @@ export const updateRequest = createAsyncThunk(
 // Delete request
 export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
-  async ({ requestId, history }, { dispatch }) => {
+  async ({requestId, history}, { dispatch }) => {
     try {
       await axios.delete(`${rootPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
-      history.push("/requests/fetch");
+      dispatch(decreaseAmountOfRequests());
+      if (history) history.push("/requests/fetch");
     }
     catch (err) {
       console.log("Delete request failed", err);
@@ -459,6 +461,10 @@ export const jungleSwapSlice = createSlice({
     removeRequest: (state, action) => {
       state.requests = state.requests.filter(request => request._id !== action.payload);
     },
+    setStartAmountOfRequests: (state, action) => {
+      const amountOfRequests = state.requests.filter(currentRequest => currentRequest.seller._id === state.loggedInUser._id).length;
+      state.amountOfRequests = amountOfRequests;
+    },
     setAmountOfRequests: (state, action) => {
       state.amountOfRequests = action.payload;
     },
@@ -531,6 +537,7 @@ export const {
   addRequest,
   setRequestChanges,
   removeRequest,
+  setStartAmountOfRequests,
   setAmountOfRequests,
   setIsNewRequest,
   setIntervalId,

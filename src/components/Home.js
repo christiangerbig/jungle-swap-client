@@ -28,7 +28,6 @@ const Home = () => {
   // Handle plant search result if user types in query
   useEffect(
     () => {
-      dispatch(fetchQueryPlants(query));
       query ? dispatch(fetchQueryPlants(query)) : dispatch(fetchAllPlants())
     },
     [query]

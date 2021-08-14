@@ -10,9 +10,7 @@ const LogOut = () => {
 
   // Log out, stop interval, reset variables and scroll to top as soon as page loads
   useEffect(
-    () => {
-      dispatch(logOut({ intervalId, history }));
-    },
+    () => dispatch(logOut({ intervalId, history })),
     []
   );
 
