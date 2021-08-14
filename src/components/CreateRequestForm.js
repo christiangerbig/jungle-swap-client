@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { createRequest, setError } from "../Reducer/jungleSwapSlice";
@@ -8,6 +8,7 @@ const CreateRequestForm = () => {
   const plant = useSelector(state => state.jungleSwap.plant);
   const error = useSelector(state => state.jungleSwap.error);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // Set variable and scroll to top as soon as page loads
   useEffect(
@@ -28,6 +29,7 @@ const CreateRequestForm = () => {
       message: message.value
     };
     dispatch(createRequest(newRequest));
+    history.push(`/plants/read/${_id}`);
   }
 
   const { _id, name } = plant;
