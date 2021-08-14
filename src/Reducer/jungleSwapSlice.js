@@ -55,7 +55,7 @@ export const fetchQueryPlants = createAsyncThunk(
 // Create plant
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
-  async ({uploadForm, plant}, { dispatch }) => {
+  async ({ uploadForm, plant }, { dispatch }) => {
     const { name, description, size, location, price } = plant;
     try {
       let response = await axios.post(
@@ -269,7 +269,7 @@ export const readRequest = createAsyncThunk(
 // Update request
 export const updateRequest = createAsyncThunk(
   "jungleSwap/updateRequest",
-  async (requestId, updatedRequest, { dispatch }) => {
+  async ({ requestId, updatedRequest }, { dispatch }) => {
     try {
       const response = await axios.patch(
         `${rootPath}/requests/update/${requestId}`,
