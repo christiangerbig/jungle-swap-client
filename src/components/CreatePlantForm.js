@@ -27,7 +27,15 @@ const CreatePlantForm = () => {
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    dispatch(createPlant(uploadForm, event.target));
+    const { name, description, size, location, price } = event.target;
+    const plant = {
+      name: name.value,
+      decription: description.value,
+      size: size.value,
+      location: location.value,
+      price: price.value
+    }
+    dispatch(createPlant({ uploadForm, plant }));
     history.push("/");
   }
 

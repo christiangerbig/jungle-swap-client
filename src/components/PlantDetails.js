@@ -22,7 +22,7 @@ const PlantDetails = () => {
 
   // Delete plant
   const handleDeletePlant = (imagePublicId, plantId) => {
-    dispatch(deletePlant(imagePublicId, plantId));
+    dispatch(deletePlant({ imagePublicId, plantId }));
     history.push("/");
     dispatch(scrollToPlants());
   }
@@ -32,7 +32,7 @@ const PlantDetails = () => {
   const { _id, name, description, size, imageUrl, imagePublicId, location, price, creator } = plant;
   if (!creator) return (
     <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> <br/> <br/> Loading plant details... </span>
+      <span class="visually-hidden"> <br /> <br /> Loading plant details... </span>
     </div>
   );
 

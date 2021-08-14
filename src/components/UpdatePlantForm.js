@@ -45,7 +45,7 @@ const UpdatePlantForm = () => {
     const destroyImageData = {
       imagePublicId
     }
-    dispatch(imageChange(destroyImageData, image, plant));
+    dispatch(imageChange({ destroyImageData, image, plant }));
   }
 
   const handleUpdatePlant = ({ _id, name, description, size, imageUrl, imagePublicId, location, price }) => {
@@ -58,7 +58,7 @@ const UpdatePlantForm = () => {
       location,
       price
     };
-    dispatch(updatePlant(_id, updatedPlant));
+    dispatch(updatePlant({ plantId: _id, updatedPlant }));
     history.push("/");
     dispatch(scrollToPlants());
   }

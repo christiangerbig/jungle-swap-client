@@ -21,13 +21,12 @@ const initialState = {
   error: null
 }
 
-
 const rootPath = `${config.API_URL}/api`;
 
 // --------- Plants ---------
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
-  "jungeSwap/fetchAllPlants",
+  "jungleSwap/fetchAllPlants",
   async (options, { dispatch }) => {
     try {
       const response = await axios.get(`${rootPath}/plants/fetch`);
@@ -41,7 +40,7 @@ export const fetchAllPlants = createAsyncThunk(
 
 // Fetch query plants
 export const fetchQueryPlants = createAsyncThunk(
-  "jungeSwap/fetchQueryPlants",
+  "jungleSwap/fetchQueryPlants",
   async (query, { dispatch }) => {
     try {
       const response = axios.get(`${rootPath}/plants/search?q=${query}`);
@@ -55,8 +54,9 @@ export const fetchQueryPlants = createAsyncThunk(
 
 // Create plant
 export const createPlant = createAsyncThunk(
-  "jungeSwap/createPlant",
-  async (uploadForm, { name, description, size, location, price }, { dispatch }) => {
+  "jungleSwap/createPlant",
+  async ({uploadForm, plant}, { dispatch }) => {
+    const { name, description, size, location, price } = plant;
     try {
       let response = await axios.post(
         `${rootPath}/upload`,
@@ -64,13 +64,13 @@ export const createPlant = createAsyncThunk(
       );
       const { imageUrl, imagePublicId } = response.data;
       const newPlant = {
-        name: name.value,
-        description: description.value,
-        size: size.value,
+        name,
+        description,
+        size,
         imageUrl,
         imagePublicId,
-        location: location.value,
-        price: price.value
+        location,
+        price
       };
       try {
         response = await axios.post(
@@ -92,7 +92,7 @@ export const createPlant = createAsyncThunk(
 
 // Read plant
 export const readPlant = createAsyncThunk(
-  "jungeSwap/readPlant",
+  "jungleSwap/readPlant",
   async (plantId, { dispatch }) => {
     try {
       const response = await axios.get(
@@ -110,7 +110,7 @@ export const readPlant = createAsyncThunk(
 // Plant image change
 export const imageChange = createAsyncThunk(
   "jungleSwap/imageChange",
-  async (destroyImageData, image, plant, { dispatch }) => {
+  async ({ destroyImageData, image, plant }, { dispatch }) => {
     try {
       await axios.post(
         `${rootPath}/destroy`,
@@ -142,7 +142,7 @@ export const imageChange = createAsyncThunk(
 // Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async (plantId, updatedPlant, { dispatch }) => {
+  async ({ plantId, updatedPlant }, { dispatch }) => {
     try {
       const response = await axios.patch(
         `${rootPath}/plants/update/${plantId}`,
@@ -159,7 +159,7 @@ export const updatePlant = createAsyncThunk(
 // Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
-  async (imagePublicId, plantId, { dispatch }) => {
+  async ({ imagePublicId, plantId }, { dispatch }) => {
     try {
       const destroyImageData = {
         imagePublicId
@@ -300,7 +300,7 @@ export const deleteRequest = createAsyncThunk(
 // ---------- User authentification ----------
 // Read user
 export const readUser = createAsyncThunk(
-  "jungeSwap/readUserData",
+  "jungleSwap/readUserData",
   async (options, { dispatch }) => {
     try {
       const response = await axios.get(
