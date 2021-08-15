@@ -14,7 +14,7 @@ informed when you got a new request.
 - **Create plant** As a user I can upload my plants. 
 - **Plant detail Page** As a user I can click on a certain plant to go to the detail page.
 - **Update plant** As a user I can update/edit my uploaded plants.
-- **Delete plant** As a user I can delete my uploaded plants.
+- **Delete plant** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
 - **Create request** As a user I can create a request to swap a plant. 
 - **Plant detail Page** As a user I can click on a certain request to go to the detail page.
 - **Reply request** As a user I can reply a request for my plant.
@@ -123,7 +123,7 @@ Plant model
   name: String,
   description: String,
   size: Number,
-  image: String,
+  imageUrl: String,
   imagePublicId: String,
   location: {
     type: String,
