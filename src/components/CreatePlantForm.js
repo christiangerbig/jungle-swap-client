@@ -15,7 +15,6 @@ const CreatePlantForm = () => {
     () => {
       dispatch(setError(null));
       scroll.scrollToTop();
-      return () => dispatch(scrollToPlants);
     },
     []
   );

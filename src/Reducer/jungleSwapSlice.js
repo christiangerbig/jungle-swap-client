@@ -80,6 +80,7 @@ export const createPlant = createAsyncThunk(
         );
         dispatch(addPlant(responsePlant.data));
         history.push("/");
+        dispatch(scrollToPlants());
       }
       catch (err) {
         dispatch(setError(err.responsePlant.data.error));
