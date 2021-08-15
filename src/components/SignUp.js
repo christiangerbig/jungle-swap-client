@@ -20,7 +20,7 @@ const SignUp = () => {
   );
 
   // Sign up
-  const handleSignUp = event => {
+  const handleSignUp = (event, history) => {
     event.preventDefault();
     const { username, email, password } = event.target;
     const newUser = {
@@ -35,7 +35,7 @@ const SignUp = () => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Sign Up </h2>
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={event => handleSignUp(event, history)}>
           <div className="form-group">
             <label htmlFor="InputUsername"> Username </label>
             <input type="text" className="form-control" id="InputUsername" name="username" />

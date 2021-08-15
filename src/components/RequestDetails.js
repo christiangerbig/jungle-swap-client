@@ -8,7 +8,7 @@ const RequestDetails = () => {
   const request = useSelector(state => state.jungleSwap.request);
   const { requestId } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory;
+  const history = useHistory();
 
   // Read request and scroll to top as soon as page loads
   useEffect(
@@ -18,11 +18,6 @@ const RequestDetails = () => {
     },
     []
   );
-
-  // Delete request
-  const handleDeleteRequest = (requestId, history) => {
-    dispatch(deleteRequest({requestId, history}));
-  }
 
   const { _id, buyer, plant, message, reply } = request;
   if (!buyer || !plant) return (
@@ -48,7 +43,7 @@ const RequestDetails = () => {
         }
         <div>
           {!reply && (<Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>)}
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => handleDeleteRequest(_id, history)}> Delete </button>
+          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => dispatch(deleteRequest({requestId, history}))}> Delete </button>
         </div>
         <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
       </div>

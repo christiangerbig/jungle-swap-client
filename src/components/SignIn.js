@@ -20,7 +20,7 @@ const SignIn = () => {
   );
 
   // Sign in
-  const handleSignIn = event => {
+  const handleSignIn = (event, history) => {
     event.preventDefault();
     const { email, password } = event.target;
     const user = {
@@ -34,7 +34,7 @@ const SignIn = () => {
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Sign In </h2>
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={event => handleSignIn(event, history)}>
           <div className="form-group">
             <label htmlFor="InputEmail"> Email address </label>
             <input type="email" className="form-control" id="InputEmail" name="email" />

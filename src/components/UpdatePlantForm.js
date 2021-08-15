@@ -48,7 +48,7 @@ const UpdatePlantForm = () => {
     dispatch(imageChange({ destroyImageData, image, plant }));
   }
 
-  const handleUpdatePlant = ({ _id, name, description, size, imageUrl, imagePublicId, location, price }) => {
+  const handleUpdatePlant = ({ _id, name, description, size, imageUrl, imagePublicId, location, price }, history) => {
     const updatedPlant = {
       name,
       description,
@@ -80,7 +80,7 @@ const UpdatePlantForm = () => {
             </select> <br />
             <input className="mb-4 smallWidth" name="price" type="number" min="1" onChange={event => handlePlantEntryChange(event, plant, 4)} value={price} /> €
             <div className="row justify-content-around">
-              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdatePlant(plant)}> Save changes </button>
+              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdatePlant(plant, history)}> Save changes </button>
               <Link to={`/plants/read/${_id}`}> <button className="btn btn-sm mx-2"> Go back </button> </Link>
             </div>
           </div>
