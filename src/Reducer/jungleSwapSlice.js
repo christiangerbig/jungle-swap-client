@@ -463,8 +463,7 @@ export const jungleSwapSlice = createSlice({
       state.requests = state.requests.filter(request => request._id !== action.payload);
     },
     setStartAmountOfRequests: (state, action) => {
-      const amountOfRequests = state.requests.filter(currentRequest => currentRequest.seller._id === state.loggedInUser._id).length;
-      state.amountOfRequests = amountOfRequests;
+      state.amountOfRequests = state.requests.filter(currentRequest => currentRequest.seller._id === state.loggedInUser._id).length;
     },
     setAmountOfRequests: (state, action) => {
       state.amountOfRequests = action.payload;
@@ -479,14 +478,10 @@ export const jungleSwapSlice = createSlice({
       state.minutesCounter = action.payload;
     },
     increaseMinutesCounter: (state, action) => {
-      let minutesCounter = state.minutesCounter;
-      minutesCounter += 1;
-      state.minutesCounter = minutesCounter;
+      state.minutesCounter += 1;
     },
     decreaseAmountOfRequests: (state, action) => {
-      let amountOfRequests = state.amountOfRequests;
-      amountOfRequests -= 1;
-      state.amountOfRequests = amountOfRequests;
+      state.amountOfRequests -= 1;
     },
 
 
