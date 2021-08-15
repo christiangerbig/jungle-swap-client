@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllPlants, fetchQueryPlants, readUser, setHeaderContainerHeight, setAboutContainerHeight, scrollToAbout } from "../Reducer/jungleSwapSlice";
-import image from "../images/JungleSwap_Home.png";
-import icon from "../images/JungleSwap_Icon.png";
+import image from "../Images/JungleSwap_Home.png";
+import icon from "../Images/JungleSwap_Icon.png";
 
 const Home = () => {
   const isFetchingUser = useSelector(state => state.jungleSwap.isFetchingUser);

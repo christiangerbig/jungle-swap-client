@@ -20,7 +20,7 @@ const CreatePlantForm = () => {
   );
 
   // Create plant
-  const handleCreatePlant = event => {
+  const handleCreatePlant = (event, history) => {
     event.preventDefault();
     const { name, description, size, plantImage, location, price } = event.target;
     const image = plantImage.files[0];
@@ -42,7 +42,7 @@ const CreatePlantForm = () => {
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-6">
         <h2 className="mb-5"> Create a plant </h2>
-        <form onSubmit={handleCreatePlant}>
+        <form onSubmit={event => handleCreatePlant(event, history)}>
           <input className="mb-4" name="name" type="text" placeholder="Enter name" />
           <input className="mb-4" name="description" type="text" placeholder="Enter description" />
           <input className="mb-4 smallWidth" name="size" type="number" min="1" placeholder="Size" /> cm <br />

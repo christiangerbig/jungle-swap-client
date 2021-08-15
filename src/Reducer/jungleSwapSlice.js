@@ -232,7 +232,7 @@ export const fetchAllRequests = createAsyncThunk(
     try {
       const response = await axios.get(`${rootPath}/requests/fetch`);
       dispatch(setRequests(response.data));
-      if (isUserChange) dispatch(setStartAmountOfRequests());
+      isUserChange && (dispatch(setStartAmountOfRequests()));
     }
     catch (err) {
       console.log("Fetching requests failed", err);
@@ -302,7 +302,7 @@ export const deleteRequest = createAsyncThunk(
       await axios.delete(`${rootPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
       dispatch(decreaseAmountOfRequests());
-      if (history) history.push("/requests/fetch");
+      history && (history.push("/requests/fetch"));
     }
     catch (err) {
       console.log("Delete request failed", err);
