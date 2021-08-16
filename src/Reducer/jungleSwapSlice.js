@@ -3,6 +3,8 @@ import config from "../config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
 
+const apiPath = `${config.API_URL}/api`;
+
 const initialState = {
   isFetchingUser: true,
   loggedInUser: null,
@@ -21,15 +23,13 @@ const initialState = {
   error: null
 }
 
-const rootPath = `${config.API_URL}/api`;
-
 // --------- Plants ---------
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
   async (options, { dispatch }) => {
     try {
-      const response = await axios.get(`${rootPath}/plants/fetch`);
+      const response = await axios.get(`${apiPath}/plants/fetch`);
       dispatch(setPlants(response.data));
     }
     catch (err) {
@@ -43,7 +43,7 @@ export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
   async (query, { dispatch }) => {
     try {
-      const response = await axios.get(`${rootPath}/plants/search?q=${query}`);
+      const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
       dispatch(setPlants(response.data));
     }
     catch (err) {
@@ -59,7 +59,7 @@ export const createPlant = createAsyncThunk(
     const { name, description, size, location, price } = plant;
     try {
       const responseImage = await axios.post(
-        `${rootPath}/upload`,
+        `${apiPath}/upload`,
         uploadForm
       );
       const { imageUrl, imagePublicId } = responseImage.data;
@@ -74,7 +74,7 @@ export const createPlant = createAsyncThunk(
       };
       try {
         const responsePlant = await axios.post(
-          `${rootPath}/plants/create`,
+          `${apiPath}/plants/create`,
           newPlant,
           { withCredentials: true }
         );
@@ -87,7 +87,7 @@ export const createPlant = createAsyncThunk(
       }
     }
     catch (err) {
-      dispatch(setError(err.responseInmage.data.error));
+      dispatch(setError(err.responseImage.data.error));
     }
   }
 );
@@ -98,7 +98,7 @@ export const readPlant = createAsyncThunk(
   async (plantId, { dispatch }) => {
     try {
       const response = await axios.get(
-        `${rootPath}/plants/read/${plantId}`,
+        `${apiPath}/plants/read/${plantId}`,
         { withCredentials: true }
       );
       dispatch(setPlant(response.data));
@@ -115,14 +115,14 @@ export const imageChange = createAsyncThunk(
   async ({ destroyImageData, image, plant }, { dispatch }) => {
     try {
       await axios.post(
-        `${rootPath}/destroy`,
+        `${apiPath}/destroy`,
         destroyImageData
       );
       try {
         const uploadForm = new FormData();
         uploadForm.append("image", image);
         const response = await axios.post(
-          `${rootPath}/upload`,
+          `${apiPath}/upload`,
           uploadForm
         );
         const { imagePublicId, imageUrl } = response.data;
@@ -147,7 +147,7 @@ export const updatePlant = createAsyncThunk(
   async ({ plantId, updatedPlant, history }, { dispatch }) => {
     try {
       const response = await axios.patch(
-        `${rootPath}/plants/update/${plantId}`,
+        `${apiPath}/plants/update/${plantId}`,
         updatedPlant
       );
       dispatch(setPlantChanges(response.data));
@@ -169,11 +169,11 @@ export const deletePlant = createAsyncThunk(
         imagePublicId
       }
       await axios.post(
-        `${rootPath}/destroy`,
+        `${apiPath}/destroy`,
         destroyImageData
       );
       try {
-        await axios.delete(`${rootPath}/plants/delete/${plantId}`);
+        await axios.delete(`${apiPath}/plants/delete/${plantId}`);
         dispatch(removePlant(plantId));
         history.push("/");
         dispatch(scrollToPlants());
@@ -194,7 +194,7 @@ export const createPayment = createAsyncThunk(
   async (plant, { dispatch }) => {
     try {
       const response = await axios.post(
-        `${rootPath}/create-payment-intent`,
+        `${apiPath}/create-payment-intent`,
         { price: plant.price }
       );
       dispatch(setClientSecret(response.data.clientSecret));
@@ -211,7 +211,7 @@ export const payPlant = createAsyncThunk(
   async ({ history }, { dispatch }) => {
     try {
       await axios.post(
-        `${rootPath}/create-payment-intent`,
+        `${apiPath}/create-payment-intent`,
         {},
         { withCredentials: true }
       );
@@ -230,7 +230,7 @@ export const fetchAllRequests = createAsyncThunk(
   "jungleSwap/fetchAllRequests",
   async (isUserChange, { dispatch }) => {
     try {
-      const response = await axios.get(`${rootPath}/requests/fetch`);
+      const response = await axios.get(`${apiPath}/requests/fetch`);
       dispatch(setRequests(response.data));
       isUserChange && (dispatch(setStartAmountOfRequests()));
     }
@@ -246,7 +246,7 @@ export const createRequest = createAsyncThunk(
   async ({ newRequest, history }, { dispatch }) => {
     try {
       const response = await axios.post(
-        `${rootPath}/requests/create`,
+        `${apiPath}/requests/create`,
         newRequest,
         { withCredentials: true }
       );
@@ -265,7 +265,7 @@ export const readRequest = createAsyncThunk(
   async (requestId, { dispatch }) => {
     try {
       const response = await axios.get(
-        `${rootPath}/requests/read/${requestId}`,
+        `${apiPath}/requests/read/${requestId}`,
         { withCredentials: true }
       );
       dispatch(setRequest(response.data));
@@ -282,7 +282,7 @@ export const updateRequest = createAsyncThunk(
   async ({ requestId, updatedRequest, history }, { dispatch }) => {
     try {
       const response = await axios.patch(
-        `${rootPath}/requests/update/${requestId}`,
+        `${apiPath}/requests/update/${requestId}`,
         updatedRequest
       );
       dispatch(setRequestChanges(response.data));
@@ -299,7 +299,7 @@ export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
   async ({requestId, history}, { dispatch }) => {
     try {
-      await axios.delete(`${rootPath}/requests/delete/${requestId}`);
+      await axios.delete(`${apiPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
       dispatch(decreaseAmountOfRequests());
       history && (history.push("/requests/fetch"));
@@ -317,7 +317,7 @@ export const readUser = createAsyncThunk(
   async (options, { dispatch }) => {
     try {
       const response = await axios.get(
-        `${rootPath}/user`,
+        `${apiPath}/user`,
         { withCredentials: true }
       );
       dispatch(setLoggedInUser(response.data));
@@ -336,7 +336,7 @@ export const signUp = createAsyncThunk(
   async ({ newUser, history }, { dispatch }) => {
     try {
       const response = await axios.post(
-        `${rootPath}/signup`,
+        `${apiPath}/signup`,
         newUser
       );
       dispatch(setLoggedInUser(response.data));
@@ -355,7 +355,7 @@ export const signIn = createAsyncThunk(
   async ({ user, history }, { dispatch }) => {
     try {
       const response = await axios.post(
-        `${rootPath}/signin`,
+        `${apiPath}/signin`,
         user,
         { withCredentials: true }
       );
@@ -375,7 +375,7 @@ export const logOut = createAsyncThunk(
   async ({ intervalId, history }, { dispatch }) => {
     try {
       await axios.post(
-        `${rootPath}/logout`,
+        `${apiPath}/logout`,
         {},
         { withCredentials: true }
       );
@@ -393,11 +393,10 @@ export const logOut = createAsyncThunk(
   }
 );
 
-
-// ---------- Slices -----------
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
+  // ---------- Reducers -----------
   reducers: {
 
     // --------- Plants ----------
@@ -499,7 +498,7 @@ export const jungleSwapSlice = createSlice({
       state.error = action.payload;
     },
 
-    // ---------- HTML elements ----------
+    // ---------- Pages handling ----------
     setHeaderContainerHeight: (state, action) => {
       state.headerContainerHeight = action.payload;
     },
@@ -547,7 +546,7 @@ export const {
   setIsUserChange,
   setError,
 
-  // ---------- HTML elements ----------
+  // ---------- Pages handling ----------
   setHeaderContainerHeight,
   setAboutContainerHeight,
   scrollToAbout,
