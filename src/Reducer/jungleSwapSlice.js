@@ -58,11 +58,11 @@ export const createPlant = createAsyncThunk(
   async ({ uploadForm, plant, history }, { dispatch }) => {
     const { name, description, size, location, price } = plant;
     try {
-      const responseImage = await axios.post(
+      const response = await axios.post(
         `${apiPath}/upload`,
         uploadForm
       );
-      const { imageUrl, imagePublicId } = responseImage.data;
+      const { imageUrl, imagePublicId } = response.data;
       const newPlant = {
         name,
         description,
@@ -73,23 +73,21 @@ export const createPlant = createAsyncThunk(
         price
       };
       try {
-        const responsePlant = await axios.post(
+        const response = await axios.post(
           `${apiPath}/plants/create`,
           newPlant,
           { withCredentials: true }
         );
-        dispatch(addPlant(responsePlant.data));
+        dispatch(addPlant(response.data));
         history.push("/");
         dispatch(scrollToPlants());
       }
       catch (err) {
-        dispatch(setError(err.responsePlant.data.error));
-        console.log(err.responsePlant.data.error);
+        dispatch(setError(err.response.data.error));
       }
     }
     catch (err) {
-      dispatch(setError(err.responseImage.data.error));
-      console.log(err.responseImage.data.error);
+      dispatch(setError(err.response.data.error));
     }
   }
 );
