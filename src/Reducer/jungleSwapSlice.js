@@ -84,10 +84,12 @@ export const createPlant = createAsyncThunk(
       }
       catch (err) {
         dispatch(setError(err.responsePlant.data.error));
+        console.log(err.responsePlant.data.error);
       }
     }
     catch (err) {
       dispatch(setError(err.responseImage.data.error));
+      console.log(err.responseImage.data.error);
     }
   }
 );
