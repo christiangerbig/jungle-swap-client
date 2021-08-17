@@ -15,6 +15,6 @@ const LogOut = () => {
   );
 
   return (<div />);
-}
+};
 
 export default LogOut;

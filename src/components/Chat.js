@@ -30,6 +30,6 @@ const KommunicateChat = () => {
   );
 
   return (<div />);
-}
+};
 
 export default KommunicateChat;

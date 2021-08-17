@@ -68,7 +68,7 @@ const CheckoutForm = () => {
       setIsProcessing(false);
       setIsSucceeded(true);
     }
-  }
+  };
 
   const { _id, name, price } = plant;
   return (
@@ -108,6 +108,6 @@ const CheckoutForm = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CheckoutForm;
