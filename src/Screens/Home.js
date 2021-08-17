@@ -34,7 +34,7 @@ const Home = () => {
   );
 
   // Search plant
-  const handleSearchPlant = event => setQuery(event.target.value)
+  const handleSearchPlant = event => setQuery(event.target.value);
 
   return (
     <div>
@@ -123,6 +123,6 @@ const Home = () => {
       </section>
     </div>
   );
-}
+};
 
 export default Home;

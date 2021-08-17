@@ -23,6 +23,6 @@ const CheckoutPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CheckoutPage;

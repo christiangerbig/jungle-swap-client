@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { imageChange, updatePlant, setPlant, scrollToPlants } from "../Reducer/jungleSwapSlice";
+import { imageChange, updatePlant, setPlant } from "../Reducer/jungleSwapSlice";
 
 const UpdatePlantForm = () => {
   const plant = useSelector(state => state.jungleSwap.plant);
@@ -36,7 +36,7 @@ const UpdatePlantForm = () => {
         clonePlant.price = target.value;
     }
     dispatch(setPlant(clonePlant));
-  }
+  };
 
   // Plant image changed
   const handleImageChange = ({ target }, plant) => {
@@ -46,7 +46,7 @@ const UpdatePlantForm = () => {
       imagePublicId
     }
     dispatch(imageChange({ destroyImageData, image, plant }));
-  }
+  };
 
   const handleUpdatePlant = ({ _id, name, description, size, imageUrl, imagePublicId, location, price }, history) => {
     const updatedPlant = {
@@ -59,7 +59,7 @@ const UpdatePlantForm = () => {
       price
     };
     dispatch(updatePlant({ plantId: _id, updatedPlant, history }));
-  }
+  };
 
   const { _id, name, description, size, imageUrl, price } = plant;
   return (
@@ -88,6 +88,6 @@ const UpdatePlantForm = () => {
       </div>
     </div>
   );
-}
+};
 
 export default UpdatePlantForm;

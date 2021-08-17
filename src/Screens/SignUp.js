@@ -29,7 +29,7 @@ const SignUp = () => {
       password: password.value
     };
     dispatch(signUp({ newUser, history }));
-  }
+  };
 
   return (
     <div className="container row mt-5">
@@ -56,6 +56,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;

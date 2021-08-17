@@ -34,7 +34,7 @@ const CreatePlantForm = () => {
       price: price.value
     }
     dispatch(createPlant({ uploadForm, plant, history }));
-  }
+  };
 
   if (!loggedInUser) return (<Redirect to={"/signup"} />);
 
@@ -64,6 +64,6 @@ const CreatePlantForm = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CreatePlantForm;

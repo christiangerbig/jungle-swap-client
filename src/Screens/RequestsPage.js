@@ -62,6 +62,6 @@ const RequestsPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default RequestsPage;

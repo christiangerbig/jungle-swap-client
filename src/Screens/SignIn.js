@@ -28,7 +28,7 @@ const SignIn = () => {
       password: password.value
     };
     dispatch(signIn({ user, history }));
-  }
+  };
 
   return (
     <div className="container row mt-5 custom fullscreen">
@@ -49,6 +49,6 @@ const SignIn = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;

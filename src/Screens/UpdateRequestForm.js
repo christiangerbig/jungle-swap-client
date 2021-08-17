@@ -20,7 +20,7 @@ const UpdateRequestForm = () => {
     const cloneRequest = JSON.parse(JSON.stringify(request));
     cloneRequest.reply = target.value;
     dispatch(setRequest(cloneRequest));
-  }
+  };
 
   // Update request
   const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }, history) => {
@@ -32,7 +32,7 @@ const UpdateRequestForm = () => {
       reply
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
-  }
+  };
 
   const { _id, message } = request;
   return (
@@ -52,6 +52,6 @@ const UpdateRequestForm = () => {
       </div>
     </div>
   );
-}
+};
 
 export default UpdateRequestForm;

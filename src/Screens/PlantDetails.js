@@ -31,7 +31,7 @@ const PlantDetails = () => {
       }
     );
     dispatch(deletePlant({ imagePublicId, plantId, history }));
-  }
+  };
 
   if (!loggedInUser) return (<Redirect to={"/signup"} />);
 
@@ -80,6 +80,6 @@ const PlantDetails = () => {
       </div>
     </div>
   );
-}
+};
 
 export default PlantDetails;

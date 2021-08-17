@@ -29,7 +29,7 @@ const CreateRequestForm = () => {
       message: message.value
     };
     dispatch(createRequest({ newRequest, history }));
-  }
+  };
 
   const { _id, name } = plant;
   return (
@@ -37,7 +37,7 @@ const CreateRequestForm = () => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-4"> Your message </h2>
         <h3 className="mb-4"> {name} </h3>
-        <form onSubmit={(event) => handleCreateRequest(event, plant, history)}>
+        <form onSubmit={event => handleCreateRequest(event, plant, history)}>
           <div>
             <textarea className="mb-4" name="message" cols="35" rows="7" />
           </div>
@@ -48,6 +48,6 @@ const CreateRequestForm = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CreateRequestForm;

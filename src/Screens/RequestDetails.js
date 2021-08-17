@@ -49,6 +49,6 @@ const RequestDetails = () => {
       </div>
     </div>
   );
-}
+};
 
 export default RequestDetails;
