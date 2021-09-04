@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { readPlant, deletePlant, deleteRequest, scrollToPlants } from "../Reducer/jungleSwapSlice";
+import { readPlant, deletePlant, deleteRequest, scrollToPlants } from "../reducer/jungleSwapSlice";
 
 const PlantDetails = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);

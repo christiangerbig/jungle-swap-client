@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { createPlant, setError } from "../Reducer/jungleSwapSlice";
+import { createPlant, setError } from "../reducer/jungleSwapSlice";
 
 const CreatePlantForm = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);

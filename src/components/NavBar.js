@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
-import { fetchAllRequests, setIsUserChange, setIntervalId, increaseMinutesCounter, setMinutesCounter, setAmountOfRequests, setIsNewRequest, scrollToPlants } from "../Reducer/jungleSwapSlice";
+import { fetchAllRequests, setIsUserChange, setIntervalId, increaseMinutesCounter, setMinutesCounter, setAmountOfRequests, setIsNewRequest, scrollToPlants } from "../reducer/jungleSwapSlice";
 
 const NavBar = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);

@@ -1,11 +1,11 @@
-import {render, screen} from "@testing-library/react2;
+import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 test(
-  "renders learn react link", 
+  "renders jungle swap",
   () => {
-    render(<App/>);
-    const linkElement = screen.getByText(/learn react/i);
+    render(<App />);
+    const linkElement = screen.getByText(/jungle swap/i);
     expect(linkElement).toBeInTheDocument();
   }
 );

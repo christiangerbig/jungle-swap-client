@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllPlants, fetchQueryPlants, readUser, setHeaderContainerHeight, setAboutContainerHeight, scrollToAbout } from "../Reducer/jungleSwapSlice";
-import image from "../Images/JungleSwap_Home.png";
-import icon from "../Images/JungleSwap_Icon.png";
+import { fetchAllPlants, fetchQueryPlants, readUser, setHeaderContainerHeight, setAboutContainerHeight, scrollToAbout } from "../reducer/jungleSwapSlice";
+import image from "../images/JungleSwap_Home.png";
+import icon from "../images/JungleSwap_Icon.png";
 
 const Home = () => {
   const isFetchingUser = useSelector(state => state.jungleSwap.isFetchingUser);
@@ -11,16 +11,17 @@ const Home = () => {
   const plants = useSelector(state => state.jungleSwap.plants);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
+  const elementRef = useRef([]);
 
   // Load plants and user data as soon as page loads
   useEffect(
     () => {
       dispatch(fetchAllPlants());
       !loggedInUser && dispatch(readUser());
-      const headerContainerHeight = Math.round(document.querySelector("#titleId").getBoundingClientRect().height);
-      dispatch(setHeaderContainerHeight(headerContainerHeight));
-      const aboutContainerHeight = Math.round(document.querySelector("#aboutId").getBoundingClientRect().height);
-      dispatch(setAboutContainerHeight(aboutContainerHeight));
+      const headerElementHeight = Math.round(elementRef.current[0].getBoundingClientRect().height);
+      dispatch(setHeaderContainerHeight(headerElementHeight));
+      const aboutElementHeight = Math.round(elementRef.current[1].getBoundingClientRect().height);
+      dispatch(setAboutContainerHeight(aboutElementHeight));
     },
     []
   );
@@ -32,9 +33,6 @@ const Home = () => {
     },
     [query]
   );
-
-  // Search plant
-  const handleSearchPlant = event => setQuery(event.target.value);
 
   return (
     <div>
@@ -51,7 +49,7 @@ const Home = () => {
         </div>
       )}
 
-      <header className="text-center pt-5 pb-5 headerImg" id="titleId">
+      <header className="text-center pt-5 pb-5 headerImg" ref={element => elementRef.current[0] = element}>
         <div className="row my-5">
           <div className="col-6 offset-3 my-5 borderAround">
             <h2 className="title mb-2"> JungleSwap </h2>
@@ -63,7 +61,7 @@ const Home = () => {
         </div>
       </header>
 
-      <section id="aboutId">
+      <section ref={element => elementRef.current[1] = element}>
         <div className="about centered container">
           <div className="row">
             <div className="col-sm-6 col-md-5 col-lg-6">
@@ -94,7 +92,7 @@ const Home = () => {
             <h4> Search a plant </h4>
           </div>
           <div className="mb-4">
-            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={handleSearchPlant} />
+            <input className="smallWidth form-control" type="text" placeholder="Search..." value={query} onChange={event => setQuery(event.target.value)} />
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {

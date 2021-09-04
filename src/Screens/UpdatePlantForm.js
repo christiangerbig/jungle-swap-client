@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { imageChange, updatePlant, setPlant } from "../Reducer/jungleSwapSlice";
+import { imageChange, updatePlant, setPlant } from "../reducer/jungleSwapSlice";
 
 const UpdatePlantForm = () => {
   const plant = useSelector(state => state.jungleSwap.plant);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { readRequest, deleteRequest } from "../Reducer/jungleSwapSlice";
+import { readRequest, deleteRequest } from "../reducer/jungleSwapSlice";
 
 const RequestDetails = () => {
   const request = useSelector(state => state.jungleSwap.request);

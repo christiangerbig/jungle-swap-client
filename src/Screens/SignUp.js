@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setError, setIsNewRequest, signUp } from "../Reducer/jungleSwapSlice";
+import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
 
 const SignUp = () => {
   const error = useSelector(state => state.jungleSwap.error);

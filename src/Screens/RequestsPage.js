@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { fetchAllRequests, setIsNewRequest } from "../Reducer/jungleSwapSlice";
+import { fetchAllRequests, setIsNewRequest } from "../reducer/jungleSwapSlice";
 
 const RequestsPage = () => {
   const loggedInUser = useSelector(state => state.jungleSwap.loggedInUser);

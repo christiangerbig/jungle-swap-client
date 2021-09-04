@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { payPlant, createPayment, scrollToPlants } from "../Reducer/jungleSwapSlice";
+import { payPlant, createPayment, scrollToPlants } from "../reducer/jungleSwapSlice";
 
 const CheckoutForm = () => {
   const [isSucceeded, setIsSucceeded] = useState(false);

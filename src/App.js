@@ -4,22 +4,22 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
 
-import NavBar from "./Components/NavBar";
-import Footer from "./Components/Footer";
-import Home from "./Screens/Home";
-import SignUp from "./Screens/SignUp";
-import SignIn from "./Screens/SignIn";
-import LogOut from "./Components/LogOut";
-import CreatePlantForm from "./Screens/CreatePlantForm";
-import PlantDetails from "./Screens/PlantDetails";
-import UpdatePlantForm from "./Screens/UpdatePlantForm";
-import CheckoutPage from "./Screens/CheckoutPage";
-import RequestsPage from "./Screens/RequestsPage";
-import CreateRequestForm from "./Screens/CreateRequestForm";
-import RequestDetails from "./Screens/RequestDetails";
-import UpdateRequestForm from "./Screens/UpdateRequestForm";
-import NotFound from "./Screens/NotFound";
-import KommunicateChat from "./Components/Chat";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import Home from "./screens/Home";
+import SignUp from "./screens/SignUp";
+import SignIn from "./screens/SignIn";
+import LogOut from "./components/LogOut";
+import CreatePlantForm from "./screens/CreatePlantForm";
+import PlantDetails from "./screens/PlantDetails";
+import UpdatePlantForm from "./screens/UpdatePlantForm";
+import CheckoutPage from "./screens/CheckoutPage";
+import RequestsPage from "./screens/RequestsPage";
+import CreateRequestForm from "./screens/CreateRequestForm";
+import RequestDetails from "./screens/RequestDetails";
+import UpdateRequestForm from "./screens/UpdateRequestForm";
+import NotFound from "./screens/NotFound";
+import KommunicateChat from "./components/Chat";
 
 const App = () => {
   return (

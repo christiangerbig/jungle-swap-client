@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { createRequest, setError } from "../Reducer/jungleSwapSlice";
+import { createRequest, setError } from "../reducer/jungleSwapSlice";
 
 const CreateRequestForm = () => {
   const plant = useSelector(state => state.jungleSwap.plant);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../Components/CheckoutForm";
+import CheckoutForm from "../components/CheckoutForm";
 
 const promise = loadStripe("pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv");
 
