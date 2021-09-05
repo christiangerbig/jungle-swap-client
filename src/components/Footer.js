@@ -6,9 +6,13 @@ const Footer = () => {
     <div className="footer-row">
       <footer>
         © 2021
-        <Link href="https://www.linkedin.com/in/christian-gerbig/"> Christian Gerbig </Link>
+        <Link href="https://www.linkedin.com/in/christian-gerbig/">
+          Christian Gerbig
+        </Link>
         &
-        <Link href="https://www.linkedin.com/in/lisa-montebaur/"> Lisa Montebaur </Link>
+        <Link href="https://www.linkedin.com/in/lisa-montebaur/">
+          Lisa Montebaur
+        </Link>
       </footer>
     </div>
   );

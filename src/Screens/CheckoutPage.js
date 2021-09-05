@@ -4,15 +4,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
 
-const promise = loadStripe("pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv");
+const promise = loadStripe(
+  "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
+);
 
 const CheckoutPage = () => {
-
   // Scroll to top as soon as page loads
-  useEffect(
-    () => scroll.scrollToTop(),
-    []
-  );
+  useEffect(() => scroll.scrollToTop(), []);
 
   return (
     <div className="container row mt-5">

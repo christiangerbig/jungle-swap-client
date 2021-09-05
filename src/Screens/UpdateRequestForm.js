@@ -5,15 +5,12 @@ import { animateScroll as scroll } from "react-scroll";
 import { setRequest, updateRequest } from "../reducer/jungleSwapSlice";
 
 const UpdateRequestForm = () => {
-  const request = useSelector(state => state.jungleSwap.request);
+  const request = useSelector((state) => state.jungleSwap.request);
   const dispatch = useDispatch();
   const history = useHistory();
 
   // Scroll to top as soon as page loads
-  useEffect(
-    () => scroll.scrollToTop(),
-    []
-  );
+  useEffect(() => scroll.scrollToTop(), []);
 
   // Create reply
   const handleCreateReply = ({ target }, request) => {
@@ -23,13 +20,16 @@ const UpdateRequestForm = () => {
   };
 
   // Update request
-  const handleUpdateRequest = ({ _id, buyer, seller, plant, message, reply }, history) => {
+  const handleUpdateRequest = (
+    { _id, buyer, seller, plant, message, reply },
+    history
+  ) => {
     const updatedRequest = {
       buyer,
       seller,
       plant,
       message,
-      reply
+      reply,
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
   };
@@ -42,10 +42,24 @@ const UpdateRequestForm = () => {
         <div className="card cardSmallWidth mb-5">
           <div className="card-body">
             <p> {message} </p>
-            <textarea className="mb-4" name="reply" cols="31" rows="6" placeholder="Your reply" onChange={event => handleCreateReply(event, request)} />
+            <textarea
+              className="mb-4"
+              name="reply"
+              cols="31"
+              rows="6"
+              placeholder="Your reply"
+              onChange={(event) => handleCreateReply(event, request)}
+            />
             <div className="row justify-content-around">
-              <button className="btn btn-sm btn-outline-dark" onClick={() => handleUpdateRequest(request, history)}> Submit </button>
-              <Link to={`/requests/read/${_id}`}> <button className="btn btn-sm mx-2"> Go back </button> </Link>
+              <button
+                className="btn btn-sm btn-outline-dark"
+                onClick={() => handleUpdateRequest(request, history)}
+              >
+                Submit
+              </button>
+              <Link to={`/requests/read/${_id}`}>   
+                <button className="btn btn-sm mx-2"> Go back </button>
+              </Link>
             </div>
           </div>
         </div>

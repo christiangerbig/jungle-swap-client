@@ -5,26 +5,26 @@ import { animateScroll as scroll } from "react-scroll";
 import { readRequest, deleteRequest } from "../reducer/jungleSwapSlice";
 
 const RequestDetails = () => {
-  const request = useSelector(state => state.jungleSwap.request);
+  const request = useSelector((state) => state.jungleSwap.request);
   const { requestId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
   // Read request and scroll to top as soon as page loads
-  useEffect(
-    () => {
-      dispatch(readRequest(requestId));
-      scroll.scrollToTop();
-    },
-    []
-  );
+  useEffect(() => {
+    dispatch(readRequest(requestId));
+    scroll.scrollToTop();
+  }, []);
 
   const { _id, buyer, plant, message, reply } = request;
-  if (!buyer || !plant) return (
-    <div class="spinner-grow text-success m-5" role="status">
-      <span class="visually-hidden"> <br /> <br /> Loading request... </span>
-    </div>
-  );
+  if (!buyer || !plant)
+    return (
+      <div class="spinner-grow text-success m-5" role="status">
+        <span class="visually-hidden">         
+          <br /> <br /> Loading request...
+        </span>
+      </div>
+    );
 
   return (
     <div className="container row mt-5 ">
@@ -33,19 +33,30 @@ const RequestDetails = () => {
         <h4> for: {plant.name} </h4>
         <h5> by: {buyer.username} </h5>
         <p> {message} </p>
-        {
-          reply && (
-            <div>
-              <h5> Your reply: </h5>
-              <p> {reply} </p>
-            </div>
-          )
-        }
+        {reply && (
+          <div>
+            <h5> Your reply: </h5>
+            <p> {reply} </p>
+          </div>
+        )}
         <div>
-          {!reply && (<Link to={`/requests/update/${_id}`}> <button className="btn btn-sm ml-2 btn-outline-dark"> Reply </button> </Link>)}
-          <button className="btn btn-sm ml-2 btn-outline-dark" onClick={() => dispatch(deleteRequest({requestId, history}))}> Delete </button>
+          {!reply && (
+            <Link to={`/requests/update/${_id}`}>
+              <button className="btn btn-sm ml-2 btn-outline-dark">  
+                Reply
+              </button>
+            </Link>
+          )}
+          <button
+            className="btn btn-sm ml-2 btn-outline-dark"
+            onClick={() => dispatch(deleteRequest({ requestId, history }))}
+          > 
+            Delete
+          </button>
         </div>
-        <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}> <button className="btn btn-sm mt-4"> Go back </button> </Link>
+        <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}>
+          <button className="btn btn-sm mt-4"> Go back </button>
+        </Link>
       </div>
     </div>
   );

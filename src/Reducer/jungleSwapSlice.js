@@ -20,8 +20,8 @@ const initialState = {
   headerContainerHeight: 0,
   aboutContainerHeight: 0,
   clientSecret: "",
-  error: null
-}
+  error: null,
+};
 
 // --------- Plants ---------
 // Fetch all plants
@@ -31,8 +31,7 @@ export const fetchAllPlants = createAsyncThunk(
     try {
       const response = await axios.get(`${apiPath}/plants/fetch`);
       dispatch(setPlants(response.data));
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Fetching plants failed", err);
     }
   }
@@ -45,8 +44,7 @@ export const fetchQueryPlants = createAsyncThunk(
     try {
       const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
       dispatch(setPlants(response.data));
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Fetching query plants failed", err);
     }
   }
@@ -58,10 +56,7 @@ export const createPlant = createAsyncThunk(
   async ({ uploadForm, plant, history }, { dispatch }) => {
     const { name, description, size, location, price } = plant;
     try {
-      const response = await axios.post(
-        `${apiPath}/upload`,
-        uploadForm
-      );
+      const response = await axios.post(`${apiPath}/upload`, uploadForm);
       const { imageUrl, imagePublicId } = response.data;
       const newPlant = {
         name,
@@ -70,7 +65,7 @@ export const createPlant = createAsyncThunk(
         imageUrl,
         imagePublicId,
         location,
-        price
+        price,
       };
       try {
         const response = await axios.post(
@@ -80,13 +75,11 @@ export const createPlant = createAsyncThunk(
         );
         dispatch(addPlant(response.data));
         history.push("/");
-        dispatch(scrollToPlants());
-      }
-      catch (err) {
+        scroll.scrollToBottom();
+      } catch (err) {
         dispatch(setError(err.response.data.error));
       }
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -97,13 +90,11 @@ export const readPlant = createAsyncThunk(
   "jungleSwap/readPlant",
   async (plantId, { dispatch }) => {
     try {
-      const response = await axios.get(
-        `${apiPath}/plants/read/${plantId}`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${apiPath}/plants/read/${plantId}`, {
+        withCredentials: true,
+      });
       dispatch(setPlant(response.data));
-    }
-    catch {
+    } catch {
       console.log("Read plant failed");
     }
   }
@@ -114,28 +105,20 @@ export const imageChange = createAsyncThunk(
   "jungleSwap/imageChange",
   async ({ destroyImageData, image, plant }, { dispatch }) => {
     try {
-      await axios.post(
-        `${apiPath}/destroy`,
-        destroyImageData
-      );
+      await axios.post(`${apiPath}/destroy`, destroyImageData);
       try {
         const uploadForm = new FormData();
         uploadForm.append("image", image);
-        const response = await axios.post(
-          `${apiPath}/upload`,
-          uploadForm
-        );
+        const response = await axios.post(`${apiPath}/upload`, uploadForm);
         const { imagePublicId, imageUrl } = response.data;
         const clonePlant = JSON.parse(JSON.stringify(plant));
         clonePlant.imagePublicId = imagePublicId;
         clonePlant.imageUrl = imageUrl;
         dispatch(setPlant(clonePlant));
-      }
-      catch (err) {
+      } catch (err) {
         console.log("Image upload failed", err);
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Delete old image failed", err);
     }
   }
@@ -153,8 +136,7 @@ export const updatePlant = createAsyncThunk(
       dispatch(setPlantChanges(response.data));
       history.push("/");
       dispatch(scrollToPlants());
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Update plant failed", err);
     }
   }
@@ -166,23 +148,18 @@ export const deletePlant = createAsyncThunk(
   async ({ imagePublicId, plantId, history }, { dispatch }) => {
     try {
       const destroyImageData = {
-        imagePublicId
-      }
-      await axios.post(
-        `${apiPath}/destroy`,
-        destroyImageData
-      );
+        imagePublicId,
+      };
+      await axios.post(`${apiPath}/destroy`, destroyImageData);
       try {
         await axios.delete(`${apiPath}/plants/delete/${plantId}`);
         dispatch(removePlant(plantId));
         history.push("/");
         dispatch(scrollToPlants());
-      }
-      catch (err) {
+      } catch (err) {
         console.log("Delete plant failed", err);
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Delete image failed", err);
     }
   }
@@ -193,13 +170,11 @@ export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
   async (plant, { dispatch }) => {
     try {
-      const response = await axios.post(
-        `${apiPath}/create-payment-intent`,
-        { price: plant.price }
-      );
+      const response = await axios.post(`${apiPath}/create-payment-intent`, {
+        price: plant.price,
+      });
       dispatch(setClientSecret(response.data.clientSecret));
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Create payment failed", err);
     }
   }
@@ -217,8 +192,7 @@ export const payPlant = createAsyncThunk(
       );
       history.push("/");
       dispatch(scrollToPlants());
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Checkout failed", err);
     }
   }
@@ -232,9 +206,8 @@ export const fetchAllRequests = createAsyncThunk(
     try {
       const response = await axios.get(`${apiPath}/requests/fetch`);
       dispatch(setRequests(response.data));
-      isUserChange && (dispatch(setStartAmountOfRequests()));
-    }
-    catch (err) {
+      isUserChange && dispatch(setStartAmountOfRequests());
+    } catch (err) {
       console.log("Fetching requests failed", err);
     }
   }
@@ -252,8 +225,7 @@ export const createRequest = createAsyncThunk(
       );
       dispatch(addRequest(response.data));
       history.push(`/plants/read/${response.data.plant._id}`);
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -269,8 +241,7 @@ export const readRequest = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(setRequest(response.data));
-    }
-    catch {
+    } catch {
       console.log("Read request failed");
     }
   }
@@ -287,8 +258,7 @@ export const updateRequest = createAsyncThunk(
       );
       dispatch(setRequestChanges(response.data));
       history.push(`/requests/read/${requestId}`);
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Update request failed", err);
     }
   }
@@ -297,14 +267,13 @@ export const updateRequest = createAsyncThunk(
 // Delete request
 export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
-  async ({requestId, history}, { dispatch }) => {
+  async ({ requestId, history }, { dispatch }) => {
     try {
       await axios.delete(`${apiPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
       dispatch(decreaseAmountOfRequests());
-      history && (history.push("/requests/fetch"));
-    }
-    catch (err) {
+      history && history.push("/requests/fetch");
+    } catch (err) {
       console.log("Delete request failed", err);
     }
   }
@@ -316,14 +285,12 @@ export const readUser = createAsyncThunk(
   "jungleSwap/readUserData",
   async (options, { dispatch }) => {
     try {
-      const response = await axios.get(
-        `${apiPath}/user`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${apiPath}/user`, {
+        withCredentials: true,
+      });
       dispatch(setLoggedInUser(response.data));
       dispatch(setIsFetchingUser(false));
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Initializing fetching failed", err);
       dispatch(setIsFetchingUser(false));
     }
@@ -335,15 +302,11 @@ export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async ({ newUser, history }, { dispatch }) => {
     try {
-      const response = await axios.post(
-        `${apiPath}/signup`,
-        newUser
-      );
+      const response = await axios.post(`${apiPath}/signup`, newUser);
       dispatch(setLoggedInUser(response.data));
       dispatch(setIsUserChange(true));
       history.push("/");
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -354,16 +317,13 @@ export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async ({ user, history }, { dispatch }) => {
     try {
-      const response = await axios.post(
-        `${apiPath}/signin`,
-        user,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${apiPath}/signin`, user, {
+        withCredentials: true,
+      });
       dispatch(setLoggedInUser(response.data));
       dispatch(setIsUserChange(true));
       history.push("/");
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -374,11 +334,7 @@ export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async ({ intervalId, history }, { dispatch }) => {
     try {
-      await axios.post(
-        `${apiPath}/logout`,
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${apiPath}/logout`, {}, { withCredentials: true });
       dispatch(setLoggedInUser(null));
       clearInterval(intervalId);
       dispatch(setIntervalId(null));
@@ -386,8 +342,7 @@ export const logOut = createAsyncThunk(
       dispatch(setIsNewRequest(false));
       history.push("/");
       scroll.scrollToTop();
-    }
-    catch (err) {
+    } catch (err) {
       console.log("Logout failed", err);
     }
   }
@@ -398,7 +353,6 @@ export const jungleSwapSlice = createSlice({
   initialState,
   // ---------- Reducers -----------
   reducers: {
-
     // --------- Plants ----------
     setPlants: (state, action) => {
       state.plants = action.payload;
@@ -410,24 +364,33 @@ export const jungleSwapSlice = createSlice({
       state.plants.push(action.payload);
     },
     setPlantChanges: (state, action) => {
-      const { _id, name, description, size, imageUrl, imagePublicId, location, price } = action.payload;
-      state.plants = state.plants.map(
-        singlePlant => {
-          if (singlePlant._id === _id) {
-            singlePlant.name = name;
-            singlePlant.description = description;
-            singlePlant.size = size;
-            singlePlant.imageUrl = imageUrl;
-            singlePlant.imagePublicId = imagePublicId;
-            singlePlant.location = location;
-            singlePlant.price = price;
-          }
-          return singlePlant;
+      const {
+        _id,
+        name,
+        description,
+        size,
+        imageUrl,
+        imagePublicId,
+        location,
+        price,
+      } = action.payload;
+      state.plants = state.plants.map((singlePlant) => {
+        if (singlePlant._id === _id) {
+          singlePlant.name = name;
+          singlePlant.description = description;
+          singlePlant.size = size;
+          singlePlant.imageUrl = imageUrl;
+          singlePlant.imagePublicId = imagePublicId;
+          singlePlant.location = location;
+          singlePlant.price = price;
         }
-      );
+        return singlePlant;
+      });
     },
     removePlant: (state, action) => {
-      state.plants = state.plants.filter(plant => plant._id !== action.payload);
+      state.plants = state.plants.filter(
+        (plant) => plant._id !== action.payload
+      );
     },
     setClientSecret: (state, action) => {
       state.clientSecret = action.payload;
@@ -445,24 +408,26 @@ export const jungleSwapSlice = createSlice({
     },
     setRequestChanges: (state, action) => {
       const { _id, buyer, seller, plant, message, reply } = action.payload;
-      state.requests = state.requests.map(
-        singleRequest => {
-          if (singleRequest._id === _id) {
-            singleRequest.buyer = buyer;
-            singleRequest.seller = seller;
-            singleRequest.plant = plant;
-            singleRequest.message = message;
-            singleRequest.reply = reply;
-          }
-          return singleRequest;
+      state.requests = state.requests.map((singleRequest) => {
+        if (singleRequest._id === _id) {
+          singleRequest.buyer = buyer;
+          singleRequest.seller = seller;
+          singleRequest.plant = plant;
+          singleRequest.message = message;
+          singleRequest.reply = reply;
         }
-      )
+        return singleRequest;
+      });
     },
     removeRequest: (state, action) => {
-      state.requests = state.requests.filter(request => request._id !== action.payload);
+      state.requests = state.requests.filter(
+        (request) => request._id !== action.payload
+      );
     },
     setStartAmountOfRequests: (state, action) => {
-      state.amountOfRequests = state.requests.filter(currentRequest => currentRequest.seller._id === state.loggedInUser._id).length;
+      state.amountOfRequests = state.requests.filter(
+        (currentRequest) => currentRequest.seller._id === state.loggedInUser._id
+      ).length;
     },
     setAmountOfRequests: (state, action) => {
       state.amountOfRequests = action.payload;
@@ -482,7 +447,6 @@ export const jungleSwapSlice = createSlice({
     decreaseAmountOfRequests: (state, action) => {
       state.amountOfRequests -= 1;
     },
-
 
     // ---------- User authentification ----------
     setLoggedInUser: (state, action) => {
@@ -509,14 +473,12 @@ export const jungleSwapSlice = createSlice({
       scroll.scrollTo(state.headerContainerHeight);
     },
     scrollToPlants: (state, action) => {
-      scroll.scrollTo((state.headerContainerHeight + state.aboutContainerHeight));
+      scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
     },
-
-  }
+  },
 });
 
 export const {
-
   // ----------- Plants ----------
   setPlants,
   setPlant,
@@ -551,7 +513,6 @@ export const {
   setAboutContainerHeight,
   scrollToAbout,
   scrollToPlants,
-
 } = jungleSwapSlice.actions;
 
 export default jungleSwapSlice.reducer;
