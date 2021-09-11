@@ -100,13 +100,13 @@ export const fetchQueryPlants = createAsyncThunk(
   }
 );
 
+// Create plant
 interface CreatePlantParameters {
   uploadForm: any;
   plant: Plant;
   history: any;
 }
 
-// Create plant
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
   async (
@@ -117,7 +117,7 @@ export const createPlant = createAsyncThunk(
     try {
       const response = await axios.post(`${apiPath}/upload`, uploadForm);
       const { imageUrl, imagePublicId } = response.data;
-      const newPlant = {
+      const newPlant: Plant = {
         name,
         description,
         size,
@@ -159,6 +159,7 @@ export const readPlant = createAsyncThunk(
   }
 );
 
+// Plant image change
 interface DestroyImageData {
   imagePublicId: string | undefined;
 }
@@ -169,7 +170,6 @@ interface ImageChangeParameters {
   plant: Plant;
 }
 
-// Plant image change
 export const imageChange = createAsyncThunk(
   "jungleSwap/imageChange",
   async (
@@ -196,13 +196,13 @@ export const imageChange = createAsyncThunk(
   }
 );
 
+// Update plant
 interface UpdatePlantParameters {
   plantId: string | undefined;
   updatedPlant: Plant;
   history: any;
 }
 
-// Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
   async (
@@ -223,13 +223,13 @@ export const updatePlant = createAsyncThunk(
   }
 );
 
+// Delete Plant
 interface DeletePlantParameters {
   imagePublicId: string | undefined;
   plantId: string | undefined;
   history: any;
 }
 
-// Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
   async (
@@ -303,12 +303,12 @@ export const fetchAllRequests = createAsyncThunk(
   }
 );
 
+// Create request
 interface CreateRequestParameters {
   newRequest: Request;
   history: any;
 }
 
-// Create request
 export const createRequest = createAsyncThunk(
   "jungleSwap/createRequest",
   async (
@@ -345,13 +345,13 @@ export const readRequest = createAsyncThunk(
   }
 );
 
+// Update request
 interface UpdateRequestParameters {
   requestId: string | undefined;
   updatedRequest: Request;
   history: any;
 }
 
-// Update request
 export const updateRequest = createAsyncThunk(
   "jungleSwap/updateRequest",
   async (
@@ -371,12 +371,12 @@ export const updateRequest = createAsyncThunk(
   }
 );
 
+// Delete request
 interface DeleteRequestParameters {
   requestId: string | undefined;
   history: any;
 }
 
-// Delete request
 export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
   async (
@@ -412,12 +412,12 @@ export const readUser = createAsyncThunk(
   }
 );
 
+// Sign up
 interface SignUpParameters {
   newUser: User;
   history: any;
 }
 
-// Sign up
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async (
@@ -435,12 +435,12 @@ export const signUp = createAsyncThunk(
   }
 );
 
+// Sign in
 interface SignInParameters {
   user: User;
   history: any;
 }
 
-// Sign in
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async ({ user, history }: SignInParameters, { dispatch }): Promise<void> => {
@@ -457,12 +457,12 @@ export const signIn = createAsyncThunk(
   }
 );
 
+// LogOut
 interface LogOutParameters {
   intervalId: NodeJS.Timer;
   history: any;
 }
 
-// LogOut
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async (
@@ -490,16 +490,16 @@ export const jungleSwapSlice = createSlice({
   // ---------- Reducers -----------
   reducers: {
     // --------- Plants ----------
-    setPlants: (state, action) => {
+    setPlants: (state, action: PayloadAction<Plant[]>) => {
       state.plants = action.payload;
     },
-    setPlant: (state, action) => {
+    setPlant: (state, action: PayloadAction<Plant>) => {
       state.plant = action.payload;
     },
-    addPlant: (state, action) => {
+    addPlant: (state, action: PayloadAction<Plant>) => {
       state.plants.push(action.payload);
     },
-    setPlantChanges: (state, action) => {
+    setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
         _id,
         name,
@@ -510,7 +510,7 @@ export const jungleSwapSlice = createSlice({
         location,
         price,
       } = action.payload;
-      state.plants = state.plants.map((singlePlant) => {
+      state.plants = state.plants.map((singlePlant: Plant) => {
         if (singlePlant._id === _id) {
           singlePlant.name = name;
           singlePlant.description = description;
@@ -523,12 +523,12 @@ export const jungleSwapSlice = createSlice({
         return singlePlant;
       });
     },
-    removePlant: (state, action) => {
+    removePlant: (state, action: PayloadAction<string | undefined>) => {
       state.plants = state.plants.filter(
         (plant) => plant._id !== action.payload
       );
     },
-    setClientSecret: (state, action) => {
+    setClientSecret: (state, action: PayloadAction<string>) => {
       state.clientSecret = action.payload;
     },
 
