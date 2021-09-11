@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setError, setIsNewRequest, signIn } from "../reducer/jungleSwapSlice";
+import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const SignIn = () => {
-  const error = useSelector((state) => state.jungleSwap.error);
+const SignUp: React.FC = () => {
+  const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -16,22 +17,32 @@ const SignIn = () => {
     scroll.scrollToTop();
   }, []);
 
-  // Sign in
-  const handleSignIn = (event, history) => {
+  // Sign up
+  const handleSignUp = (event: any, history: any) => {
     event.preventDefault();
-    const { email, password } = event.target;
-    const user = {
-      email: email.value,
+    const { username, email, password } = event.target;
+    const newUser = {
+      username: username.value,
+      email: email.value.toLowerCase(),
       password: password.value,
     };
-    dispatch(signIn({ user, history }));
+    dispatch(signUp({ newUser, history }));
   };
 
   return (
-    <div className="container row mt-5 custom fullscreen">
+    <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Sign In </h2>
-        <form onSubmit={(event) => handleSignIn(event, history)}>
+        <h2 className="mb-5"> Sign Up </h2>
+        <form onSubmit={(event) => handleSignUp(event, history)}>
+          <div className="form-group">
+            <label htmlFor="InputUsername"> Username </label>
+            <input
+              type="text"
+              className="form-control"
+              id="InputUsername"
+              name="username"
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="InputEmail"> Email address </label>
             <input
@@ -54,14 +65,16 @@ const SignIn = () => {
           <button
             type="submit"
             className="btn btn-primary mt-4 btn-outline-dark"
-            formnovalidate="formnovalidate"
-          > 
-            Sign in
+            formNoValidate
+          >
+            Sign up
           </button>
+          <p className="padding"> Already have an account? </p>
+          <Link to={"/signin"}> Sign in </Link>
         </form>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

@@ -2,11 +2,18 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { createRequest, setError } from "../reducer/jungleSwapSlice";
+import {
+  createRequest,
+  setError,
+  Plant,
+  Request,
+  User,
+} from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const CreateRequestForm = () => {
-  const plant = useSelector((state) => state.jungleSwap.plant);
-  const error = useSelector((state) => state.jungleSwap.error);
+const CreateRequestForm: React.FC = () => {
+  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
+  const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,18 +24,19 @@ const CreateRequestForm = () => {
   }, []);
 
   // Create request
-  const handleCreateRequest = (event, { _id, creator }, history) => {
+  const handleCreateRequest = (event: any, plant: Plant, history: any) => {
     event.preventDefault();
     const { message } = event.target;
-    const newRequest = {
-      seller: creator._id,
-      plant: _id,
+    const { creator } = plant;
+    const newRequest: Request = {
+      seller: (creator as User)._id,
+      plant: plant._id,
       message: message.value,
     };
     dispatch(createRequest({ newRequest, history }));
   };
 
-  const { _id, name } = plant;
+  const { _id, name } = plant as Plant;
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
@@ -36,13 +44,13 @@ const CreateRequestForm = () => {
         <h3 className="mb-4"> {name} </h3>
         <form onSubmit={(event) => handleCreateRequest(event, plant, history)}>
           <div>
-            <textarea className="mb-4" name="message" cols="35" rows="7" />
+            <textarea className="mb-4" name="message" cols={35} rows={7} />
           </div>
           {error && <p className="warningColor"> {error} </p>}
           <button className="btn btn-sm btn-outline-dark" type="submit">
             Send
           </button>
-          <Link to={`/plants/read/${_id}`}>           
+          <Link to={`/plants/read/${_id}`}>
             <button className="btn btn-sm mx-2"> Go back </button>
           </Link>
         </form>

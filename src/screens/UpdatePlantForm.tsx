@@ -2,10 +2,16 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { imageChange, updatePlant, setPlant } from "../reducer/jungleSwapSlice";
+import {
+  imageChange,
+  updatePlant,
+  setPlant,
+  Plant,
+} from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const UpdatePlantForm = () => {
-  const plant = useSelector((state) => state.jungleSwap.plant);
+const UpdatePlantForm: React.FC = () => {
+  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -13,8 +19,12 @@ const UpdatePlantForm = () => {
   useEffect(() => scroll.scrollToTop(), []);
 
   // Check which plant values changed
-  const handlePlantEntryChange = ({ target }, plant, itemNumber) => {
-    const clonePlant = JSON.parse(JSON.stringify(plant));
+  const handlePlantEntryChange = (
+    { target }: any,
+    plant: Plant,
+    itemNumber: number
+  ) => {
+    const clonePlant: Plant = JSON.parse(JSON.stringify(plant));
     // eslint-disable-next-line default-case
     switch (itemNumber) {
       case 0:
@@ -36,9 +46,9 @@ const UpdatePlantForm = () => {
   };
 
   // Plant image changed
-  const handleImageChange = ({ target }, plant) => {
+  const handleImageChange = ({ target }: any, plant: Plant) => {
     const image = target.files[0];
-    const { imagePublicId } = plant;
+    const { imagePublicId } = plant as Plant;
     const destroyImageData = {
       imagePublicId,
     };
@@ -46,10 +56,19 @@ const UpdatePlantForm = () => {
   };
 
   const handleUpdatePlant = (
-    { _id, name, description, size, imageUrl, imagePublicId, location, price },
-    history
+    {
+      _id,
+      name,
+      description,
+      size,
+      imageUrl,
+      imagePublicId,
+      location,
+      price,
+    }: Plant,
+    history: any
   ) => {
-    const updatedPlant = {
+    const updatedPlant: Plant = {
       name,
       description,
       size,
@@ -61,7 +80,7 @@ const UpdatePlantForm = () => {
     dispatch(updatePlant({ plantId: _id, updatedPlant, history }));
   };
 
-  const { _id, name, description, size, imageUrl, price } = plant;
+  const { _id, name, description, size, imageUrl, price } = plant as Plant;
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
@@ -97,7 +116,6 @@ const UpdatePlantForm = () => {
               className="mb-2"
               onChange={(event) => handlePlantEntryChange(event, plant, 3)}
               name="location"
-              type="text"
               placeholder="Select"
             >
               <option value="sun"> sun </option>

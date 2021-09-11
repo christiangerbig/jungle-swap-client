@@ -21,9 +21,9 @@ import UpdateRequestForm from "./screens/UpdateRequestForm";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <div class="main">
+    <div className="main">
       <NavBar />
       <Switch>
         <Route exact path="/">

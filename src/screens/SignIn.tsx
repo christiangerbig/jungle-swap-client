@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
+import {
+  setError,
+  setIsNewRequest,
+  signIn,
+  User,
+} from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const SignUp = () => {
-  const error = useSelector((state) => state.jungleSwap.error);
+const SignIn: React.FC = () => {
+  const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -16,32 +22,22 @@ const SignUp = () => {
     scroll.scrollToTop();
   }, []);
 
-  // Sign up
-  const handleSignUp = (event, history) => {
+  // Sign in
+  const handleSignIn = (event: any, history: any) => {
     event.preventDefault();
-    const { username, email, password } = event.target;
-    const newUser = {
-      username: username.value,
-      email: email.value.toLowerCase(),
+    const { email, password } = event.target;
+    const user: User = {
+      email: email.value,
       password: password.value,
     };
-    dispatch(signUp({ newUser, history }));
+    dispatch(signIn({ user, history }));
   };
 
   return (
-    <div className="container row mt-5">
+    <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Sign Up </h2>
-        <form onSubmit={(event) => handleSignUp(event, history)}>
-          <div className="form-group">
-            <label htmlFor="InputUsername"> Username </label>
-            <input
-              type="text"
-              className="form-control"
-              id="InputUsername"
-              name="username"
-            />
-          </div>
+        <h2 className="mb-5"> Sign In </h2>
+        <form onSubmit={(event) => handleSignIn(event, history)}>
           <div className="form-group">
             <label htmlFor="InputEmail"> Email address </label>
             <input
@@ -64,16 +60,14 @@ const SignUp = () => {
           <button
             type="submit"
             className="btn btn-primary mt-4 btn-outline-dark"
-            formnovalidate="formnovalidate"
+            formNoValidate
           >
-            Sign up
+            Sign in
           </button>
-          <p className="padding"> Already have an account? </p>
-          <Link to={"/signin"}> Sign in </Link>
         </form>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

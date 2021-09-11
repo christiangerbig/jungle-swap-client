@@ -1,11 +1,61 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import config from "../config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
 
 const apiPath = `${config.API_URL}/api`;
 
-const initialState = {
+export interface User {
+  _id?: string;
+  username?: string;
+  email: string;
+  password: string;
+}
+
+export interface Plant {
+  _id?: string;
+  name?: string;
+  description?: string;
+  size?: number;
+  imageUrl?: string;
+  imagePublicId?: string;
+  location?: string;
+  price?: number;
+  creator?: string | User | undefined;
+}
+
+export interface Request {
+  _id?: string;
+  buyer?: string | User | undefined;
+  seller?: string | User | undefined;
+  plant?: string | Plant | undefined;
+  message?: string;
+  reply?: string;
+}
+
+export type LoggedInUser = User | null;
+export type IntervalId = NodeJS.Timer | null;
+export type Error = string | null;
+
+interface SliceState {
+  isFetchingUser: boolean;
+  loggedInUser: LoggedInUser;
+  isUserChange: boolean;
+  plants: Plant[];
+  plant: Plant | {};
+  requests: Request[];
+  request: Request | {};
+  amountOfRequests: number;
+  isNewRequest: boolean;
+  intervalId: IntervalId;
+  minutesCounter: number;
+  headerContainerHeight: number;
+  aboutContainerHeight: number;
+  clientSecret: string;
+  error: Error;
+}
+
+const initialState: SliceState = {
   isFetchingUser: true,
   loggedInUser: null,
   isUserChange: false,
@@ -27,7 +77,7 @@ const initialState = {
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
-  async (options, { dispatch }) => {
+  async (_options, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/plants/fetch`);
       dispatch(setPlants(response.data));
@@ -40,7 +90,7 @@ export const fetchAllPlants = createAsyncThunk(
 // Fetch query plants
 export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
-  async (query, { dispatch }) => {
+  async (query: string, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
       dispatch(setPlants(response.data));
@@ -50,10 +100,19 @@ export const fetchQueryPlants = createAsyncThunk(
   }
 );
 
+interface CreatePlantParameters {
+  uploadForm: any;
+  plant: Plant;
+  history: any;
+}
+
 // Create plant
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
-  async ({ uploadForm, plant, history }, { dispatch }) => {
+  async (
+    { uploadForm, plant, history }: CreatePlantParameters,
+    { dispatch }
+  ): Promise<void> => {
     const { name, description, size, location, price } = plant;
     try {
       const response = await axios.post(`${apiPath}/upload`, uploadForm);
@@ -76,10 +135,10 @@ export const createPlant = createAsyncThunk(
         dispatch(addPlant(response.data));
         history.push("/");
         scroll.scrollToBottom();
-      } catch (err) {
+      } catch (err: any) {
         dispatch(setError(err.response.data.error));
       }
-    } catch (err) {
+    } catch (err: any) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -88,7 +147,7 @@ export const createPlant = createAsyncThunk(
 // Read plant
 export const readPlant = createAsyncThunk(
   "jungleSwap/readPlant",
-  async (plantId, { dispatch }) => {
+  async (plantId: string, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/plants/read/${plantId}`, {
         withCredentials: true,
@@ -100,10 +159,23 @@ export const readPlant = createAsyncThunk(
   }
 );
 
+interface DestroyImageData {
+  imagePublicId: string | undefined;
+}
+
+interface ImageChangeParameters {
+  destroyImageData: DestroyImageData;
+  image: string;
+  plant: Plant;
+}
+
 // Plant image change
 export const imageChange = createAsyncThunk(
   "jungleSwap/imageChange",
-  async ({ destroyImageData, image, plant }, { dispatch }) => {
+  async (
+    { destroyImageData, image, plant }: ImageChangeParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       await axios.post(`${apiPath}/destroy`, destroyImageData);
       try {
@@ -124,10 +196,19 @@ export const imageChange = createAsyncThunk(
   }
 );
 
+interface UpdatePlantParameters {
+  plantId: string | undefined;
+  updatedPlant: Plant;
+  history: any;
+}
+
 // Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async ({ plantId, updatedPlant, history }, { dispatch }) => {
+  async (
+    { plantId, updatedPlant, history }: UpdatePlantParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       const response = await axios.patch(
         `${apiPath}/plants/update/${plantId}`,
@@ -142,10 +223,19 @@ export const updatePlant = createAsyncThunk(
   }
 );
 
+interface DeletePlantParameters {
+  imagePublicId: string | undefined;
+  plantId: string | undefined;
+  history: any;
+}
+
 // Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
-  async ({ imagePublicId, plantId, history }, { dispatch }) => {
+  async (
+    { imagePublicId, plantId, history }: DeletePlantParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       const destroyImageData = {
         imagePublicId,
@@ -168,7 +258,7 @@ export const deletePlant = createAsyncThunk(
 // Create plant payment
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
-  async (plant, { dispatch }) => {
+  async (plant: Plant, { dispatch }): Promise<void> => {
     try {
       const response = await axios.post(`${apiPath}/create-payment-intent`, {
         price: plant.price,
@@ -183,7 +273,7 @@ export const createPayment = createAsyncThunk(
 // Pay plant
 export const payPlant = createAsyncThunk(
   "jungleSwap/payPlant",
-  async ({ history }, { dispatch }) => {
+  async (history: any, { dispatch }): Promise<void> => {
     try {
       await axios.post(
         `${apiPath}/create-payment-intent`,
@@ -202,7 +292,7 @@ export const payPlant = createAsyncThunk(
 // Fetch all requests
 export const fetchAllRequests = createAsyncThunk(
   "jungleSwap/fetchAllRequests",
-  async (isUserChange, { dispatch }) => {
+  async (isUserChange: boolean, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/requests/fetch`);
       dispatch(setRequests(response.data));
@@ -213,10 +303,18 @@ export const fetchAllRequests = createAsyncThunk(
   }
 );
 
+interface CreateRequestParameters {
+  newRequest: Request;
+  history: any;
+}
+
 // Create request
 export const createRequest = createAsyncThunk(
   "jungleSwap/createRequest",
-  async ({ newRequest, history }, { dispatch }) => {
+  async (
+    { newRequest, history }: CreateRequestParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       const response = await axios.post(
         `${apiPath}/requests/create`,
@@ -225,7 +323,7 @@ export const createRequest = createAsyncThunk(
       );
       dispatch(addRequest(response.data));
       history.push(`/plants/read/${response.data.plant._id}`);
-    } catch (err) {
+    } catch (err: any) {
       dispatch(setError(err.response.data.error));
     }
   }
@@ -234,7 +332,7 @@ export const createRequest = createAsyncThunk(
 // Read request
 export const readRequest = createAsyncThunk(
   "jungleSwap/readRequest",
-  async (requestId, { dispatch }) => {
+  async (requestId: string, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(
         `${apiPath}/requests/read/${requestId}`,
@@ -247,10 +345,19 @@ export const readRequest = createAsyncThunk(
   }
 );
 
+interface UpdateRequestParameters {
+  requestId: string | undefined;
+  updatedRequest: Request;
+  history: any;
+}
+
 // Update request
 export const updateRequest = createAsyncThunk(
   "jungleSwap/updateRequest",
-  async ({ requestId, updatedRequest, history }, { dispatch }) => {
+  async (
+    { requestId, updatedRequest, history }: UpdateRequestParameters,
+    { dispatch }
+  ) => {
     try {
       const response = await axios.patch(
         `${apiPath}/requests/update/${requestId}`,
@@ -264,10 +371,18 @@ export const updateRequest = createAsyncThunk(
   }
 );
 
+interface DeleteRequestParameters {
+  requestId: string | undefined;
+  history: any;
+}
+
 // Delete request
 export const deleteRequest = createAsyncThunk(
   "jungleSwap/deleteRequest",
-  async ({ requestId, history }, { dispatch }) => {
+  async (
+    { requestId, history }: DeleteRequestParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       await axios.delete(`${apiPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
@@ -283,7 +398,7 @@ export const deleteRequest = createAsyncThunk(
 // Read user
 export const readUser = createAsyncThunk(
   "jungleSwap/readUserData",
-  async (options, { dispatch }) => {
+  async (_options, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/user`, {
         withCredentials: true,
@@ -297,25 +412,38 @@ export const readUser = createAsyncThunk(
   }
 );
 
+interface SignUpParameters {
+  newUser: User;
+  history: any;
+}
+
 // Sign up
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
-  async ({ newUser, history }, { dispatch }) => {
+  async (
+    { newUser, history }: SignUpParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       const response = await axios.post(`${apiPath}/signup`, newUser);
       dispatch(setLoggedInUser(response.data));
       dispatch(setIsUserChange(true));
       history.push("/");
-    } catch (err) {
+    } catch (err: any) {
       dispatch(setError(err.response.data.error));
     }
   }
 );
 
+interface SignInParameters {
+  user: User;
+  history: any;
+}
+
 // Sign in
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
-  async ({ user, history }, { dispatch }) => {
+  async ({ user, history }: SignInParameters, { dispatch }): Promise<void> => {
     try {
       const response = await axios.post(`${apiPath}/signin`, user, {
         withCredentials: true,
@@ -323,16 +451,24 @@ export const signIn = createAsyncThunk(
       dispatch(setLoggedInUser(response.data));
       dispatch(setIsUserChange(true));
       history.push("/");
-    } catch (err) {
+    } catch (err: any) {
       dispatch(setError(err.response.data.error));
     }
   }
 );
 
+interface LogOutParameters {
+  intervalId: NodeJS.Timer;
+  history: any;
+}
+
 // LogOut
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
-  async ({ intervalId, history }, { dispatch }) => {
+  async (
+    { intervalId, history }: LogOutParameters,
+    { dispatch }
+  ): Promise<void> => {
     try {
       await axios.post(`${apiPath}/logout`, {}, { withCredentials: true });
       dispatch(setLoggedInUser(null));
@@ -397,16 +533,16 @@ export const jungleSwapSlice = createSlice({
     },
 
     // ---------- Requests ----------
-    setRequests: (state, action) => {
+    setRequests: (state, action: PayloadAction<Request[]>) => {
       state.requests = action.payload;
     },
-    setRequest: (state, action) => {
+    setRequest: (state, action: PayloadAction<Request>) => {
       state.request = action.payload;
     },
-    addRequest: (state, action) => {
+    addRequest: (state, action: PayloadAction<Request>) => {
       state.requests.push(action.payload);
     },
-    setRequestChanges: (state, action) => {
+    setRequestChanges: (state, action: PayloadAction<Request>) => {
       const { _id, buyer, seller, plant, message, reply } = action.payload;
       state.requests = state.requests.map((singleRequest) => {
         if (singleRequest._id === _id) {
@@ -419,60 +555,62 @@ export const jungleSwapSlice = createSlice({
         return singleRequest;
       });
     },
-    removeRequest: (state, action) => {
+    removeRequest: (state, action: PayloadAction<string | undefined>) => {
       state.requests = state.requests.filter(
         (request) => request._id !== action.payload
       );
     },
-    setStartAmountOfRequests: (state, action) => {
+    setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.requests.filter(
-        (currentRequest) => currentRequest.seller._id === state.loggedInUser._id
+        (currentRequest) =>
+          state.loggedInUser &&
+          (currentRequest.seller as User)._id === state.loggedInUser._id
       ).length;
     },
-    setAmountOfRequests: (state, action) => {
+    setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;
     },
-    setIsNewRequest: (state, action) => {
+    setIsNewRequest: (state, action: PayloadAction<boolean>) => {
       state.isNewRequest = action.payload;
     },
-    setIntervalId: (state, action) => {
+    setIntervalId: (state, action: PayloadAction<IntervalId>) => {
       state.intervalId = action.payload;
     },
-    setMinutesCounter: (state, action) => {
+    setMinutesCounter: (state, action: PayloadAction<number>) => {
       state.minutesCounter = action.payload;
     },
-    increaseMinutesCounter: (state, action) => {
+    increaseMinutesCounter: (state) => {
       state.minutesCounter += 1;
     },
-    decreaseAmountOfRequests: (state, action) => {
+    decreaseAmountOfRequests: (state) => {
       state.amountOfRequests -= 1;
     },
 
     // ---------- User authentification ----------
-    setLoggedInUser: (state, action) => {
+    setLoggedInUser: (state, action: PayloadAction<LoggedInUser>) => {
       state.loggedInUser = action.payload;
     },
-    setIsFetchingUser: (state, action) => {
+    setIsFetchingUser: (state, action: PayloadAction<boolean>) => {
       state.isFetchingUser = action.payload;
     },
-    setIsUserChange: (state, action) => {
+    setIsUserChange: (state, action: PayloadAction<boolean>) => {
       state.isUserChange = action.payload;
     },
-    setError: (state, action) => {
+    setError: (state, action: PayloadAction<Error>) => {
       state.error = action.payload;
     },
 
     // ---------- Pages handling ----------
-    setHeaderContainerHeight: (state, action) => {
+    setHeaderContainerHeight: (state, action: PayloadAction<number>) => {
       state.headerContainerHeight = action.payload;
     },
-    setAboutContainerHeight: (state, action) => {
+    setAboutContainerHeight: (state, action: PayloadAction<number>) => {
       state.aboutContainerHeight = action.payload;
     },
-    scrollToAbout: (state, action) => {
+    scrollToAbout: (state) => {
       scroll.scrollTo(state.headerContainerHeight);
     },
-    scrollToPlants: (state, action) => {
+    scrollToPlants: (state) => {
       scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
     },
   },
@@ -485,7 +623,6 @@ export const {
   addPlant,
   setPlantChanges,
   removePlant,
-  setPaymentPromise,
   setClientSecret,
 
   // ---------- Requests ----------

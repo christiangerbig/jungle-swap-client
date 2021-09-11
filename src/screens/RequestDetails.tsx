@@ -2,11 +2,18 @@ import React, { useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { readRequest, deleteRequest } from "../reducer/jungleSwapSlice";
+import {
+  readRequest,
+  deleteRequest,
+  User,
+  Plant,
+  Request,
+} from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const RequestDetails = () => {
-  const request = useSelector((state) => state.jungleSwap.request);
-  const { requestId } = useParams();
+const RequestDetails: React.FC = () => {
+  const request = useSelector((state: RootState) => state.jungleSwap.request);
+  const { requestId }: any = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -16,11 +23,11 @@ const RequestDetails = () => {
     scroll.scrollToTop();
   }, []);
 
-  const { _id, buyer, plant, message, reply } = request;
+  const { _id, buyer, plant, message, reply } = request as Request;
   if (!buyer || !plant)
     return (
-      <div class="spinner-grow text-success m-5" role="status">
-        <span class="visually-hidden">         
+      <div className="spinner-grow text-success m-5" role="status">
+        <span className="visually-hidden">
           <br /> <br /> Loading request...
         </span>
       </div>
@@ -30,8 +37,8 @@ const RequestDetails = () => {
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Your request </h2>
-        <h4> for: {plant.name} </h4>
-        <h5> by: {buyer.username} </h5>
+        <h4> for: {(plant as Plant).name} </h4>
+        <h5> by: {(buyer as User).username} </h5>
         <p> {message} </p>
         {reply && (
           <div>
@@ -42,7 +49,7 @@ const RequestDetails = () => {
         <div>
           {!reply && (
             <Link to={`/requests/update/${_id}`}>
-              <button className="btn btn-sm ml-2 btn-outline-dark">  
+              <button className="btn btn-sm ml-2 btn-outline-dark">
                 Reply
               </button>
             </Link>
@@ -50,7 +57,7 @@ const RequestDetails = () => {
           <button
             className="btn btn-sm ml-2 btn-outline-dark"
             onClick={() => dispatch(deleteRequest({ requestId, history }))}
-          > 
+          >
             Delete
           </button>
         </div>

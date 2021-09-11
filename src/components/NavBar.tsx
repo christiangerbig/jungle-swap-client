@@ -12,19 +12,30 @@ import {
   setAmountOfRequests,
   setIsNewRequest,
   scrollToPlants,
+  User,
+  Request,
 } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const NavBar = () => {
-  const loggedInUser = useSelector((state) => state.jungleSwap.loggedInUser);
-  const isUserChange = useSelector((state) => state.jungleSwap.isUserChange);
-  const requests = useSelector((state) => state.jungleSwap.requests);
-  const isNewRequest = useSelector((state) => state.jungleSwap.isNewRequest);
-  const intervalId = useSelector((state) => state.jungleSwap.intervalId);
+const NavBar: React.FC = () => {
+  const loggedInUser = useSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const isUserChange = useSelector(
+    (state: RootState) => state.jungleSwap.isUserChange
+  );
+  const requests = useSelector((state: RootState) => state.jungleSwap.requests);
+  const isNewRequest = useSelector(
+    (state: RootState) => state.jungleSwap.isNewRequest
+  );
+  const intervalId = useSelector(
+    (state: RootState) => state.jungleSwap.intervalId
+  );
   const minutesCounter = useSelector(
-    (state) => state.jungleSwap.minutesCounter
+    (state: RootState) => state.jungleSwap.minutesCounter
   );
   const amountOfRequests = useSelector(
-    (state) => state.jungleSwap.amountOfRequests
+    (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useDispatch();
 
@@ -60,7 +71,10 @@ const NavBar = () => {
     if (loggedInUser) {
       dispatch(fetchAllRequests(isUserChange));
       const currentAmountOfRequests = requests.filter(
-        (currentRequest) => currentRequest.seller._id === loggedInUser._id
+        (currentRequest: Request) => {
+          const { seller } = currentRequest;
+          return (seller as User)._id === loggedInUser._id;
+        }
       ).length;
       if (amountOfRequests < currentAmountOfRequests) {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
@@ -72,8 +86,8 @@ const NavBar = () => {
   return (
     <div>
       <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
-        <Navbar.Brand>          
-          <Link to="/" onClick={scroll.scrollToTop}>            
+        <Navbar.Brand>
+          <Link to="/" onClick={scroll.scrollToTop}>
             JungleSwap
           </Link>
         </Navbar.Brand>
@@ -97,7 +111,7 @@ const NavBar = () => {
                 <Link
                   className={isNewRequest ? "p-2 alertColor" : "p-2"}
                   to="/requests/fetch"
-                  title={isNewRequest ? "new message" : null}
+                  title={isNewRequest ? "new message" : ""}
                 >
                   Messages
                 </Link>
@@ -115,10 +129,10 @@ const NavBar = () => {
               </div>
             ) : (
               <div>
-                <Link className="p-2" to="/signin">                  
+                <Link className="p-2" to="/signin">
                   Sign in
                 </Link>
-                <Link className="p-2" to="/signup">                  
+                <Link className="p-2" to="/signup">
                   Sign up
                 </Link>
               </div>

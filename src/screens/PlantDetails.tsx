@@ -7,13 +7,19 @@ import {
   deletePlant,
   deleteRequest,
   scrollToPlants,
+  User,
+  Request,
+  Plant,
 } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const PlantDetails = () => {
-  const loggedInUser = useSelector((state) => state.jungleSwap.loggedInUser);
-  const requests = useSelector((state) => state.jungleSwap.requests);
-  const plant = useSelector((state) => state.jungleSwap.plant);
-  const { plantId } = useParams();
+const PlantDetails: React.FC = () => {
+  const loggedInUser = useSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const requests = useSelector((state: RootState) => state.jungleSwap.requests);
+  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
+  const { plantId }: any = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -24,9 +30,15 @@ const PlantDetails = () => {
   }, []);
 
   // Delete plant
-  const handleDeletePlant = (imagePublicId, plantId, history, requests) => {
-    requests.forEach((request) => {
-      if (request.plant._id === plantId) {
+  const handleDeletePlant = (
+    imagePublicId: string | undefined,
+    plantId: string | undefined,
+    history: any,
+    requests: Request[]
+  ) => {
+    requests.forEach((request: Request) => {
+      const { plant }: any = request;
+      if (plant._id === plantId) {
         dispatch(deleteRequest({ requestId: request._id, history: null }));
       }
     });
@@ -45,11 +57,11 @@ const PlantDetails = () => {
     location,
     price,
     creator,
-  } = plant;
+  } = plant as Plant;
   if (!creator)
     return (
-      <div class="spinner-grow text-success m-5" role="status">
-        <span class="visually-hidden">       
+      <div className="spinner-grow text-success m-5" role="status">
+        <span className="visually-hidden">
           <br /> <br /> Loading plant details...
         </span>
       </div>
@@ -69,7 +81,7 @@ const PlantDetails = () => {
               alt={name}
             />
           )}
-          <div className="ml-2 mt-2">     
+          <div className="ml-2 mt-2">
             <span> Name: </span> {name}
           </div>
           <div className="ml-2 mt-2">
@@ -81,13 +93,13 @@ const PlantDetails = () => {
           <div className="ml-2 mt-2">
             <span> Likes: </span> {location}
           </div>
-          <div className="ml-2 mt-2"> 
+          <div className="ml-2 mt-2">
             <span> Price: </span> {price} €
           </div>
           <div className="ml-2 mt-2 col justify-content-center">
             <div className="row-2 justify-content-center">
               <div className="card-body">
-                {loggedInUser._id === creator._id ? (
+                {loggedInUser._id === (creator as User)._id ? (
                   <div>
                     <Link to={"/plants/update"}>
                       <button className="btn btn-sm ml-2 btn-outline-dark">
@@ -99,7 +111,7 @@ const PlantDetails = () => {
                       onClick={() =>
                         handleDeletePlant(imagePublicId, _id, history, requests)
                       }
-                    > 
+                    >
                       Delete
                     </button>
                   </div>

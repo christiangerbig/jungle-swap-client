@@ -2,11 +2,14 @@ import React, { useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { createPlant, setError } from "../reducer/jungleSwapSlice";
+import { createPlant, Plant, setError } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const CreatePlantForm = () => {
-  const loggedInUser = useSelector((state) => state.jungleSwap.loggedInUser);
-  const error = useSelector((state) => state.jungleSwap.error);
+const CreatePlantForm: React.FC = () => {
+  const loggedInUser = useSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,13 +20,14 @@ const CreatePlantForm = () => {
   }, []);
 
   // Create plant
-  const handleCreatePlant = (event, history) => {
+  const handleCreatePlant = (event: any, history: any) => {
     event.preventDefault();
-    const { name, description, size, plantImage, location, price } = event.target;
+    const { name, description, size, plantImage, location, price } =
+      event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    const plant = {
+    const plant: Plant = {
       name: name.value,
       description: description.value,
       size: size.value,
@@ -60,7 +64,7 @@ const CreatePlantForm = () => {
             placeholder="Size"
           />
           cm <br />
-          <select className="mb-4 p-1" name="location" type="text">
+          <select className="mb-4 p-1" name="location">
             <option> Select location </option>
             <option value="sun"> sun </option>
             <option value="shade"> shade </option>

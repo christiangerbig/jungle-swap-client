@@ -8,7 +8,7 @@ const promise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
 );
 
-const CheckoutPage = () => {
+const CheckoutPage: React.FC = () => {
   // Scroll to top as soon as page loads
   useEffect(() => scroll.scrollToTop(), []);
 

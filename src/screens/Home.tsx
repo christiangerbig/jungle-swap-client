@@ -8,16 +8,20 @@ import {
   setHeaderContainerHeight,
   setAboutContainerHeight,
   scrollToAbout,
+  Plant,
 } from "../reducer/jungleSwapSlice";
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
+import { RootState } from "../store";
 
-const Home = () => {
+const Home: React.FC = () => {
   const isFetchingUser = useSelector(
-    (state) => state.jungleSwap.isFetchingUser
+    (state: RootState) => state.jungleSwap.isFetchingUser
   );
-  const loggedInUser = useSelector((state) => state.jungleSwap.loggedInUser);
-  const plants = useSelector((state) => state.jungleSwap.plants);
+  const loggedInUser = useSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const plants = useSelector((state: RootState) => state.jungleSwap.plants);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const elementRef = useRef([]);
@@ -27,11 +31,11 @@ const Home = () => {
     dispatch(fetchAllPlants());
     !loggedInUser && dispatch(readUser());
     const headerElementHeight = Math.round(
-      elementRef.current[0].getBoundingClientRect().height
+      (elementRef.current[0] as any).getBoundingClientRect().height
     );
     dispatch(setHeaderContainerHeight(headerElementHeight));
     const aboutElementHeight = Math.round(
-      elementRef.current[1].getBoundingClientRect().height
+      (elementRef.current[1] as any).getBoundingClientRect().height
     );
     dispatch(setAboutContainerHeight(aboutElementHeight));
   }, []);
@@ -44,16 +48,16 @@ const Home = () => {
   return (
     <div>
       {!plants && (
-        <div class="spinner-grow text-success m-5" role="status">
-          <span class="visually-hidden">           
+        <div className="spinner-grow text-success m-5" role="status">
+          <span className="visually-hidden">
             <br /> <br /> Loading plants...
           </span>
         </div>
       )}
 
       {isFetchingUser && (
-        <div class="spinner-grow text-success m-5" role="status">
-          <span class="visually-hidden">            
+        <div className="spinner-grow text-success m-5" role="status">
+          <span className="visually-hidden">
             <br /> <br /> Loading user data...
           </span>
         </div>
@@ -61,7 +65,7 @@ const Home = () => {
 
       <header
         className="text-center pt-5 pb-5 headerImg"
-        ref={(element) => (elementRef.current[0] = element)}
+        ref={(element) => ((elementRef.current[0] as any) = element)}
       >
         <div className="row my-5">
           <div className="col-6 offset-3 my-5 borderAround">
@@ -71,7 +75,8 @@ const Home = () => {
               <Link
                 className="biggerFontSize"
                 onClick={() => dispatch(scrollToAbout())}
-              >               
+                to={""}
+              >
                 Try it!
               </Link>
             </div>
@@ -79,7 +84,7 @@ const Home = () => {
         </div>
       </header>
 
-      <section ref={(element) => (elementRef.current[1] = element)}>
+      <section ref={(element) => ((elementRef.current[1] as any) = element)}>
         <div className="about centered container">
           <div className="row">
             <div className="col-sm-6 col-md-5 col-lg-6">
@@ -89,7 +94,7 @@ const Home = () => {
             <div className="about col-sm-6 col-md-5 col-lg-6 px-5 noOverflow">
               <h4> Welcome to JungleSwap! </h4>
               <h5> Add green to your Home </h5>
-              <p>            
+              <p>
                 It"s easy-peasy. <br />
                 Share your plant offshoots. <br />
                 Make money! <br />
@@ -121,7 +126,7 @@ const Home = () => {
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {plants &&
-              plants.map((plant) => {
+              plants.map((plant: Plant) => {
                 const { _id, name, imageUrl, price } = plant;
                 return (
                   <div className="col mb-5" key={_id}>
@@ -137,7 +142,7 @@ const Home = () => {
                         <Link
                           className="btn btn-outline-dark"
                           to={`/plants/read/${_id}`}
-                        >                        
+                        >
                           Details
                         </Link>
                       </div>

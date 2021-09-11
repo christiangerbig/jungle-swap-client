@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setRequest, updateRequest } from "../reducer/jungleSwapSlice";
+import { setRequest, updateRequest, Request } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
-const UpdateRequestForm = () => {
-  const request = useSelector((state) => state.jungleSwap.request);
+const UpdateRequestForm: React.FC = () => {
+  const request = useSelector((state: RootState) => state.jungleSwap.request);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -13,18 +14,18 @@ const UpdateRequestForm = () => {
   useEffect(() => scroll.scrollToTop(), []);
 
   // Create reply
-  const handleCreateReply = ({ target }, request) => {
-    const cloneRequest = JSON.parse(JSON.stringify(request));
+  const handleCreateReply = ({ target }: any, request: Request) => {
+    const cloneRequest: Request = JSON.parse(JSON.stringify(request));
     cloneRequest.reply = target.value;
     dispatch(setRequest(cloneRequest));
   };
 
   // Update request
   const handleUpdateRequest = (
-    { _id, buyer, seller, plant, message, reply },
-    history
+    { _id, buyer, seller, plant, message, reply }: Request,
+    history: any
   ) => {
-    const updatedRequest = {
+    const updatedRequest: Request = {
       buyer,
       seller,
       plant,
@@ -34,7 +35,7 @@ const UpdateRequestForm = () => {
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
   };
 
-  const { _id, message } = request;
+  const { _id, message } = request as Request;
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
@@ -45,8 +46,8 @@ const UpdateRequestForm = () => {
             <textarea
               className="mb-4"
               name="reply"
-              cols="31"
-              rows="6"
+              cols={31}
+              rows={6}
               placeholder="Your reply"
               onChange={(event) => handleCreateReply(event, request)}
             />
@@ -57,7 +58,7 @@ const UpdateRequestForm = () => {
               >
                 Submit
               </button>
-              <Link to={`/requests/read/${_id}`}>   
+              <Link to={`/requests/read/${_id}`}>
                 <button className="btn btn-sm mx-2"> Go back </button>
               </Link>
             </div>
