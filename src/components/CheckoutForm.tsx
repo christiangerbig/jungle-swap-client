@@ -17,7 +17,7 @@ const CheckoutForm: React.FC = () => {
   const [paymentError, setPaymentError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const clientSecret = (state: RootState) => state.jungleSwap.clientSecret;
+  const clientSecret = useSelector((state: RootState) => state.jungleSwap.clientSecret);
   const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useDispatch();
   const history = useHistory();
