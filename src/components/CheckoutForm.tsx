@@ -17,7 +17,9 @@ const CheckoutForm: React.FC = () => {
   const [paymentError, setPaymentError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const clientSecret = useSelector((state: RootState) => state.jungleSwap.clientSecret);
+  const clientSecret = useSelector(
+    (state: RootState) => state.jungleSwap.clientSecret
+  );
   const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -71,7 +73,7 @@ const CheckoutForm: React.FC = () => {
   };
 
   // Submit payment
-  const handleSubmitPayment = async (event: { preventDefault: () => void; }) => {
+  const handleSubmitPayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setIsProcessing(true);
     const payload = await (stripe as any).confirmCardPayment(clientSecret, {
