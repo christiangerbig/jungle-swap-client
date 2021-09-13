@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -8,7 +8,7 @@ const promise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
 );
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPage = () => {
   // Scroll to top as soon as page loads
   useEffect(() => scroll.scrollToTop(), []);
 

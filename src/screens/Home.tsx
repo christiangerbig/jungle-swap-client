@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 import { RootState } from "../store";
 
-const Home: React.FC = () => {
+const Home = () => {
   const isFetchingUser = useSelector(
     (state: RootState) => state.jungleSwap.isFetchingUser
   );

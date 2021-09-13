@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const LogOut: React.FC = () => {
+const LogOut = () => {
   const intervalId: any = useSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );

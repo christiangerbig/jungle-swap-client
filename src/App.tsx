@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +20,7 @@ import UpdateRequestForm from "./screens/UpdateRequestForm";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="main">
       <NavBar />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -10,7 +10,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const CheckoutForm: React.FC = () => {
+const CheckoutForm = () => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);

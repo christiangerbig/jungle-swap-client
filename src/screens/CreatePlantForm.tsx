@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { createPlant, Plant, setError } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const CreatePlantForm: React.FC = () => {
+const CreatePlantForm = () => {
   const loggedInUser = useSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );

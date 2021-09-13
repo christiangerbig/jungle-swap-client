@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
@@ -11,7 +11,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const CreateRequestForm: React.FC = () => {
+const CreateRequestForm = () => {
   const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();

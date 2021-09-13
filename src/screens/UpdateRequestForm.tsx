@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { setRequest, updateRequest, Request } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const UpdateRequestForm: React.FC = () => {
+const UpdateRequestForm = () => {
   const request = useSelector((state: RootState) => state.jungleSwap.request);
   const dispatch = useDispatch();
   const history = useHistory();

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
