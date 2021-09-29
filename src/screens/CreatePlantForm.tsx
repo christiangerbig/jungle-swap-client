@@ -41,8 +41,8 @@ const CreatePlantForm = () => {
 
   return (
     <div className="container row mt-5 fullscreen">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-6">
-        <h2 className="mb-5 text-center"> Create a plant </h2>
+      <div className="mt-5 col-12 col-md-6 offset-md-6">
+        <h2 className="mb-5 text-left"> Create a plant </h2>
         <form onSubmit={(event) => handleCreatePlant(event, history)}>
           <label htmlFor="enterName"> Name </label>
           <input
@@ -88,7 +88,7 @@ const CreatePlantForm = () => {
           <label htmlFor="enterImage"> Image </label>
           <input className="mb-4 form-control" name="plantImage" type="file" id="enterImage"/>
           {error && <p className="warningColor"> {error} </p>}
-          <div className="col-12 text-right">
+          <div className="col-12 text-right pr-0">
             <button className="btn btn-sm form-control smallWidth ml-4 mb-2" type="submit">
               Create
             </button>

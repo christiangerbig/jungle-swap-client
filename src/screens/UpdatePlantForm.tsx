@@ -83,8 +83,8 @@ const UpdatePlantForm = () => {
   const { _id, name, description, size, imageUrl, price } = plant as Plant;
   return (
     <div className="container row mt-5 ">
-      <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mt-5 mb-4"> Update your plant </h2>
+      <div className="mt-2 col-12 col-md-6 offset-md-6">
+        <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
           <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
           <div className="card-body">
