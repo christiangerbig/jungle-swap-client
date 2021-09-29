@@ -97,8 +97,8 @@ const CheckoutForm = () => {
         id="payment-form"
         onSubmit={handleSubmitPayment}
       >
-        <h2 className="text-center mb-2 p-2"> {name} </h2>
-        <h3 className="text-center mb-4 p-2"> {price} € </h3>
+        <h2 className="text-left mb-2 p-2"> {name} </h2>
+        <h3 className="text-left mb-4 p-2"> Price: {price} € </h3>
         <CardElement
           className="p-2"
           id="card-element"
@@ -143,11 +143,11 @@ const CheckoutForm = () => {
       <div className="row justify-content-center">
         {isSucceeded ? (
           <Link to={"/"} onClick={() => dispatch(scrollToPlants())}>
-            <button className="btn btn-sm"> Go back </button>
+            <button className="btn btn-sm form-control"> Go back </button>
           </Link>
         ) : (
           <Link to={`/plants/read/${_id}`}>
-            <button className="btn btn-sm"> Go back </button>
+            <button className="btn btn-sm form-control"> Go back </button>
           </Link>
         )}
       </div>

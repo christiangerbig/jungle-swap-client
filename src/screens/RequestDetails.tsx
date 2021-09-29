@@ -37,33 +37,37 @@ const RequestDetails = () => {
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Your request </h2>
-        <h4> for: {(plant as Plant).name} </h4>
-        <h5> by: {(buyer as User).username} </h5>
-        <p> {message} </p>
+        <h4> for {(plant as Plant).name} </h4>
+        <h5> by {(buyer as User).username} </h5>
+        <p className="form-control"> {message} </p>
         {reply && (
           <div>
-            <h5> Your reply: </h5>
-            <p> {reply} </p>
+            <h5> Your reply </h5>
+            <p className="form-control"> {reply} </p>
           </div>
         )}
-        <div>
+        <div className="text-right px-3">
           {!reply && (
             <Link to={`/requests/update/${_id}`}>
-              <button className="btn btn-sm ml-2 btn-outline-dark">
+              <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
                 Reply
               </button>
             </Link>
           )}
           <button
-            className="btn btn-sm ml-2 btn-outline-dark"
+            className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => dispatch(deleteRequest({ requestId, history }))}
           >
             Delete
           </button>
         </div>
-        <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}>
-          <button className="btn btn-sm mt-4"> Go back </button>
-        </Link>
+        <div className="text-right px-3">
+          <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}>
+            <button className="btn btn-sm mt-4 smallWidth form-control">
+              Go back
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

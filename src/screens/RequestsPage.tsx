@@ -52,18 +52,22 @@ const RequestsPage = () => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2> Your messages </h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
-        <Link to={"/"}>
-          <button className="btn btn-sm mt-4"> Go back </button>
-        </Link>
+        <div className="text-right pr-2">
+          <Link to={"/"}>
+            <button className="btn btn-sm mt-4 smallWidth form-control">
+              Go back
+            </button>
+          </Link>
+        </div>
         {requests.map(({ _id, buyer, seller, plant }: Request) => {
           return (
             (seller as User)._id === loggedInUser._id && (
               <div className="card p-3 mt-4 " key={_id}>
-                <h4> Request for: {(plant as Plant).name} </h4>
-                <h5> by: {(buyer as User).username} </h5>
-                <div>
+                <h4> Request for {(plant as Plant).name} </h4>
+                <h5> by {(buyer as User).username} </h5>
+                <div className="text-center">
                   <Link
-                    className="btn btn-outline-dark"
+                    className="btn smallWidth form-control"
                     to={`/requests/read/${_id}`}
                   >
                     Details
@@ -74,9 +78,13 @@ const RequestsPage = () => {
           );
         })}
         {amountOfRequests !== 0 && (
-          <Link to={"/"}>
-            <button className="btn btn-sm mt-4"> Go back </button>
-          </Link>
+          <div className="text-right mt-4 pr-2">
+            <Link to={"/"}>
+              <button className="btn btn-sm mt-4 smallWidth form-control">
+                Go back
+              </button>
+            </Link>
+          </div>
         )}
       </div>
     </div>

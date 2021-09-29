@@ -41,6 +41,7 @@ const SignUp = () => {
               className="form-control"
               id="InputUsername"
               name="username"
+              placeholder="Enter"
             />
           </div>
           <div className="form-group">
@@ -50,6 +51,7 @@ const SignUp = () => {
               className="form-control"
               id="InputEmail"
               name="email"
+              placeholder="Enter"
             />
           </div>
           <div className="form-group">
@@ -59,18 +61,25 @@ const SignUp = () => {
               type="password"
               className="form-control"
               id="InputPassword"
+              placeholder="Enter"
             />
           </div>
           {error && <p className="warningColor"> {error} </p>}
           <button
             type="submit"
-            className="btn btn-primary mt-4 btn-outline-dark"
+            className="btn btn-sm mt-4 smallWidth form-control"
             formNoValidate
           >
             Sign up
           </button>
           <p className="padding"> Already have an account? </p>
-          <Link to={"/signin"}> Sign in </Link>
+          <div className="text-right">
+            <Link to={"/signin"}>
+              <button className="btn btn-sm ml-4 smallWidth form-control mt-0 mb-2">
+                Sign In
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

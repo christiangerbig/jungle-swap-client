@@ -41,18 +41,30 @@ const CreateRequestForm = () => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-4"> Your message </h2>
-        <h3 className="mb-4"> {name} </h3>
+        <h3 className="mb-4"> for: {name} </h3>
         <form onSubmit={(event) => handleCreateRequest(event, plant, history)}>
           <div>
-            <textarea className="mb-4" name="message" cols={35} rows={7} />
+            <textarea
+              className="mb-4 form-control"
+              name="message"
+              cols={35}
+              rows={7}
+            />
           </div>
           {error && <p className="warningColor"> {error} </p>}
-          <button className="btn btn-sm btn-outline-dark" type="submit">
-            Send
-          </button>
-          <Link to={`/plants/read/${_id}`}>
-            <button className="btn btn-sm mx-2"> Go back </button>
-          </Link>
+          <div className="text-right">
+            <button
+              className="btn btn-sm mx-2 form-control smallWidth"
+              type="submit"
+            >
+              Send
+            </button>
+            <Link to={`/plants/read/${_id}`}>
+              <button className="btn btn-sm mx-2 form-control smallWidth">
+                Go back
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

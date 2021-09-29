@@ -98,16 +98,16 @@ const PlantDetails = () => {
           </div>
           <div className="ml-2 mt-2 col justify-content-center">
             <div className="row-2 justify-content-center">
-              <div className="card-body">
+              <div className="card-body text-right pt-0">
                 {loggedInUser._id === (creator as User)._id ? (
-                  <div>
+                  <div className="p-0">
                     <Link to={"/plants/update"}>
-                      <button className="btn btn-sm ml-2 btn-outline-dark">
+                      <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
                         Update
                       </button>
                     </Link>
                     <button
-                      className="btn btn-sm ml-2 btn-outline-dark"
+                      className="btn btn-sm ml-2 form-control smallWidth mb-2"
                       onClick={() =>
                         handleDeletePlant(imagePublicId, _id, history, requests)
                       }
@@ -118,19 +118,19 @@ const PlantDetails = () => {
                 ) : (
                   <div>
                     <Link to="/plants/checkout">
-                      <button className="btn btn-sm ml-2 btn-outline-dark">
+                      <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
                         Buy
                       </button>
                     </Link>
                     <Link to="/requests/create">
-                      <button className="btn btn-sm ml-2 btn-outline-dark">
+                      <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
                         Swap
                       </button>
                     </Link>
                   </div>
                 )}
                 <Link to={"/"} onClick={() => dispatch(scrollToPlants())}>
-                  <button className="btn btn-sm ml-2"> Go back </button>
+                  <button className="btn btn-sm ml-2 form-control smallWidth mb-3"> Go back </button>
                 </Link>
               </div>
             </div>

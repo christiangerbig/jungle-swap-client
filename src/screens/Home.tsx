@@ -140,7 +140,7 @@ const Home = () => {
                         <h5> {name} </h5>
                         <p> {price} € </p>
                         <Link
-                          className="btn btn-outline-dark"
+                          className="btn form-control smallWidth"
                           to={`/plants/read/${_id}`}
                         >
                           Details

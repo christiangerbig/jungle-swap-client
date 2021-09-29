@@ -44,22 +44,24 @@ const UpdateRequestForm = () => {
           <div className="card-body">
             <p> {message} </p>
             <textarea
-              className="mb-4"
+              className="mb-4 form-control"
               name="reply"
               cols={31}
               rows={6}
               placeholder="Your reply"
               onChange={(event) => handleCreateReply(event, request)}
             />
-            <div className="row justify-content-around">
+            <div className="row justify-content-end px-3">
               <button
-                className="btn btn-sm btn-outline-dark"
+                className="btn btn-sm smallWidth form-control mr-3 mb-2"
                 onClick={() => handleUpdateRequest(request, history)}
               >
                 Submit
               </button>
               <Link to={`/requests/read/${_id}`}>
-                <button className="btn btn-sm mx-2"> Go back </button>
+                <button className="btn btn-sm form-control mb-2">
+                  Go back
+                </button>
               </Link>
             </div>
           </div>

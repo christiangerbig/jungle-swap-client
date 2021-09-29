@@ -85,62 +85,73 @@ const UpdatePlantForm = () => {
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mt-5 mb-4"> Update your plant </h2>
-        <div className="card cardSmallWidth mb-5">
+        <div className="card cardMediumWidth mb-5">
           <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
           <div className="card-body">
+            <label htmlFor="updateName"> Name </label>
             <input
-              className="mb-2"
-              onChange={(event) => handleImageChange(event, plant)}
-              type="file"
-            />
-            <input
-              className="mb-2"
+              className="mb-4 form-control"
               type="text"
               onChange={(event) => handlePlantEntryChange(event, plant, 0)}
               value={name}
+              id="updateName"
             />
+            <label htmlFor="updateDescription"> Description </label>
             <input
-              className="mb-2"
+              className="mb-4 form-control"
               type="text"
               onChange={(event) => handlePlantEntryChange(event, plant, 1)}
               value={description}
+              id="updateDescription"
             />
+            <label htmlFor="updateSize"> Size (cm) </label>
             <input
-              className="mb-2 smallWidth"
+              className="mb-4 form-control"
               type="number"
               onChange={(event) => handlePlantEntryChange(event, plant, 2)}
               value={size}
+              id="updateSize"
             />
-            cm <br />
+            <label htmlFor="updateLocation"> Location </label>
             <select
-              className="mb-2"
+              className="mb-4 form-control px-2"
               onChange={(event) => handlePlantEntryChange(event, plant, 3)}
               name="location"
               placeholder="Select"
+              id="updateLocation"
             >
               <option value="sun"> sun </option>
               <option value="shade"> shade </option>
               <option value="sun and shade"> sun and shade </option>
             </select>
-            <br />
+            <label htmlFor="updatePrice"> Price (EUR) </label>
             <input
-              className="mb-4 smallWidth"
+              className="mb-4 form-control"
               name="price"
               type="number"
               min="1"
               onChange={(event) => handlePlantEntryChange(event, plant, 4)}
               value={price}
+              id="updatePrice"
             />
-            €
-            <div className="row justify-content-around">
+            <label htmlFor="updateImage"> Image </label>
+            <input
+              className="mb-4 form-control"
+              onChange={(event) => handleImageChange(event, plant)}
+              type="file"
+              id="updateImage"
+            />
+              <div className="col-12 text-right pr-0">
               <button
-                className="btn btn-sm btn-outline-dark"
+                className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => handleUpdatePlant(plant, history)}
               >
-                Save changes
+                Save
               </button>
               <Link to={`/plants/read/${_id}`}>
-                <button className="btn btn-sm mx-2"> Go back </button>
+                <button className="btn btn-sm ml-4 smallWidth form-control mb-2">
+                  Go back
+                </button>
               </Link>
             </div>
           </div>

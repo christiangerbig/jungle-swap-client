@@ -45,6 +45,7 @@ const SignIn = () => {
               className="form-control"
               id="InputEmail"
               name="email"
+              placeholder="Enter"
             />
           </div>
           <div className="form-group">
@@ -54,12 +55,13 @@ const SignIn = () => {
               type="password"
               className="form-control"
               id="InputPassword"
+              placeholder="Enter"
             />
           </div>
           {error && <p className="warningColor"> {error} </p>}
           <button
             type="submit"
-            className="btn btn-primary mt-4 btn-outline-dark"
+            className="btn btn-sm mt-4 smallWidth form-control"
             formNoValidate
           >
             Sign in
