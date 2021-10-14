@@ -84,7 +84,9 @@ const NavBar = () => {
       const currentAmountOfRequests = requests.filter(
         (currentRequest: Request) => {
           const { seller, requestState } = currentRequest;
-          return (((seller as User)._id === loggedInUser._id) && (requestState === true));
+          return (
+            (seller as User)._id === loggedInUser._id && requestState === true
+          );
         }
       ).length;
       if (amountOfRequests < currentAmountOfRequests) {
@@ -95,7 +97,7 @@ const NavBar = () => {
       const currentAmountOfReplies = requests.filter(
         (currentReply: Request) => {
           const { buyer, reply } = currentReply;
-          return ((buyer as User)._id === loggedInUser._id) && reply;
+          return (buyer as User)._id === loggedInUser._id && reply;
         }
       ).length;
       if (amountOfReplies < currentAmountOfReplies) {
@@ -113,7 +115,9 @@ const NavBar = () => {
             JungleSwap
           </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+          {(isNewRequest || isNewReply) && <FontAwesomeIcon icon={faBell} />}
+        </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <>
