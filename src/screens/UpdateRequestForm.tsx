@@ -25,7 +25,6 @@ const UpdateRequestForm = () => {
     { _id, buyer, seller, plant, message, reply, requestState }: Request,
     history: any
   ) => {
-    
     const updatedRequest: Request = {
       buyer,
       seller,
@@ -34,8 +33,7 @@ const UpdateRequestForm = () => {
       reply,
       requestState,
     };
-    dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
-
+    dispatch(updateRequest({ requestId: _id, updatedRequest}));
     history.push(`/requests/read/${{requestId: _id}}`);
   };
 

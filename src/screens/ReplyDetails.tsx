@@ -36,8 +36,7 @@ const ReplyDetails = () => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Your request </h2>
-        <h4> for {(plant as Plant).name} </h4>
+        <h2 className="mb-5"> Your request for {(plant as Plant).name} </h2>
         <p className="form-control"> {message} </p>
         {reply && (
           <div>

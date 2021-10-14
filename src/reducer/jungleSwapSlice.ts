@@ -304,6 +304,7 @@ export const fetchAllRequests = createAsyncThunk(
       const response = await axios.get(`${apiPath}/requests/fetch`);
       dispatch(setRequests(response.data));
       isUserChange && dispatch(setStartAmountOfRequests());
+      isUserChange && dispatch(setStartAmountOfReplies());
     } catch (err) {
       console.log("Fetching requests failed", err);
     }
@@ -356,13 +357,12 @@ export const readRequest = createAsyncThunk(
 interface UpdateRequestParameters {
   requestId: string | undefined;
   updatedRequest: Request;
-  history: any;
 }
 
 export const updateRequest = createAsyncThunk(
   "jungleSwap/updateRequest",
   async (
-    { requestId, updatedRequest, history }: UpdateRequestParameters,
+    { requestId, updatedRequest }: UpdateRequestParameters,
     { dispatch }
   ) => {
     try {
@@ -393,7 +393,8 @@ export const deleteRequest = createAsyncThunk(
       await axios.delete(`${apiPath}/requests/delete/${requestId}`);
       dispatch(removeRequest(requestId));
       dispatch(decreaseAmountOfRequests());
-      history && history.push("/requests/fetch");
+      dispatch(decreaseAmountOfReplies());
+      history && history.push("/replies/fetch");
     } catch (err) {
       console.log("Delete request failed", err);
     }
@@ -569,14 +570,18 @@ export const jungleSwapSlice = createSlice({
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.requests.filter(
-        (currentRequest) =>
-          state.loggedInUser && ((currentRequest.seller as User)._id === state.loggedInUser._id) && (currentRequest.requestState === true)).length;
+        (currentRequest) => {
+          const {seller, requestState} = currentRequest;
+          return state.loggedInUser && ((seller as User)._id === state.loggedInUser._id) && (requestState === true);
+        }
+      ).length;
     },
     setStartAmountOfReplies: (state) => {
       state.amountOfReplies = state.requests.filter(
-        (currentReply) =>
-          state.loggedInUser &&
-          (currentReply.buyer as User)._id === state.loggedInUser._id
+        (currentRequest) => {
+          const {buyer, reply} = currentRequest;
+          return state.loggedInUser && ((buyer as User)._id === state.loggedInUser._id) && reply;
+        }
       ).length;
     },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
