@@ -37,6 +37,28 @@ span {
   font-weight: 700;
 }
 
+.popDownMenu {
+  font-weight: 400;
+  color: #415dfa;
+}
+
+.popDownMenu:hover {
+  color: #204d2c;
+  cursor: pointer;
+}
+
+.menuBox {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 1.9rem;
+  left: 22.7rem;
+  z-index: 1030;
+  width: content-box;
+  background-color: #fbf8efdf;
+  border: solid grey 1px;
+}
+
 hr {
   width: 80%;
   padding-bottom: 50px;

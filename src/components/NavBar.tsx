@@ -10,12 +10,16 @@ import {
   increaseMinutesCounter,
   setMinutesCounter,
   setAmountOfRequests,
+  setAmountOfReplies,
   setIsNewRequest,
+  setIsNewReply,
   scrollToPlants,
   User,
   Request,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const loggedInUser = useSelector(
@@ -25,9 +29,7 @@ const NavBar = () => {
     (state: RootState) => state.jungleSwap.isUserChange
   );
   const requests = useSelector((state: RootState) => state.jungleSwap.requests);
-  const isNewRequest = useSelector(
-    (state: RootState) => state.jungleSwap.isNewRequest
-  );
+
   const intervalId = useSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
@@ -36,6 +38,15 @@ const NavBar = () => {
   );
   const amountOfRequests = useSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
+  );
+  const amountOfReplies = useSelector(
+    (state: RootState) => state.jungleSwap.amountOfReplies
+  );
+  const isNewRequest = useSelector(
+    (state: RootState) => state.jungleSwap.isNewRequest
+  );
+  const isNewReply = useSelector(
+    (state: RootState) => state.jungleSwap.isNewReply
   );
   const dispatch = useDispatch();
 
@@ -66,7 +77,7 @@ const NavBar = () => {
     }
   }, [isUserChange]);
 
-  // Check new requests for logged in user every minute
+  // Check new requests/replies for logged in user every minute
   useEffect(() => {
     if (loggedInUser) {
       dispatch(fetchAllRequests(isUserChange));
@@ -79,6 +90,17 @@ const NavBar = () => {
       if (amountOfRequests < currentAmountOfRequests) {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
         dispatch(setIsNewRequest(true));
+      }
+
+      const currentAmountOfReplies = requests.filter(
+        (currentReply: Request) => {
+          const { buyer, reply } = currentReply;
+          return ((buyer as User)._id === loggedInUser._id) && reply;
+        }
+      ).length;
+      if (amountOfReplies < currentAmountOfReplies) {
+        dispatch(setAmountOfReplies(currentAmountOfReplies));
+        dispatch(setIsNewReply(true));
       }
     }
   }, [minutesCounter]);
@@ -94,7 +116,7 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <div>
+            <>
               <Link
                 to="/"
                 className="p-2"
@@ -102,23 +124,29 @@ const NavBar = () => {
               >
                 All Plants
               </Link>
-            </div>
+            </>
             {loggedInUser && (
-              <div>
-                <Link className="p-2" to="/plants/create">
-                  Create Plant
+              <>
+                <Link
+                  className="p-2"
+                  to="/requests/fetch"
+                  title={isNewRequest ? "new request" : ""}
+                >
+                  {isNewRequest && <FontAwesomeIcon icon={faBell} />}
+                  Requests
                 </Link>
                 <Link
-                  className={isNewRequest ? "p-2 alertColor" : "p-2"}
-                  to="/requests/fetch"
-                  title={isNewRequest ? "new message" : ""}
+                  className="p-2"
+                  to="/replies/fetch"
+                  title={isNewReply ? "new reply" : ""}
                 >
-                  Messages
+                  {isNewReply && <FontAwesomeIcon icon={faBell} />}
+                  Replies
                 </Link>
-              </div>
+              </>
             )}
             {loggedInUser ? (
-              <div>
+              <>
                 <Link
                   className="p-2"
                   to="/logout"
@@ -126,16 +154,16 @@ const NavBar = () => {
                 >
                   Log out
                 </Link>
-              </div>
+              </>
             ) : (
-              <div>
+              <>
                 <Link className="p-2" to="/signin">
                   Sign in
                 </Link>
                 <Link className="p-2" to="/signup">
                   Sign up
                 </Link>
-              </div>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

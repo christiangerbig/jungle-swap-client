@@ -22,7 +22,7 @@ const UpdateRequestForm = () => {
 
   // Update request
   const handleUpdateRequest = (
-    { _id, buyer, seller, plant, message, reply }: Request,
+    { _id, buyer, seller, plant, message, reply, requestState }: Request,
     history: any
   ) => {
     const updatedRequest: Request = {
@@ -31,6 +31,7 @@ const UpdateRequestForm = () => {
       plant,
       message,
       reply,
+      requestState,
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
   };

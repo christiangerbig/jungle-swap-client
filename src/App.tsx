@@ -14,8 +14,10 @@ import PlantDetails from "./screens/PlantDetails";
 import UpdatePlantForm from "./screens/UpdatePlantForm";
 import CheckoutPage from "./screens/CheckoutPage";
 import RequestsPage from "./screens/RequestsPage";
+import RepliesPage from "./screens/RepliesPage";
 import CreateRequestForm from "./screens/CreateRequestForm";
 import RequestDetails from "./screens/RequestDetails";
+import ReplyDetails from "./screens/ReplyDetails";
 import UpdateRequestForm from "./screens/UpdateRequestForm";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
@@ -52,6 +54,13 @@ const App = () => {
         </Route>
         <Route path="/requests/update">
           <UpdateRequestForm />
+        </Route>
+
+        <Route path="/replies/fetch">
+          <RepliesPage />
+        </Route>
+        <Route path="/replies/read/:requestId">
+          <ReplyDetails />
         </Route>
 
         <Route path="/signup">

@@ -31,6 +31,7 @@ export interface Request {
   plant?: string | Plant | undefined;
   message?: string;
   reply?: string;
+  requestState?: boolean;
 }
 
 export type LoggedInUser = User | null;
@@ -46,9 +47,12 @@ interface SliceState {
   requests: Request[];
   request: Request | {};
   amountOfRequests: number;
+  amountOfReplies: number;
   isNewRequest: boolean;
+  isNewReply: boolean;
   intervalId: IntervalId;
   minutesCounter: number;
+  isMessagesDropdown: boolean;
   headerContainerHeight: number;
   aboutContainerHeight: number;
   clientSecret: string;
@@ -64,9 +68,12 @@ const initialState: SliceState = {
   requests: [],
   request: {},
   amountOfRequests: 0,
+  amountOfReplies: 0,
   isNewRequest: false,
+  isNewReply: false,
   intervalId: null,
   minutesCounter: 0,
+  isMessagesDropdown: false,
   headerContainerHeight: 0,
   aboutContainerHeight: 0,
   clientSecret: "",
@@ -543,7 +550,7 @@ export const jungleSwapSlice = createSlice({
       state.requests.push(action.payload);
     },
     setRequestChanges: (state, action: PayloadAction<Request>) => {
-      const { _id, buyer, seller, plant, message, reply } = action.payload;
+      const { _id, buyer, seller, plant, message, reply, requestState } = action.payload;
       state.requests = state.requests.map((singleRequest) => {
         if (singleRequest._id === _id) {
           singleRequest.buyer = buyer;
@@ -551,6 +558,7 @@ export const jungleSwapSlice = createSlice({
           singleRequest.plant = plant;
           singleRequest.message = message;
           singleRequest.reply = reply;
+          singleRequest.requestState = requestState;
         }
         return singleRequest;
       });
@@ -567,11 +575,24 @@ export const jungleSwapSlice = createSlice({
           (currentRequest.seller as User)._id === state.loggedInUser._id
       ).length;
     },
+    setStartAmountOfReplies: (state) => {
+      state.amountOfReplies = state.requests.filter(
+        (currentReply) =>
+          state.loggedInUser &&
+          (currentReply.buyer as User)._id === state.loggedInUser._id
+      ).length;
+    },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;
     },
+    setAmountOfReplies: (state, action: PayloadAction<number>) => {
+      state.amountOfReplies = action.payload;
+    },
     setIsNewRequest: (state, action: PayloadAction<boolean>) => {
       state.isNewRequest = action.payload;
+    },
+    setIsNewReply: (state, action: PayloadAction<boolean>) => {
+      state.isNewReply = action.payload;
     },
     setIntervalId: (state, action: PayloadAction<IntervalId>) => {
       state.intervalId = action.payload;
@@ -632,8 +653,11 @@ export const {
   setRequestChanges,
   removeRequest,
   setStartAmountOfRequests,
+  setStartAmountOfReplies,
   setAmountOfRequests,
+  setAmountOfReplies,
   setIsNewRequest,
+  setIsNewReply,
   setIntervalId,
   setMinutesCounter,
   increaseMinutesCounter,

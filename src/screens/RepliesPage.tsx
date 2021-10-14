@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import {
   fetchAllRequests,
-  setIsNewRequest,
+  setIsNewReply,
   User,
   Plant,
   Request,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const RequestsPage = () => {
+const RepliesPage = () => {
   const loggedInUser = useSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -19,15 +19,15 @@ const RequestsPage = () => {
     (state: RootState) => state.jungleSwap.isUserChange
   );
   const requests = useSelector((state: RootState) => state.jungleSwap.requests);
-  const amountOfRequests = useSelector(
-    (state: RootState) => state.jungleSwap.amountOfRequests
+  const amountOfReplies = useSelector(
+    (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useDispatch();
 
   // Fetch all requests and reset values as soon as page loads and reset values during cleanup
   useEffect(() => {
     const handleResetAll = () => {
-      dispatch(setIsNewRequest(false));
+      dispatch(setIsNewReply(false));
       scroll.scrollToTop();
     };
 
@@ -42,7 +42,7 @@ const RequestsPage = () => {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
-          <br /> <br /> Loading requests...
+          <br /> <br /> Loading replies...
         </span>
       </div>
     );
@@ -50,8 +50,8 @@ const RequestsPage = () => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2> Requests for your plants </h2>
-        <h3 className="mb-4"> [{amountOfRequests}] </h3>
+        <h2> Replies for your requests </h2>
+        <h3 className="mb-4"> [{amountOfReplies}] </h3>
         <div className="text-right pr-2">
           <Link to={"/"}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
@@ -59,16 +59,16 @@ const RequestsPage = () => {
             </button>
           </Link>
         </div>
-        {requests.map(({ _id, buyer, seller, plant, requestState }: Request) => {
+        {requests.map(({ _id, buyer, seller, plant, reply }: Request) => {
           return (
-            (((seller as User)._id === loggedInUser._id) && (requestState === true)) && (
+            (((buyer as User)._id === loggedInUser._id) && reply) && (
               <div className="card p-3 mt-4 " key={_id}>
-                <h4> Request for {(plant as Plant).name} </h4>
-                <h5> by {(buyer as User).username} </h5>
+                <h4> Reply for {(plant as Plant).name} </h4>
+                <h5> by {(seller as User).username} </h5>
                 <div className="text-center">
                   <Link
                     className="btn smallWidth form-control"
-                    to={`/requests/read/${_id}`}
+                    to={`/replies/read/${_id}`}
                   >
                     Details
                   </Link>
@@ -77,7 +77,7 @@ const RequestsPage = () => {
             )
           );
         })}
-        {amountOfRequests !== 0 && (
+        {amountOfReplies !== 0 && (
           <div className="text-right mt-4 pr-2">
             <Link to={"/"}>
               <button className="btn btn-sm mt-4 smallWidth form-control">
@@ -91,4 +91,4 @@ const RequestsPage = () => {
   );
 };
 
-export default RequestsPage;
+export default RepliesPage;
