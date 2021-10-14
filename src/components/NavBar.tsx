@@ -84,7 +84,7 @@ const NavBar = () => {
       const currentAmountOfRequests = requests.filter(
         (currentRequest: Request) => {
           const { seller, requestState } = currentRequest;
-          return (((seller as User)._id === loggedInUser._id) && requestState);
+          return (((seller as User)._id === loggedInUser._id) && (requestState === true));
         }
       ).length;
       if (amountOfRequests < currentAmountOfRequests) {
