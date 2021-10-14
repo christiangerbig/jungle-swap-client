@@ -83,8 +83,8 @@ const NavBar = () => {
       dispatch(fetchAllRequests(isUserChange));
       const currentAmountOfRequests = requests.filter(
         (currentRequest: Request) => {
-          const { seller } = currentRequest;
-          return (seller as User)._id === loggedInUser._id;
+          const { seller, requestState } = currentRequest;
+          return (((seller as User)._id === loggedInUser._id) && requestState);
         }
       ).length;
       if (amountOfRequests < currentAmountOfRequests) {
