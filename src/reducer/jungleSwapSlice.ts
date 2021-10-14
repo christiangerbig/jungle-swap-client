@@ -570,9 +570,7 @@ export const jungleSwapSlice = createSlice({
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.requests.filter(
         (currentRequest) =>
-          state.loggedInUser &&
-          (currentRequest.seller as User)._id === state.loggedInUser._id
-      ).length;
+          state.loggedInUser && ((currentRequest.seller as User)._id === state.loggedInUser._id) && (currentRequest.requestState === true)).length;
     },
     setStartAmountOfReplies: (state) => {
       state.amountOfReplies = state.requests.filter(
