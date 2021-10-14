@@ -49,6 +49,7 @@ const RequestDetails = () => {
       requestState,
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
+    history.push("/requests/fetch");
   };
 
   return (
