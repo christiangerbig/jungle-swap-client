@@ -605,6 +605,9 @@ export const jungleSwapSlice = createSlice({
     decreaseAmountOfRequests: (state) => {
       state.amountOfRequests -= 1;
     },
+    decreaseAmountOfReplies: (state) => {
+      state.amountOfReplies -= 1;
+    },
 
     // ---------- User authentification ----------
     setLoggedInUser: (state, action: PayloadAction<LoggedInUser>) => {
@@ -661,6 +664,7 @@ export const {
   setMinutesCounter,
   increaseMinutesCounter,
   decreaseAmountOfRequests,
+  decreaseAmountOfReplies,
 
   // ---------- User authentification ----------
   setLoggedInUser,

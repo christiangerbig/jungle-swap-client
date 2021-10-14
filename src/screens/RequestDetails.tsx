@@ -9,6 +9,7 @@ import {
   Request,
   setRequest,
   updateRequest,
+  decreaseAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -38,8 +39,8 @@ const RequestDetails = () => {
     const cloneRequest: Request = JSON.parse(JSON.stringify(request));
     cloneRequest.requestState = false;
     dispatch(setRequest(cloneRequest));
-
     const { _id, buyer, seller, plant, message, reply, requestState } = cloneRequest;
+
     const updatedRequest: Request = {
       buyer,
       seller,
@@ -49,6 +50,8 @@ const RequestDetails = () => {
       requestState,
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
+
+    dispatch(decreaseAmountOfReplies());
     history.push("/requests/fetch");
   };
 
