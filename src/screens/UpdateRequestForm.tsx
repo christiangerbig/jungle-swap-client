@@ -34,6 +34,7 @@ const UpdateRequestForm = () => {
       requestState,
     };
     dispatch(updateRequest({ requestId: _id, updatedRequest, history }));
+    history.push(`/requests/read/${{requestId: _id}}`);
   };
 
   const { _id, message } = request as Request;

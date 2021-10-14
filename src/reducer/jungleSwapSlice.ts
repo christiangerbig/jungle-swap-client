@@ -371,7 +371,6 @@ export const updateRequest = createAsyncThunk(
         updatedRequest
       );
       dispatch(setRequestChanges(response.data));
-      history.push(`/requests/read/${requestId}`);
     } catch (err) {
       console.log("Update request failed", err);
     }
