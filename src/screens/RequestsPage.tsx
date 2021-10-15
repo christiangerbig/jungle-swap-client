@@ -60,13 +60,7 @@ const RequestsPage = (): JSX.Element => {
           </Link>
         </div>
         {messages.map(
-          ({
-            _id,
-            buyer,
-            seller,
-            plant,
-            messageState,
-          }: Message) => {
+          ({ _id, buyer, seller, plant, messageState }: Message) => {
             return (
               (seller as User)._id === loggedInUser._id &&
               messageState === true && (
