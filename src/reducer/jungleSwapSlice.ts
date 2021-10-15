@@ -569,7 +569,7 @@ export const jungleSwapSlice = createSlice({
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.messages.filter(
-        (message: Message): boolean | null => {
+        (message: Message) => {
           const { seller, messageState } = message;
           return (
             state.loggedInUser &&
@@ -581,7 +581,7 @@ export const jungleSwapSlice = createSlice({
     },
     setStartAmountOfReplies: (state) => {
       state.amountOfReplies = state.messages.filter(
-        (message: Message): string | false | null | undefined => {
+        (message: Message) => {
           const { buyer, reply } = message;
           return (
             state.loggedInUser &&

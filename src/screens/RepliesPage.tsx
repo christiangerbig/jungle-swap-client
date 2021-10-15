@@ -66,7 +66,7 @@ const RepliesPage = (): JSX.Element => {
             seller,
             plant,
             reply,
-          }: Message): false | "" | JSX.Element | undefined => {
+          }: Message) => {
             return (
               (buyer as User)._id === loggedInUser._id &&
               reply && (

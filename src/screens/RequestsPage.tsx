@@ -66,7 +66,7 @@ const RequestsPage = (): JSX.Element => {
             seller,
             plant,
             messageState,
-          }: Message): false | JSX.Element => {
+          }: Message) => {
             return (
               (seller as User)._id === loggedInUser._id &&
               messageState === true && (
