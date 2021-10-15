@@ -125,6 +125,9 @@ const NavBar = () => {
             </>
             {loggedInUser && (
               <>
+                <Link className="p-2" to="/plants/create">
+                  Create Plant
+                </Link>
                 <Link
                   className="p-2"
                   to="/requests/fetch"
