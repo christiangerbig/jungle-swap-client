@@ -3,10 +3,10 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import {
-  createRequest,
+  createMessage,
   setError,
   Plant,
-  Request,
+  Message,
   User,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -24,16 +24,16 @@ const CreateRequestForm = () => {
   }, []);
 
   // Create request
-  const handleCreateRequest = (event: any, plant: Plant, history: any) => {
+  const handleCreateMessage = (event: any, plant: Plant, history: any) => {
     event.preventDefault();
-    const { message } = event.target;
+    const { request } = event.target;
     const { creator } = plant;
-    const newRequest: Request = {
+    const newMessage: Message = {
       seller: (creator as User)._id,
       plant: plant._id,
-      message: message.value,
+      request: request.value,
     };
-    dispatch(createRequest({ newRequest, history }));
+    dispatch(createMessage({ newMessage, history }));
   };
 
   const { _id, name } = plant as Plant;
@@ -42,7 +42,7 @@ const CreateRequestForm = () => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-4"> Your message </h2>
         <h3 className="mb-4"> for: {name} </h3>
-        <form onSubmit={(event) => handleCreateRequest(event, plant, history)}>
+        <form onSubmit={(event) => handleCreateMessage(event, plant, history)}>
           <div>
             <textarea
               className="mb-4 form-control"

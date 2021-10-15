@@ -10,7 +10,23 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const CheckoutForm = () => {
+interface CardStyle {
+  style: {
+    base: {
+      color: string;
+      fontFamily: string;
+      fontSmoothing: string;
+      fontSize: string;
+      "::placeholder": { color: string };
+    };
+    invalid: {
+      color: string;
+      iconColor: string;
+    };
+  };
+}
+
+const CheckoutForm = (): JSX.Element => {
   const [isSucceeded, setIsSucceeded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -33,22 +49,6 @@ const CheckoutForm = () => {
     };
   }, []);
 
-  interface CardStyle {
-    style: {
-      base: {
-        color: string;
-        fontFamily: string;
-        fontSmoothing: string;
-        fontSize: string;
-        "::placeholder": { color: string };
-      };
-      invalid: {
-        color: string;
-        iconColor: string;
-      };
-    };
-  }
-
   // Card styling
   const cardStyle: CardStyle = {
     style: {
@@ -67,7 +67,7 @@ const CheckoutForm = () => {
   };
 
   // Listen for changes in Card element and display any errors as customer types card details
-  const handleChange = async (event: any) => {
+  const handleChange = async (event: any): Promise<void> => {
     setIsDisabled(event.empty);
     setPaymentError(event.error ? event.error.message : "");
   };

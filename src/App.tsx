@@ -22,7 +22,7 @@ import UpdateRequestForm from "./screens/UpdateRequestForm";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <div className="main">
       <NavBar />
@@ -43,23 +43,24 @@ const App = () => {
           <CheckoutPage />
         </Route>
 
+        <Route path="/messages/create">
+          <CreateRequestForm />
+        </Route>
+        <Route path="/messages/update">
+          <UpdateRequestForm />
+        </Route>
+
         <Route path="/requests/fetch">
           <RequestsPage />
         </Route>
-        <Route path="/requests/create">
-          <CreateRequestForm />
-        </Route>
-        <Route path="/requests/read/:requestId">
+        <Route path="/requests/read/:messageId">
           <RequestDetails />
-        </Route>
-        <Route path="/requests/update">
-          <UpdateRequestForm />
         </Route>
 
         <Route path="/replies/fetch">
           <RepliesPage />
         </Route>
-        <Route path="/replies/read/:requestId">
+        <Route path="/replies/read/:messageId">
           <ReplyDetails />
         </Route>
 

@@ -10,7 +10,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const UpdatePlantForm = () => {
+const UpdatePlantForm = (): JSX.Element => {
   const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,30 +23,30 @@ const UpdatePlantForm = () => {
     { target }: any,
     plant: Plant,
     itemNumber: number
-  ) => {
-    const clonePlant: Plant = JSON.parse(JSON.stringify(plant));
+  ): void => {
+    const clonedPlant: Plant = JSON.parse(JSON.stringify(plant));
     // eslint-disable-next-line default-case
     switch (itemNumber) {
       case 0:
-        clonePlant.name = target.value;
+        clonedPlant.name = target.value;
         break;
       case 1:
-        clonePlant.description = target.value;
+        clonedPlant.description = target.value;
         break;
       case 2:
-        clonePlant.size = target.value;
+        clonedPlant.size = target.value;
         break;
       case 3:
-        clonePlant.location = target.value;
+        clonedPlant.location = target.value;
         break;
       case 4:
-        clonePlant.price = target.value;
+        clonedPlant.price = target.value;
     }
-    dispatch(setPlant(clonePlant));
+    dispatch(setPlant(clonedPlant));
   };
 
   // Plant image changed
-  const handleImageChange = ({ target }: any, plant: Plant) => {
+  const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
     const destroyImageData = {
@@ -67,7 +67,7 @@ const UpdatePlantForm = () => {
       price,
     }: Plant,
     history: any
-  ) => {
+  ): void => {
     const updatedPlant: Plant = {
       name,
       description,
@@ -141,7 +141,7 @@ const UpdatePlantForm = () => {
               type="file"
               id="updateImage"
             />
-              <div className="col-12 text-right pr-0">
+            <div className="col-12 text-right pr-0">
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => handleUpdatePlant(plant, history)}

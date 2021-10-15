@@ -5,19 +5,19 @@ import { animateScroll as scroll } from "react-scroll";
 import {
   readPlant,
   deletePlant,
-  deleteRequest,
+  deleteMessage,
   scrollToPlants,
   User,
-  Request,
+  Message,
   Plant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const PlantDetails = () => {
+const PlantDetails = (): JSX.Element => {
   const loggedInUser = useSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const requests = useSelector((state: RootState) => state.jungleSwap.requests);
+  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
   const plant = useSelector((state: RootState) => state.jungleSwap.plant);
   const { plantId }: any = useParams();
   const dispatch = useDispatch();
@@ -34,12 +34,12 @@ const PlantDetails = () => {
     imagePublicId: string | undefined,
     plantId: string | undefined,
     history: any,
-    requests: Request[]
+    messages: Message[]
   ) => {
-    requests.forEach((request: Request) => {
-      const { plant }: any = request;
+    messages.forEach((message: Message) => {
+      const { plant }: any = message;
       if (plant._id === plantId) {
-        dispatch(deleteRequest({ requestId: request._id, history: null }));
+        dispatch(deleteMessage({ messageId: message._id, history: null }));
       }
     });
     dispatch(deletePlant({ imagePublicId, plantId, history }));
@@ -109,7 +109,7 @@ const PlantDetails = () => {
                     <button
                       className="btn btn-sm ml-2 form-control smallWidth mb-2"
                       onClick={() =>
-                        handleDeletePlant(imagePublicId, _id, history, requests)
+                        handleDeletePlant(imagePublicId, _id, history, messages)
                       }
                     >
                       Delete
@@ -122,7 +122,7 @@ const PlantDetails = () => {
                         Buy
                       </button>
                     </Link>
-                    <Link to="/requests/create">
+                    <Link to="/messages/create">
                       <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
                         Swap
                       </button>
@@ -130,7 +130,10 @@ const PlantDetails = () => {
                   </div>
                 )}
                 <Link to={"/"} onClick={() => dispatch(scrollToPlants())}>
-                  <button className="btn btn-sm ml-2 form-control smallWidth mb-3"> Go back </button>
+                  <button className="btn btn-sm ml-2 form-control smallWidth mb-3">
+                    {" "}
+                    Go back{" "}
+                  </button>
                 </Link>
               </div>
             </div>

@@ -14,7 +14,7 @@ import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 import { RootState } from "../store";
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const isFetchingUser = useSelector(
     (state: RootState) => state.jungleSwap.isFetchingUser
   );
@@ -126,7 +126,7 @@ const Home = () => {
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {plants &&
-              plants.map((plant: Plant) => {
+              plants.map((plant: Plant): JSX.Element => {
                 const { _id, name, imageUrl, price } = plant;
                 return (
                   <div className="col mb-5" key={_id}>

@@ -5,7 +5,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { createPlant, Plant, setError } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const CreatePlantForm = () => {
+const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -70,7 +70,11 @@ const CreatePlantForm = () => {
             id="enterSize"
           />
           <label htmlFor="enterLocation"> Location </label>
-          <select className="mb-4 form-control p-2" name="location" id="enterLocation">
+          <select
+            className="mb-4 form-control p-2"
+            name="location"
+            id="enterLocation"
+          >
             <option> Select location </option>
             <option value="sun"> sun </option>
             <option value="shade"> shade </option>
@@ -86,14 +90,25 @@ const CreatePlantForm = () => {
             id="enterPrice"
           />
           <label htmlFor="enterImage"> Image </label>
-          <input className="mb-4 form-control" name="plantImage" type="file" id="enterImage"/>
+          <input
+            className="mb-4 form-control"
+            name="plantImage"
+            type="file"
+            id="enterImage"
+          />
           {error && <p className="warningColor"> {error} </p>}
           <div className="col-12 text-right pr-0">
-            <button className="btn btn-sm form-control smallWidth ml-4 mb-2" type="submit">
+            <button
+              className="btn btn-sm form-control smallWidth ml-4 mb-2"
+              type="submit"
+            >
               Create
             </button>
             <Link to={"/"}>
-              <button className="btn btn-sm form-control smallWidth ml-4 mb-2"> Go back </button>
+              <button className="btn btn-sm form-control smallWidth ml-4 mb-2">
+                {" "}
+                Go back{" "}
+              </button>
             </Link>
           </div>
         </form>

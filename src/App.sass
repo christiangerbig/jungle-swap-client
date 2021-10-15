@@ -9,8 +9,6 @@ $darkGreen: #204d2c
 $tomato: #ff474a
 
 
-/* Elements */ 
-
 html, 
 body 
   background-color: $floralWhite
@@ -25,10 +23,8 @@ body
   /* Remove any browser-default margins. */
   margin: 0
 
-
 nav 
   background-color: $transparentFloralWhite1
-
 
 a 
   color: $royalBlue
@@ -36,41 +32,18 @@ a
     text-decoration: none
     color: $darkGreen
  
-
 a.navbar-brand:hover
   color: $darkGreen
-
 
 div input 
   width: 100%
 
-
 span 
   font-weight: 700
   
-
-.popDownMenu
-  font-weight: 400
-  color: $royalBlue
-  &:hover
-    color: $darkGreen
-    cursor: pointer
-
-.menuBox
-  display: flex
-  flex-direction: column
-  position: fixed
-  top: 1.9rem
-  left: 22.7rem
-  z-index: 1030
-  width: content-box
-  background-color: #fbf8efdf
-  border: solid grey 1px
-
 hr 
   width: 80%
   padding-bottom: 50px
-
 
 form 
   background-color: $floralWhite
@@ -80,10 +53,8 @@ form
   input 
     width: 100%
 
-
 textarea 
   width: 100%
-
 
 footer 
   text-align: center
@@ -98,12 +69,10 @@ footer
   padding: 0px
   margin: 0px
 
-
 .about 
   background-color: $gold
   color: $darkGreen
   padding-top: 50px
-
   h5
     font:
     family: "Source Sans Pro", sans-serif
@@ -111,12 +80,10 @@ footer
     letter-spacing: 4px
     text-transform: uppercase
     padding-bottom: 50px
-
     h4
       font: 
         family: "Noto Serif", serif
         size: 25px
-
     p 
       font:
         weight: 700
@@ -127,14 +94,11 @@ footer
 .alertColor 
   color: $gold
 
-
 .warningColor 
   color: $tomato
 
-
 .noOverflow 
   overflow: hidden
-
 
 .headerImg 
   background:
@@ -143,47 +107,42 @@ footer
     repeat: no-repeat
     attachment: fixed
   height: 800px
-
-
-.headerImg h2 
-  font:
-    family: "Noto Serif", serif
-    size: 60px
-  letter-spacing: 1px
-  text-align: center
-  color: $floralWhite
-  padding: 15px
-
+  h2 
+    font:
+      family: "Noto Serif", serif
+      size: 60px
+    letter-spacing: 1px
+    text-align: center
+    color: $floralWhite
+    padding: 15px
+  h5
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 4px
+    text-transform: uppercase
+    color: $floralWhite
 
 @media only screen and (max-width: 768px) 
   .headerImg h2 
     font-size: 40px
-    margin-left: -45px
+
+@media (max-width: 480px) 
+  .headerImg h2 
+    font-size: 40px
+    margin-left: -45px    
   
-
-.headerImg h5
-  font:
-    family: "Source Sans Pro", sans-serif
-    weight: 600
-  letter-spacing: 4px
-  text-transform: uppercase
-  color: $floralWhite
- 
-
 .image 
   width: 30rem
   object-fit: cover
-
 
 @media only screen and (max-width: 768px) 
   .image 
     width: 21rem
   
-
 .icon 
   height: 300px
   margin-left: 80px
-
 
 .footer-row 
   background:
@@ -192,22 +151,17 @@ footer
     repeat: no-repeat
     top: 200px
 
-
 .title 
   margin-top: 150px
-
 
 .borderAround 
   margin-top: 500px
 
-
 .padding 
   padding-top: 20px
 
-
 .container 
   margin-bottom: 80px
-
 
 .container h2 
   font:
@@ -216,28 +170,22 @@ footer
   letter-spacing: -1px
   color: $darkGreen
 
-
 .miniPicSize 
   width: 6rem
-
 
 .smallPicSize 
   height: 18rem
   object-fit: cover
 
-
 .mediumPicSize 
   height: 22rem
   object-fit: cover
 
-
 .cardSmallWidth 
   width: 18rem
 
-
 .cardMediumWidth 
   width: 22rem
-
 
 .biggerFontSize
   font: 
@@ -249,19 +197,15 @@ footer
   background-color: $floralWhite
   padding: 10px 50px
 
-
 @media only screen and (max-width: 768px) 
   .biggerFontSize 
     font-size: 1rem
   
-
 .smallWidth 
   width: 30%
 
-
 .navbar-toggler   
   background-color: $royalBlue
-
 
 .notFound 
   text:
@@ -270,8 +214,8 @@ footer
   overflow: hidden
   position: absolute
   display: flex
-  justify-content: center /*centers items on the line (the x-axis by default)*/
-  align-items: center /*centers items on the cross-axis (y by default)*/
+  justify-content: center
+  align-items: center
   width: 100%
   height: 100vh
   color: $floralWhite
@@ -279,26 +223,22 @@ footer
     image: url("./images/JungleSwap_Lost.jpg")
     size: cover
     repeat: no-repeat
-
-
-.notFound h2 
-  font:
-    family: "Noto Serif", serif
-    size: 2rem
-  letter-spacing: 1px
-  padding: 0px 10px
-
-
-.notFound h3 
-  font:
-    family: "Source Sans Pro", sans-serif
-    weight: 600
-  letter-spacing: 4px
-  text-transform: uppercase
-  color: $floralWhite
-  padding:
-    top: 50px
-    bottom: 0px
+  h2 
+    font:
+      family: "Noto Serif", serif
+      size: 2rem
+    letter-spacing: 1px
+    padding: 0px 10px
+  h3 
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 4px
+    text-transform: uppercase
+    color: $floralWhite
+    padding:
+      top: 50px
+      bottom: 0px
 
 
 /* Bootstrap classes */
@@ -310,7 +250,6 @@ footer
     size: 20px
   color: $royalBlue
 
-
 .btn 
   letter-spacing: 1px
   background-color: white
@@ -321,13 +260,11 @@ footer
     color: black
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
 
-
 .form-control 
   border: none
   border-radius: 3px
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
   margin-bottom: 40px
-
 
 .card-body h5 
   font:
@@ -345,21 +282,17 @@ footer
   border-radius: 3px
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
 
-
 .result-message 
   font-weight: 600
   text-align: center
   color: rgb(79, 167, 100)
 
-
 .hidden 
   display: none
-
 
 .card-error 
   text-align: center
   color: rgb(238, 63, 20)
-
 
 button:disabled 
   opacity: 0.5
@@ -368,7 +301,6 @@ button:disabled
   border-radius: 3px
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
  
-
 /* spinner/processing state, errors */
 .spinner,
 .spinner:before,
@@ -376,7 +308,6 @@ button:disabled
   border: none
   border-radius: 3px
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
-
 
 .spinner 
   color: $tomato

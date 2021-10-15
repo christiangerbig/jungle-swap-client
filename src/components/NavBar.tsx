@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
-  fetchAllRequests,
+  fetchAllMessages,
   setIsUserChange,
   setIntervalId,
   increaseMinutesCounter,
@@ -15,7 +15,7 @@ import {
   setIsNewReply,
   scrollToPlants,
   User,
-  Request,
+  Message,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,8 +28,7 @@ const NavBar = () => {
   const isUserChange = useSelector(
     (state: RootState) => state.jungleSwap.isUserChange
   );
-  const requests = useSelector((state: RootState) => state.jungleSwap.requests);
-
+  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
   const intervalId = useSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
@@ -61,10 +60,10 @@ const NavBar = () => {
     };
   }, []);
 
-  // Start request check if user changes
+  // Start request/reply check if user changes
   useEffect(() => {
     if (isUserChange) {
-      dispatch(fetchAllRequests(isUserChange));
+      dispatch(fetchAllMessages(isUserChange));
       dispatch(setIsUserChange(false));
       dispatch(
         setIntervalId(
@@ -80,12 +79,12 @@ const NavBar = () => {
   // Check new requests/replies for logged in user every minute
   useEffect(() => {
     if (loggedInUser) {
-      dispatch(fetchAllRequests(isUserChange));
-      const currentAmountOfRequests = requests.filter(
-        (currentRequest: Request) => {
-          const { seller, requestState } = currentRequest;
+      dispatch(fetchAllMessages(isUserChange));
+      const currentAmountOfRequests = messages.filter(
+        (message: Message): boolean => {
+          const { seller, messageState } = message;
           return (
-            (seller as User)._id === loggedInUser._id && requestState === true
+            (seller as User)._id === loggedInUser._id && messageState === true
           );
         }
       ).length;
@@ -93,10 +92,9 @@ const NavBar = () => {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
         dispatch(setIsNewRequest(true));
       }
-
-      const currentAmountOfReplies = requests.filter(
-        (currentReply: Request) => {
-          const { buyer, reply } = currentReply;
+      const currentAmountOfReplies = messages.filter(
+        (message: Message): string | false | undefined => {
+          const { buyer, reply } = message;
           return (buyer as User)._id === loggedInUser._id && reply;
         }
       ).length;

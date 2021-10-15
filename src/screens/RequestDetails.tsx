@@ -3,52 +3,54 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import {
-  readRequest,
+  readMessage,
   User,
   Plant,
-  Request,
-  setRequest,
-  updateRequest,
+  Message,
+  setMessage,
+  updateMessage,
   decreaseAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const RequestDetails = () => {
-  const request = useSelector((state: RootState) => state.jungleSwap.request);
-  const { requestId }: any = useParams();
+const RequestDetails = (): JSX.Element => {
+  const message = useSelector((state: RootState) => state.jungleSwap.message);
+  const { messageId }: any = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // Read request and scroll to top as soon as page loads
+  // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readRequest(requestId));
+    dispatch(readMessage(messageId));
     scroll.scrollToTop();
   }, []);
 
-  const { _id, buyer, plant, message, reply } = request as Request;
+  const { _id, buyer, plant, request, reply } = message as Message;
   if (!buyer || !plant)
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
-          <br /> <br /> Loading request...
+          <br /> <br /> Loading message...
         </span>
       </div>
     );
 
-  const handleSetRequestInactive = (request: Request, history: any) => {
-    const cloneRequest: Request = JSON.parse(JSON.stringify(request));
-    cloneRequest.requestState = false;
-    dispatch(setRequest(cloneRequest));
-    const { _id, buyer, seller, plant, message, reply, requestState } = cloneRequest;
-    const updatedRequest: Request = {
+  // Set message of the buyer inactive by the seller
+  const handleSetMessageInactive = (message: Message, history: any) => {
+    const clonedMessage: Message = JSON.parse(JSON.stringify(message));
+    clonedMessage.messageState = false;
+    dispatch(setMessage(clonedMessage));
+    const { _id, buyer, seller, plant, request, reply, messageState } =
+      clonedMessage;
+    const updatedMessage: Message = {
       buyer,
       seller,
       plant,
-      message,
+      request,
       reply,
-      requestState,
+      messageState,
     };
-    dispatch(updateRequest({ requestId: _id, updatedRequest}));
+    dispatch(updateMessage({ messageId: _id, updatedMessage }));
     dispatch(decreaseAmountOfRequests());
     history.push("/requests/fetch");
   };
@@ -58,7 +60,7 @@ const RequestDetails = () => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Request for {(plant as Plant).name} </h2>
         <h5> by {(buyer as User).username} </h5>
-        <p className="form-control"> {message} </p>
+        <p className="form-control"> {request} </p>
         {reply && (
           <div>
             <h5> Your reply </h5>
@@ -67,7 +69,7 @@ const RequestDetails = () => {
         )}
         <div className="text-right px-3">
           {!reply && (
-            <Link to={`/requests/update/${_id}`}>
+            <Link to={`/messages/update/${_id}`}>
               <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
                 Reply
               </button>
@@ -75,7 +77,7 @@ const RequestDetails = () => {
           )}
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
-            onClick={() => handleSetRequestInactive(request, history)}
+            onClick={() => handleSetMessageInactive(message, history)}
           >
             Done
           </button>

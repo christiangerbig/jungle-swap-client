@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
   return (
     <div className="footer-row">
       <footer>

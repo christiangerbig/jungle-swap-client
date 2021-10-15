@@ -5,7 +5,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const SignUp = () => {
+const SignUp = (): JSX.Element => {
   const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,7 +18,7 @@ const SignUp = () => {
   }, []);
 
   // Sign up
-  const handleSignUp = (event: any, history: any) => {
+  const handleSignUp = (event: any, history: any): void => {
     event.preventDefault();
     const { username, email, password } = event.target;
     const newUser = {

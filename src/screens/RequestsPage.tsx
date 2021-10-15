@@ -3,42 +3,42 @@ import { Link, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
 import {
-  fetchAllRequests,
+  fetchAllMessages,
   setIsNewRequest,
   User,
   Plant,
-  Request,
+  Message,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const RequestsPage = () => {
+const RequestsPage = (): JSX.Element => {
   const loggedInUser = useSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
   const isUserChange = useSelector(
     (state: RootState) => state.jungleSwap.isUserChange
   );
-  const requests = useSelector((state: RootState) => state.jungleSwap.requests);
+  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
   const amountOfRequests = useSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useDispatch();
 
-  // Fetch all requests and reset values as soon as page loads and reset values during cleanup
+  // Fetch all messages and reset values as soon as page loads and reset values during cleanup
   useEffect(() => {
-    const handleResetAll = () => {
+    const handleResetAll = (): void => {
       dispatch(setIsNewRequest(false));
       scroll.scrollToTop();
     };
 
-    dispatch(fetchAllRequests(isUserChange));
+    dispatch(fetchAllMessages(isUserChange));
     handleResetAll();
     return () => handleResetAll();
   }, []);
 
   if (!loggedInUser) return <Redirect to={"/signup"} />;
 
-  if (!requests)
+  if (!messages)
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
@@ -59,24 +59,33 @@ const RequestsPage = () => {
             </button>
           </Link>
         </div>
-        {requests.map(({ _id, buyer, seller, plant, requestState }: Request) => {
-          return (
-            (((seller as User)._id === loggedInUser._id) && (requestState === true)) && (
-              <div className="card p-3 mt-4 " key={_id}>
-                <h4> Request for {(plant as Plant).name} </h4>
-                <h5> by {(buyer as User).username} </h5>
-                <div className="text-center">
-                  <Link
-                    className="btn smallWidth form-control"
-                    to={`/requests/read/${_id}`}
-                  >
-                    Details
-                  </Link>
+        {messages.map(
+          ({
+            _id,
+            buyer,
+            seller,
+            plant,
+            messageState,
+          }: Message): false | JSX.Element => {
+            return (
+              (seller as User)._id === loggedInUser._id &&
+              messageState === true && (
+                <div className="card p-3 mt-4 " key={_id}>
+                  <h4> Request for {(plant as Plant).name} </h4>
+                  <h5> by {(buyer as User).username} </h5>
+                  <div className="text-center">
+                    <Link
+                      className="btn smallWidth form-control"
+                      to={`/requests/read/${_id}`}
+                    >
+                      Details
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )
-          );
-        })}
+              )
+            );
+          }
+        )}
         {amountOfRequests !== 0 && (
           <div className="text-right mt-4 pr-2">
             <Link to={"/"}>

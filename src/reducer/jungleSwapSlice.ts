@@ -24,14 +24,14 @@ export interface Plant {
   creator?: string | User | undefined;
 }
 
-export interface Request {
+export interface Message {
   _id?: string;
   buyer?: string | User | undefined;
   seller?: string | User | undefined;
   plant?: string | Plant | undefined;
-  message?: string;
+  request?: string;
   reply?: string;
-  requestState?: boolean;
+  messageState?: boolean;
 }
 
 export type LoggedInUser = User | null;
@@ -44,15 +44,14 @@ interface SliceState {
   isUserChange: boolean;
   plants: Plant[];
   plant: Plant | {};
-  requests: Request[];
-  request: Request | {};
+  messages: Message[];
+  message: Message | {};
   amountOfRequests: number;
   amountOfReplies: number;
   isNewRequest: boolean;
   isNewReply: boolean;
   intervalId: IntervalId;
   minutesCounter: number;
-  isMessagesDropdown: boolean;
   headerContainerHeight: number;
   aboutContainerHeight: number;
   clientSecret: string;
@@ -65,15 +64,14 @@ const initialState: SliceState = {
   isUserChange: false,
   plants: [],
   plant: {},
-  requests: [],
-  request: {},
+  messages: [],
+  message: {},
   amountOfRequests: 0,
   amountOfReplies: 0,
   isNewRequest: false,
   isNewReply: false,
   intervalId: null,
   minutesCounter: 0,
-  isMessagesDropdown: false,
   headerContainerHeight: 0,
   aboutContainerHeight: 0,
   clientSecret: "",
@@ -295,41 +293,41 @@ export const payPlant = createAsyncThunk(
   }
 );
 
-// --------- Requests ----------
-// Fetch all requests
-export const fetchAllRequests = createAsyncThunk(
-  "jungleSwap/fetchAllRequests",
+// --------- Messages ----------
+// Fetch all messages
+export const fetchAllMessages = createAsyncThunk(
+  "jungleSwap/fetchAllMessages",
   async (isUserChange: boolean, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(`${apiPath}/requests/fetch`);
-      dispatch(setRequests(response.data));
+      dispatch(setMessages(response.data));
       isUserChange && dispatch(setStartAmountOfRequests());
       isUserChange && dispatch(setStartAmountOfReplies());
     } catch (err) {
-      console.log("Fetching requests failed", err);
+      console.log("Fetching messages failed", err);
     }
   }
 );
 
-// Create request
-interface CreateRequestParameters {
-  newRequest: Request;
+// Create messages
+interface CreateMessageParameters {
+  newMessage: Message;
   history: any;
 }
 
-export const createRequest = createAsyncThunk(
-  "jungleSwap/createRequest",
+export const createMessage = createAsyncThunk(
+  "jungleSwap/createMessage",
   async (
-    { newRequest, history }: CreateRequestParameters,
+    { newMessage, history }: CreateMessageParameters,
     { dispatch }
   ): Promise<void> => {
     try {
       const response = await axios.post(
-        `${apiPath}/requests/create`,
-        newRequest,
+        `${apiPath}/messages/create`,
+        newMessage,
         { withCredentials: true }
       );
-      dispatch(addRequest(response.data));
+      dispatch(addMessage(response.data));
       history.push(`/plants/read/${response.data.plant._id}`);
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
@@ -337,66 +335,66 @@ export const createRequest = createAsyncThunk(
   }
 );
 
-// Read request
-export const readRequest = createAsyncThunk(
-  "jungleSwap/readRequest",
-  async (requestId: string, { dispatch }): Promise<void> => {
+// Read message
+export const readMessage = createAsyncThunk(
+  "jungleSwap/readMessage",
+  async (messageId: string, { dispatch }): Promise<void> => {
     try {
       const response = await axios.get(
-        `${apiPath}/requests/read/${requestId}`,
+        `${apiPath}/messages/read/${messageId}`,
         { withCredentials: true }
       );
-      dispatch(setRequest(response.data));
+      dispatch(setMessage(response.data));
     } catch {
-      console.log("Read request failed");
+      console.log("Read message failed");
     }
   }
 );
 
-// Update request
-interface UpdateRequestParameters {
-  requestId: string | undefined;
-  updatedRequest: Request;
+// Update message
+interface UpdateMessageParameters {
+  messageId: string | undefined;
+  updatedMessage: Message;
 }
 
-export const updateRequest = createAsyncThunk(
-  "jungleSwap/updateRequest",
+export const updateMessage = createAsyncThunk(
+  "jungleSwap/updateMessage",
   async (
-    { requestId, updatedRequest }: UpdateRequestParameters,
+    { messageId, updatedMessage }: UpdateMessageParameters,
     { dispatch }
   ) => {
     try {
       const response = await axios.patch(
-        `${apiPath}/requests/update/${requestId}`,
-        updatedRequest
+        `${apiPath}/messages/update/${messageId}`,
+        updatedMessage
       );
-      dispatch(setRequestChanges(response.data));
+      dispatch(setMessageChanges(response.data));
     } catch (err) {
-      console.log("Update request failed", err);
+      console.log("Update message failed", err);
     }
   }
 );
 
-// Delete request
-interface DeleteRequestParameters {
-  requestId: string | undefined;
+// Delete message
+interface DeleteMessageParameters {
+  messageId: string | undefined;
   history: any;
 }
 
-export const deleteRequest = createAsyncThunk(
-  "jungleSwap/deleteRequest",
+export const deleteMessage = createAsyncThunk(
+  "jungleSwap/deleteMessage",
   async (
-    { requestId, history }: DeleteRequestParameters,
+    { messageId, history }: DeleteMessageParameters,
     { dispatch }
   ): Promise<void> => {
     try {
-      await axios.delete(`${apiPath}/requests/delete/${requestId}`);
-      dispatch(removeRequest(requestId));
+      await axios.delete(`${apiPath}/messages/delete/${messageId}`);
+      dispatch(removeMessage(messageId));
       dispatch(decreaseAmountOfRequests());
       dispatch(decreaseAmountOfReplies());
       history && history.push("/replies/fetch");
     } catch (err) {
-      console.log("Delete request failed", err);
+      console.log("Delete message failed", err);
     }
   }
 );
@@ -539,48 +537,57 @@ export const jungleSwapSlice = createSlice({
       state.clientSecret = action.payload;
     },
 
-    // ---------- Requests ----------
-    setRequests: (state, action: PayloadAction<Request[]>) => {
-      state.requests = action.payload;
+    // ---------- Messages ----------
+    setMessages: (state, action: PayloadAction<Message[]>) => {
+      state.messages = action.payload;
     },
-    setRequest: (state, action: PayloadAction<Request>) => {
-      state.request = action.payload;
+    setMessage: (state, action: PayloadAction<Message>) => {
+      state.message = action.payload;
     },
-    addRequest: (state, action: PayloadAction<Request>) => {
-      state.requests.push(action.payload);
+    addMessage: (state, action: PayloadAction<Message>) => {
+      state.messages.push(action.payload);
     },
-    setRequestChanges: (state, action: PayloadAction<Request>) => {
-      const { _id, buyer, seller, plant, message, reply, requestState } = action.payload;
-      state.requests = state.requests.map((singleRequest) => {
-        if (singleRequest._id === _id) {
-          singleRequest.buyer = buyer;
-          singleRequest.seller = seller;
-          singleRequest.plant = plant;
-          singleRequest.message = message;
-          singleRequest.reply = reply;
-          singleRequest.requestState = requestState;
+    setMessageChanges: (state, action: PayloadAction<Message>) => {
+      const { _id, buyer, seller, plant, request, reply, messageState } =
+        action.payload;
+      state.messages = state.messages.map((singleMessage) => {
+        if (singleMessage._id === _id) {
+          singleMessage.buyer = buyer;
+          singleMessage.seller = seller;
+          singleMessage.plant = plant;
+          singleMessage.request = request;
+          singleMessage.reply = reply;
+          singleMessage.messageState = messageState;
         }
-        return singleRequest;
+        return singleMessage;
       });
     },
-    removeRequest: (state, action: PayloadAction<string | undefined>) => {
-      state.requests = state.requests.filter(
-        (request) => request._id !== action.payload
+    removeMessage: (state, action: PayloadAction<string | undefined>) => {
+      state.messages = state.messages.filter(
+        (message: Message): boolean => message._id !== action.payload
       );
     },
     setStartAmountOfRequests: (state) => {
-      state.amountOfRequests = state.requests.filter(
-        (currentRequest) => {
-          const {seller, requestState} = currentRequest;
-          return state.loggedInUser && ((seller as User)._id === state.loggedInUser._id) && (requestState === true);
+      state.amountOfRequests = state.messages.filter(
+        (message: Message): boolean | null => {
+          const { seller, messageState } = message;
+          return (
+            state.loggedInUser &&
+            (seller as User)._id === state.loggedInUser._id &&
+            messageState === true
+          );
         }
       ).length;
     },
     setStartAmountOfReplies: (state) => {
-      state.amountOfReplies = state.requests.filter(
-        (currentRequest) => {
-          const {buyer, reply} = currentRequest;
-          return state.loggedInUser && ((buyer as User)._id === state.loggedInUser._id) && reply;
+      state.amountOfReplies = state.messages.filter(
+        (message: Message): string | false | null | undefined => {
+          const { buyer, reply } = message;
+          return (
+            state.loggedInUser &&
+            (buyer as User)._id === state.loggedInUser._id &&
+            reply
+          );
         }
       ).length;
     },
@@ -652,11 +659,11 @@ export const {
   setClientSecret,
 
   // ---------- Requests ----------
-  setRequests,
-  setRequest,
-  addRequest,
-  setRequestChanges,
-  removeRequest,
+  setMessages,
+  setMessage,
+  addMessage,
+  setMessageChanges,
+  removeMessage,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
   setAmountOfRequests,

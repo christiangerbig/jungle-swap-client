@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const LogOut = () => {
+const LogOut = (): JSX.Element => {
   const intervalId: any = useSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );

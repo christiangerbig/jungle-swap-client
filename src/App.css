@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&family=Source+Sans+Pro:wght@200;300&display=swap");
-/* Elements */
 html,
 body {
   background-color: #fbf8ef;
@@ -35,28 +34,6 @@ div input {
 
 span {
   font-weight: 700;
-}
-
-.popDownMenu {
-  font-weight: 400;
-  color: #415dfa;
-}
-
-.popDownMenu:hover {
-  color: #204d2c;
-  cursor: pointer;
-}
-
-.menuBox {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 1.9rem;
-  left: 22.7rem;
-  z-index: 1030;
-  width: content-box;
-  background-color: #fbf8efdf;
-  border: solid grey 1px;
 }
 
 hr {
@@ -144,19 +121,25 @@ footer {
   padding: 15px;
 }
 
-@media only screen and (max-width: 768px) {
-  .headerImg h2 {
-    font-size: 40px;
-    margin-left: -45px;
-  }
-}
-
 .headerImg h5 {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: #fbf8ef;
+}
+
+@media only screen and (max-width: 768px) {
+  .headerImg h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerImg h2 {
+    font-size: 40px;
+    margin-left: -45px;
+  }
 }
 
 .image {

@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { setRequest, updateRequest, Request } from "../reducer/jungleSwapSlice";
+import { setMessage, updateMessage, Message } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const UpdateRequestForm = () => {
-  const request = useSelector((state: RootState) => state.jungleSwap.request);
+const UpdateRequestForm = (): JSX.Element => {
+  const message = useSelector((state: RootState) => state.jungleSwap.message);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -14,49 +14,49 @@ const UpdateRequestForm = () => {
   useEffect(() => scroll.scrollToTop(), []);
 
   // Create reply
-  const handleCreateReply = ({ target }: any, request: Request) => {
-    const cloneRequest: Request = JSON.parse(JSON.stringify(request));
-    cloneRequest.reply = target.value;
-    dispatch(setRequest(cloneRequest));
+  const handleCreateReply = ({ target }: any, message: Message): void => {
+    const clonedMessage: Message = JSON.parse(JSON.stringify(message));
+    clonedMessage.reply = target.value;
+    dispatch(setMessage(clonedMessage));
   };
 
-  // Update request
-  const handleUpdateRequest = (
-    { _id, buyer, seller, plant, message, reply, requestState }: Request,
+  // Update message
+  const handleUpdateMessage = (
+    { _id, buyer, seller, plant, request, reply, messageState }: Message,
     history: any
-  ) => {
-    const updatedRequest: Request = {
+  ): void => {
+    const updatedMessage: Message = {
       buyer,
       seller,
       plant,
-      message,
+      request,
       reply,
-      requestState,
+      messageState,
     };
-    dispatch(updateRequest({ requestId: _id, updatedRequest}));
-    history.push(`/requests/read/${{requestId: _id}}`);
+    dispatch(updateMessage({ messageId: _id, updatedMessage }));
+    history.push(`/requests/read/${{ messageId: _id }}`);
   };
 
-  const { _id, message } = request as Request;
+  const { _id, request } = message as Message;
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mt-5 mb-4"> Reply your request </h2>
         <div className="card cardSmallWidth mb-5">
           <div className="card-body">
-            <p> {message} </p>
+            <p> {request} </p>
             <textarea
               className="mb-4 form-control"
               name="reply"
               cols={31}
               rows={6}
               placeholder="Your reply"
-              onChange={(event) => handleCreateReply(event, request)}
+              onChange={(event) => handleCreateReply(event, message)}
             />
             <div className="row justify-content-end px-3">
               <button
                 className="btn btn-sm smallWidth form-control mr-3 mb-2"
-                onClick={() => handleUpdateRequest(request, history)}
+                onClick={() => handleUpdateMessage(message, history)}
               >
                 Submit
               </button>

@@ -10,7 +10,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
-const SignIn = () => {
+const SignIn = (): JSX.Element => {
   const error = useSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,7 +23,7 @@ const SignIn = () => {
   }, []);
 
   // Sign in
-  const handleSignIn = (event: any, history: any) => {
+  const handleSignIn = (event: any, history: any): void => {
     event.preventDefault();
     const { email, password } = event.target;
     const user: User = {
