@@ -82,9 +82,9 @@ const NavBar = () => {
       dispatch(fetchAllMessages(isUserChange));
       const currentAmountOfRequests = messages.filter(
         (message: Message) => {
-          const { seller } = message;
+          const { seller, messageState } = message;
           return (
-            (seller as User)._id === loggedInUser._id
+            (seller as User)._id === loggedInUser._id && messageState === true
           );
         }
       ).length;

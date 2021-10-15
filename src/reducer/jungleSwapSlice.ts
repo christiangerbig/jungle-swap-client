@@ -390,7 +390,6 @@ export const deleteMessage = createAsyncThunk(
     try {
       await axios.delete(`${apiPath}/messages/delete/${messageId}`);
       dispatch(removeMessage(messageId));
-      dispatch(decreaseAmountOfRequests());
       dispatch(decreaseAmountOfReplies());
       history && history.push("/replies/fetch");
     } catch (err) {
@@ -569,10 +568,11 @@ export const jungleSwapSlice = createSlice({
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.messages.filter((message: Message) => {
-        const { seller } = message;
+        const { seller, messageState } = message;
         return (
           state.loggedInUser &&
-          (seller as User)._id === state.loggedInUser._id
+          (seller as User)._id === state.loggedInUser._id &&
+          messageState === true
         );
       }).length;
     },
