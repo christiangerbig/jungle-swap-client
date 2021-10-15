@@ -299,7 +299,7 @@ export const fetchAllMessages = createAsyncThunk(
   "jungleSwap/fetchAllMessages",
   async (isUserChange: boolean, { dispatch }): Promise<void> => {
     try {
-      const response = await axios.get(`${apiPath}/requests/fetch`);
+      const response = await axios.get(`${apiPath}/messages/fetch`);
       dispatch(setMessages(response.data));
       isUserChange && dispatch(setStartAmountOfRequests());
       isUserChange && dispatch(setStartAmountOfReplies());

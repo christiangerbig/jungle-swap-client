@@ -46,7 +46,7 @@ const CreateRequestForm = () => {
           <div>
             <textarea
               className="mb-4 form-control"
-              name="message"
+              name="request"
               cols={35}
               rows={7}
             />
