@@ -530,7 +530,7 @@ export const jungleSwapSlice = createSlice({
     },
     removePlant: (state, action: PayloadAction<string | undefined>) => {
       state.plants = state.plants.filter(
-        (plant) => plant._id !== action.payload
+        (plant: Plant) => plant._id !== action.payload
       );
     },
     setClientSecret: (state, action: PayloadAction<string>) => {
@@ -563,33 +563,29 @@ export const jungleSwapSlice = createSlice({
       });
     },
     removeMessage: (state, action: PayloadAction<string | undefined>) => {
-      state.messages = state.messages.filter(
-        (message: Message): boolean => message._id !== action.payload
-      );
+      state.messages = state.messages.filter((message: Message) => {
+        return message._id !== action.payload;
+      });
     },
     setStartAmountOfRequests: (state) => {
-      state.amountOfRequests = state.messages.filter(
-        (message: Message) => {
-          const { seller, messageState } = message;
-          return (
-            state.loggedInUser &&
-            (seller as User)._id === state.loggedInUser._id &&
-            messageState === true
-          );
-        }
-      ).length;
+      state.amountOfRequests = state.messages.filter((message: Message) => {
+        const { seller, messageState } = message;
+        return (
+          state.loggedInUser &&
+          (seller as User)._id === state.loggedInUser._id &&
+          messageState === true
+        );
+      }).length;
     },
     setStartAmountOfReplies: (state) => {
-      state.amountOfReplies = state.messages.filter(
-        (message: Message) => {
-          const { buyer, reply } = message;
-          return (
-            state.loggedInUser &&
-            (buyer as User)._id === state.loggedInUser._id &&
-            reply
-          );
-        }
-      ).length;
+      state.amountOfReplies = state.messages.filter((message: Message) => {
+        const { buyer, reply } = message;
+        return (
+          state.loggedInUser &&
+          (buyer as User)._id === state.loggedInUser._id &&
+          reply
+        );
+      }).length;
     },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;
