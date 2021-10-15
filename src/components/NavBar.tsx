@@ -81,10 +81,10 @@ const NavBar = () => {
     if (loggedInUser) {
       dispatch(fetchAllMessages(isUserChange));
       const currentAmountOfRequests = messages.filter(
-        (message: Message): boolean => {
-          const { seller, messageState } = message;
+        (message: Message) => {
+          const { seller } = message;
           return (
-            (seller as User)._id === loggedInUser._id && messageState === true
+            (seller as User)._id === loggedInUser._id
           );
         }
       ).length;
@@ -93,7 +93,7 @@ const NavBar = () => {
         dispatch(setIsNewRequest(true));
       }
       const currentAmountOfReplies = messages.filter(
-        (message: Message): string | false | undefined => {
+        (message: Message) => {
           const { buyer, reply } = message;
           return (buyer as User)._id === loggedInUser._id && reply;
         }

@@ -569,11 +569,10 @@ export const jungleSwapSlice = createSlice({
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = state.messages.filter((message: Message) => {
-        const { seller, messageState } = message;
+        const { seller } = message;
         return (
           state.loggedInUser &&
-          (seller as User)._id === state.loggedInUser._id &&
-          messageState === true
+          (seller as User)._id === state.loggedInUser._id
         );
       }).length;
     },
