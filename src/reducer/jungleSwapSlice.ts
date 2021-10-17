@@ -10,6 +10,8 @@ export interface User {
   username?: string;
   email: string;
   password: string;
+  amountOfRequests?: number;
+  amountOfReplies?: number;
 }
 
 export interface Plant {

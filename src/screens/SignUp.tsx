@@ -25,6 +25,8 @@ const SignUp = (): JSX.Element => {
       username: username.value,
       email: email.value.toLowerCase(),
       password: password.value,
+      amountOfRequests: 0,
+      amountOfReplies: 0,
     };
     dispatch(signUp({ newUser, history }));
   };
