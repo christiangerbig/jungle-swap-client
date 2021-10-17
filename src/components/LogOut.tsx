@@ -14,6 +14,7 @@ const LogOut = (): JSX.Element => {
 
   // Log out, stop interval, reset variables and scroll to top as soon as page loads
   useEffect(() => {
+    user && (user.amountOfRequests = 99);
     dispatch(logOut({ user, intervalId, history }));
   }, []);
 
