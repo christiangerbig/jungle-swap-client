@@ -463,6 +463,7 @@ export const signIn = createAsyncThunk(
 
 // LogOut
 interface LogOutParameters {
+  user: User | null;
   intervalId: NodeJS.Timer;
   history: any;
 }
@@ -470,11 +471,11 @@ interface LogOutParameters {
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async (
-    { intervalId, history }: LogOutParameters,
+    { user, intervalId, history }: LogOutParameters,
     { dispatch }
   ): Promise<void> => {
     try {
-      await axios.post(`${apiPath}/logout`, {}, { withCredentials: true });
+      await axios.post(`${apiPath}/logout`, user, { withCredentials: true });
       dispatch(setLoggedInUser(null));
       clearInterval(intervalId);
       dispatch(setIntervalId(null));
