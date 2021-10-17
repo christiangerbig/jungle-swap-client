@@ -14,6 +14,11 @@ export interface User {
   amountOfReplies?: number;
 }
 
+export interface MessageCounters {
+  amountOfRequests?: number;
+  amountOfReplies?: number;
+}
+
 export interface Plant {
   _id?: string;
   name?: string;
@@ -476,6 +481,7 @@ export const logOut = createAsyncThunk(
     { user, intervalId, history }: LogOutParameters,
     { dispatch }
   ): Promise<void> => {
+    console.log(user);
     try {
       await axios.post(`${apiPath}/logout`, user, { withCredentials: true });
       dispatch(setLoggedInUser(null));
@@ -496,6 +502,15 @@ export const jungleSwapSlice = createSlice({
   initialState,
   // ---------- Reducers -----------
   reducers: {
+    // --------- User -----------
+    setUserChanges: (state) => {
+      state.loggedInUser && (state.loggedInUser.amountOfRequests = state.amountOfRequests);
+      state.loggedInUser && (state.loggedInUser.amountOfReplies = state.amountOfReplies);
+    },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.loggedInUser = action.payload;
+    },
+
     // --------- Plants ----------
     setPlants: (state, action: PayloadAction<Plant[]>) => {
       state.plants = action.payload;
@@ -648,6 +663,10 @@ export const jungleSwapSlice = createSlice({
 });
 
 export const {
+  // ----------- User -----------
+  setUserChanges,
+  setUser,
+
   // ----------- Plants ----------
   setPlants,
   setPlant,
