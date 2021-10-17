@@ -37,11 +37,11 @@ const ReplyDetails = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Your request for {(plant as Plant).name} </h2>
-        <p className="form-control"> {request} </p>
+        <p className="textField p-3 mb-4"> {request} </p>
         {reply && (
           <div>
             <h5> Reply by {(seller as User).username} </h5>
-            <p className="form-control"> {reply} </p>
+            <p className="textField p-3 mb-4"> {reply} </p>
           </div>
         )}
         <div className="text-right px-3">

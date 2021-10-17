@@ -64,7 +64,7 @@ const RequestsPage = (): JSX.Element => {
             return (
               (seller as User)._id === loggedInUser._id &&
               messageState === true && (
-                <div className="card p-3 mt-4 " key={_id}>
+                <div className="card p-3 mt-4" key={_id}>
                   <h4> Request for {(plant as Plant).name} </h4>
                   <h5> by {(buyer as User).username} </h5>
                   <div className="text-center">

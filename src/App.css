@@ -137,7 +137,6 @@ footer {
 
 @media (max-width: 480px) {
   .headerImg h2 {
-    font-size: 40px;
     margin-left: -45px;
   }
 }
@@ -230,6 +229,18 @@ footer {
   width: 30%;
 }
 
+@media (max-width: 1024px) {
+  .smallWidth {
+    width: 35%;
+  }
+}
+
+@media (max-width: 768px) {
+  .smallWidth {
+    width: 50%;
+  }
+}
+
 .navbar-toggler {
   background-color: #415dfa;
 }
@@ -265,6 +276,12 @@ footer {
   color: #fbf8ef;
   padding-top: 50px;
   padding-bottom: 0px;
+}
+
+.textField {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: .25rem;
 }
 
 /* Bootstrap classes */
