@@ -7,8 +7,8 @@ import {
   fetchAllMessages,
   setIsUserChange,
   setIntervalId,
-  increaseMinutesCounter,
-  setMinutesCounter,
+  increaseDelayCounter,
+  setDelayCounter,
   setAmountOfRequests,
   setAmountOfReplies,
   setIsNewRequest,
@@ -32,8 +32,8 @@ const NavBar = () => {
   const intervalId = useSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
-  const minutesCounter = useSelector(
-    (state: RootState) => state.jungleSwap.minutesCounter
+  const delayCounter = useSelector(
+    (state: RootState) => state.jungleSwap.delayCounter
   );
   const amountOfRequests = useSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
@@ -55,35 +55,10 @@ const NavBar = () => {
       if (intervalId) {
         clearInterval(intervalId);
         dispatch(setIntervalId(null));
-        dispatch(setMinutesCounter(0));
+        dispatch(setDelayCounter(0));
       }
     };
   }, []);
-
-  // Check for new requests or replies
-  const checkForNewMessages = () => {
-    dispatch(fetchAllMessages(isUserChange));
-    const currentAmountOfRequests = messages.filter((message: Message) => {
-      const { seller, messageState } = message;
-      return (
-        loggedInUser &&
-        (seller as User)._id === loggedInUser._id &&
-        messageState === true
-      );
-    }).length;
-    if (amountOfRequests && amountOfRequests < currentAmountOfRequests) {
-      dispatch(setAmountOfRequests(currentAmountOfRequests));
-      dispatch(setIsNewRequest(true));
-    }
-    const currentAmountOfReplies = messages.filter((message: Message) => {
-      const { buyer, reply } = message;
-      return loggedInUser && (buyer as User)._id === loggedInUser._id && reply;
-    }).length;
-    if (amountOfReplies && amountOfReplies < currentAmountOfReplies) {
-      dispatch(setAmountOfReplies(currentAmountOfReplies));
-      dispatch(setIsNewReply(true));
-    }
-  };
 
   // Start request/reply check if user changes
   useEffect(() => {
@@ -92,21 +67,47 @@ const NavBar = () => {
       dispatch(
         setIntervalId(
           setInterval(
-            () => dispatch(increaseMinutesCounter()),
-            10000 // every minute
+            () => dispatch(increaseDelayCounter()),
+            1000 // every second
           )
         )
       );
-      checkForNewMessages();
+      dispatch(increaseDelayCounter());
     }
   }, [isUserChange]);
 
   // Check new requests/replies for logged in user every minute
   useEffect(() => {
     if (loggedInUser) {
-      checkForNewMessages();
+      dispatch(fetchAllMessages(isUserChange));
+      const currentAmountOfRequests = messages.filter((message: Message) => {
+        const { seller, messageState } = message;
+        return (
+          loggedInUser &&
+          (seller as User)._id === loggedInUser._id &&
+          messageState === true
+        );
+      }).length;
+      if (amountOfRequests) {
+        if (amountOfRequests < currentAmountOfRequests) {
+          dispatch(setAmountOfRequests(currentAmountOfRequests));
+          dispatch(setIsNewRequest(true));
+        }
+      }
+      const currentAmountOfReplies = messages.filter((message: Message) => {
+        const { buyer, reply } = message;
+        return (
+          loggedInUser && (buyer as User)._id === loggedInUser._id && reply
+        );
+      }).length;
+      if (amountOfReplies) {
+        if (amountOfReplies < currentAmountOfReplies) {
+          dispatch(setAmountOfReplies(currentAmountOfReplies));
+          dispatch(setIsNewReply(true));
+        }
+      }
     }
-  }, [minutesCounter]);
+  }, [delayCounter]);
 
   return (
     <div>

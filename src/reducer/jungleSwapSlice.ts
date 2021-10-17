@@ -58,7 +58,7 @@ interface SliceState {
   isNewRequest: boolean;
   isNewReply: boolean;
   intervalId: IntervalId;
-  minutesCounter: number;
+  delayCounter: number;
   headerContainerHeight: number;
   aboutContainerHeight: number;
   clientSecret: string;
@@ -78,7 +78,7 @@ const initialState: SliceState = {
   isNewRequest: false,
   isNewReply: false,
   intervalId: null,
-  minutesCounter: 0,
+  delayCounter: 0,
   headerContainerHeight: 0,
   aboutContainerHeight: 0,
   clientSecret: "",
@@ -489,7 +489,7 @@ export const logOut = createAsyncThunk(
       dispatch(setLoggedInUser(null));
       clearInterval(intervalId);
       dispatch(setIntervalId(null));
-      dispatch(setMinutesCounter(0));
+      dispatch(setDelayCounter(0));
       dispatch(setIsNewRequest(false));
       history.push("/");
       scroll.scrollToTop();
@@ -603,11 +603,11 @@ export const jungleSwapSlice = createSlice({
     setIntervalId: (state, action: PayloadAction<IntervalId>) => {
       state.intervalId = action.payload;
     },
-    setMinutesCounter: (state, action: PayloadAction<number>) => {
-      state.minutesCounter = action.payload;
+    setDelayCounter: (state, action: PayloadAction<number>) => {
+      state.delayCounter = action.payload;
     },
-    increaseMinutesCounter: (state) => {
-      state.minutesCounter += 1;
+    increaseDelayCounter: (state) => {
+      state.delayCounter += 1;
     },
     decreaseAmountOfRequests: (state) => {
       state.amountOfRequests && (state.amountOfRequests -= 1);
@@ -671,8 +671,8 @@ export const {
   setIsNewRequest,
   setIsNewReply,
   setIntervalId,
-  setMinutesCounter,
-  increaseMinutesCounter,
+  setDelayCounter,
+  increaseDelayCounter,
   decreaseAmountOfRequests,
   decreaseAmountOfReplies,
 
