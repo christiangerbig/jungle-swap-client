@@ -18,11 +18,8 @@ const LogOut = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-// Log out, stop interval, reset variables and scroll to top as soon as page loads
+// Update user and log out as soon as page loads
   useEffect(() => {
-
-
-
     const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
     clonedUser.amountOfRequests = amountOfRequests;
     clonedUser.amountOfReplies = amountOfReplies;

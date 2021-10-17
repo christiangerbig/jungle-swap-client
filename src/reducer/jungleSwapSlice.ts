@@ -10,8 +10,8 @@ export interface User {
   username?: string;
   email: string;
   password: string;
-  amountOfRequests?: number;
-  amountOfReplies?: number;
+  amountOfRequests?: number |undefined;
+  amountOfReplies?: number | undefined;
 }
 
 export interface MessageCounters {
@@ -53,8 +53,8 @@ interface SliceState {
   plant: Plant | {};
   messages: Message[];
   message: Message | {};
-  amountOfRequests: number;
-  amountOfReplies: number;
+  amountOfRequests: number | undefined;
+  amountOfReplies: number | undefined;
   isNewRequest: boolean;
   isNewReply: boolean;
   intervalId: IntervalId;
@@ -459,7 +459,10 @@ export const signIn = createAsyncThunk(
       const response = await axios.post(`${apiPath}/signin`, user, {
         withCredentials: true,
       });
-      dispatch(setLoggedInUser(response.data));
+      const loadedUser: User = response.data;
+      dispatch(setLoggedInUser(loadedUser));
+      dispatch(setAmountOfRequests(loadedUser.amountOfRequests));
+      dispatch(setAmountOfReplies(loadedUser.amountOfReplies));
       dispatch(setIsUserChange(true));
       history.push("/");
     } catch (err: any) {
@@ -481,7 +484,6 @@ export const logOut = createAsyncThunk(
     { user, intervalId, history }: LogOutParameters,
     { dispatch }
   ): Promise<void> => {
-    console.log(user);
     try {
       await axios.post(`${apiPath}/logout`, user, { withCredentials: true });
       dispatch(setLoggedInUser(null));
@@ -503,10 +505,6 @@ export const jungleSwapSlice = createSlice({
   // ---------- Reducers -----------
   reducers: {
     // --------- User -----------
-    setUserChanges: (state) => {
-      state.loggedInUser && (state.loggedInUser.amountOfRequests = state.amountOfRequests);
-      state.loggedInUser && (state.loggedInUser.amountOfReplies = state.amountOfReplies);
-    },
     setUser: (state, action: PayloadAction<User>) => {
       state.loggedInUser = action.payload;
     },
@@ -585,29 +583,15 @@ export const jungleSwapSlice = createSlice({
       });
     },
     setStartAmountOfRequests: (state) => {
-      state.amountOfRequests = state.messages.filter((message: Message) => {
-        const { seller, messageState } = message;
-        return (
-          state.loggedInUser &&
-          (seller as User)._id === state.loggedInUser._id &&
-          messageState === true
-        );
-      }).length;
+      state.loggedInUser && (state.amountOfRequests = state.loggedInUser.amountOfRequests);
     },
     setStartAmountOfReplies: (state) => {
-      state.amountOfReplies = state.messages.filter((message: Message) => {
-        const { buyer, reply } = message;
-        return (
-          state.loggedInUser &&
-          (buyer as User)._id === state.loggedInUser._id &&
-          reply
-        );
-      }).length;
+      state.loggedInUser && (state.amountOfReplies = state.loggedInUser.amountOfReplies);
     },
-    setAmountOfRequests: (state, action: PayloadAction<number>) => {
+    setAmountOfRequests: (state, action: PayloadAction<number | undefined>) => {
       state.amountOfRequests = action.payload;
     },
-    setAmountOfReplies: (state, action: PayloadAction<number>) => {
+    setAmountOfReplies: (state, action: PayloadAction<number |undefined>) => {
       state.amountOfReplies = action.payload;
     },
     setIsNewRequest: (state, action: PayloadAction<boolean>) => {
@@ -626,10 +610,10 @@ export const jungleSwapSlice = createSlice({
       state.minutesCounter += 1;
     },
     decreaseAmountOfRequests: (state) => {
-      state.amountOfRequests -= 1;
+      state.amountOfRequests && (state.amountOfRequests -= 1);
     },
     decreaseAmountOfReplies: (state) => {
-      state.amountOfReplies -= 1;
+      state.amountOfReplies && (state.amountOfReplies -= 1);
     },
 
     // ---------- User authentification ----------
@@ -664,7 +648,6 @@ export const jungleSwapSlice = createSlice({
 
 export const {
   // ----------- User -----------
-  setUserChanges,
   setUser,
 
   // ----------- Plants ----------

@@ -60,10 +60,34 @@ const NavBar = () => {
     };
   }, []);
 
+  // Check for new requests or replies
+  const checkForNewMessages = () => {
+    dispatch(fetchAllMessages(isUserChange));
+    const currentAmountOfRequests = messages.filter((message: Message) => {
+      const { seller, messageState } = message;
+      return (
+        loggedInUser &&
+        (seller as User)._id === loggedInUser._id &&
+        messageState === true
+      );
+    }).length;
+    if (amountOfRequests && amountOfRequests < currentAmountOfRequests) {
+      dispatch(setAmountOfRequests(currentAmountOfRequests));
+      dispatch(setIsNewRequest(true));
+    }
+    const currentAmountOfReplies = messages.filter((message: Message) => {
+      const { buyer, reply } = message;
+      return loggedInUser && (buyer as User)._id === loggedInUser._id && reply;
+    }).length;
+    if (amountOfReplies && amountOfReplies < currentAmountOfReplies) {
+      dispatch(setAmountOfReplies(currentAmountOfReplies));
+      dispatch(setIsNewReply(true));
+    }
+  };
+
   // Start request/reply check if user changes
   useEffect(() => {
     if (isUserChange) {
-      dispatch(fetchAllMessages(isUserChange));
       dispatch(setIsUserChange(false));
       dispatch(
         setIntervalId(
@@ -73,31 +97,14 @@ const NavBar = () => {
           )
         )
       );
+      checkForNewMessages();
     }
   }, [isUserChange]);
 
   // Check new requests/replies for logged in user every minute
   useEffect(() => {
     if (loggedInUser) {
-      dispatch(fetchAllMessages(isUserChange));
-      const currentAmountOfRequests = messages.filter((message: Message) => {
-        const { seller, messageState } = message;
-        return (
-          (seller as User)._id === loggedInUser._id && messageState === true
-        );
-      }).length;
-      if (amountOfRequests < currentAmountOfRequests) {
-        dispatch(setAmountOfRequests(currentAmountOfRequests));
-        dispatch(setIsNewRequest(true));
-      }
-      const currentAmountOfReplies = messages.filter((message: Message) => {
-        const { buyer, reply } = message;
-        return (buyer as User)._id === loggedInUser._id && reply;
-      }).length;
-      if (amountOfReplies < currentAmountOfReplies) {
-        dispatch(setAmountOfReplies(currentAmountOfReplies));
-        dispatch(setIsNewReply(true));
-      }
+      checkForNewMessages();
     }
   }, [minutesCounter]);
 
