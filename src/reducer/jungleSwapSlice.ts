@@ -10,8 +10,8 @@ export interface User {
   username?: string;
   email: string;
   password: string;
-  amountOfRequests?: number |undefined;
-  amountOfReplies?: number | undefined;
+  amountOfRequests?: number;
+  amountOfReplies?: number;
 }
 
 export interface MessageCounters {
@@ -53,8 +53,8 @@ interface SliceState {
   plant: Plant | {};
   messages: Message[];
   message: Message | {};
-  amountOfRequests: number | undefined;
-  amountOfReplies: number | undefined;
+  amountOfRequests: number;
+  amountOfReplies: number;
   isNewRequest: boolean;
   isNewReply: boolean;
   intervalId: IntervalId;
@@ -459,7 +459,7 @@ export const signIn = createAsyncThunk(
       const response = await axios.post(`${apiPath}/signin`, user, {
         withCredentials: true,
       });
-      const loadedUser: User = response.data;
+      const loadedUser = response.data;
       dispatch(setLoggedInUser(loadedUser));
       dispatch(setAmountOfRequests(loadedUser.amountOfRequests));
       console.log("user",loadedUser.amountOfReplies);
@@ -584,15 +584,15 @@ export const jungleSwapSlice = createSlice({
       });
     },
     setStartAmountOfRequests: (state) => {
-      state.loggedInUser && (state.amountOfRequests = state.loggedInUser.amountOfRequests);
+      state.loggedInUser && (state.amountOfRequests = (state.loggedInUser as any).amountOfRequests);
     },
     setStartAmountOfReplies: (state) => {
-      state.loggedInUser && (state.amountOfReplies = state.loggedInUser.amountOfReplies);
+      state.loggedInUser && (state.amountOfReplies = (state.loggedInUser as any).amountOfReplies);
     },
-    setAmountOfRequests: (state, action: PayloadAction<number | undefined>) => {
+    setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;
     },
-    setAmountOfReplies: (state, action: PayloadAction<number |undefined>) => {
+    setAmountOfReplies: (state, action: PayloadAction<number>) => {
       state.amountOfReplies = action.payload;
     },
     setIsNewRequest: (state, action: PayloadAction<boolean>) => {

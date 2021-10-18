@@ -86,24 +86,20 @@ const NavBar = () => {
           (seller as User)._id === loggedInUser._id && messageState === true
         );
       }).length;
-      if (amountOfRequests) {
-        if (amountOfRequests < currentAmountOfRequests) {
-          dispatch(setAmountOfRequests(currentAmountOfRequests));
-          dispatch(setIsNewRequest(true));
-        }
+      if (amountOfRequests < currentAmountOfRequests) {
+        dispatch(setAmountOfRequests(currentAmountOfRequests));
+        dispatch(setIsNewRequest(true));
+      }
+      else if (amountOfRequests > currentAmountOfRequests){
+        dispatch(setAmountOfRequests(currentAmountOfRequests));
       }
       const currentAmountOfReplies = messages.filter((message: Message) => {
         const { buyer, reply } = message;
-        return (
-          (buyer as User)._id === loggedInUser._id && reply
-        );
+        return (buyer as User)._id === loggedInUser._id && reply;
       }).length;
-      console.log(currentAmountOfReplies);
-      if (amountOfReplies) {
-        if (amountOfReplies < currentAmountOfReplies) {
-          dispatch(setAmountOfReplies(currentAmountOfReplies));
-          dispatch(setIsNewReply(true));
-        }
+      if (amountOfReplies < currentAmountOfReplies) {
+        dispatch(setAmountOfReplies(currentAmountOfReplies));
+        dispatch(setIsNewReply(true));
       }
     }
   }, [delayCounter]);
