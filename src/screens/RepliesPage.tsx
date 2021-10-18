@@ -51,7 +51,7 @@ const RepliesPage = (): JSX.Element => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2> Replies for your requests </h2>
-        <h3 className="mb-4"> [{amountOfReplies}] </h3>
+        {/* <h3 className="mb-4"> [{amountOfReplies}] </h3> */}
         <div className="text-right pr-2">
           <Link to={"/"}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
