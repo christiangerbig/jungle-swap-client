@@ -83,9 +83,7 @@ const NavBar = () => {
       const currentAmountOfRequests = messages.filter((message: Message) => {
         const { seller, messageState } = message;
         return (
-          loggedInUser &&
-          (seller as User)._id === loggedInUser._id &&
-          messageState === true
+          (seller as User)._id === loggedInUser._id && messageState === true
         );
       }).length;
       if (amountOfRequests) {
@@ -97,9 +95,10 @@ const NavBar = () => {
       const currentAmountOfReplies = messages.filter((message: Message) => {
         const { buyer, reply } = message;
         return (
-          loggedInUser && (buyer as User)._id === loggedInUser._id && reply
+          (buyer as User)._id === loggedInUser._id && reply
         );
       }).length;
+      console.log(currentAmountOfReplies);
       if (amountOfReplies) {
         if (amountOfReplies < currentAmountOfReplies) {
           dispatch(setAmountOfReplies(currentAmountOfReplies));

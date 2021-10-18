@@ -462,6 +462,7 @@ export const signIn = createAsyncThunk(
       const loadedUser: User = response.data;
       dispatch(setLoggedInUser(loadedUser));
       dispatch(setAmountOfRequests(loadedUser.amountOfRequests));
+      console.log("user",loadedUser.amountOfReplies);
       dispatch(setAmountOfReplies(loadedUser.amountOfReplies));
       dispatch(setIsUserChange(true));
       history.push("/");
