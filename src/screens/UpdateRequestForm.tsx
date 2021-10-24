@@ -36,7 +36,7 @@ const UpdateRequestForm = (): JSX.Element => {
       messageState,
     };
     dispatch(updateMessage({ messageId: _id, updatedMessage }));
-    history.push(`/requests/read/${{ messageId: _id }}`);
+    history.push(`/requests/read/${{_id}}`);
   };
 
   const { _id, request } = message as Message;
