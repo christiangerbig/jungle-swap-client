@@ -335,7 +335,7 @@ export const createMessage = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(addMessage(response.data));
-      history.push(`/plants/read/${response.data.plant._id}`);
+      history.push(`/plants/read/${response.data.plant}`);
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     }

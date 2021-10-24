@@ -27,10 +27,10 @@ const CreateRequestForm = () => {
   const handleCreateMessage = (event: any, plant: Plant, history: any) => {
     event.preventDefault();
     const { request } = event.target;
-    const { creator } = plant;
+    const { _id, creator } = plant;
     const newMessage: Message = {
       seller: (creator as User)._id,
-      plant: plant._id,
+      plant: _id,
       request: request.value,
     };
     dispatch(createMessage({ newMessage, history }));
