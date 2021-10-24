@@ -67,7 +67,9 @@ const NavBar = () => {
       dispatch(
         setIntervalId(
           setInterval(
-            () => dispatch(increaseDelayCounter()),
+            () => {
+              dispatch(increaseDelayCounter());
+            },
             1000 // every second
           )
         )
@@ -89,8 +91,7 @@ const NavBar = () => {
       if (amountOfRequests < currentAmountOfRequests) {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
         dispatch(setIsNewRequest(true));
-      }
-      else if (amountOfRequests > currentAmountOfRequests){
+      } else if (amountOfRequests > currentAmountOfRequests) {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
       }
       const currentAmountOfReplies = messages.filter((message: Message) => {
@@ -121,7 +122,9 @@ const NavBar = () => {
               <Link
                 to="/"
                 className="p-2"
-                onClick={() => dispatch(scrollToPlants())}
+                onClick={() => {
+                  dispatch(scrollToPlants());
+                }}
               >
                 All Plants
               </Link>

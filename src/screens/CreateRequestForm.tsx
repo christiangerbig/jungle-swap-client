@@ -44,7 +44,9 @@ const CreateRequestForm = () => {
         <h3 className="mb-4"> for {name} </h3>
         <form
           className="pl-0"
-          onSubmit={(event) => handleCreateMessage(event, plant, history)}
+          onSubmit={(event) => {
+            handleCreateMessage(event, plant, history);
+          }}
         >
           <div>
             <textarea

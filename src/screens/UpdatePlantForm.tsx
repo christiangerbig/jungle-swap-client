@@ -16,7 +16,9 @@ const UpdatePlantForm = (): JSX.Element => {
   const history = useHistory();
 
   // Scroll to top as soon as page loads
-  useEffect(() => scroll.scrollToTop(), []);
+  useEffect(() => {
+    scroll.scrollToTop();
+  }, []);
 
   // Check which plant values changed
   const handlePlantEntryChange = (
@@ -92,7 +94,9 @@ const UpdatePlantForm = (): JSX.Element => {
             <input
               className="mb-4 form-control"
               type="text"
-              onChange={(event) => handlePlantEntryChange(event, plant, 0)}
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant, 0);
+              }}
               value={name}
               id="updateName"
             />
@@ -100,7 +104,9 @@ const UpdatePlantForm = (): JSX.Element => {
             <input
               className="mb-4 form-control"
               type="text"
-              onChange={(event) => handlePlantEntryChange(event, plant, 1)}
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant, 1);
+              }}
               value={description}
               id="updateDescription"
             />
@@ -108,14 +114,18 @@ const UpdatePlantForm = (): JSX.Element => {
             <input
               className="mb-4 form-control"
               type="number"
-              onChange={(event) => handlePlantEntryChange(event, plant, 2)}
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant, 2);
+              }}
               value={size}
               id="updateSize"
             />
             <label htmlFor="updateLocation"> Location </label>
             <select
               className="mb-4 form-control px-2"
-              onChange={(event) => handlePlantEntryChange(event, plant, 3)}
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant, 3);
+              }}
               name="location"
               placeholder="Select"
               id="updateLocation"
@@ -130,21 +140,27 @@ const UpdatePlantForm = (): JSX.Element => {
               name="price"
               type="number"
               min="1"
-              onChange={(event) => handlePlantEntryChange(event, plant, 4)}
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant, 4);
+              }}
               value={price}
               id="updatePrice"
             />
             <label htmlFor="updateImage"> Image </label>
             <input
               className="mb-4 form-control"
-              onChange={(event) => handleImageChange(event, plant)}
+              onChange={(event) => {
+                handleImageChange(event, plant);
+              }}
               type="file"
               id="updateImage"
             />
             <div className="col-12 text-right pr-0">
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
-                onClick={() => handleUpdatePlant(plant, history)}
+                onClick={() => {
+                  handleUpdatePlant(plant, history);
+                }}
               >
                 Save
               </button>

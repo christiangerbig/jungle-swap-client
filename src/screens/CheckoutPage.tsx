@@ -10,7 +10,9 @@ const promise = loadStripe(
 
 const CheckoutPage = (): JSX.Element => {
   // Scroll to top as soon as page loads
-  useEffect(() => scroll.scrollToTop(), []);
+  useEffect(() => {
+    scroll.scrollToTop();
+  }, []);
 
   return (
     <div className="container row mt-5">

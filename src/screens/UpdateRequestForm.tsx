@@ -11,7 +11,9 @@ const UpdateRequestForm = (): JSX.Element => {
   const history = useHistory();
 
   // Scroll to top as soon as page loads
-  useEffect(() => scroll.scrollToTop(), []);
+  useEffect(() => {
+    scroll.scrollToTop();
+  }, []);
 
   // Create reply
   const handleCreateReply = ({ target }: any, message: Message): void => {
@@ -51,12 +53,16 @@ const UpdateRequestForm = (): JSX.Element => {
               cols={31}
               rows={6}
               placeholder="Your reply"
-              onChange={(event) => handleCreateReply(event, message)}
+              onChange={(event) => {
+                handleCreateReply(event, message);
+              }}
             />
             <div className="row justify-content-end px-3">
               <button
                 className="btn btn-sm smallWidth form-control mr-3 mb-2"
-                onClick={() => handleUpdateMessage(message, history)}
+                onClick={() => {
+                  handleUpdateMessage(message, history);
+                }}
               >
                 Submit
               </button>

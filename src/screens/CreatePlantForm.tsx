@@ -37,13 +37,19 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(createPlant({ uploadForm, plant, history }));
   };
 
-  if (!loggedInUser) return <Redirect to={"/signup"} />;
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   return (
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-12 col-md-6 offset-md-6">
         <h2 className="mb-5 text-left"> Create a plant </h2>
-        <form onSubmit={(event) => handleCreatePlant(event, history)}>
+        <form
+          onSubmit={(event) => {
+            handleCreatePlant(event, history);
+          }}
+        >
           <label htmlFor="enterName"> Name </label>
           <input
             className="mb-4 form-control"
@@ -106,8 +112,7 @@ const CreatePlantForm = (): JSX.Element => {
             </button>
             <Link to={"/"}>
               <button className="btn btn-sm form-control smallWidth ml-4 mb-2">
-                {" "}
-                Go back{" "}
+                Go back
               </button>
             </Link>
           </div>

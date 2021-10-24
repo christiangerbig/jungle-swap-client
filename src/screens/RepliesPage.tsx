@@ -33,12 +33,16 @@ const RepliesPage = (): JSX.Element => {
 
     dispatch(fetchAllMessages(isUserChange));
     handleResetAll();
-    return () => handleResetAll();
+    return () => {
+      handleResetAll();
+    };
   }, []);
 
-  if (!loggedInUser) return <Redirect to={"/signup"} />;
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
-  if (!messages)
+  if (!messages) {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
@@ -46,6 +50,7 @@ const RepliesPage = (): JSX.Element => {
         </span>
       </div>
     );
+  }
 
   return (
     <div className="container row mt-5">

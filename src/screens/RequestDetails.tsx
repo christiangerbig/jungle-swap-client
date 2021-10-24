@@ -26,7 +26,7 @@ const RequestDetails = (): JSX.Element => {
   }, []);
 
   const { _id, buyer, plant, request, reply } = message as Message;
-  if (!buyer || !plant)
+  if (!buyer || !plant) {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
@@ -34,6 +34,7 @@ const RequestDetails = (): JSX.Element => {
         </span>
       </div>
     );
+  }
 
   // Set message of the buyer inactive by the seller
   const handleSetMessageInactive = (message: Message, history: any) => {
@@ -77,7 +78,9 @@ const RequestDetails = (): JSX.Element => {
           )}
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
-            onClick={() => handleSetMessageInactive(message, history)}
+            onClick={() => {
+              handleSetMessageInactive(message, history);
+            }}
           >
             Done
           </button>

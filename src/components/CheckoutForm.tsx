@@ -107,7 +107,9 @@ const CheckoutForm = (): JSX.Element => {
         />
         <div className="row justify-content-center">
           <button
-            onClick={() => dispatch(payPlant(history))}
+            onClick={() => {
+              dispatch(payPlant(history));
+            }}
             className="btn btn-sm mt-5 mb-4"
             disabled={isProcessing || isDisabled || isSucceeded}
             id="submit"
@@ -142,7 +144,12 @@ const CheckoutForm = (): JSX.Element => {
       </form>
       <div className="row justify-content-center">
         {isSucceeded ? (
-          <Link to={"/"} onClick={() => dispatch(scrollToPlants())}>
+          <Link
+            to={"/"}
+            onClick={() => {
+              dispatch(scrollToPlants());
+            }}
+          >
             <button className="btn btn-sm form-control"> Go back </button>
           </Link>
         ) : (

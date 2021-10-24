@@ -24,7 +24,7 @@ const ReplyDetails = (): JSX.Element => {
   }, []);
 
   const { _id, buyer, seller, plant, request, reply } = message as Message;
-  if (!buyer || !plant)
+  if (!buyer || !plant) {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
@@ -32,6 +32,7 @@ const ReplyDetails = (): JSX.Element => {
         </span>
       </div>
     );
+  }
 
   return (
     <div className="container row mt-5 ">
@@ -47,7 +48,9 @@ const ReplyDetails = (): JSX.Element => {
         <div className="text-right px-3">
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
-            onClick={() => dispatch(deleteMessage({ messageId, history }))}
+            onClick={() => {
+              dispatch(deleteMessage({ messageId: _id, history }));
+            }}
           >
             Delete
           </button>

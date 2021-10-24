@@ -165,8 +165,8 @@ export const readPlant = createAsyncThunk(
         withCredentials: true,
       });
       dispatch(setPlant(response.data));
-    } catch {
-      console.log("Read plant failed");
+    } catch (err) {
+      console.log("Read plant failed", err);
     }
   }
 );
@@ -352,8 +352,8 @@ export const readMessage = createAsyncThunk(
         { withCredentials: true }
       );
       dispatch(setMessage(response.data));
-    } catch {
-      console.log("Read message failed");
+    } catch (err) {
+      console.log("Read message failed", err);
     }
   }
 );

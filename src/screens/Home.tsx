@@ -65,7 +65,9 @@ const Home = (): JSX.Element => {
 
       <header
         className="text-center pt-5 pb-5 headerImg"
-        ref={(element) => ((elementRef.current[0] as any) = element)}
+        ref={(headerElement) => {
+          (elementRef.current[0] as any) = headerElement;
+        }}
       >
         <div className="row my-5">
           <div className="col-6 offset-3 my-5 borderAround">
@@ -73,9 +75,11 @@ const Home = (): JSX.Element => {
             <h5 className="mt-3 mb-5"> Share your green heart </h5>
             <div className="mb-5">
               <Link
+                to={"/"}
                 className="biggerFontSize"
-                onClick={() => dispatch(scrollToAbout())}
-                to={""}
+                onClick={() => {
+                  dispatch(scrollToAbout());
+                }}
               >
                 Try it!
               </Link>
@@ -84,7 +88,11 @@ const Home = (): JSX.Element => {
         </div>
       </header>
 
-      <section ref={(element) => ((elementRef.current[1] as any) = element)}>
+      <section
+        ref={(aboutElement) => {
+          (elementRef.current[1] as any) = aboutElement;
+        }}
+      >
         <div className="about centered container">
           <div className="row">
             <div className="col-sm-6 col-md-5 col-lg-6">
@@ -121,7 +129,9 @@ const Home = (): JSX.Element => {
               type="text"
               placeholder="Search..."
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value);
+              }}
             />
           </div>
           <div className="row row-cols-1 row-cols-md-3 g-4">

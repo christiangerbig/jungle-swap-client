@@ -33,7 +33,11 @@ const SignUp = (): JSX.Element => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Sign Up </h2>
-        <form onSubmit={(event) => handleSignUp(event, history)}>
+        <form
+          onSubmit={(event) => {
+            handleSignUp(event, history);
+          }}
+        >
           <div className="form-group">
             <label htmlFor="InputUsername"> Username </label>
             <input

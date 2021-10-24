@@ -58,7 +58,7 @@ const PlantDetails = (): JSX.Element => {
     price,
     creator,
   } = plant as Plant;
-  if (!creator)
+  if (!creator) {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">
@@ -66,6 +66,7 @@ const PlantDetails = (): JSX.Element => {
         </span>
       </div>
     );
+  }
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
@@ -108,9 +109,14 @@ const PlantDetails = (): JSX.Element => {
                     </Link>
                     <button
                       className="btn btn-sm ml-2 form-control smallWidth mb-2"
-                      onClick={() =>
-                        handleDeletePlant(imagePublicId, _id, history, messages)
-                      }
+                      onClick={() => {
+                        handleDeletePlant(
+                          imagePublicId,
+                          _id,
+                          history,
+                          messages
+                        );
+                      }}
                     >
                       Delete
                     </button>
@@ -129,10 +135,14 @@ const PlantDetails = (): JSX.Element => {
                     </Link>
                   </div>
                 )}
-                <Link to={"/"} onClick={() => dispatch(scrollToPlants())}>
+                <Link
+                  to={"/"}
+                  onClick={() => {
+                    dispatch(scrollToPlants());
+                  }}
+                >
                   <button className="btn btn-sm ml-2 form-control smallWidth mb-3">
-                    {" "}
-                    Go back{" "}
+                    Go back
                   </button>
                 </Link>
               </div>
