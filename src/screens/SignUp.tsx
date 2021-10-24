@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const SignUp = (): JSX.Element => {
-  const error = useSelector((state: RootState) => state.jungleSwap.error);
-  const dispatch = useDispatch();
+  const error = useAppSelector((state: RootState) => state.jungleSwap.error);
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Clear variables and scroll to top as soon as page loads

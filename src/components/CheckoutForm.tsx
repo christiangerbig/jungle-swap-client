@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
   payPlant,
@@ -33,11 +33,11 @@ const CheckoutForm = (): JSX.Element => {
   const [paymentError, setPaymentError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const clientSecret = useSelector(
+  const clientSecret = useAppSelector(
     (state: RootState) => state.jungleSwap.clientSecret
   );
-  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
-  const dispatch = useDispatch();
+  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Create payment as soon as page loads

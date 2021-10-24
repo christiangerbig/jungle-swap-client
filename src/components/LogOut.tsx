@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { logOut, setUser, User } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const LogOut = (): JSX.Element => {
-  const loggedInUser = useSelector((state: RootState) => state.jungleSwap.loggedInUser);
-  const intervalId: any = useSelector(
+  const loggedInUser = useAppSelector((state: RootState) => state.jungleSwap.loggedInUser);
+  const intervalId: any = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
-  const amountOfRequests = useSelector(
+  const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
-  const amountOfReplies = useSelector(
+  const amountOfReplies = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
 // Update user and log out as soon as page loads

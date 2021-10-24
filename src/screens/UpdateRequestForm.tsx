@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { setMessage, updateMessage, Message } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdateRequestForm = (): JSX.Element => {
-  const message = useSelector((state: RootState) => state.jungleSwap.message);
-  const dispatch = useDispatch();
+  const message = useAppSelector(
+    (state: RootState) => state.jungleSwap.message
+  );
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Scroll to top as soon as page loads

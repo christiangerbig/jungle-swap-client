@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { createPlant, Plant, setError } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const CreatePlantForm = (): JSX.Element => {
-  const loggedInUser = useSelector(
+  const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const error = useSelector((state: RootState) => state.jungleSwap.error);
-  const dispatch = useDispatch();
+  const error = useAppSelector((state: RootState) => state.jungleSwap.error);
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Scroll to top as soon as page loads and scroll to plants section during cleanup

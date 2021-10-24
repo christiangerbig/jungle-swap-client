@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   fetchAllPlants,
   fetchQueryPlants,
@@ -15,15 +15,15 @@ import icon from "../images/JungleSwap_Icon.png";
 import { RootState } from "../store";
 
 const Home = (): JSX.Element => {
-  const isFetchingUser = useSelector(
+  const isFetchingUser = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingUser
   );
-  const loggedInUser = useSelector(
+  const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const plants = useSelector((state: RootState) => state.jungleSwap.plants);
+  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const [query, setQuery] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
   // Load plants and user data as soon as page loads

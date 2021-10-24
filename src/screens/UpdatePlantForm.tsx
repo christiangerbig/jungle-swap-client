@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   imageChange,
   updatePlant,
@@ -11,8 +11,8 @@ import {
 import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
-  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
-  const dispatch = useDispatch();
+  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Scroll to top as soon as page loads

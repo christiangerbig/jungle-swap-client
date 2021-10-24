@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
@@ -22,32 +22,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
-  const loggedInUser = useSelector(
+  const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const isUserChange = useSelector(
+  const isUserChange = useAppSelector(
     (state: RootState) => state.jungleSwap.isUserChange
   );
-  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
-  const intervalId = useSelector(
+  const messages = useAppSelector((state: RootState) => state.jungleSwap.messages);
+  const intervalId = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
-  const delayCounter = useSelector(
+  const delayCounter = useAppSelector(
     (state: RootState) => state.jungleSwap.delayCounter
   );
-  const amountOfRequests = useSelector(
+  const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
-  const amountOfReplies = useSelector(
+  const amountOfReplies = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
-  const isNewRequest = useSelector(
+  const isNewRequest = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewRequest
   );
-  const isNewReply = useSelector(
+  const isNewReply = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewReply
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Stop interval at cleanup
   useEffect(() => {

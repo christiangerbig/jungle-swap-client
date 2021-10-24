@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   readMessage,
   User,
@@ -14,9 +14,11 @@ import {
 import { RootState } from "../store";
 
 const RequestDetails = (): JSX.Element => {
-  const message = useSelector((state: RootState) => state.jungleSwap.message);
+  const message = useAppSelector(
+    (state: RootState) => state.jungleSwap.message
+  );
   const { messageId }: any = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Read message and scroll to top as soon as page loads

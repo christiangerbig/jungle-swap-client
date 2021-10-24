@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   fetchAllMessages,
   setIsNewRequest,
@@ -12,17 +12,19 @@ import {
 import { RootState } from "../store";
 
 const RequestsPage = (): JSX.Element => {
-  const loggedInUser = useSelector(
+  const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const isUserChange = useSelector(
+  const isUserChange = useAppSelector(
     (state: RootState) => state.jungleSwap.isUserChange
   );
-  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
-  const amountOfRequests = useSelector(
+  const messages = useAppSelector(
+    (state: RootState) => state.jungleSwap.messages
+  );
+  const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Fetch all messages and reset values as soon as page loads and reset values during cleanup
   useEffect(() => {

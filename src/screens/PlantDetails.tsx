@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   readPlant,
   deletePlant,
@@ -14,13 +14,15 @@ import {
 import { RootState } from "../store";
 
 const PlantDetails = (): JSX.Element => {
-  const loggedInUser = useSelector(
+  const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const messages = useSelector((state: RootState) => state.jungleSwap.messages);
-  const plant = useSelector((state: RootState) => state.jungleSwap.plant);
+  const messages = useAppSelector(
+    (state: RootState) => state.jungleSwap.messages
+  );
+  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const { plantId }: any = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Read plant data and scroll to top as soon as page loads
@@ -45,7 +47,9 @@ const PlantDetails = (): JSX.Element => {
     dispatch(deletePlant({ imagePublicId, plantId, history }));
   };
 
-  if (!loggedInUser) return <Redirect to={"/signup"} />;
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   const {
     _id,
