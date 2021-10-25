@@ -63,6 +63,7 @@ const NavBar = () => {
   // Start request/reply check if user changes
   useEffect(() => {
     if (isUserChange) {
+      dispatch(fetchAllMessages(isUserChange));
       dispatch(setIsUserChange(false));
       dispatch(
         setIntervalId(
@@ -78,7 +79,7 @@ const NavBar = () => {
     }
   }, [isUserChange]);
 
-  // Check new requests/replies for logged in user every minute
+  // Check new requests/replies for logged in user every second
   useEffect(() => {
     if (loggedInUser) {
       dispatch(fetchAllMessages(isUserChange));
