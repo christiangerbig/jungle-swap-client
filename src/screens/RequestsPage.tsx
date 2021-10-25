@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import RequestThumbnail from "../components/RequestThumbnail";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   fetchAllMessages,
@@ -9,6 +8,7 @@ import {
   Message,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
+import RequestTile from "../components/RequestTile";
 
 const RequestsPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -66,7 +66,7 @@ const RequestsPage = (): JSX.Element => {
           </Link>
         </div>
         {messages.map((message: Message) => {
-          return <RequestThumbnail message={message} />;
+          return <RequestTile message={message} />;
         })}
         {amountOfRequests !== 0 && (
           <div className="text-right mt-4 pr-2">

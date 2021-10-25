@@ -8,7 +8,7 @@ import {
   Message,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
-import ReplyThumbnail from "../components/ReplyThumbnail";
+import ReplyTile from "../components/ReplyTile";
 
 const RepliesPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -66,7 +66,7 @@ const RepliesPage = (): JSX.Element => {
           </Link>
         </div>
         {messages.map((message: Message) => {
-          return <ReplyThumbnail message={message} />;
+          return <ReplyTile message={message} />;
         })}
         {amountOfReplies !== 0 && (
           <div className="text-right mt-4 pr-2">
