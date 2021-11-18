@@ -31,9 +31,6 @@ const NavBar = () => {
   const isUserChange = useAppSelector(
     (state: RootState) => state.jungleSwap.isUserChange
   );
-  // const messages = useAppSelector(
-  //   (state: RootState) => state.jungleSwap.messages
-  // );
   const intervalId = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );

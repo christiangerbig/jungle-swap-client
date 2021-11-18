@@ -1,12 +1,16 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { setLoggedInUser } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
 
 const Unauthorized = (): JSX.Element => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setLoggedInUser(null));
+    loggedInUser && dispatch(setLoggedInUser(null));
   }, []);
 
   return (
