@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+import { useAppDispatch } from "../hooks";
+import { setLoggedInUser } from "../reducer/jungleSwapSlice";
+
 const Unauthorized = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setLoggedInUser(null));
+  }, []);
+
   return (
     <div className="notFound">
       <div>
