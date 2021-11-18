@@ -8,6 +8,9 @@ import {
   User,
   Plant,
   Message,
+  setMessage,
+  removeMessage,
+  decreaseAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -21,8 +24,15 @@ const ReplyDetails = (): JSX.Element => {
 
   // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readMessage(messageId));
-    scroll.scrollToTop();
+    dispatch(readMessage(messageId))
+      .unwrap()
+      .then((message) => {
+        dispatch(setMessage(message));
+        scroll.scrollToTop();
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   }, []);
 
   const { _id, buyer, seller, plant, request, reply } = message as Message;
@@ -51,7 +61,16 @@ const ReplyDetails = (): JSX.Element => {
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => {
-              dispatch(deleteMessage({ messageId: _id, history }));
+              dispatch(deleteMessage(_id))
+                .unwrap()
+                .then(() => {
+                  dispatch(removeMessage(_id));
+                  dispatch(decreaseAmountOfReplies());
+                  history && history.push("/replies/fetch");
+                })
+                .catch((rejectedValue: any) => {
+                  console.log(rejectedValue.message);
+                });
             }}
           >
             Delete

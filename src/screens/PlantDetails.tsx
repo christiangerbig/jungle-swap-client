@@ -10,6 +10,14 @@ import {
   User,
   Message,
   Plant,
+  setPlant,
+  deletePlantImage,
+  removePlant,
+  PlantId,
+  ImagePublicId,
+  DestroyImageData,
+  removeMessage,
+  decreaseAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -27,24 +35,57 @@ const PlantDetails = (): JSX.Element => {
 
   // Read plant data and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readPlant(plantId));
-    scroll.scrollToTop();
+    dispatch(readPlant(plantId))
+      .unwrap()
+      .then((plant: Plant) => {
+        dispatch(setPlant(plant));
+        scroll.scrollToTop();
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   }, []);
 
   // Delete plant
   const handleDeletePlant = (
-    imagePublicId: string | undefined,
-    plantId: string | undefined,
-    history: any,
+    imagePublicId: ImagePublicId,
+    plantId: PlantId,
     messages: Message[]
   ) => {
     messages.forEach((message: Message) => {
-      const { plant }: any = message;
+      const { _id, plant }: any = message;
       if (plant._id === plantId) {
-        dispatch(deleteMessage({ messageId: message._id, history: null }));
+        dispatch(deleteMessage(_id))
+          .unwrap()
+          .then(() => {
+            dispatch(removeMessage(_id));
+            dispatch(decreaseAmountOfReplies());
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
       }
     });
-    dispatch(deletePlant({ imagePublicId, plantId, history }));
+    const destroyImageData: DestroyImageData = {
+      imagePublicId,
+    };
+    dispatch(deletePlantImage(destroyImageData))
+      .unwrap()
+      .then(() => {
+        dispatch(deletePlant(plantId))
+          .unwrap()
+          .then(() => {
+            dispatch(removePlant(plantId));
+            history.push("/");
+            dispatch(scrollToPlants());
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   if (!loggedInUser) {
@@ -114,12 +155,7 @@ const PlantDetails = (): JSX.Element => {
                     <button
                       className="btn btn-sm ml-2 form-control smallWidth mb-2"
                       onClick={() => {
-                        handleDeletePlant(
-                          imagePublicId,
-                          _id,
-                          history,
-                          messages
-                        );
+                        handleDeletePlant(imagePublicId, _id, messages);
                       }}
                     >
                       Delete

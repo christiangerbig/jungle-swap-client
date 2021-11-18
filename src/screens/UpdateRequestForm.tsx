@@ -2,7 +2,12 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { setMessage, updateMessage, Message } from "../reducer/jungleSwapSlice";
+import {
+  setMessage,
+  updateMessage,
+  Message,
+  setMessageChanges,
+} from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdateRequestForm = (): JSX.Element => {
@@ -25,10 +30,15 @@ const UpdateRequestForm = (): JSX.Element => {
   };
 
   // Update message
-  const handleUpdateMessage = (
-    { _id, buyer, seller, plant, request, reply, messageState }: Message,
-    history: any
-  ): void => {
+  const handleUpdateMessage = ({
+    _id,
+    buyer,
+    seller,
+    plant,
+    request,
+    reply,
+    messageState,
+  }: Message): void => {
     const updatedMessage: Message = {
       buyer,
       seller,
@@ -37,8 +47,15 @@ const UpdateRequestForm = (): JSX.Element => {
       reply,
       messageState,
     };
-    dispatch(updateMessage({ messageId: _id, updatedMessage }));
-    history.push(`/requests/read/${_id}`);
+    dispatch(updateMessage({ messageId: _id, updatedMessage }))
+      .unwrap()
+      .then((message) => {
+        dispatch(setMessageChanges(message));
+        history.push(`/requests/read/${_id}`);
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   const { _id, request } = message as Message;
@@ -63,7 +80,7 @@ const UpdateRequestForm = (): JSX.Element => {
               <button
                 className="btn btn-sm smallWidth form-control mr-3 mb-2"
                 onClick={() => {
-                  handleUpdateMessage(message, history);
+                  handleUpdateMessage(message);
                 }}
               >
                 Submit

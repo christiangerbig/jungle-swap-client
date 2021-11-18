@@ -7,6 +7,7 @@ import {
   createPayment,
   scrollToPlants,
   Plant,
+  setClientSecret,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -42,7 +43,14 @@ const CheckoutForm = (): JSX.Element => {
 
   // Create payment as soon as page loads
   useEffect(() => {
-    dispatch(createPayment(plant));
+    dispatch(createPayment(plant))
+      .unwrap()
+      .then((payment: any) => {
+        dispatch(setClientSecret(payment.clientSecret));
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
     return () => {
       history.push("/");
       dispatch(scrollToPlants());
@@ -89,6 +97,19 @@ const CheckoutForm = (): JSX.Element => {
     }
   };
 
+  // Pay plant
+  const handlePayPlant = () => {
+    dispatch(payPlant())
+      .unwrap()
+      .then(() => {
+        history.push("/");
+        dispatch(scrollToPlants());
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
+  };
+
   const { _id, name, price } = plant as Plant;
   return (
     <div className="container col-9">
@@ -107,9 +128,7 @@ const CheckoutForm = (): JSX.Element => {
         />
         <div className="row justify-content-center">
           <button
-            onClick={() => {
-              dispatch(payPlant(history));
-            }}
+            onClick={handlePayPlant}
             className="btn btn-sm mt-5 mb-4"
             disabled={isProcessing || isDisabled || isSucceeded}
             id="submit"

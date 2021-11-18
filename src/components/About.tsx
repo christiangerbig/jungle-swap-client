@@ -1,7 +1,7 @@
 import image from "../images/JungleSwap_Home.png";
 import icon from "../images/JungleSwap_Icon.png";
 
-const About = ():JSX.Element => {
+const About = (): JSX.Element => {
   return (
     <div className="about centered container">
       <div className="row">
@@ -25,6 +25,6 @@ const About = ():JSX.Element => {
       </div>
     </div>
   );
-}
+};
 
 export default About;

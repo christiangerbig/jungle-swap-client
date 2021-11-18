@@ -8,6 +8,7 @@ import {
   Plant,
   Message,
   User,
+  addMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -24,7 +25,7 @@ const CreateRequestForm = () => {
   }, []);
 
   // Create request
-  const handleCreateMessage = (event: any, plant: Plant, history: any) => {
+  const handleCreateMessage = (event: any, plant: Plant) => {
     event.preventDefault();
     const { request } = event.target;
     const { _id, creator } = plant;
@@ -33,7 +34,15 @@ const CreateRequestForm = () => {
       plant: _id,
       request: request.value,
     };
-    dispatch(createMessage({ newMessage, history }));
+    dispatch(createMessage(newMessage))
+      .unwrap()
+      .then((newMessage) => {
+        dispatch(addMessage(newMessage));
+        history.push(`/plants/read/${newMessage.plant}`);
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setError(rejectedValue.message));
+      });
   };
 
   const { _id, name } = plant as Plant;
@@ -45,7 +54,7 @@ const CreateRequestForm = () => {
         <form
           className="pl-0"
           onSubmit={(event) => {
-            handleCreateMessage(event, plant, history);
+            handleCreateMessage(event, plant);
           }}
         >
           <div>

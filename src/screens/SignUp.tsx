@@ -2,7 +2,14 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { setError, setIsNewRequest, signUp } from "../reducer/jungleSwapSlice";
+import {
+  setError,
+  setIsFetchingUser,
+  setIsNewRequest,
+  setIsUserChange,
+  setLoggedInUser,
+  signUp,
+} from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const SignUp = (): JSX.Element => {
@@ -18,7 +25,7 @@ const SignUp = (): JSX.Element => {
   }, []);
 
   // Sign up
-  const handleSignUp = (event: any, history: any): void => {
+  const handleSignUp = (event: any): void => {
     event.preventDefault();
     const { username, email, password } = event.target;
     const newUser = {
@@ -26,7 +33,18 @@ const SignUp = (): JSX.Element => {
       email: email.value.toLowerCase(),
       password: password.value,
     };
-    dispatch(signUp({ newUser, history }));
+    dispatch(signUp(newUser))
+      .unwrap()
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        dispatch(setIsUserChange(true));
+        history.push("/");
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
+        dispatch(setError(rejectedValue.message));
+      });
   };
 
   return (
@@ -35,7 +53,7 @@ const SignUp = (): JSX.Element => {
         <h2 className="mb-5"> Sign Up </h2>
         <form
           onSubmit={(event) => {
-            handleSignUp(event, history);
+            handleSignUp(event);
           }}
         >
           <div className="form-group">

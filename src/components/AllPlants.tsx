@@ -4,6 +4,7 @@ import {
   fetchAllPlants,
   fetchQueryPlants,
   Plant,
+  setPlants,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
@@ -13,9 +14,27 @@ const AllPlants = () => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
 
-  // Handle plant search result if user types in query
+  // Handle plant search result if user types in a query
   useEffect(() => {
-    query ? dispatch(fetchQueryPlants(query)) : dispatch(fetchAllPlants());
+    if (query) {
+      dispatch(fetchQueryPlants(query))
+        .unwrap()
+        .then((plants: Plant[]) => {
+          dispatch(setPlants(plants));
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    } else {
+      dispatch(fetchAllPlants())
+        .unwrap()
+        .then((plants: Plant[]) => {
+          dispatch(setPlants(plants));
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    }
   }, [query]);
 
   return (
@@ -38,8 +57,8 @@ const AllPlants = () => {
       </div>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {plants &&
-          plants.map((plant: Plant): JSX.Element => {
-            return <PlantThumbnail plant={plant} />;
+          plants.map((plant: Plant, index: number): JSX.Element => {
+            return <PlantThumbnail plant={plant} key={index} />;
           })}
       </div>
     </div>

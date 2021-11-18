@@ -10,6 +10,7 @@ import {
   setMessage,
   updateMessage,
   decreaseAmountOfRequests,
+  setMessageChanges,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -23,7 +24,15 @@ const RequestDetails = (): JSX.Element => {
 
   // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readMessage(messageId));
+    dispatch(readMessage(messageId))
+      .unwrap()
+      .then((message) => {
+        dispatch(setMessage(message));
+        scroll.scrollToTop();
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
     scroll.scrollToTop();
   }, []);
 
@@ -53,9 +62,16 @@ const RequestDetails = (): JSX.Element => {
       reply,
       messageState,
     };
-    dispatch(updateMessage({ messageId: _id, updatedMessage }));
-    dispatch(decreaseAmountOfRequests());
-    history.push("/requests/fetch");
+    dispatch(updateMessage({ messageId: _id, updatedMessage }))
+      .unwrap()
+      .then((message) => {
+        dispatch(setMessageChanges(message));
+        dispatch(decreaseAmountOfRequests());
+        history.push("/requests/fetch");
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   return (

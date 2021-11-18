@@ -3,8 +3,13 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
+  setAmountOfReplies,
+  setAmountOfRequests,
   setError,
+  setIsFetchingUser,
   setIsNewRequest,
+  setIsUserChange,
+  setLoggedInUser,
   signIn,
   User,
 } from "../reducer/jungleSwapSlice";
@@ -30,7 +35,21 @@ const SignIn = (): JSX.Element => {
       email: email.value,
       password: password.value,
     };
-    dispatch(signIn({ user, history }));
+    dispatch(signIn(user))
+      .unwrap()
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        const { amountOfRequests, amountOfReplies } = user;
+        dispatch(setAmountOfRequests(amountOfRequests));
+        dispatch(setAmountOfReplies(amountOfReplies));
+        dispatch(setIsUserChange(true));
+        history.push("/");
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
+        dispatch(setError(rejectedValue.message));
+      });
   };
 
   return (

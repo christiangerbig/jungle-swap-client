@@ -41,9 +41,16 @@ export interface Message {
   messageState?: boolean;
 }
 
+export interface DestroyImageData {
+  imagePublicId: ImagePublicId;
+}
+
 export type LoggedInUser = User | null;
 export type IntervalId = NodeJS.Timer | null;
 export type Error = string | null;
+export type PlantId = string | undefined;
+export type ImagePublicId = string | undefined;
+type MessageId = string | undefined;
 
 interface SliceState {
   isFetchingUser: boolean;
@@ -85,16 +92,20 @@ const initialState: SliceState = {
   error: null,
 };
 
+const rejectWithValue = (data: any): void | PromiseLike<void> => {
+  throw new Error(data);
+};
+
 // --------- Plants ---------
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
-  async (_options, { dispatch }): Promise<void> => {
+  async () => {
     try {
       const response = await axios.get(`${apiPath}/plants/fetch`);
-      dispatch(setPlants(response.data));
-    } catch (err) {
-      console.log("Fetching plants failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -102,56 +113,40 @@ export const fetchAllPlants = createAsyncThunk(
 // Fetch query plants
 export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
-  async (query: string, { dispatch }): Promise<void> => {
+  async (query: string) => {
     try {
       const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
-      dispatch(setPlants(response.data));
-    } catch (err) {
-      console.log("Fetching query plants failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Upload plant image
+export const uploadPlantImage = createAsyncThunk(
+  "jungleSwap/uploadPlantImage",
+  async (uploadForm: FormData) => {
+    try {
+      const response = await axios.post(`${apiPath}/upload`, uploadForm);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Create plant
-interface CreatePlantParameters {
-  uploadForm: any;
-  plant: Plant;
-  history: any;
-}
-
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
-  async (
-    { uploadForm, plant, history }: CreatePlantParameters,
-    { dispatch }
-  ): Promise<void> => {
-    const { name, description, size, location, price } = plant;
+  async (newPlant: Plant) => {
     try {
-      const response = await axios.post(`${apiPath}/upload`, uploadForm);
-      const { imageUrl, imagePublicId } = response.data;
-      const newPlant: Plant = {
-        name,
-        description,
-        size,
-        imageUrl,
-        imagePublicId,
-        location,
-        price,
-      };
-      try {
-        const response = await axios.post(
-          `${apiPath}/plants/create`,
-          newPlant,
-          { withCredentials: true }
-        );
-        dispatch(addPlant(response.data));
-        history.push("/");
-        scroll.scrollToBottom();
-      } catch (err: any) {
-        dispatch(setError(err.response.data.error));
-      }
+      const response = await axios.post(`${apiPath}/plants/create`, newPlant, {
+        withCredentials: true,
+      });
+      return response.data;
     } catch (err: any) {
-      dispatch(setError(err.response.data.error));
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -159,110 +154,59 @@ export const createPlant = createAsyncThunk(
 // Read plant
 export const readPlant = createAsyncThunk(
   "jungleSwap/readPlant",
-  async (plantId: string, { dispatch }): Promise<void> => {
+  async (plantId: PlantId) => {
     try {
       const response = await axios.get(`${apiPath}/plants/read/${plantId}`, {
         withCredentials: true,
       });
-      dispatch(setPlant(response.data));
-    } catch (err) {
-      console.log("Read plant failed", err);
-    }
-  }
-);
-
-// Plant image change
-interface DestroyImageData {
-  imagePublicId: string | undefined;
-}
-
-interface ImageChangeParameters {
-  destroyImageData: DestroyImageData;
-  image: string;
-  plant: Plant;
-}
-
-export const imageChange = createAsyncThunk(
-  "jungleSwap/imageChange",
-  async (
-    { destroyImageData, image, plant }: ImageChangeParameters,
-    { dispatch }
-  ): Promise<void> => {
-    try {
-      await axios.post(`${apiPath}/destroy`, destroyImageData);
-      try {
-        const uploadForm = new FormData();
-        uploadForm.append("image", image);
-        const response = await axios.post(`${apiPath}/upload`, uploadForm);
-        const { imagePublicId, imageUrl } = response.data;
-        const clonePlant = JSON.parse(JSON.stringify(plant));
-        clonePlant.imagePublicId = imagePublicId;
-        clonePlant.imageUrl = imageUrl;
-        dispatch(setPlant(clonePlant));
-      } catch (err) {
-        console.log("Image upload failed", err);
-      }
-    } catch (err) {
-      console.log("Delete old image failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Update plant
 interface UpdatePlantParameters {
-  plantId: string | undefined;
+  plantId: PlantId;
   updatedPlant: Plant;
-  history: any;
 }
 
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async (
-    { plantId, updatedPlant, history }: UpdatePlantParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async ({ plantId, updatedPlant }: UpdatePlantParameters) => {
     try {
       const response = await axios.patch(
         `${apiPath}/plants/update/${plantId}`,
         updatedPlant
       );
-      dispatch(setPlantChanges(response.data));
-      history.push("/");
-      dispatch(scrollToPlants());
-    } catch (err) {
-      console.log("Update plant failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Delete plant image
+export const deletePlantImage = createAsyncThunk(
+  "jungleSwap/deletePlantImage",
+  async (destroyImageData: DestroyImageData) => {
+    try {
+      await axios.post(`${apiPath}/destroy`, destroyImageData);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Delete Plant
-interface DeletePlantParameters {
-  imagePublicId: string | undefined;
-  plantId: string | undefined;
-  history: any;
-}
-
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
-  async (
-    { imagePublicId, plantId, history }: DeletePlantParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async (plantId: PlantId) => {
     try {
-      const destroyImageData = {
-        imagePublicId,
-      };
-      await axios.post(`${apiPath}/destroy`, destroyImageData);
-      try {
-        await axios.delete(`${apiPath}/plants/delete/${plantId}`);
-        dispatch(removePlant(plantId));
-        history.push("/");
-        dispatch(scrollToPlants());
-      } catch (err) {
-        console.log("Delete plant failed", err);
-      }
-    } catch (err) {
-      console.log("Delete image failed", err);
+      await axios.delete(`${apiPath}/plants/delete/${plantId}`);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -270,14 +214,14 @@ export const deletePlant = createAsyncThunk(
 // Create plant payment
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
-  async (plant: Plant, { dispatch }): Promise<void> => {
+  async (plant: Plant) => {
     try {
       const response = await axios.post(`${apiPath}/create-payment-intent`, {
         price: plant.price,
       });
-      dispatch(setClientSecret(response.data.clientSecret));
-    } catch (err) {
-      console.log("Create payment failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -285,17 +229,15 @@ export const createPayment = createAsyncThunk(
 // Pay plant
 export const payPlant = createAsyncThunk(
   "jungleSwap/payPlant",
-  async (history: any, { dispatch }): Promise<void> => {
+  async (): Promise<void> => {
     try {
       await axios.post(
         `${apiPath}/create-payment-intent`,
         {},
         { withCredentials: true }
       );
-      history.push("/");
-      dispatch(scrollToPlants());
-    } catch (err) {
-      console.log("Checkout failed", err);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -304,40 +246,29 @@ export const payPlant = createAsyncThunk(
 // Fetch all messages
 export const fetchAllMessages = createAsyncThunk(
   "jungleSwap/fetchAllMessages",
-  async (isUserChange: boolean, { dispatch }): Promise<void> => {
+  async () => {
     try {
       const response = await axios.get(`${apiPath}/messages/fetch`);
-      dispatch(setMessages(response.data));
-      isUserChange && dispatch(setStartAmountOfRequests());
-      isUserChange && dispatch(setStartAmountOfReplies());
-    } catch (err) {
-      console.log("Fetching messages failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Create messages
-interface CreateMessageParameters {
-  newMessage: Message;
-  history: any;
-}
-
 export const createMessage = createAsyncThunk(
   "jungleSwap/createMessage",
-  async (
-    { newMessage, history }: CreateMessageParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async (newMessage: Message) => {
     try {
       const response = await axios.post(
         `${apiPath}/messages/create`,
         newMessage,
         { withCredentials: true }
       );
-      dispatch(addMessage(response.data));
-      history.push(`/plants/read/${response.data.plant}`);
+      return response.data;
     } catch (err: any) {
-      dispatch(setError(err.response.data.error));
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -345,15 +276,15 @@ export const createMessage = createAsyncThunk(
 // Read message
 export const readMessage = createAsyncThunk(
   "jungleSwap/readMessage",
-  async (messageId: string, { dispatch }): Promise<void> => {
+  async (messageId: string) => {
     try {
       const response = await axios.get(
         `${apiPath}/messages/read/${messageId}`,
         { withCredentials: true }
       );
-      dispatch(setMessage(response.data));
-    } catch (err) {
-      console.log("Read message failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -366,135 +297,83 @@ interface UpdateMessageParameters {
 
 export const updateMessage = createAsyncThunk(
   "jungleSwap/updateMessage",
-  async (
-    { messageId, updatedMessage }: UpdateMessageParameters,
-    { dispatch }
-  ) => {
+  async ({ messageId, updatedMessage }: UpdateMessageParameters) => {
     try {
       const response = await axios.patch(
         `${apiPath}/messages/update/${messageId}`,
         updatedMessage
       );
-      dispatch(setMessageChanges(response.data));
-    } catch (err) {
-      console.log("Update message failed", err);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Delete message
-interface DeleteMessageParameters {
-  messageId: string | undefined;
-  history: any;
-}
-
 export const deleteMessage = createAsyncThunk(
   "jungleSwap/deleteMessage",
-  async (
-    { messageId, history }: DeleteMessageParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async (messageId: MessageId) => {
     try {
       await axios.delete(`${apiPath}/messages/delete/${messageId}`);
-      dispatch(removeMessage(messageId));
-      dispatch(decreaseAmountOfReplies());
-      history && history.push("/replies/fetch");
-    } catch (err) {
-      console.log("Delete message failed", err);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // ---------- User authentification ----------
 // Read user
-export const readUser = createAsyncThunk(
-  "jungleSwap/readUserData",
-  async (_options, { dispatch }): Promise<void> => {
-    try {
-      const response = await axios.get(`${apiPath}/user`, {
-        withCredentials: true,
-      });
-      dispatch(setLoggedInUser(response.data));
-      dispatch(setIsFetchingUser(false));
-    } catch (err) {
-      console.log("Initializing fetching failed", err);
-      dispatch(setIsFetchingUser(false));
-    }
-  }
-);
+// export const readUser = createAsyncThunk(
+//   "jungleSwap/readUserData",
+//   async () => {
+//     try {
+//       const response = await axios.get(`${apiPath}/user`, {
+//         withCredentials: true,
+//       });
+//       return response.data;
+//     } catch (err: any) {
+//       return rejectWithValue(err.response.data.error);
+//     }
+//   }
+// );
 
 // Sign up
-interface SignUpParameters {
-  newUser: User;
-  history: any;
-}
-
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
-  async (
-    { newUser, history }: SignUpParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async (newUser: User) => {
     try {
       const response = await axios.post(`${apiPath}/signup`, newUser);
-      dispatch(setLoggedInUser(response.data));
-      dispatch(setIsUserChange(true));
-      history.push("/");
+      return response.data;
     } catch (err: any) {
-      dispatch(setError(err.response.data.error));
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // Sign in
-interface SignInParameters {
-  user: User;
-  history: any;
-}
-
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
-  async ({ user, history }: SignInParameters, { dispatch }): Promise<void> => {
+  async (user: User) => {
     try {
       const response = await axios.post(`${apiPath}/signin`, user, {
         withCredentials: true,
       });
-      const loadedUser = response.data;
-      dispatch(setLoggedInUser(loadedUser));
-      dispatch(setAmountOfRequests(loadedUser.amountOfRequests));
-      dispatch(setAmountOfReplies(loadedUser.amountOfReplies));
-      dispatch(setIsUserChange(true));
-      history.push("/");
+      return response.data;
     } catch (err: any) {
-      dispatch(setError(err.response.data.error));
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
 
 // LogOut
-interface LogOutParameters {
-  user: User | null;
-  intervalId: NodeJS.Timer;
-  history: any;
-}
-
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
-  async (
-    { user, intervalId, history }: LogOutParameters,
-    { dispatch }
-  ): Promise<void> => {
+  async (user: User) => {
     try {
       await axios.post(`${apiPath}/logout`, user, { withCredentials: true });
-      dispatch(setLoggedInUser(null));
-      clearInterval(intervalId);
-      dispatch(setIntervalId(null));
-      dispatch(setDelayCounter(0));
-      dispatch(setIsNewRequest(false));
-      history.push("/");
-      scroll.scrollToTop();
-    } catch (err) {
-      console.log("Logout failed", err);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
     }
   }
 );
@@ -583,10 +462,12 @@ export const jungleSwapSlice = createSlice({
       });
     },
     setStartAmountOfRequests: (state) => {
-      state.loggedInUser && (state.amountOfRequests = (state.loggedInUser as any).amountOfRequests);
+      state.loggedInUser &&
+        (state.amountOfRequests = (state.loggedInUser as any).amountOfRequests);
     },
     setStartAmountOfReplies: (state) => {
-      state.loggedInUser && (state.amountOfReplies = (state.loggedInUser as any).amountOfReplies);
+      state.loggedInUser &&
+        (state.amountOfReplies = (state.loggedInUser as any).amountOfReplies);
     },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;

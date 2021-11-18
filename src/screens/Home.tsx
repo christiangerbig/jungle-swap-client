@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   fetchAllPlants,
-  readUser,
   setHeaderContainerHeight,
   setAboutContainerHeight,
+  setPlants,
+  Plant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -13,20 +14,37 @@ import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
 
 const Home = (): JSX.Element => {
-  const isFetchingUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingUser
-  );
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
+  // const isFetchingUser = useAppSelector(
+  //   (state: RootState) => state.jungleSwap.isFetchingUser
+  // );
+  // const loggedInUser = useAppSelector(
+  //   (state: RootState) => state.jungleSwap.loggedInUser
+  // );
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
   // Load plants and user data as soon as page loads
   useEffect(() => {
-    dispatch(fetchAllPlants());
-    !loggedInUser && dispatch(readUser());
+    dispatch(fetchAllPlants())
+      .unwrap()
+      .then((plants: Plant[]) => {
+        dispatch(setPlants(plants));
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
+    // !loggedInUser &&
+    //   dispatch(readUser())
+    //     .unwrap()
+    //     .then((user) => {
+    //       dispatch(setLoggedInUser(user));
+    //       dispatch(setIsFetchingUser(false));
+    //     })
+    //     .catch((rejectedValue: any) => {
+    //       dispatch(setIsFetchingUser(false));
+    //       console.log(rejectedValue.message);
+    //     });
     const headerElementHeight = Math.round(
       (elementRef.current[0] as any).getBoundingClientRect().height
     );
@@ -47,13 +65,13 @@ const Home = (): JSX.Element => {
         </div>
       )}
 
-      {isFetchingUser && (
+      {/* {isFetchingUser && (
         <div className="spinner-grow text-success m-5" role="status">
           <span className="visually-hidden">
             <br /> <br /> Loading user data...
           </span>
         </div>
-      )}
+      )} */}
 
       <header
         className="text-center pt-5 pb-5 headerImg"

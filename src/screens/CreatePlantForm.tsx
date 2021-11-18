@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { createPlant, Plant, setError } from "../reducer/jungleSwapSlice";
+import {
+  addPlant,
+  createPlant,
+  Plant,
+  setError,
+  uploadPlantImage,
+} from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const CreatePlantForm = (): JSX.Element => {
@@ -20,21 +26,39 @@ const CreatePlantForm = (): JSX.Element => {
   }, []);
 
   // Create plant
-  const handleCreatePlant = (event: any, history: any) => {
+  const handleCreatePlant = (event: any) => {
     event.preventDefault();
     const { name, description, size, plantImage, location, price } =
       event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    const plant: Plant = {
-      name: name.value,
-      description: description.value,
-      size: size.value,
-      location: location.value,
-      price: price.value,
-    };
-    dispatch(createPlant({ uploadForm, plant, history }));
+    dispatch(uploadPlantImage(uploadForm))
+      .unwrap()
+      .then(({ imageUrl, imagePublicId }: any) => {
+        const newPlant: Plant = {
+          name: name.value,
+          description: description.value,
+          size: size.value,
+          imageUrl,
+          imagePublicId,
+          location: location.value,
+          price: price.value,
+        };
+        dispatch(createPlant(newPlant))
+          .unwrap()
+          .then((plant: Plant) => {
+            dispatch(addPlant(plant));
+            history.push("/");
+            scroll.scrollToBottom();
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   if (!loggedInUser) {
@@ -47,7 +71,7 @@ const CreatePlantForm = (): JSX.Element => {
         <h2 className="mb-5 text-left"> Create a plant </h2>
         <form
           onSubmit={(event) => {
-            handleCreatePlant(event, history);
+            handleCreatePlant(event);
           }}
         >
           <label htmlFor="enterName"> Name </label>

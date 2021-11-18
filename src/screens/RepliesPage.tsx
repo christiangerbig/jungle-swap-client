@@ -6,6 +6,9 @@ import {
   fetchAllMessages,
   setIsNewReply,
   Message,
+  setMessages,
+  setStartAmountOfRequests,
+  setStartAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
@@ -32,8 +35,17 @@ const RepliesPage = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    dispatch(fetchAllMessages(isUserChange));
-    handleResetAll();
+    dispatch(fetchAllMessages())
+      .unwrap()
+      .then((messages) => {
+        dispatch(setMessages(messages));
+        isUserChange && dispatch(setStartAmountOfRequests());
+        isUserChange && dispatch(setStartAmountOfReplies());
+        handleResetAll();
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
     return () => {
       handleResetAll();
     };
@@ -65,8 +77,8 @@ const RepliesPage = (): JSX.Element => {
             </button>
           </Link>
         </div>
-        {messages.map((message: Message) => {
-          return <ReplyTile message={message} />;
+        {messages.map((message: Message, index: number) => {
+          return <ReplyTile message={message} key={index} />;
         })}
         {amountOfReplies !== 0 && (
           <div className="text-right mt-4 pr-2">

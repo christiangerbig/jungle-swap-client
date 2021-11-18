@@ -3,10 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  imageChange,
   updatePlant,
   setPlant,
   Plant,
+  deletePlantImage,
+  uploadPlantImage,
+  setPlantChanges,
+  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -54,22 +57,35 @@ const UpdatePlantForm = (): JSX.Element => {
     const destroyImageData = {
       imagePublicId,
     };
-    dispatch(imageChange({ destroyImageData, image, plant }));
+    dispatch(deletePlantImage(destroyImageData))
+      .unwrap()
+      .then(() => {
+        const uploadForm = new FormData();
+        uploadForm.append("image", image);
+        dispatch(uploadPlantImage(uploadForm))
+          .unwrap()
+          .then(({ imageUrl, imagePublicId }: any) => {
+            const clonedPlant = JSON.parse(JSON.stringify(plant));
+            clonedPlant.imagePublicId = imagePublicId;
+            clonedPlant.imageUrl = imageUrl;
+            dispatch(setPlant(clonedPlant));
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      });
   };
 
-  const handleUpdatePlant = (
-    {
-      _id,
-      name,
-      description,
-      size,
-      imageUrl,
-      imagePublicId,
-      location,
-      price,
-    }: Plant,
-    history: any
-  ): void => {
+  const handleUpdatePlant = ({
+    _id,
+    name,
+    description,
+    size,
+    imageUrl,
+    imagePublicId,
+    location,
+    price,
+  }: Plant): void => {
     const updatedPlant: Plant = {
       name,
       description,
@@ -79,7 +95,16 @@ const UpdatePlantForm = (): JSX.Element => {
       location,
       price,
     };
-    dispatch(updatePlant({ plantId: _id, updatedPlant, history }));
+    dispatch(updatePlant({ plantId: _id, updatedPlant }))
+      .unwrap()
+      .then((updatedPlant) => {
+        dispatch(setPlantChanges(updatedPlant));
+        history.push("/");
+        dispatch(scrollToPlants());
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   const { _id, name, description, size, imageUrl, price } = plant as Plant;
@@ -159,7 +184,7 @@ const UpdatePlantForm = (): JSX.Element => {
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => {
-                  handleUpdatePlant(plant, history);
+                  handleUpdatePlant(plant);
                 }}
               >
                 Save

@@ -1,11 +1,22 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { logOut, setUser, User } from "../reducer/jungleSwapSlice";
+import {
+  logOut,
+  setDelayCounter,
+  setIntervalId,
+  setIsNewRequest,
+  setLoggedInUser,
+  setUser,
+  User,
+} from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const LogOut = (): JSX.Element => {
-  const loggedInUser = useAppSelector((state: RootState) => state.jungleSwap.loggedInUser);
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const intervalId: any = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
@@ -18,13 +29,23 @@ const LogOut = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-// Update user and log out as soon as page loads
+  // Update user and log out as soon as page loads
   useEffect(() => {
     const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
     clonedUser.amountOfRequests = amountOfRequests;
     clonedUser.amountOfReplies = amountOfReplies;
     dispatch(setUser(clonedUser));
-    dispatch(logOut({ user: clonedUser, intervalId, history }));
+    dispatch(logOut(clonedUser))
+      .unwrap()
+      .then(() => {
+        dispatch(setLoggedInUser(null));
+        clearInterval(intervalId);
+        dispatch(setIntervalId(null));
+        dispatch(setDelayCounter(0));
+        dispatch(setIsNewRequest(false));
+        history.push("/");
+        scroll.scrollToTop();
+      });
   }, []);
 
   return <div />;
