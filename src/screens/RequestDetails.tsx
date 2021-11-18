@@ -48,6 +48,7 @@ const RequestDetails = (): JSX.Element => {
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
+        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });

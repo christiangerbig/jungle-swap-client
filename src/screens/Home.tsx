@@ -14,12 +14,6 @@ import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
 
 const Home = (): JSX.Element => {
-  // const isFetchingUser = useAppSelector(
-  //   (state: RootState) => state.jungleSwap.isFetchingUser
-  // );
-  // const loggedInUser = useAppSelector(
-  //   (state: RootState) => state.jungleSwap.loggedInUser
-  // );
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
@@ -34,17 +28,6 @@ const Home = (): JSX.Element => {
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
-    // !loggedInUser &&
-    //   dispatch(readUser())
-    //     .unwrap()
-    //     .then((user) => {
-    //       dispatch(setLoggedInUser(user));
-    //       dispatch(setIsFetchingUser(false));
-    //     })
-    //     .catch((rejectedValue: any) => {
-    //       dispatch(setIsFetchingUser(false));
-    //       console.log(rejectedValue.message);
-    //     });
     const headerElementHeight = Math.round(
       (elementRef.current[0] as any).getBoundingClientRect().height
     );

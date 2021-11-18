@@ -33,6 +33,7 @@ const UpdateRequestForm = (): JSX.Element => {
         dispatch(setIsFetchingUser(false));
       })
       .catch((rejectedValue: any) => {
+        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
