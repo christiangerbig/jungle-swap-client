@@ -35,7 +35,6 @@ const UpdatePlantForm = (): JSX.Element => {
         dispatch(setIsFetchingUser(false));
       })
       .catch((rejectedValue: any) => {
-        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
@@ -126,7 +125,7 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/unauthorized"} />;
   }
 
   const { _id, name, description, size, imageUrl, price } = plant as Plant;

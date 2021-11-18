@@ -56,7 +56,6 @@ const RequestsPage = (): JSX.Element => {
           });
       })
       .catch((rejectedValue: any) => {
-        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
@@ -66,7 +65,7 @@ const RequestsPage = (): JSX.Element => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/unauthorized"} />;
   }
 
   if (!messages) {

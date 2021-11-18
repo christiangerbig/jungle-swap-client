@@ -47,14 +47,13 @@ const ReplyDetails = (): JSX.Element => {
           });
       })
       .catch((rejectedValue: any) => {
-        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/unauthorized"} />;
   }
 
   const { _id, buyer, seller, plant, request, reply } = message as Message;

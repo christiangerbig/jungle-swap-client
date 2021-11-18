@@ -48,7 +48,6 @@ const RequestDetails = (): JSX.Element => {
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
-        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
@@ -82,7 +81,7 @@ const RequestDetails = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/unauthorized"} />;
   }
 
   const { _id, buyer, plant, request, reply } = message as Message;

@@ -19,6 +19,7 @@ import CreateRequestForm from "./screens/CreateRequestForm";
 import RequestDetails from "./screens/RequestDetails";
 import ReplyDetails from "./screens/ReplyDetails";
 import UpdateRequestForm from "./screens/UpdateRequestForm";
+import Unauthorized from "./screens/Unauthorized";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
 
@@ -72,6 +73,10 @@ const App = (): JSX.Element => {
         </Route>
         <Route path="/logout">
           <LogOut />
+        </Route>
+
+        <Route path="/unauthorized">
+          <Unauthorized />
         </Route>
 
         <Route component={NotFound} />

@@ -36,14 +36,13 @@ const CreateRequestForm = () => {
         dispatch(setIsFetchingUser(false));
       })
       .catch((rejectedValue: any) => {
-        dispatch(setLoggedInUser(null));
         dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/unauthorized"} />;
   }
 
   // Create request

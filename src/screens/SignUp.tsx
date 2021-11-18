@@ -21,7 +21,6 @@ const SignUp = (): JSX.Element => {
   useEffect(() => {
     dispatch(setError(null));
     dispatch(setIsNewRequest(false));
-    dispatch(setLoggedInUser(null));
     scroll.scrollToTop();
   }, []);
 
