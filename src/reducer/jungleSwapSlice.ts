@@ -324,19 +324,19 @@ export const deleteMessage = createAsyncThunk(
 
 // ---------- User authentification ----------
 // Read user
-// export const readUser = createAsyncThunk(
-//   "jungleSwap/readUserData",
-//   async () => {
-//     try {
-//       const response = await axios.get(`${apiPath}/user`, {
-//         withCredentials: true,
-//       });
-//       return response.data;
-//     } catch (err: any) {
-//       return rejectWithValue(err.response.data.error);
-//     }
-//   }
-// );
+export const readUser = createAsyncThunk(
+  "jungleSwap/readUserData",
+  async () => {
+    try {
+      const response = await axios.get(`${apiPath}/user`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
 
 // Sign up
 export const signUp = createAsyncThunk(

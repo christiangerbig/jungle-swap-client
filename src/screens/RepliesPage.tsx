@@ -9,6 +9,9 @@ import {
   setMessages,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
@@ -51,9 +54,21 @@ const RepliesPage = (): JSX.Element => {
     };
   }, []);
 
-  if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
-  }
+  dispatch(readUser())
+    .unwrap()
+    .then((user) => {
+      dispatch(setLoggedInUser(user));
+      dispatch(setIsFetchingUser(false));
+    })
+    .catch((rejectedValue: any) => {
+      dispatch(setIsFetchingUser(false));
+      console.log(rejectedValue.message);
+      return <Redirect to={"/signup"} />;
+    });
+
+  // if (!loggedInUser) {
+  //   return <Redirect to={"/signup"} />;
+  // }
 
   if (!messages) {
     return (
