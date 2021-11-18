@@ -11,7 +11,6 @@ import {
   setStartAmountOfReplies,
   readUser,
   setLoggedInUser,
-  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
@@ -22,6 +21,9 @@ const RepliesPage = (): JSX.Element => {
   );
   const isUserChange = useAppSelector(
     (state: RootState) => state.jungleSwap.isUserChange
+  );
+  const isFetchingMessages = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingMessages
   );
   const messages = useAppSelector(
     (state: RootState) => state.jungleSwap.messages
@@ -42,7 +44,6 @@ const RepliesPage = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
         dispatch(fetchAllMessages())
           .unwrap()
           .then((messages) => {
@@ -56,7 +57,6 @@ const RepliesPage = (): JSX.Element => {
           });
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
     return () => {
@@ -68,7 +68,7 @@ const RepliesPage = (): JSX.Element => {
     return <Redirect to={"/unauthorized"} />;
   }
 
-  if (!messages) {
+  if (isFetchingMessages) {
     return (
       <div className="spinner-grow text-success m-5" role="status">
         <span className="visually-hidden">

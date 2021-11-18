@@ -8,7 +8,6 @@ import {
   Plant,
   readUser,
   setError,
-  setIsFetchingUser,
   setLoggedInUser,
   uploadPlantImage,
 } from "../reducer/jungleSwapSlice";
@@ -30,10 +29,8 @@ const CreatePlantForm = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);

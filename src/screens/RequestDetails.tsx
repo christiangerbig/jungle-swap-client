@@ -14,7 +14,6 @@ import {
   setMessageChanges,
   readUser,
   setLoggedInUser,
-  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -35,7 +34,6 @@ const RequestDetails = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
         dispatch(readMessage(messageId))
           .unwrap()
           .then((message) => {
@@ -48,7 +46,6 @@ const RequestDetails = (): JSX.Element => {
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);

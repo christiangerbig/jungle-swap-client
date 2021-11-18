@@ -13,7 +13,6 @@ import {
   scrollToPlants,
   readUser,
   setLoggedInUser,
-  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -32,10 +31,8 @@ const UpdatePlantForm = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);

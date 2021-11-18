@@ -14,7 +14,9 @@ import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
 
 const Home = (): JSX.Element => {
-  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
+  const isFetchingPlants = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingPlants
+  );
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
@@ -40,21 +42,13 @@ const Home = (): JSX.Element => {
 
   return (
     <div>
-      {!plants && (
+      {isFetchingPlants && (
         <div className="spinner-grow text-success m-5" role="status">
           <span className="visually-hidden">
             <br /> <br /> Loading plants...
           </span>
         </div>
       )}
-
-      {/* {isFetchingUser && (
-        <div className="spinner-grow text-success m-5" role="status">
-          <span className="visually-hidden">
-            <br /> <br /> Loading user data...
-          </span>
-        </div>
-      )} */}
 
       <header
         className="text-center pt-5 pb-5 headerImg"

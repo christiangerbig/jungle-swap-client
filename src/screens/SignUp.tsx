@@ -4,7 +4,6 @@ import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setError,
-  setIsFetchingUser,
   setIsNewRequest,
   setIsUserChange,
   setLoggedInUser,
@@ -37,12 +36,10 @@ const SignUp = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
         dispatch(setIsUserChange(true));
         history.push("/");
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         dispatch(setError(rejectedValue.message));
       });
   };

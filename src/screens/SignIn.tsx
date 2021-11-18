@@ -6,7 +6,6 @@ import {
   setAmountOfReplies,
   setAmountOfRequests,
   setError,
-  setIsFetchingUser,
   setIsNewRequest,
   setIsUserChange,
   setLoggedInUser,
@@ -39,7 +38,6 @@ const SignIn = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingUser(false));
         const { amountOfRequests, amountOfReplies } = user;
         dispatch(setAmountOfRequests(amountOfRequests));
         dispatch(setAmountOfReplies(amountOfReplies));
@@ -47,7 +45,6 @@ const SignIn = (): JSX.Element => {
         history.push("/");
       })
       .catch((rejectedValue: any) => {
-        dispatch(setIsFetchingUser(false));
         dispatch(setError(rejectedValue.message));
       });
   };

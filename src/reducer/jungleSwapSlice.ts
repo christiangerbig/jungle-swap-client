@@ -53,11 +53,12 @@ export type ImagePublicId = string | undefined;
 type MessageId = string | undefined;
 
 interface SliceState {
-  isFetchingUser: boolean;
   loggedInUser: LoggedInUser;
   isUserChange: boolean;
+  isFetchingPlants: boolean;
   plants: Plant[];
   plant: Plant | {};
+  isFetchingMessages: boolean;
   messages: Message[];
   message: Message | {};
   amountOfRequests: number;
@@ -73,11 +74,12 @@ interface SliceState {
 }
 
 const initialState: SliceState = {
-  isFetchingUser: true,
   loggedInUser: null,
   isUserChange: false,
+  isFetchingPlants: true,
   plants: [],
   plant: {},
+  isFetchingMessages: true,
   messages: [],
   message: {},
   amountOfRequests: 0,
@@ -501,9 +503,6 @@ export const jungleSwapSlice = createSlice({
     setLoggedInUser: (state, action: PayloadAction<LoggedInUser>) => {
       state.loggedInUser = action.payload;
     },
-    setIsFetchingUser: (state, action: PayloadAction<boolean>) => {
-      state.isFetchingUser = action.payload;
-    },
     setIsUserChange: (state, action: PayloadAction<boolean>) => {
       state.isUserChange = action.payload;
     },
@@ -524,6 +523,17 @@ export const jungleSwapSlice = createSlice({
     scrollToPlants: (state) => {
       scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllPlants.fulfilled, (state) => {
+      state.isFetchingPlants = false;
+    })
+    builder.addCase(fetchQueryPlants.fulfilled, (state) => {
+      state.isFetchingPlants = false;
+    })
+    builder.addCase(fetchAllMessages.fulfilled, (state) => {
+      state.isFetchingMessages = false;
+    })
   },
 });
 
@@ -559,7 +569,6 @@ export const {
 
   // ---------- User authentification ----------
   setLoggedInUser,
-  setIsFetchingUser,
   setIsUserChange,
   setError,
 
