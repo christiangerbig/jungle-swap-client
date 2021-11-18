@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -11,10 +12,16 @@ import {
   updateMessage,
   decreaseAmountOfRequests,
   setMessageChanges,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const RequestDetails = (): JSX.Element => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
@@ -24,28 +31,27 @@ const RequestDetails = (): JSX.Element => {
 
   // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readMessage(messageId))
+    dispatch(readUser())
       .unwrap()
-      .then((message) => {
-        dispatch(setMessage(message));
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        dispatch(readMessage(messageId))
+          .unwrap()
+          .then((message) => {
+            dispatch(setMessage(message));
+            scroll.scrollToTop();
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
-    scroll.scrollToTop();
   }, []);
-
-  const { _id, buyer, plant, request, reply } = message as Message;
-  if (!buyer || !plant) {
-    return (
-      <div className="spinner-grow text-success m-5" role="status">
-        <span className="visually-hidden">
-          <br /> <br /> Loading message...
-        </span>
-      </div>
-    );
-  }
 
   // Set message of the buyer inactive by the seller
   const handleSetMessageInactive = (message: Message, history: any) => {
@@ -73,6 +79,21 @@ const RequestDetails = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
   };
+
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
+
+  const { _id, buyer, plant, request, reply } = message as Message;
+  if (!buyer || !plant) {
+    return (
+      <div className="spinner-grow text-success m-5" role="status">
+        <span className="visually-hidden">
+          <br /> <br /> Loading message...
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="container row mt-5 ">

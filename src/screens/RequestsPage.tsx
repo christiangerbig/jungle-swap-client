@@ -9,6 +9,9 @@ import {
   setMessages,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import RequestTile from "../components/RequestTile";
@@ -35,15 +38,25 @@ const RequestsPage = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    dispatch(fetchAllMessages())
+    dispatch(readUser())
       .unwrap()
-      .then((messages) => {
-        dispatch(setMessages(messages));
-        isUserChange && dispatch(setStartAmountOfRequests());
-        isUserChange && dispatch(setStartAmountOfReplies());
-        handleResetAll();
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        dispatch(fetchAllMessages())
+          .unwrap()
+          .then((messages) => {
+            dispatch(setMessages(messages));
+            isUserChange && dispatch(setStartAmountOfRequests());
+            isUserChange && dispatch(setStartAmountOfReplies());
+            handleResetAll();
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
       })
       .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
     return () => {

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -9,10 +10,16 @@ import {
   Message,
   User,
   addMessage,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const CreateRequestForm = () => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const error = useAppSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useAppDispatch();
@@ -22,7 +29,21 @@ const CreateRequestForm = () => {
   useEffect(() => {
     dispatch(setError(null));
     scroll.scrollToTop();
+    dispatch(readUser())
+      .unwrap()
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
+        console.log(rejectedValue.message);
+      });
   }, []);
+
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   // Create request
   const handleCreateMessage = (event: any, plant: Plant) => {

@@ -18,6 +18,9 @@ import {
   DestroyImageData,
   removeMessage,
   decreaseAmountOfReplies,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -35,13 +38,23 @@ const PlantDetails = (): JSX.Element => {
 
   // Read plant data and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readPlant(plantId))
+    dispatch(readUser())
       .unwrap()
-      .then((plant: Plant) => {
-        dispatch(setPlant(plant));
-        scroll.scrollToTop();
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        dispatch(readPlant(plantId))
+          .unwrap()
+          .then((plant: Plant) => {
+            dispatch(setPlant(plant));
+            scroll.scrollToTop();
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
       })
       .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);

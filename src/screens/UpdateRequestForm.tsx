@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -7,10 +7,16 @@ import {
   updateMessage,
   Message,
   setMessageChanges,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdateRequestForm = (): JSX.Element => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
@@ -20,6 +26,16 @@ const UpdateRequestForm = (): JSX.Element => {
   // Scroll to top as soon as page loads
   useEffect(() => {
     scroll.scrollToTop();
+    dispatch(readUser())
+      .unwrap()
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
+        console.log(rejectedValue.message);
+      });
   }, []);
 
   // Create reply
@@ -57,6 +73,10 @@ const UpdateRequestForm = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
   };
+
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   const { _id, request } = message as Message;
   return (

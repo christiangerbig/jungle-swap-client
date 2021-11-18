@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -10,10 +11,16 @@ import {
   uploadPlantImage,
   setPlantChanges,
   scrollToPlants,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -21,6 +28,16 @@ const UpdatePlantForm = (): JSX.Element => {
   // Scroll to top as soon as page loads
   useEffect(() => {
     scroll.scrollToTop();
+    dispatch(readUser())
+      .unwrap()
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
+        console.log(rejectedValue.message);
+      });
   }, []);
 
   // Check which plant values changed
@@ -106,6 +123,10 @@ const UpdatePlantForm = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
   };
+
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   const { _id, name, description, size, imageUrl, price } = plant as Plant;
   return (

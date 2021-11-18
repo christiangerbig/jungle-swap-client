@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -11,10 +12,16 @@ import {
   setMessage,
   removeMessage,
   decreaseAmountOfReplies,
+  readUser,
+  setLoggedInUser,
+  setIsFetchingUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const ReplyDetails = (): JSX.Element => {
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
+  );
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
@@ -24,16 +31,30 @@ const ReplyDetails = (): JSX.Element => {
 
   // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readMessage(messageId))
+    dispatch(readUser())
       .unwrap()
-      .then((message) => {
-        dispatch(setMessage(message));
-        scroll.scrollToTop();
+      .then((user) => {
+        dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingUser(false));
+        dispatch(readMessage(messageId))
+          .unwrap()
+          .then((message) => {
+            dispatch(setMessage(message));
+            scroll.scrollToTop();
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
       })
       .catch((rejectedValue: any) => {
+        dispatch(setIsFetchingUser(false));
         console.log(rejectedValue.message);
       });
   }, []);
+
+  if (!loggedInUser) {
+    return <Redirect to={"/signup"} />;
+  }
 
   const { _id, buyer, seller, plant, request, reply } = message as Message;
   if (!buyer || !plant) {
