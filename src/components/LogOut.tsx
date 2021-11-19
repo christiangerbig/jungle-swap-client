@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
+  IntervalId,
   logOut,
   setDelayCounter,
   setIntervalId,
@@ -17,7 +18,7 @@ const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const intervalId: any = useAppSelector(
+  const intervalId = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
   );
   const amountOfRequests = useAppSelector(
@@ -39,9 +40,11 @@ const LogOut = (): JSX.Element => {
       .unwrap()
       .then(() => {
         dispatch(setLoggedInUser(null));
-        clearInterval(intervalId);
-        dispatch(setIntervalId(null));
-        dispatch(setDelayCounter(0));
+        if (intervalId) {
+          clearInterval(intervalId);
+          dispatch(setIntervalId(null));
+          dispatch(setDelayCounter(0));
+        }
         dispatch(setIsNewRequest(false));
         history.push("/");
         scroll.scrollToTop();

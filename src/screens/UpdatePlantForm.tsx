@@ -11,7 +11,7 @@ import {
   uploadPlantImage,
   setPlantChanges,
   scrollToPlants,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -27,7 +27,7 @@ const UpdatePlantForm = (): JSX.Element => {
   // Scroll to top as soon as page loads
   useEffect(() => {
     scroll.scrollToTop();
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

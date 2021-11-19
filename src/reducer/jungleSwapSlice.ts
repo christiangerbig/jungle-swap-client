@@ -50,7 +50,7 @@ export type IntervalId = NodeJS.Timer | null;
 export type Error = string | null;
 export type PlantId = string | undefined;
 export type ImagePublicId = string | undefined;
-type MessageId = string | undefined;
+export type MessageId = string | undefined;
 
 interface SliceState {
   loggedInUser: LoggedInUser;
@@ -229,20 +229,17 @@ export const createPayment = createAsyncThunk(
 );
 
 // Pay plant
-export const payPlant = createAsyncThunk(
-  "jungleSwap/payPlant",
-  async (): Promise<void> => {
-    try {
-      await axios.post(
-        `${apiPath}/create-payment-intent`,
-        {},
-        { withCredentials: true }
-      );
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
+export const payPlant = createAsyncThunk("jungleSwap/payPlant", async () => {
+  try {
+    await axios.post(
+      `${apiPath}/create-payment-intent`,
+      {},
+      { withCredentials: true }
+    );
+  } catch (err: any) {
+    return rejectWithValue(err.response.data.error);
   }
-);
+});
 
 // --------- Messages ----------
 // Fetch all messages
@@ -278,7 +275,7 @@ export const createMessage = createAsyncThunk(
 // Read message
 export const readMessage = createAsyncThunk(
   "jungleSwap/readMessage",
-  async (messageId: string) => {
+  async (messageId: MessageId) => {
     try {
       const response = await axios.get(
         `${apiPath}/messages/read/${messageId}`,
@@ -293,7 +290,7 @@ export const readMessage = createAsyncThunk(
 
 // Update message
 interface UpdateMessageParameters {
-  messageId: string | undefined;
+  messageId: MessageId;
   updatedMessage: Message;
 }
 
@@ -325,27 +322,12 @@ export const deleteMessage = createAsyncThunk(
 );
 
 // ---------- User authentification ----------
-// Read user
-export const readUser = createAsyncThunk(
-  "jungleSwap/readUserData",
-  async () => {
-    try {
-      const response = await axios.get(`${apiPath}/user`, {
-        withCredentials: true,
-      });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
 // Sign up
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async (newUser: User) => {
     try {
-      const response = await axios.post(`${apiPath}/signup`, newUser);
+      const response = await axios.post(`${apiPath}/user/signup`, newUser);
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -358,7 +340,7 @@ export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async (user: User) => {
     try {
-      const response = await axios.post(`${apiPath}/signin`, user, {
+      const response = await axios.post(`${apiPath}/user/signin`, user, {
         withCredentials: true,
       });
       return response.data;
@@ -368,22 +350,39 @@ export const signIn = createAsyncThunk(
   }
 );
 
-// LogOut
+// Log out
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async (user: User) => {
     try {
-      await axios.post(`${apiPath}/logout`, user, { withCredentials: true });
+      await axios.post(`${apiPath}/user/logout`, user, {
+        withCredentials: true,
+      });
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
     }
   }
 );
 
+// Check if user is logged in
+export const checkUserLoggedIn = createAsyncThunk(
+  "jungleSwap/checkUserLoggedIn",
+  async () => {
+    try {
+      const response = await axios.get(`${apiPath}/user/check`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// ---------- Slices ----------
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
-  // ---------- Reducers -----------
   reducers: {
     // --------- User -----------
     setUser: (state, action: PayloadAction<User>) => {
@@ -499,7 +498,7 @@ export const jungleSwapSlice = createSlice({
       state.amountOfReplies && (state.amountOfReplies -= 1);
     },
 
-    // ---------- User authentification ----------
+    // ---------- User ----------
     setLoggedInUser: (state, action: PayloadAction<LoggedInUser>) => {
       state.loggedInUser = action.payload;
     },
@@ -524,16 +523,20 @@ export const jungleSwapSlice = createSlice({
       scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
     },
   },
+
   extraReducers: (builder) => {
+    // --------- Plants ----------
     builder.addCase(fetchAllPlants.fulfilled, (state) => {
       state.isFetchingPlants = false;
-    })
+    });
     builder.addCase(fetchQueryPlants.fulfilled, (state) => {
       state.isFetchingPlants = false;
-    })
+    });
+
+    // ---------- Messages ----------
     builder.addCase(fetchAllMessages.fulfilled, (state) => {
       state.isFetchingMessages = false;
-    })
+    });
   },
 });
 

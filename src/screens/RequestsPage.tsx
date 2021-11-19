@@ -9,7 +9,7 @@ import {
   setMessages,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -40,7 +40,7 @@ const RequestsPage = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

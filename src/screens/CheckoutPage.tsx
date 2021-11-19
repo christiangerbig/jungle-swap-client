@@ -6,7 +6,7 @@ import { RootState } from "../store";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
-import { readUser, setLoggedInUser } from "../reducer/jungleSwapSlice";
+import { checkUserLoggedIn, setLoggedInUser } from "../reducer/jungleSwapSlice";
 
 const promise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
@@ -21,7 +21,7 @@ const CheckoutPage = (): JSX.Element => {
   // Scroll to top as soon as page loads
   useEffect(() => {
     scroll.scrollToTop();
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

@@ -74,7 +74,6 @@ const App = (): JSX.Element => {
         <Route path="/logout">
           <LogOut />
         </Route>
-
         <Route path="/unauthorized">
           <Unauthorized />
         </Route>

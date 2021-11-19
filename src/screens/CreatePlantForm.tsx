@@ -6,7 +6,7 @@ import {
   addPlant,
   createPlant,
   Plant,
-  readUser,
+  checkUserLoggedIn,
   setError,
   setLoggedInUser,
   uploadPlantImage,
@@ -25,7 +25,7 @@ const CreatePlantForm = (): JSX.Element => {
   useEffect(() => {
     dispatch(setError(null));
     scroll.scrollToTop();
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

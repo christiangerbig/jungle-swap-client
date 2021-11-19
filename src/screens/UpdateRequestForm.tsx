@@ -7,7 +7,7 @@ import {
   updateMessage,
   Message,
   setMessageChanges,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -25,7 +25,7 @@ const UpdateRequestForm = (): JSX.Element => {
   // Scroll to top as soon as page loads
   useEffect(() => {
     scroll.scrollToTop();
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

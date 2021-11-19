@@ -10,7 +10,7 @@ import {
   Message,
   User,
   addMessage,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -28,7 +28,7 @@ const CreateRequestForm = () => {
   useEffect(() => {
     dispatch(setError(null));
     scroll.scrollToTop();
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

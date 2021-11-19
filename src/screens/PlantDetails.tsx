@@ -18,7 +18,7 @@ import {
   DestroyImageData,
   removeMessage,
   decreaseAmountOfReplies,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -31,13 +31,13 @@ const PlantDetails = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.messages
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
-  const { plantId }: any = useParams();
+  const { plantId } = useParams<{ plantId: PlantId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Read plant data and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));

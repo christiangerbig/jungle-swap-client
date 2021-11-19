@@ -12,8 +12,9 @@ import {
   setMessage,
   removeMessage,
   decreaseAmountOfReplies,
-  readUser,
+  checkUserLoggedIn,
   setLoggedInUser,
+  MessageId,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -24,13 +25,13 @@ const ReplyDetails = (): JSX.Element => {
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
-  const { messageId }: any = useParams();
+  const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Read message and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(readUser())
+    dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
