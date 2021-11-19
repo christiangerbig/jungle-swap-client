@@ -88,10 +88,14 @@ const CheckoutForm = (): JSX.Element => {
       return;
     }
     setIsProcessing(true);
-    const payload = await (stripe as any).confirmCardPayment(clientSecret,
-      {payment_method: { card: (elements as any).getElement(CardElement) }},
-      {confirmParams: { return_url: "/" }},
-      );
+    const payload = await (stripe as any)
+      .confirmSetup({
+        elements,
+        confirmParams: { return_url: "/" },
+      })
+      .confirmCardPayment(clientSecret, {
+        payment_method: { card: (elements as any).getElement(CardElement) },
+      });
     if (payload.error) {
       setPaymentError(`Payment failed ${payload.error.message}`);
       setIsProcessing(false);
