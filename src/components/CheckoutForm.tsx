@@ -83,9 +83,14 @@ const CheckoutForm = (): JSX.Element => {
   // Submit payment
   const handleSubmitPayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      return;
+    }
     setIsProcessing(true);
     const payload = await (stripe as any).confirmCardPayment(clientSecret, {
       payment_method: { card: (elements as any).getElement(CardElement) },
+      confirmParams: { return_url: "/" },
     });
     if (payload.error) {
       setPaymentError(`Payment failed ${payload.error.message}`);
@@ -98,17 +103,17 @@ const CheckoutForm = (): JSX.Element => {
   };
 
   // Pay plant
-  const handlePayPlant = () => {
-    dispatch(payPlant())
-      .unwrap()
-      .then(() => {
-        history.push("/");
-        dispatch(scrollToPlants());
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
-  };
+  // const handlePayPlant = () => {
+  //   dispatch(payPlant())
+  //     .unwrap()
+  //     .then(() => {
+  //       history.push("/");
+  //       dispatch(scrollToPlants());
+  //     })
+  //     .catch((rejectedValue: any) => {
+  //       console.log(rejectedValue.message);
+  //     });
+  // };
 
   const { _id, name, price } = plant as Plant;
   return (
@@ -128,8 +133,9 @@ const CheckoutForm = (): JSX.Element => {
         />
         <div className="row justify-content-center">
           <button
-            onClick={handlePayPlant}
+            // onClick={handlePayPlant}
             className="btn btn-sm mt-5 mb-4"
+            type="submit"
             disabled={isProcessing || isDisabled || isSucceeded}
             id="submit"
           >

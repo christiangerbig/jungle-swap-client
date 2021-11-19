@@ -8,7 +8,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
 import { checkUserLoggedIn, setLoggedInUser } from "../reducer/jungleSwapSlice";
 
-const promise = loadStripe(
+const stripePromise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
 );
 
@@ -38,7 +38,7 @@ const CheckoutPage = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-6 offset-1 offset-md-5 App">
-        <Elements stripe={promise}>
+        <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
       </div>
