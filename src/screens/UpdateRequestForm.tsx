@@ -72,7 +72,7 @@ const UpdateRequestForm = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   const { _id, request } = message as Message;

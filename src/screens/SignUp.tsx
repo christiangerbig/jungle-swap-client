@@ -93,7 +93,7 @@ const SignUp = (): JSX.Element => {
           </button>
           <p className="padding"> Already have an account? </p>
           <div className="text-right">
-            <Link to={"/signin"}>
+            <Link to={"/auth/signin"}>
               <button className="btn btn-sm ml-4 smallWidth form-control mt-0 mb-2">
                 Sign In
               </button>

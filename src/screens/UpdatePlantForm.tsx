@@ -122,7 +122,7 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   const { _id, name, description, size, imageUrl, price } = plant as Plant;

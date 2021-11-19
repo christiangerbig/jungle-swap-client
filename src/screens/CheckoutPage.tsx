@@ -32,7 +32,7 @@ const CheckoutPage = (): JSX.Element => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   return (

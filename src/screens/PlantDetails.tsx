@@ -99,7 +99,7 @@ const PlantDetails = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/auth/signup"} />;
   }
 
   const {

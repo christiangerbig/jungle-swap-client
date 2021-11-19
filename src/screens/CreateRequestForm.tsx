@@ -39,7 +39,7 @@ const CreateRequestForm = () => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   // Create request

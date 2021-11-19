@@ -130,7 +130,7 @@ export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData) => {
     try {
-      const response = await axios.post(`${apiPath}/upload`, uploadForm);
+      const response = await axios.post(`${apiPath}/cloudinary/upload`, uploadForm);
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -194,7 +194,7 @@ export const deletePlantImage = createAsyncThunk(
   "jungleSwap/deletePlantImage",
   async (destroyImageData: DestroyImageData) => {
     try {
-      await axios.post(`${apiPath}/destroy`, destroyImageData);
+      await axios.post(`${apiPath}/cloudinary/destroy`, destroyImageData);
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
     }
@@ -218,7 +218,7 @@ export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
   async (plant: Plant) => {
     try {
-      const response = await axios.post(`${apiPath}/create-payment-intent`, {
+      const response = await axios.post(`${apiPath}/stripe/create-payment-intent`, {
         price: plant.price,
       });
       return response.data;
@@ -232,7 +232,7 @@ export const createPayment = createAsyncThunk(
 export const payPlant = createAsyncThunk("jungleSwap/payPlant", async () => {
   try {
     await axios.post(
-      `${apiPath}/create-payment-intent`,
+      `${apiPath}/stripe/create-payment-intent`,
       {},
       { withCredentials: true }
     );
@@ -327,7 +327,7 @@ export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async (newUser: User) => {
     try {
-      const response = await axios.post(`${apiPath}/user/signup`, newUser);
+      const response = await axios.post(`${apiPath}/auth/signup`, newUser);
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -340,7 +340,7 @@ export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async (user: User) => {
     try {
-      const response = await axios.post(`${apiPath}/user/signin`, user, {
+      const response = await axios.post(`${apiPath}/auth/signin`, user, {
         withCredentials: true,
       });
       return response.data;
@@ -355,7 +355,7 @@ export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async (user: User) => {
     try {
-      await axios.post(`${apiPath}/user/logout`, user, {
+      await axios.post(`${apiPath}/auth/logout`, user, {
         withCredentials: true,
       });
     } catch (err: any) {
@@ -369,7 +369,7 @@ export const checkUserLoggedIn = createAsyncThunk(
   "jungleSwap/checkUserLoggedIn",
   async () => {
     try {
-      const response = await axios.get(`${apiPath}/user/check`, {
+      const response = await axios.get(`${apiPath}/auth/checkuser`, {
         withCredentials: true,
       });
       return response.data;

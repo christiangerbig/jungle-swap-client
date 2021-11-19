@@ -65,16 +65,16 @@ const App = (): JSX.Element => {
           <ReplyDetails />
         </Route>
 
-        <Route path="/signup">
+        <Route path="/auth/signup">
           <SignUp />
         </Route>
-        <Route path="/signin">
+        <Route path="/auth/signin">
           <SignIn />
         </Route>
-        <Route path="/logout">
+        <Route path="/auth/logout">
           <LogOut />
         </Route>
-        <Route path="/unauthorized">
+        <Route path="auth/unauthorized">
           <Unauthorized />
         </Route>
 

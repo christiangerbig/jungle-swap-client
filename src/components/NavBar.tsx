@@ -180,7 +180,7 @@ const NavBar = () => {
               <>
                 <Link
                   className="p-2"
-                  to="/logout"
+                  to="/auth/logout"
                   title={loggedInUser.username}
                 >
                   Log out
@@ -188,10 +188,10 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <Link className="p-2" to="/signin">
+                <Link className="p-2" to="/auth/signin">
                   Sign in
                 </Link>
-                <Link className="p-2" to="/signup">
+                <Link className="p-2" to="/auth/signup">
                   Sign up
                 </Link>
               </>

@@ -36,7 +36,7 @@ const CreatePlantForm = (): JSX.Element => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   // Create plant
@@ -76,7 +76,7 @@ const CreatePlantForm = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/signup"} />;
+    return <Redirect to={"/auth/signup"} />;
   }
 
   return (

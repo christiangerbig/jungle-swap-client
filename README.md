@@ -3,7 +3,7 @@
 ## Description
 
 With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are looged in you will be
-informed when you got a new request.
+informed when you got a new request or you got an answer for your request.
 
 ## User Stories
 
@@ -11,14 +11,15 @@ informed when you got a new request.
 - **Signup:** As an anon I can sign up in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Login:** As a user I can sign in in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.
-- **Create plant** As a user I can upload my plants. 
-- **Plant detail Page** As a user I can click on a certain plant to go to the detail page.
-- **Update plant** As a user I can update/edit my uploaded plants.
-- **Delete plant** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
-- **Create request** As a user I can create a request to swap a plant. 
-- **Plant detail Page** As a user I can click on a certain request to go to the detail page.
-- **Reply request** As a user I can reply a request for my plant.
-- **Delete request** As a user I can delete a request.
+- **Create plant:** As a user I can upload my plants. 
+- **Plant detail Page:** As a user I can click on a certain plant to go to the detail page.
+- **Update plant:** As a user I can update/edit my uploaded plants.
+- **Delete plant:** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
+- **Create request:** As a user I can create a request to swap a plant. 
+- **Plant detail Page:** As a user I can click on a certain request to go to the detail page.
+- **Reply request:** As a user I can reply a request for my plant.
+- **Delete request:** As a user I can delete a request.
+- **401:** As an anom I can see a 401 page if I try to accsess a special page
 - **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
 
 ## Backlog
@@ -29,43 +30,61 @@ informed when you got a new request.
 ## React Router Routes (React App)
 | Path                       | Component                      | Permissions                | Behavior                            |
 | -------------------------- | ------------------------------ | ---------------------------| ----------------------------------- |
-| `/`                        | SplashPage, NavBar, PlantList, | public    `<Route>`        | Home page, Shows all plants         |
-|                            | SearchForm, Footer             |                            |                                     |
-| `/signup`                  | SinupPage                      | anon only `<AnonRoute>`    | Signup form, link to signin         ||                            |                                |                            | navigate to homepage after signup   |
-| `/signin`                  | LoginPage                      | anon only `<AnonRoute>`    | Login form, link to signup,         |
+| `/`                        | Home, NavBar, Footer,          | public    `<AnonRoute>`    | Home page, Shows all plants         |
+|                            | KommunicateChat                |                            |                                     |
+| `/auth/signup`             | SignUp                         | anon only `<AnonRoute>`    | Signup form, link to signin         ||                            |                                |                            | navigate to homepage after signup   |
+| `/auth/signin`             | SignIn                         | anon only `<AnonRoute>`    | Login form, link to signup,         |
 |                            |                                |                            | navigate to homepage after signin   |
-| `/logout`                  | n/a                            | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
+| `/auth/logout`             | n/a                            | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
 |                            |                                |                            | expire session                      |
-| `/profile`                 | Profile                        | user only `<PrivateRoute>` | Check profile with stat information |
-| `/plants/create`           | NavBar, AddForm, FooterBar     | user only `<PrivateRoute>` | Create a plan                       |
-| `/plants/read/:plantId`    | NavBar, Details, FooterBar     | user only `<AnonRoute>`    | Shows plant deails or navigate to   |
+| `/auth/unauthorized`       | Unauthorized                   | user only `<AnonRoute>`    | Check profile with stat information |
+| `/plants/create`           | CreatePlantForm                | user only `<PrivateRoute>` | Create a plant                      |
+| `/plants/read/:plantId`    | PlantDetails                   | user only `<PrivateRoute>` | Shows plant deails or navigate to   |
 |                            |                                |                            | signup if user is not logged in     |
-| `/plants/update`           | NavBar, EditForm, FooterBar    | user only `<PrivateRoute>` | Update/Edit an plant                |
-| `/plants/checkout`         | NavBar, Stripe, FooterBar      | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
-| `/requests/fetch`          | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Fetch all requests for the user     |
-| `/requests/create`         | NavBar, Chat, FooterBar        | user only `<PrivateRoute>` | Create request to swap              |
-| `/requests/read/:requestId`| NavBar, Details, FooterBar     | user only `<PrivateRoute>` | Shows request deails                |
-| `/requests/update`         | NavBar, EditForm, FooterBar    | user only `<PrivateRoute>` | reply a request                     |
+| `/plants/update`           | UpdatePlantForm                | user only `<PrivateRoute>` | Update/Edit an plant                |
+| `/plants/checkout`         | CheckoutPage                   | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
+| `/messages/create`         | CreateRequestForm              | user only `<PrivateRoute>` | Create request to swap              |
+| `/messages/update`         | UpdateRequestForm              | user only `<PrivateRoute>` | reply a request                     |
+| `/requests/fetch`          | RequestsPage                   | user only `<PrivateRoute>` | Fetch all requests for the user     |
+| `/requests/read/:messageId`| RequestDetails                 | user only `<PrivateRoute>` | Shows request deails                |
+| `/replies/fetch`           | RepliesPage                    | user only `<PrivateRoute>` | Fetch all replies for the user      |
+| `/replies/read/:messageId` | ReplyDetails                   | user only `<PrivateRoute>` | Shows reply deails                  |
+
       
 ## Components
 
-- Home (All Plants)
-- NavBar
+- About
+- AllPlants
+- Chat (Socket.io)
+- CheckoutForm (Stripe)
 - Footer
-- Signin
-- Signup
 - LogOut
+- NavBar
+- PlantThumbnail
+- ReplyTile
+- RequestTile
+- Title
+- KommunicateChat (Socket.io)
+
+
+## Screens
+
+- Home
 - CreatePlantForm
 - PlantDetails
 - UpdatePlantForm
 - CheckoutPage (Stripe)
-- CheckoutForm (Stripe)
-- Chat (Socket.io)
-- RequestsPage
 - CreateRequestForm
-- RequestDetails
 - UpdateRequestForm
+- RequestsPage
+- RequestDetails
+- RepliesPage
+- ReplyDetails
+- SignUp
+- SignIn
+- Unauthorized
 - NotFound
+
 
 ## Services
 
@@ -84,14 +103,19 @@ informed when you got a new request.
 - Requests Service
   - requests.create()
   - requests.details(id)
-  - requests.update()
+  - requests.reply(id)
+  - requests.inactive(id)
   - requests.delete(id)
+
+- Replies Service
+  - replies.create()
+  - replies.details(id)
 
 - External API
   - API for purchase
   - API for chat
-  - API for chatbot
   - API for image upload
+
 
 # Server / Backend
 
@@ -102,17 +126,19 @@ User model
 ```javascript
 {
   username: {
-    type: String,
+      type: String,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   passwordHash: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  amountOfRequests: Number,
+  amountOfReplies: Number,
 }
 ```
 
@@ -127,38 +153,35 @@ Plant model
   imagePublicId: String,
   location: {
     type: String,
-    enum: [
-      "Select location", 
-      "sun", "shade", 
-      "sun and shade"
-    ]
+    enum: ["Select location", "sun", "shade", "sun and shade"],
   },
   price: Number,
   creator: {
     type: Schema.Types.ObjectId,
-    ref: "user"
-  }
+    ref: "user",
+  },
 }
 ```
 
-Request model
+Message model
 
 ```javascript
 {
   buyer: {
-    type: Schema.Types.ObjectId, 
-    ref: "user"
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
   seller: {
-    type: Schema.Types.ObjectId, 
-    ref: "user"
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
   plant: {
-    type: Schema.Types.ObjectId, 
-    ref: "plant"
+    type: Schema.Types.ObjectId,
+    ref: "plant",
   },
-  message: String,
-  reply: String
+  request: String,
+  reply: String,
+  messageState: Boolean,
 }
 ```
 
@@ -166,8 +189,7 @@ Request model
 
 | HTTP Method | URL                     | Request Body                | Success Status  | Error Status | Description                     |
 | ----------- | ----------------------- | --------------------------- | --------------- | ------------ | ------------------------------- |
-| GET         | `/auth/user`            | Saved session               | 200             | 404          | Check if user is logged in and  |
-|             |                         |                             |                 |              | return to profile page          |
+| GET         | `/auth/checkuser`       | Saved session               | 200             | 401          | Check if user is logged in      |
 | POST        | `/auth/signup`          | {name,email,password}       | 200             | 500          | Checks if fields not empty (422)|
 |             |                         |                             |                 |              | and user not exists (409), then |
 |             |                         |                             |                 |              | create user with encrypted pass-|
@@ -180,15 +202,19 @@ Request model
 | POST        | `/plants/search`        | {name}                      | 200             | 500          | Serch a plant by name           |
 | POST        | `/plants/create`        | {name,desc,type,img,size}   | 200             | 500          | Create plant and add to list    |
 | PATCH       | `/plants/update`        | {name,desc,type,img,size}   | 200             | 500          | Update plant and add to list    |
-| DELETE      | `/plants/delete/:id`    |                             | 200             | 500          | Delete plant and remove from    |
+| DELETE      | `/plants/delete/:id`    | {plantId}                   | 200             | 500          | Delete plant and remove from    |
 |             |                         |                             |                 |              | list                            |
-| GET         | `/plants/read/:id`      | {name,desc,type,img,size}   | 200             | 500          | Show specific plant             |
+| GET         | `/plants/read/:id`      | {plantId}                   | 200             | 500          | Show specific plant             |
 | GET         | `/plants/fetch`         | {name,desc,type,img,size}   | 200             | 500          | Fetch all plants                |
-| GET         | `/requests/fetch`       | {buyer,seller,plant,message}| 200             | 500          | Fetch all requests              |
-| POST        | `/requests/create`      | {buyer,seller,plant,message}| 200             | 500          | Create new request              |
+| GET         | `/messages/fetch`       | {buyer,seller,plant,message}| 200             | 500          | Fetch all requests              |
+| POST        | `/messages/create`      | {buyer,seller,plant,message}| 200             | 500          | Create new request              |
+| POST        | `/messages/read/:id`    | {messageId}                 | 200             | 500          | Create new request              |
+| POST        | `/messages/update/:id`  | {messageId}                 | 200             | 500          | Create new request              |
+| POST        | `/messages/delete/:id`  | {messageId}                 | 200             | 500          | Create new request              |
 | POST        | `/cloudinary/upload`    |                             | 200             |              | Upload plant picture            |
-| POST        | `/cloudinary/destroy`   | {imagePublicId}             | 200             |              | Delete plant picture            |
-| POST        | `/create-payment-intent`|                             |                 |              |                                 |
+| POST        |`/cloudinary/destroy/:id`| {imagePublicId}             | 200             |              | Delete plant picture            |
+| POST        | `/stripe/create-payment-|                             |                 |              |                                 |
+|             | intent`                 |                             |                 |              |                                 |
 
 ## Links
 

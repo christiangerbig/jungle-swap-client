@@ -65,7 +65,7 @@ const RepliesPage = (): JSX.Element => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   if (isFetchingMessages) {

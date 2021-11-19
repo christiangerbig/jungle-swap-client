@@ -51,7 +51,7 @@ const ReplyDetails = (): JSX.Element => {
   }, []);
 
   if (!loggedInUser) {
-    return <Redirect to={"/unauthorized"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   const { _id, buyer, seller, plant, request, reply } = message as Message;
