@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
-  payPlant,
   createPayment,
   scrollToPlants,
   Plant,
@@ -88,14 +87,9 @@ const CheckoutForm = (): JSX.Element => {
       return;
     }
     setIsProcessing(true);
-    const payload = await (stripe as any)
-      .confirmSetup({
-        elements,
-        confirmParams: { return_url: "/" },
-      })
-      .confirmCardPayment(clientSecret, {
-        payment_method: { card: (elements as any).getElement(CardElement) },
-      });
+    const payload = await (stripe as any).confirmCardPayment(clientSecret, {
+      payment_method: { card: (elements as any).getElement(CardElement) },
+    });
     if (payload.error) {
       setPaymentError(`Payment failed ${payload.error.message}`);
       setIsProcessing(false);
@@ -105,19 +99,6 @@ const CheckoutForm = (): JSX.Element => {
       setIsSucceeded(true);
     }
   };
-
-  // Pay plant
-  // const handlePayPlant = () => {
-  //   dispatch(payPlant())
-  //     .unwrap()
-  //     .then(() => {
-  //       history.push("/");
-  //       dispatch(scrollToPlants());
-  //     })
-  //     .catch((rejectedValue: any) => {
-  //       console.log(rejectedValue.message);
-  //     });
-  // };
 
   const { _id, name, price } = plant as Plant;
   return (
@@ -137,7 +118,6 @@ const CheckoutForm = (): JSX.Element => {
         />
         <div className="row justify-content-center">
           <button
-            // onClick={handlePayPlant}
             className="btn btn-sm mt-5 mb-4"
             type="submit"
             disabled={isProcessing || isDisabled || isSucceeded}

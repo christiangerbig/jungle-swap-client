@@ -228,19 +228,6 @@ export const createPayment = createAsyncThunk(
   }
 );
 
-// Pay plant
-export const payPlant = createAsyncThunk("jungleSwap/payPlant", async () => {
-  try {
-    await axios.post(
-      `${apiPath}/stripe/create-payment-intent`,
-      {},
-      { withCredentials: true }
-    );
-  } catch (err: any) {
-    return rejectWithValue(err.response.data.error);
-  }
-});
-
 // --------- Messages ----------
 // Fetch all messages
 export const fetchAllMessages = createAsyncThunk(
