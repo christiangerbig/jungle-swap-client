@@ -44,7 +44,6 @@ const RepliesPage = (): JSX.Element => {
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
-        console.log(user);
         dispatch(setLoggedInUser(user));
         dispatch(fetchAllMessages())
           .unwrap()
