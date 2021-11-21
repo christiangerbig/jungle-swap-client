@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   updatePlant,
@@ -19,6 +20,9 @@ import { RootState } from "../store";
 const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const isUploadingImage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isUploadingImage
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useAppDispatch();
@@ -131,7 +135,7 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
+          {isUploadingImage ? <LoadingSpinner spinnerText={"Uploading image"}/> : <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />}
           <div className="card-body">
             <label htmlFor="updateName"> Name </label>
             <input

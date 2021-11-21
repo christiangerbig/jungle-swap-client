@@ -57,6 +57,7 @@ interface SliceState {
   isUserChange: boolean;
   isFetchingPlant: boolean;
   isFetchingPlants: boolean;
+  isUploadingImage: boolean;
   plants: Plant[];
   plant: Plant | {};
   isFetchingMessage: boolean;
@@ -80,6 +81,7 @@ const initialState: SliceState = {
   isUserChange: false,
   isFetchingPlant: true,
   isFetchingPlants: true,
+  isUploadingImage: true,
   plants: [],
   plant: {},
   isFetchingMessage: true,
@@ -525,6 +527,9 @@ export const jungleSwapSlice = createSlice({
     });
     builder.addCase(readPlant.fulfilled, (state) => {
       state.isFetchingPlant = false;
+    });
+    builder.addCase(uploadPlantImage.fulfilled, (state) => {
+      state.isUploadingImage = false;
     });
 
     // ---------- Messages ----------
