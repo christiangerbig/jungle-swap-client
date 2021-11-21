@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   readPlant,
@@ -26,6 +27,9 @@ import { RootState } from "../store";
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const isFetchingPlant = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingPlant
   );
   const messages = useAppSelector(
     (state: RootState) => state.jungleSwap.messages
@@ -102,6 +106,14 @@ const PlantDetails = (): JSX.Element => {
     return <Redirect to={"/auth/signup"} />;
   }
 
+  if (isFetchingPlant) {
+    return (
+      <div className="container mt-5">
+        <LoadingSpinner spinnerText={"Loading plant details..."} />
+      </div>
+    );
+  }
+
   const {
     _id,
     name,
@@ -113,15 +125,6 @@ const PlantDetails = (): JSX.Element => {
     price,
     creator,
   } = plant as Plant;
-  if (!creator) {
-    return (
-      <div className="spinner-grow text-success m-5" role="status">
-        <span className="visually-hidden">
-          <br /> <br /> Loading plant details...
-        </span>
-      </div>
-    );
-  }
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">

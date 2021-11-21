@@ -9,7 +9,7 @@ import {
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
 
-const AllPlants = () => {
+const AllPlants = (): JSX.Element => {
   const [query, setQuery] = useState("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();

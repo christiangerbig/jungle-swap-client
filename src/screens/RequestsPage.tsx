@@ -14,6 +14,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import RequestTile from "../components/RequestTile";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const RequestsPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -70,10 +71,8 @@ const RequestsPage = (): JSX.Element => {
 
   if (isFetchingMessages) {
     return (
-      <div className="spinner-grow text-success m-5" role="status">
-        <span className="visually-hidden">
-          <br /> <br /> Loading requests...
-        </span>
+      <div className="container mt-5">
+        <LoadingSpinner spinnerText={"Loading requests..."} />
       </div>
     );
   }

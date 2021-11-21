@@ -12,6 +12,7 @@ import { RootState } from "../store";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Home = (): JSX.Element => {
   const isFetchingPlants = useAppSelector(
@@ -42,20 +43,15 @@ const Home = (): JSX.Element => {
 
   return (
     <div>
-      {isFetchingPlants && (
-        <div className="spinner-grow text-success m-5" role="status">
-          <span className="visually-hidden">
-            <br /> <br /> Loading plants...
-          </span>
-        </div>
-      )}
-
       <header
         className="text-center pt-5 pb-5 headerImg"
         ref={(headerElement) => {
           (elementRef.current[0] as any) = headerElement;
         }}
       >
+        {isFetchingPlants && (
+          <LoadingSpinner spinnerText={"Loading plants..."} />
+        )}
         <Title />
       </header>
 

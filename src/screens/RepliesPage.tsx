@@ -14,6 +14,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const RepliesPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -43,6 +44,7 @@ const RepliesPage = (): JSX.Element => {
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
+        console.log(user);
         dispatch(setLoggedInUser(user));
         dispatch(fetchAllMessages())
           .unwrap()
@@ -70,10 +72,8 @@ const RepliesPage = (): JSX.Element => {
 
   if (isFetchingMessages) {
     return (
-      <div className="spinner-grow text-success m-5" role="status">
-        <span className="visually-hidden">
-          <br /> <br /> Loading replies...
-        </span>
+      <div className="container mt-5">
+        <LoadingSpinner spinnerText={"Loading replies..."} />
       </div>
     );
   }

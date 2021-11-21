@@ -7,7 +7,7 @@ type RequestThumbnailProps = {
   message: Message;
 };
 
-const RequestThumbnail = ({ message }: RequestThumbnailProps) => {
+const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );

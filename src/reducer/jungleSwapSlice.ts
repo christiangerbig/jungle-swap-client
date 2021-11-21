@@ -55,9 +55,11 @@ export type MessageId = string | undefined;
 interface SliceState {
   loggedInUser: LoggedInUser;
   isUserChange: boolean;
+  isFetchingPlant: boolean;
   isFetchingPlants: boolean;
   plants: Plant[];
   plant: Plant | {};
+  isFetchingMessage: boolean;
   isFetchingMessages: boolean;
   messages: Message[];
   message: Message | {};
@@ -76,9 +78,11 @@ interface SliceState {
 const initialState: SliceState = {
   loggedInUser: null,
   isUserChange: false,
+  isFetchingPlant: true,
   isFetchingPlants: true,
   plants: [],
   plant: {},
+  isFetchingMessage: true,
   isFetchingMessages: true,
   messages: [],
   message: {},
@@ -519,10 +523,16 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchQueryPlants.fulfilled, (state) => {
       state.isFetchingPlants = false;
     });
+    builder.addCase(readPlant.fulfilled, (state) => {
+      state.isFetchingPlant = false;
+    });
 
     // ---------- Messages ----------
     builder.addCase(fetchAllMessages.fulfilled, (state) => {
       state.isFetchingMessages = false;
+    });
+    builder.addCase(readMessage.fulfilled, (state) => {
+      state.isFetchingMessage = false;
     });
   },
 });

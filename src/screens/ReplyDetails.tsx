@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   readMessage,
@@ -21,6 +22,9 @@ import { RootState } from "../store";
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
+  );
+  const isFetchingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingMessage
   );
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
@@ -54,17 +58,16 @@ const ReplyDetails = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  const { _id, buyer, seller, plant, request, reply } = message as Message;
-  if (!buyer || !plant) {
+  if (isFetchingMessage) {
     return (
-      <div className="spinner-grow text-success m-5" role="status">
-        <span className="visually-hidden">
-          <br /> <br /> Loading replies...
-        </span>
+      <div className="container mt-5">
+        <LoadingSpinner spinnerText={"Loading reply..."} />
       </div>
     );
   }
 
+  const { _id, seller, plant, request, reply } = message as Message;
+  
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

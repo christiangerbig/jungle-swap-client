@@ -24,7 +24,7 @@ import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
-const NavBar = () => {
+const NavBar = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );

@@ -7,7 +7,7 @@ type ReplyThumbnailProps = {
   message: Message;
 };
 
-const ReplyThumbnail = ({ message }: ReplyThumbnailProps) => {
+const ReplyThumbnail = ({ message }: ReplyThumbnailProps): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
