@@ -88,7 +88,7 @@ const RequestDetails = (): JSX.Element => {
 
   const { _id, buyer, plant, request, reply } = message as Message;
 
-  if (isFetchingMessage && !buyer && !plant) {
+  if (isFetchingMessage || !buyer || !plant) {
     return (
       <div className="container mt-5">
         <LoadingSpinner spinnerText={"Loading request..."} />

@@ -118,7 +118,7 @@ const PlantDetails = (): JSX.Element => {
     creator,
   } = plant as Plant;
 
-  if (isFetchingPlant && !creator) {
+  if (isFetchingPlant || !creator) {
     return (
       <div className="container mt-5">
         <LoadingSpinner spinnerText={"Loading plant details..."} />

@@ -60,7 +60,7 @@ const ReplyDetails = (): JSX.Element => {
 
   const { _id, seller, plant, request, reply } = message as Message;
 
-  if (isFetchingMessage && !seller && !plant) {
+  if (isFetchingMessage || !seller || !plant) {
     return (
       <div className="container mt-5">
         <LoadingSpinner spinnerText={"Loading reply..."} />
