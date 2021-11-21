@@ -14,6 +14,7 @@ import {
   scrollToPlants,
   checkUserLoggedIn,
   setLoggedInUser,
+  setIsUploadingImage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -80,6 +81,7 @@ const UpdatePlantForm = (): JSX.Element => {
       .then(() => {
         const uploadForm = new FormData();
         uploadForm.append("image", image);
+        dispatch(setIsUploadingImage(true));
         dispatch(uploadPlantImage(uploadForm))
           .unwrap()
           .then(({ imageUrl, imagePublicId }: any) => {

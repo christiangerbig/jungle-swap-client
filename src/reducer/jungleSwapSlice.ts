@@ -81,7 +81,7 @@ const initialState: SliceState = {
   isUserChange: false,
   isFetchingPlant: true,
   isFetchingPlants: true,
-  isUploadingImage: true,
+  isUploadingImage: false,
   plants: [],
   plant: {},
   isFetchingMessage: true,
@@ -392,6 +392,9 @@ export const jungleSwapSlice = createSlice({
     addPlant: (state, action: PayloadAction<Plant>) => {
       state.plants.push(action.payload);
     },
+    setIsUploadingImage: (state, action: PayloadAction<boolean>) => {
+      state.isUploadingImage = action.payload;
+    },
     setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
         _id,
@@ -550,6 +553,7 @@ export const {
   setPlants,
   setPlant,
   addPlant,
+  setIsUploadingImage,
   setPlantChanges,
   removePlant,
   setClientSecret,
