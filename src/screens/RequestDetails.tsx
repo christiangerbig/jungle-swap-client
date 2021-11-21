@@ -86,15 +86,15 @@ const RequestDetails = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  if (isFetchingMessage) {
+  const { _id, buyer, plant, request, reply } = message as Message;
+
+  if (isFetchingMessage && !buyer && !plant) {
     return (
       <div className="container mt-5">
         <LoadingSpinner spinnerText={"Loading request..."} />
       </div>
     );
   }
-
-  const { _id, buyer, plant, request, reply } = message as Message;
 
   return (
     <div className="container row mt-5 ">

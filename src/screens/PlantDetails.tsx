@@ -106,14 +106,6 @@ const PlantDetails = (): JSX.Element => {
     return <Redirect to={"/auth/signup"} />;
   }
 
-  if (isFetchingPlant) {
-    return (
-      <div className="container mt-5">
-        <LoadingSpinner spinnerText={"Loading plant details..."} />
-      </div>
-    );
-  }
-
   const {
     _id,
     name,
@@ -125,6 +117,14 @@ const PlantDetails = (): JSX.Element => {
     price,
     creator,
   } = plant as Plant;
+
+  if (isFetchingPlant && !creator) {
+    return (
+      <div className="container mt-5">
+        <LoadingSpinner spinnerText={"Loading plant details..."} />
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">

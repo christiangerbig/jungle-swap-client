@@ -58,7 +58,9 @@ const ReplyDetails = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  if (isFetchingMessage) {
+  const { _id, seller, plant, request, reply } = message as Message;
+
+  if (isFetchingMessage && !seller && !plant) {
     return (
       <div className="container mt-5">
         <LoadingSpinner spinnerText={"Loading reply..."} />
@@ -66,8 +68,6 @@ const ReplyDetails = (): JSX.Element => {
     );
   }
 
-  const { _id, seller, plant, request, reply } = message as Message;
-  
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
