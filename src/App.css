@@ -288,8 +288,7 @@ footer {
   background-color: orange;
 }
 
-.loadingSpinner span {
-  width: 100%;
+.loadingSpinnerText {
   color: orange;
 }
 
