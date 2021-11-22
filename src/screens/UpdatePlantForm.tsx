@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
@@ -15,13 +15,10 @@ import {
   checkUserLoggedIn,
   setLoggedInUser,
   setIsUploadingImage,
-  DestroyImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
-  const [image, setImage] = useState(null);
-  const [destroyImageData, setDestroyImageData] = useState({});
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -74,40 +71,31 @@ const UpdatePlantForm = (): JSX.Element => {
 
   // Plant image changed
   const handleImageChange = ({ target }: any, plant: Plant): void => {
-    setImage(target.files[0]);
+    const image = target.files[0];
     const { imagePublicId } = plant as Plant;
-    setDestroyImageData({ imagePublicId });
+    const destroyImageData = {
+      imagePublicId,
+    };
+    dispatch(deletePlantImage(destroyImageData))
+      .unwrap()
+      .then(() => {
+        const uploadForm = new FormData();
+        uploadForm.append("image", image);
+        dispatch(setIsUploadingImage(true));
+        dispatch(uploadPlantImage(uploadForm))
+          .unwrap()
+          .then(({ imageUrl, imagePublicId }: any) => {
+            const clonedPlant = JSON.parse(JSON.stringify(plant));
+            clonedPlant.imagePublicId = imagePublicId;
+            clonedPlant.imageUrl = imageUrl;
+            dispatch(setPlant(clonedPlant));
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      });
   };
 
-  // Only delete old image and save new image if a new image was chosen
-  const handleUpdateImage = (
-    destroyImageData: DestroyImageData,
-    image: any,
-    plant: Plant
-  ): void => {
-    if (destroyImageData && image) {
-      dispatch(deletePlantImage(destroyImageData))
-        .unwrap()
-        .then(() => {
-          const uploadForm = new FormData();
-          uploadForm.append("image", image);
-          dispatch(setIsUploadingImage(true));
-          dispatch(uploadPlantImage(uploadForm))
-            .unwrap()
-            .then(({ imageUrl, imagePublicId }: any) => {
-              const clonedPlant = JSON.parse(JSON.stringify(plant));
-              clonedPlant.imagePublicId = imagePublicId;
-              clonedPlant.imageUrl = imageUrl;
-              dispatch(setPlant(clonedPlant));
-            })
-            .catch((rejectedValue: any) => {
-              console.log(rejectedValue.message);
-            });
-        });
-    }
-  };
-
-  // Save all changes
   const handleUpdatePlant = ({
     _id,
     name,
@@ -149,11 +137,7 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          {isUploadingImage ? (
-            <LoadingSpinner />
-          ) : (
-            <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
-          )}
+          {isUploadingImage ? <LoadingSpinner/> : <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />}
           <div className="card-body">
             <label htmlFor="updateName"> Name </label>
             <input
@@ -225,7 +209,6 @@ const UpdatePlantForm = (): JSX.Element => {
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 disabled={isUploadingImage ? true : false}
                 onClick={() => {
-                  handleUpdateImage(destroyImageData, image, plant);
                   handleUpdatePlant(plant);
                 }}
               >
