@@ -22,6 +22,7 @@ import { RootState } from "../store";
 const UpdatePlantForm = (): JSX.Element => {
   const [image, setImage] = useState(null);
   const [destroyImageData, setDestroyImageData] = useState({});
+  const [updatedPlant, setUpdatedPlant] = useState({});
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -69,7 +70,7 @@ const UpdatePlantForm = (): JSX.Element => {
       case 4:
         clonedPlant.price = target.value;
     }
-    dispatch(setPlant(clonedPlant));
+    setUpdatedPlant(clonedPlant);
   };
 
   // Plant image changed
@@ -107,28 +108,12 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   // Save all changes
-  const handleUpdatePlant = ({
-    _id,
-    name,
-    description,
-    size,
-    imageUrl,
-    imagePublicId,
-    location,
-    price,
-  }: Plant): void => {
-    const updatedPlant: Plant = {
-      name,
-      description,
-      size,
-      imageUrl,
-      imagePublicId,
-      location,
-      price,
-    };
+  const handleUpdatePlant = (updatedPlant: Plant): void => {
+    const { _id } = updatedPlant;
     dispatch(updatePlant({ plantId: _id, updatedPlant }))
       .unwrap()
       .then((updatedPlant) => {
+        dispatch(setPlant(updatedPlant));
         dispatch(setPlantChanges(updatedPlant));
         history.push("/");
         dispatch(scrollToPlants());
@@ -225,7 +210,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 disabled={isUploadingImage ? true : false}
                 onClick={() => {
                   handleUpdateImage(destroyImageData, image);
-                  handleUpdatePlant(plant);
+                  handleUpdatePlant(updatedPlant);
                 }}
               >
                 Save
