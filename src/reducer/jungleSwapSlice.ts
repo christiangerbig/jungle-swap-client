@@ -42,7 +42,7 @@ export interface Message {
 }
 
 export interface DestroyImageData {
-  imagePublicId: ImagePublicId;
+  imagePublicId?: ImagePublicId;
 }
 
 export type LoggedInUser = User | null;
