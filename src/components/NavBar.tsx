@@ -95,7 +95,6 @@ const NavBar = (): JSX.Element => {
   // Check new requests/replies for logged in user every second
   useEffect(() => {
     if (loggedInUser) {
-      dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages) => {
