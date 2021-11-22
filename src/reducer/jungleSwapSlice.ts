@@ -543,13 +543,25 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchAllPlants.fulfilled, (state) => {
       state.isFetchingPlants = false;
     });
+    builder.addCase(fetchAllPlants.rejected, (state) => {
+      state.isFetchingPlants = false;
+    });
     builder.addCase(fetchQueryPlants.fulfilled, (state) => {
+      state.isFetchingPlants = false;
+    });
+    builder.addCase(fetchQueryPlants.rejected, (state) => {
       state.isFetchingPlants = false;
     });
     builder.addCase(readPlant.fulfilled, (state) => {
       state.isFetchingPlant = false;
     });
+    builder.addCase(readPlant.rejected, (state) => {
+      state.isFetchingPlant = false;
+    });
     builder.addCase(uploadPlantImage.fulfilled, (state) => {
+      state.isUploadingImage = false;
+    });
+    builder.addCase(uploadPlantImage.rejected, (state) => {
       state.isUploadingImage = false;
     });
 
@@ -557,7 +569,13 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchAllMessages.fulfilled, (state) => {
       state.isFetchingMessages = false;
     });
+    builder.addCase(fetchAllMessages.rejected, (state) => {
+      state.isFetchingMessages = false;
+    });
     builder.addCase(readMessage.fulfilled, (state) => {
+      state.isFetchingMessage = false;
+    });
+    builder.addCase(readMessage.rejected, (state) => {
       state.isFetchingMessage = false;
     });
   },
