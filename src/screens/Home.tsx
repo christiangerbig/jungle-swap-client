@@ -6,6 +6,7 @@ import {
   setAboutContainerHeight,
   setPlants,
   Plant,
+  setIsFetchingPlants,
 } from "../reducer/jungleSwapSlice";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
@@ -17,6 +18,7 @@ const Home = (): JSX.Element => {
 
   // Load plants and user data as soon as page loads
   useEffect(() => {
+    dispatch(setIsFetchingPlants(true));
     dispatch(fetchAllPlants())
       .unwrap()
       .then((plants: Plant[]) => {

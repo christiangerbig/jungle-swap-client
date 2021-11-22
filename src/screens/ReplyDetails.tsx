@@ -16,6 +16,7 @@ import {
   checkUserLoggedIn,
   setLoggedInUser,
   MessageId,
+  setIsFetchingMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -39,6 +40,7 @@ const ReplyDetails = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingMessage(true));
         dispatch(readMessage(messageId))
           .unwrap()
           .then((message) => {

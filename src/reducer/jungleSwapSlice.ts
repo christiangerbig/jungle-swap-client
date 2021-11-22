@@ -79,13 +79,13 @@ interface SliceState {
 const initialState: SliceState = {
   loggedInUser: null,
   isUserChange: false,
-  isFetchingPlant: true,
-  isFetchingPlants: true,
+  isFetchingPlant: false,
+  isFetchingPlants: false,
   isUploadingImage: false,
   plants: [],
   plant: {},
-  isFetchingMessage: true,
-  isFetchingMessages: true,
+  isFetchingMessage: false,
+  isFetchingMessages: false,
   messages: [],
   message: {},
   amountOfRequests: 0,
@@ -136,7 +136,10 @@ export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData) => {
     try {
-      const response = await axios.post(`${apiPath}/cloudinary/upload`, uploadForm);
+      const response = await axios.post(
+        `${apiPath}/cloudinary/upload`,
+        uploadForm
+      );
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -224,9 +227,12 @@ export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
   async (plant: Plant) => {
     try {
-      const response = await axios.post(`${apiPath}/stripe/create-payment-intent`, {
-        price: plant.price,
-      });
+      const response = await axios.post(
+        `${apiPath}/stripe/create-payment-intent`,
+        {
+          price: plant.price,
+        }
+      );
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -372,7 +378,7 @@ export const checkUserLoggedIn = createAsyncThunk(
   }
 );
 
-// ---------- Slices ----------
+// ---------- Reducers ----------
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
@@ -383,8 +389,14 @@ export const jungleSwapSlice = createSlice({
     },
 
     // --------- Plants ----------
+    setIsFetchingPlants: (state, action: PayloadAction<boolean>) => {
+      state.isFetchingPlants = action.payload;
+    },
     setPlants: (state, action: PayloadAction<Plant[]>) => {
       state.plants = action.payload;
+    },
+    setIsFetchingPlant: (state, action: PayloadAction<boolean>) => {
+      state.isFetchingPlant = action.payload;
     },
     setPlant: (state, action: PayloadAction<Plant>) => {
       state.plant = action.payload;
@@ -429,8 +441,14 @@ export const jungleSwapSlice = createSlice({
     },
 
     // ---------- Messages ----------
+    setIsFetchingMessages: (state, action: PayloadAction<boolean>) => {
+      state.isFetchingMessages = action.payload;
+    },
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
+    },
+    setIsFetchingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isFetchingMessage = action.payload;
     },
     setMessage: (state, action: PayloadAction<Message>) => {
       state.message = action.payload;
@@ -550,7 +568,9 @@ export const {
   setUser,
 
   // ----------- Plants ----------
+  setIsFetchingPlants,
   setPlants,
+  setIsFetchingPlant,
   setPlant,
   addPlant,
   setIsUploadingImage,
@@ -559,7 +579,9 @@ export const {
   setClientSecret,
 
   // ---------- Requests ----------
+  setIsFetchingMessages,
   setMessages,
+  setIsFetchingMessage,
   setMessage,
   addMessage,
   setMessageChanges,

@@ -21,6 +21,7 @@ import {
   decreaseAmountOfReplies,
   checkUserLoggedIn,
   setLoggedInUser,
+  setIsFetchingPlant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -45,6 +46,7 @@ const PlantDetails = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingPlant(true));
         dispatch(readPlant(plantId))
           .unwrap()
           .then((plant: Plant) => {

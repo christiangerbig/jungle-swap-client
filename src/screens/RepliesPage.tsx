@@ -11,6 +11,7 @@ import {
   setStartAmountOfReplies,
   checkUserLoggedIn,
   setLoggedInUser,
+  setIsFetchingMessages,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
@@ -45,6 +46,7 @@ const RepliesPage = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setIsFetchingMessages(true));
         dispatch(fetchAllMessages())
           .unwrap()
           .then((messages) => {

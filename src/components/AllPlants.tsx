@@ -4,6 +4,7 @@ import {
   fetchAllPlants,
   fetchQueryPlants,
   Plant,
+  setIsFetchingPlants,
   setPlants,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -21,6 +22,7 @@ const AllPlants = (): JSX.Element => {
   // Handle plant search result if user types in a query
   useEffect(() => {
     if (query) {
+      dispatch(setIsFetchingPlants(true));
       dispatch(fetchQueryPlants(query))
         .unwrap()
         .then((plants: Plant[]) => {
@@ -30,6 +32,7 @@ const AllPlants = (): JSX.Element => {
           console.log(rejectedValue.message);
         });
     } else {
+      dispatch(setIsFetchingPlants(true));
       dispatch(fetchAllPlants())
         .unwrap()
         .then((plants: Plant[]) => {

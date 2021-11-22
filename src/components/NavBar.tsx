@@ -19,6 +19,7 @@ import {
   setMessages,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
+  setIsFetchingMessages,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -65,6 +66,7 @@ const NavBar = (): JSX.Element => {
   // Start request/reply check if user changes
   useEffect(() => {
     if (isUserChange) {
+      dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages) => {
@@ -93,6 +95,7 @@ const NavBar = (): JSX.Element => {
   // Check new requests/replies for logged in user every second
   useEffect(() => {
     if (loggedInUser) {
+      dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages) => {
