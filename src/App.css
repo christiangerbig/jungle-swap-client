@@ -284,14 +284,6 @@ footer {
   border-radius: .25rem;
 }
 
-.loadingSpinner {
-  background-color: orange;
-}
-
-.loadingSpinnerText {
-  color: orange;
-}
-
 /* Bootstrap classes */
 .navbar-brand {
   font-family: "Noto Serif", serif;

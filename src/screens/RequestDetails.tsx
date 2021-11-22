@@ -90,8 +90,9 @@ const RequestDetails = (): JSX.Element => {
 
   if (isFetchingMessage || !buyer || !plant) {
     return (
-      <div className="container mt-5">
-        <LoadingSpinner spinnerText={"Loading request..."} />
+      <div className="container d-flex align-items-center justify-content-center mt-5">
+        <LoadingSpinner />
+        <span> Loading request </span>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch } from "../hooks";
 import {
   fetchAllPlants,
   setHeaderContainerHeight,
@@ -7,17 +7,11 @@ import {
   setPlants,
   Plant,
 } from "../reducer/jungleSwapSlice";
-import { RootState } from "../store";
-
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
-import LoadingSpinner from "../components/LoadingSpinner";
 
 const Home = (): JSX.Element => {
-  const isFetchingPlants = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingPlants
-  );
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
@@ -49,9 +43,6 @@ const Home = (): JSX.Element => {
           (elementRef.current[0] as any) = headerElement;
         }}
       >
-        {isFetchingPlants && (
-          <LoadingSpinner spinnerText={"Loading plants..."} />
-        )}
         <Title />
       </header>
 

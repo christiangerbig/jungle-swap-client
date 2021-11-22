@@ -8,9 +8,13 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
+import LoadingSpinner from "./LoadingSpinner";
 
 const AllPlants = (): JSX.Element => {
   const [query, setQuery] = useState("");
+  const isFetchingPlants = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingPlants
+  );
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
 
@@ -55,12 +59,15 @@ const AllPlants = (): JSX.Element => {
           }}
         />
       </div>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {plants &&
-          plants.map((plant: Plant, index: number): JSX.Element => {
+      {isFetchingPlants ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {plants.map((plant: Plant, index: number): JSX.Element => {
             return <PlantThumbnail plant={plant} key={index} />;
           })}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

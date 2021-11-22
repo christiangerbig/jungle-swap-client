@@ -69,14 +69,6 @@ const RepliesPage = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  if (isFetchingMessages) {
-    return (
-      <div className="container mt-5">
-        <LoadingSpinner spinnerText={"Loading replies..."} />
-      </div>
-    );
-  }
-
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
@@ -89,9 +81,15 @@ const RepliesPage = (): JSX.Element => {
             </button>
           </Link>
         </div>
-        {messages.map((message: Message, index: number) => {
-          return <ReplyTile message={message} key={index} />;
-        })}
+        {isFetchingMessages ? (
+          <LoadingSpinner />
+        ) : (
+          <div>
+            {messages.map((message: Message, index: number) => {
+              return <ReplyTile message={message} key={index} />;
+            })}
+          </div>
+        )}
         {amountOfReplies !== 0 && (
           <div className="text-right mt-4 pr-2">
             <Link to={"/"}>

@@ -137,7 +137,7 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          {isUploadingImage ? <LoadingSpinner spinnerText={"Uploading image"}/> : <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />}
+          {isUploadingImage ? <LoadingSpinner/> : <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />}
           <div className="card-body">
             <label htmlFor="updateName"> Name </label>
             <input
