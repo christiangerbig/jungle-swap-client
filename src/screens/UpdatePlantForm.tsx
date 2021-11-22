@@ -109,7 +109,9 @@ const UpdatePlantForm = (): JSX.Element => {
 
   // Save all changes
   const handleUpdatePlant = (updatedPlant: Plant): void => {
+    console.log(updatedPlant);
     const { _id } = updatedPlant;
+    console.log(_id);
     dispatch(updatePlant({ plantId: _id, updatedPlant }))
       .unwrap()
       .then((updatedPlant) => {
