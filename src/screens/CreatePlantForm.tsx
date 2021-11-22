@@ -72,11 +72,11 @@ const CreatePlantForm = (): JSX.Element => {
             scroll.scrollToBottom();
           })
           .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
+            dispatch(setError(rejectedValue.message));
           });
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        dispatch(setError(rejectedValue.message));
       });
   };
 
