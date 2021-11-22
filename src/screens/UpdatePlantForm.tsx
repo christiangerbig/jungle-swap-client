@@ -207,6 +207,7 @@ const UpdatePlantForm = (): JSX.Element => {
             <div className="col-12 text-right pr-0">
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
+                disabled={isUploadingImage ? true : false}
                 onClick={() => {
                   handleUpdatePlant(plant);
                 }}
