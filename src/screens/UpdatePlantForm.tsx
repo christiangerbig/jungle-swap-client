@@ -21,7 +21,7 @@ import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
   const [oldImagePublicId, setOldImagePublicId] = useState("");
-  const [newImagePublicId, setNewImagePublicId] = useState("");
+  const [isImageUpdate, setIsImageUpdate] = useState(false);
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -44,10 +44,10 @@ const UpdatePlantForm = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
     return () => {
-      console.log(newImagePublicId);
-      if (newImagePublicId) {
+      if (oldImagePublicId && !isImageUpdate) {
+        const { imagePublicId } = plant as Plant;
         const destroyImageData = {
-          imagePublicId: newImagePublicId,
+          imagePublicId,
         };
         dispatch(deletePlantImage(destroyImageData))
           .unwrap()
@@ -99,12 +99,10 @@ const UpdatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: any) => {
-        setNewImagePublicId(imagePublicId);
         const clonedPlant = JSON.parse(JSON.stringify(plant));
         clonedPlant.imagePublicId = imagePublicId;
         clonedPlant.imageUrl = imageUrl;
         dispatch(setPlant(clonedPlant));
-        console.log(newImagePublicId);
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -139,7 +137,7 @@ const UpdatePlantForm = (): JSX.Element => {
           location,
           price,
         };
-        setNewImagePublicId("");
+        setIsImageUpdate(true);
         dispatch(updatePlant({ plantId: _id, updatedPlant }))
           .unwrap()
           .then((updatedPlant) => {
