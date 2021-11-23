@@ -44,6 +44,7 @@ const UpdatePlantForm = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
     return () => {
+      console.log(newImagePublicId);
       if (newImagePublicId) {
         const destroyImageData = {
           imagePublicId: newImagePublicId,
