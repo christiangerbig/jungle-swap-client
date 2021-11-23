@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
@@ -15,10 +15,12 @@ import {
   checkUserLoggedIn,
   setLoggedInUser,
   setIsUploadingImage,
+  ImagePublicId,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
+  const [oldImagePublicId, setOldImagePublicId] = useState("");
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -73,40 +75,27 @@ const UpdatePlantForm = (): JSX.Element => {
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
-    const destroyImageData = {
-      imagePublicId,
-    };
-    dispatch(deletePlantImage(destroyImageData))
+    imagePublicId && setOldImagePublicId(imagePublicId);
+    const uploadForm = new FormData();
+    uploadForm.append("image", image);
+    dispatch(setIsUploadingImage(true));
+    dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(() => {
-        const uploadForm = new FormData();
-        uploadForm.append("image", image);
-        dispatch(setIsUploadingImage(true));
-        dispatch(uploadPlantImage(uploadForm))
-          .unwrap()
-          .then(({ imageUrl, imagePublicId }: any) => {
-            const clonedPlant = JSON.parse(JSON.stringify(plant));
-            clonedPlant.imagePublicId = imagePublicId;
-            clonedPlant.imageUrl = imageUrl;
-            dispatch(setPlant(clonedPlant));
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
+      .then(({ imageUrl, imagePublicId }: any) => {
+        const clonedPlant = JSON.parse(JSON.stringify(plant));
+        clonedPlant.imagePublicId = imagePublicId;
+        clonedPlant.imageUrl = imageUrl;
+        dispatch(setPlant(clonedPlant));
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
       });
   };
 
-  const handleUpdatePlant = ({
-    _id,
-    name,
-    description,
-    size,
-    imageUrl,
-    imagePublicId,
-    location,
-    price,
-  }: Plant): void => {
-    const updatedPlant: Plant = {
+  const handleUpdatePlant = (
+    oldImagePublicId: ImagePublicId,
+    {
+      _id,
       name,
       description,
       size,
@@ -114,13 +103,33 @@ const UpdatePlantForm = (): JSX.Element => {
       imagePublicId,
       location,
       price,
+    }: Plant
+  ): void => {
+    const destroyImageData = {
+      imagePublicId: oldImagePublicId,
     };
-    dispatch(updatePlant({ plantId: _id, updatedPlant }))
+    dispatch(deletePlantImage(destroyImageData))
       .unwrap()
-      .then((updatedPlant) => {
-        dispatch(setPlantChanges(updatedPlant));
-        history.push("/");
-        dispatch(scrollToPlants());
+      .then(() => {
+        const updatedPlant: Plant = {
+          name,
+          description,
+          size,
+          imageUrl,
+          imagePublicId,
+          location,
+          price,
+        };
+        dispatch(updatePlant({ plantId: _id, updatedPlant }))
+          .unwrap()
+          .then((updatedPlant) => {
+            dispatch(setPlantChanges(updatedPlant));
+            history.push("/");
+            dispatch(scrollToPlants());
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -137,7 +146,11 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          {isUploadingImage ? <LoadingSpinner/> : <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />}
+          {isUploadingImage ? (
+            <LoadingSpinner />
+          ) : (
+            <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
+          )}
           <div className="card-body">
             <label htmlFor="updateName"> Name </label>
             <input
@@ -209,7 +222,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 disabled={isUploadingImage ? true : false}
                 onClick={() => {
-                  handleUpdatePlant(plant);
+                  handleUpdatePlant(oldImagePublicId, plant);
                 }}
               >
                 Save
