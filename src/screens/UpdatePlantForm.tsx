@@ -104,6 +104,7 @@ const UpdatePlantForm = (): JSX.Element => {
         clonedPlant.imagePublicId = imagePublicId;
         clonedPlant.imageUrl = imageUrl;
         dispatch(setPlant(clonedPlant));
+        console.log(newImagePublicId);
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
