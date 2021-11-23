@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -17,7 +17,6 @@ import {
   setIsUploadingImage,
   ImagePublicId,
   setOldImagePublicId,
-  setIsImageUpdate,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -27,9 +26,6 @@ const UpdatePlantForm = (): JSX.Element => {
   );
   const isUploadingImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUploadingImage
-  );
-  const isImageUpdate = useAppSelector(
-    (state: RootState) => state.jungleSwap.isImageUpdate
   );
   const oldImagePublicId = useAppSelector(
     (state: RootState) => state.jungleSwap.oldImagePublicId
@@ -45,27 +41,10 @@ const UpdatePlantForm = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setIsImageUpdate(false));
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
-    return () => {
-      if (oldImagePublicId && !isImageUpdate) {
-        const { imagePublicId } = plant as Plant;
-        const destroyImageData = {
-          imagePublicId,
-        };
-        dispatch(deletePlantImage(destroyImageData))
-          .unwrap()
-          .then(() => {
-            return;
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-      }
-    };
   }, []);
 
   // Check which plant values changed
@@ -144,7 +123,6 @@ const UpdatePlantForm = (): JSX.Element => {
           location,
           price,
         };
-        dispatch(setIsImageUpdate(true));
         dispatch(updatePlant({ plantId: _id, updatedPlant }))
           .unwrap()
           .then((updatedPlant) => {
@@ -165,7 +143,7 @@ const UpdatePlantForm = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  const { _id, name, description, size, imageUrl, price } = plant as Plant;
+  const { name, description, size, imageUrl, price } = plant as Plant;
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
@@ -252,11 +230,6 @@ const UpdatePlantForm = (): JSX.Element => {
               >
                 Save
               </button>
-              <Link to={`/plants/read/${_id}`}>
-                <button className="btn btn-sm ml-4 smallWidth form-control mb-2">
-                  Go back
-                </button>
-              </Link>
             </div>
           </div>
         </div>
