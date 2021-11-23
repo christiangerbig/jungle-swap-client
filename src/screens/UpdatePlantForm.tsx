@@ -44,17 +44,19 @@ const UpdatePlantForm = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
     return () => {
-      const destroyImageData = {
-        imagePublicId: newImagePublicId,
-      };
-      dispatch(deletePlantImage(destroyImageData))
-        .unwrap()
-        .then(() => {
-          return;
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
+      if (newImagePublicId) {
+        const destroyImageData = {
+          imagePublicId: newImagePublicId,
+        };
+        dispatch(deletePlantImage(destroyImageData))
+          .unwrap()
+          .then(() => {
+            return;
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      }
     };
   }, []);
 
@@ -135,6 +137,7 @@ const UpdatePlantForm = (): JSX.Element => {
           location,
           price,
         };
+        setNewImagePublicId("");
         dispatch(updatePlant({ plantId: _id, updatedPlant }))
           .unwrap()
           .then((updatedPlant) => {
