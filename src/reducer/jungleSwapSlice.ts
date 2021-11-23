@@ -60,6 +60,8 @@ interface SliceState {
   isUploadingImage: boolean;
   plants: Plant[];
   plant: Plant | {};
+  oldImagePublicId: ImagePublicId;
+  isImageUpdate: boolean;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
   messages: Message[];
@@ -84,6 +86,8 @@ const initialState: SliceState = {
   isUploadingImage: false,
   plants: [],
   plant: {},
+  oldImagePublicId:"",
+  isImageUpdate: false,
   isFetchingMessage: false,
   isFetchingMessages: false,
   messages: [],
@@ -407,6 +411,13 @@ export const jungleSwapSlice = createSlice({
     setIsUploadingImage: (state, action: PayloadAction<boolean>) => {
       state.isUploadingImage = action.payload;
     },
+    setOldImagePublicId: (state, action: PayloadAction<string>) => {
+      state.oldImagePublicId = action.payload;
+    },
+    setIsImageUpdate: (state, action: PayloadAction<boolean>) => {
+      state.isImageUpdate = action.payload;
+    },
+
     setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
         _id,
@@ -592,6 +603,8 @@ export const {
   setPlant,
   addPlant,
   setIsUploadingImage,
+  setOldImagePublicId,
+  setIsImageUpdate,
   setPlantChanges,
   removePlant,
   setClientSecret,

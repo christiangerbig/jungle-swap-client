@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
@@ -16,17 +16,23 @@ import {
   setLoggedInUser,
   setIsUploadingImage,
   ImagePublicId,
+  setOldImagePublicId,
+  setIsImageUpdate,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const UpdatePlantForm = (): JSX.Element => {
-  const [oldImagePublicId, setOldImagePublicId] = useState("");
-  const [isImageUpdate, setIsImageUpdate] = useState(false);
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
   const isUploadingImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUploadingImage
+  );
+  const isImageUpdate = useAppSelector(
+    (state: RootState) => state.jungleSwap.isImageUpdate
+  );
+  const oldImagePublicId = useAppSelector(
+    (state: RootState) => state.jungleSwap.oldImagePublicId
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useAppDispatch();
@@ -39,6 +45,7 @@ const UpdatePlantForm = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setIsImageUpdate(false));
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -92,7 +99,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
-    imagePublicId && setOldImagePublicId(imagePublicId);
+    imagePublicId && dispatch(setOldImagePublicId(imagePublicId));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     dispatch(setIsUploadingImage(true));
@@ -137,7 +144,7 @@ const UpdatePlantForm = (): JSX.Element => {
           location,
           price,
         };
-        setIsImageUpdate(true);
+        dispatch(setIsImageUpdate(true));
         dispatch(updatePlant({ plantId: _id, updatedPlant }))
           .unwrap()
           .then((updatedPlant) => {
