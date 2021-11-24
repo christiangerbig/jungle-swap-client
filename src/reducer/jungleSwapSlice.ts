@@ -68,7 +68,7 @@ interface InitialState {
   oldImagePublicId: ImagePublicId;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
-  isDeletingMessage: boolean,
+  isDeletingMessage: boolean;
   messages: Message[];
   message: Message | {};
   amountOfRequests: number;
@@ -510,14 +510,10 @@ export const jungleSwapSlice = createSlice({
       });
     },
     setStartAmountOfRequests: (state) => {
-      if (state.amountOfRequests <= (state.loggedInUser as any).amountOfRequests) {
-        state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
-      }
+      state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
     },
     setStartAmountOfReplies: (state) => {
-      if (state.amountOfReplies <= (state.loggedInUser as any).amountOfReplies) {
-        state.amountOfReplies = (state.loggedInUser as any).amountOfReplies;
-      }
+      state.amountOfReplies = (state.loggedInUser as any).amountOfReplies;
     },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;

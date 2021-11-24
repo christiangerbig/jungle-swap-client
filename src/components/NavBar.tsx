@@ -120,6 +120,8 @@ const NavBar = (): JSX.Element => {
       if (amountOfReplies < currentAmountOfReplies) {
         dispatch(setAmountOfReplies(currentAmountOfReplies));
         dispatch(setIsNewReply(true));
+      } else if (amountOfReplies > currentAmountOfReplies) {
+        dispatch(setAmountOfReplies(currentAmountOfReplies));
       }
     };
 
