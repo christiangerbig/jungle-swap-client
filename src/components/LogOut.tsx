@@ -4,6 +4,8 @@ import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   logOut,
+  setAmountOfReplies,
+  setAmountOfRequests,
   setDelayCounter,
   setIntervalId,
   setIsNewRequest,
@@ -45,6 +47,8 @@ const LogOut = (): JSX.Element => {
           dispatch(setDelayCounter(0));
         }
         dispatch(setIsNewRequest(false));
+        dispatch(setAmountOfRequests(0));
+        dispatch(setAmountOfReplies(0));
         history.push("/");
         scroll.scrollToTop();
       });
