@@ -58,6 +58,7 @@ interface InitialState {
   isUserChange: boolean;
   isFetchingPlant: boolean;
   isFetchingPlants: boolean;
+  isCreatingPlant: boolean;
   isUpdatingPlant: boolean;
   isDeletingPlant: boolean;
   isUploadingPlantImage: boolean;
@@ -87,6 +88,7 @@ const initialState: InitialState = {
   isUserChange: false,
   isFetchingPlant: false,
   isFetchingPlants: false,
+  isCreatingPlant: false,
   isUpdatingPlant: false,
   isDeletingPlant: false,
   isUploadingPlantImage: false,
@@ -411,6 +413,9 @@ export const jungleSwapSlice = createSlice({
     setIsFetchingPlant: (state, action: PayloadAction<boolean>) => {
       state.isFetchingPlant = action.payload;
     },
+    setIsCreatingPlant: (state, action: PayloadAction<boolean>) => {
+      state.isCreatingPlant = action.payload;
+    },
     setIsUpdatingPlant: (state, action: PayloadAction<boolean>) => {
       state.isUpdatingPlant = action.payload;
     },
@@ -427,7 +432,7 @@ export const jungleSwapSlice = createSlice({
       state.isUploadingPlantImage = action.payload;
     },
     setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
-      state.isUploadingPlantImage = action.payload;
+      state.isDeletingPlantImage = action.payload;
     },
     setOldImagePublicId: (state, action: PayloadAction<string>) => {
       state.oldImagePublicId = action.payload;
@@ -581,6 +586,12 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchQueryPlants.rejected, (state) => {
       state.isFetchingPlants = false;
     });
+    builder.addCase(createPlant.fulfilled, (state) => {
+      state.isCreatingPlant = false;
+    });
+    builder.addCase(createPlant.rejected, (state) => {
+      state.isCreatingPlant = false;
+    });
     builder.addCase(readPlant.fulfilled, (state) => {
       state.isFetchingPlant = false;
     });
@@ -643,6 +654,7 @@ export const {
   setIsFetchingPlants,
   setPlants,
   setIsFetchingPlant,
+  setIsCreatingPlant,
   setIsUpdatingPlant,
   setIsDeletingPlant,
   setPlant,

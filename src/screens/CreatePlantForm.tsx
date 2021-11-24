@@ -11,6 +11,7 @@ import {
   setLoggedInUser,
   uploadPlantImage,
   setIsUploadingPlantImage,
+  setIsCreatingPlant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -20,6 +21,9 @@ const CreatePlantForm = (): JSX.Element => {
   );
   const isUploadingPlantImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUploadingPlantImage
+  );
+  const isCreatingPlant = useAppSelector(
+    (state: RootState) => state.jungleSwap.isCreatingPlant
   );
   const error = useAppSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useAppDispatch();
@@ -60,6 +64,7 @@ const CreatePlantForm = (): JSX.Element => {
           location: location.value,
           price: price.value,
         };
+        dispatch(setIsCreatingPlant(true));
         dispatch(createPlant(newPlant))
           .unwrap()
           .then((plant: Plant) => {
@@ -146,7 +151,7 @@ const CreatePlantForm = (): JSX.Element => {
             <button
               className="btn btn-sm form-control smallWidth ml-4 mb-2"
               type="submit"
-              disabled={isUploadingPlantImage ? true : false}
+              disabled={isUploadingPlantImage || isCreatingPlant ? true : false}
             >
               Create
             </button>
