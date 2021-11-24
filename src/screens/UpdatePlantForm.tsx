@@ -13,10 +13,12 @@ import {
   scrollToPlants,
   checkUserLoggedIn,
   setLoggedInUser,
-  setIsUploadingImage,
+  setIsUploadingPlantImage,
   ImagePublicId,
   setOldImagePublicId,
   ImageUrl,
+  setIsDeletingPlantImage,
+  setIsUpdatingPlant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -25,13 +27,19 @@ const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const isUploadingImage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUploadingImage
+  const isUploadingPlantImage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isUploadingPlantImage
+  );
+  const isDeletingPlantImage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isDeletingPlantImage
   );
   const oldImagePublicId = useAppSelector(
     (state: RootState) => state.jungleSwap.oldImagePublicId
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const isUpdatingPlant = useAppSelector(
+    (state: RootState) => state.jungleSwap.isUpdatingPlant
+  );
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -88,7 +96,7 @@ const UpdatePlantForm = (): JSX.Element => {
     imagePublicId && dispatch(setOldImagePublicId(imagePublicId));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    dispatch(setIsUploadingImage(true));
+    dispatch(setIsUploadingPlantImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
@@ -107,6 +115,7 @@ const UpdatePlantForm = (): JSX.Element => {
     const destroyImageData = {
       imagePublicId: oldImagePublicId,
     };
+    dispatch(setIsDeletingPlantImage(true));
     dispatch(deletePlantImage(destroyImageData))
       .unwrap()
       .then(() => {
@@ -137,6 +146,7 @@ const UpdatePlantForm = (): JSX.Element => {
       location,
       price,
     };
+    dispatch(setIsUpdatingPlant(true));
     dispatch(updatePlant({ plantId: _id, updatedPlant }))
       .unwrap()
       .then((updatedPlant) => {
@@ -159,7 +169,7 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          {isUploadingImage ? (
+          {isUploadingPlantImage ? (
             <LoadingSpinner />
           ) : (
             <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
@@ -233,7 +243,9 @@ const UpdatePlantForm = (): JSX.Element => {
             <div className="col-12 text-right pr-0">
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
-                disabled={isUploadingImage ? true : false}
+                disabled={
+                  isDeletingPlantImage || isUpdatingPlant ? true : false
+                }
                 onClick={() => {
                   handleDeleteOldImage(oldImagePublicId);
                   handleUpdatePlant(plant);

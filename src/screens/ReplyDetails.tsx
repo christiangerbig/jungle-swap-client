@@ -17,6 +17,7 @@ import {
   setLoggedInUser,
   MessageId,
   setIsFetchingMessage,
+  setIsDeletingMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -24,11 +25,14 @@ const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
+  const message = useAppSelector(
+    (state: RootState) => state.jungleSwap.message
+  );
   const isFetchingMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingMessage
   );
-  const message = useAppSelector(
-    (state: RootState) => state.jungleSwap.message
+  const isDeletingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isDeletingMessage
   );
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
@@ -58,6 +62,7 @@ const ReplyDetails = (): JSX.Element => {
 
   // Delete Message
   const handleDeleteMessage = (messageId: MessageId): void => {
+    dispatch(setIsDeletingMessage(true));
     dispatch(deleteMessage(messageId))
       .unwrap()
       .then(() => {
@@ -100,6 +105,7 @@ const ReplyDetails = (): JSX.Element => {
         <div className="text-right px-3">
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
+            disabled={isDeletingMessage ? true : false}
             onClick={() => {
               handleDeleteMessage(_id);
             }}

@@ -58,12 +58,16 @@ interface InitialState {
   isUserChange: boolean;
   isFetchingPlant: boolean;
   isFetchingPlants: boolean;
-  isUploadingImage: boolean;
+  isUpdatingPlant: boolean;
+  isDeletingPlant: boolean;
+  isUploadingPlantImage: boolean;
+  isDeletingPlantImage: boolean;
   plants: Plant[];
   plant: Plant | {};
   oldImagePublicId: ImagePublicId;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
+  isDeletingMessage: boolean,
   messages: Message[];
   message: Message | {};
   amountOfRequests: number;
@@ -83,12 +87,16 @@ const initialState: InitialState = {
   isUserChange: false,
   isFetchingPlant: false,
   isFetchingPlants: false,
-  isUploadingImage: false,
+  isUpdatingPlant: false,
+  isDeletingPlant: false,
+  isUploadingPlantImage: false,
+  isDeletingPlantImage: false,
   plants: [],
   plant: {},
   oldImagePublicId: "",
   isFetchingMessage: false,
   isFetchingMessages: false,
+  isDeletingMessage: false,
   messages: [],
   message: {},
   amountOfRequests: 0,
@@ -403,14 +411,23 @@ export const jungleSwapSlice = createSlice({
     setIsFetchingPlant: (state, action: PayloadAction<boolean>) => {
       state.isFetchingPlant = action.payload;
     },
+    setIsUpdatingPlant: (state, action: PayloadAction<boolean>) => {
+      state.isUpdatingPlant = action.payload;
+    },
+    setIsDeletingPlant: (state, action: PayloadAction<boolean>) => {
+      state.isDeletingPlant = action.payload;
+    },
     setPlant: (state, action: PayloadAction<Plant>) => {
       state.plant = action.payload;
     },
     addPlant: (state, action: PayloadAction<Plant>) => {
       state.plants.push(action.payload);
     },
-    setIsUploadingImage: (state, action: PayloadAction<boolean>) => {
-      state.isUploadingImage = action.payload;
+    setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
+      state.isUploadingPlantImage = action.payload;
+    },
+    setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
+      state.isUploadingPlantImage = action.payload;
     },
     setOldImagePublicId: (state, action: PayloadAction<string>) => {
       state.oldImagePublicId = action.payload;
@@ -457,6 +474,9 @@ export const jungleSwapSlice = createSlice({
     },
     setIsFetchingMessage: (state, action: PayloadAction<boolean>) => {
       state.isFetchingMessage = action.payload;
+    },
+    setIsDeletingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isDeletingMessage = action.payload;
     },
     setMessage: (state, action: PayloadAction<Message>) => {
       state.message = action.payload;
@@ -567,11 +587,29 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(readPlant.rejected, (state) => {
       state.isFetchingPlant = false;
     });
+    builder.addCase(readPlant.fulfilled, (state) => {
+      state.isFetchingPlant = false;
+    });
+    builder.addCase(updatePlant.rejected, (state) => {
+      state.isUpdatingPlant = false;
+    });
+    builder.addCase(updatePlant.fulfilled, (state) => {
+      state.isUpdatingPlant = false;
+    });
+    builder.addCase(deletePlant.rejected, (state) => {
+      state.isDeletingPlant = false;
+    });
     builder.addCase(uploadPlantImage.fulfilled, (state) => {
-      state.isUploadingImage = false;
+      state.isUploadingPlantImage = false;
     });
     builder.addCase(uploadPlantImage.rejected, (state) => {
-      state.isUploadingImage = false;
+      state.isUploadingPlantImage = false;
+    });
+    builder.addCase(deletePlantImage.fulfilled, (state) => {
+      state.isDeletingPlantImage = false;
+    });
+    builder.addCase(deletePlantImage.rejected, (state) => {
+      state.isDeletingPlantImage = false;
     });
 
     // ---------- Messages ----------
@@ -587,6 +625,12 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(readMessage.rejected, (state) => {
       state.isFetchingMessage = false;
     });
+    builder.addCase(deleteMessage.fulfilled, (state) => {
+      state.isDeletingMessage = false;
+    });
+    builder.addCase(deleteMessage.rejected, (state) => {
+      state.isDeletingMessage = false;
+    });
   },
 });
 
@@ -599,9 +643,12 @@ export const {
   setIsFetchingPlants,
   setPlants,
   setIsFetchingPlant,
+  setIsUpdatingPlant,
+  setIsDeletingPlant,
   setPlant,
   addPlant,
-  setIsUploadingImage,
+  setIsUploadingPlantImage,
+  setIsDeletingPlantImage,
   setOldImagePublicId,
   setPlantChanges,
   removePlant,
@@ -611,6 +658,7 @@ export const {
   setIsFetchingMessages,
   setMessages,
   setIsFetchingMessage,
+  setIsDeletingMessage,
   setMessage,
   addMessage,
   setMessageChanges,

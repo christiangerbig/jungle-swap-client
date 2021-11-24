@@ -22,6 +22,9 @@ import {
   checkUserLoggedIn,
   setLoggedInUser,
   setIsFetchingPlant,
+  setIsDeletingMessage,
+  setIsDeletingPlantImage,
+  setIsDeletingPlant,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -29,13 +32,22 @@ const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
+  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const isFetchingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlant
+  );
+  const isDeletingPlant = useAppSelector(
+    (state: RootState) => state.jungleSwap.isDeletingPlant
+  );
+  const isDeletingPlantImage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isDeletingPlantImage
   );
   const messages = useAppSelector(
     (state: RootState) => state.jungleSwap.messages
   );
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const isDeletingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isDeletingMessage
+  );
   const { plantId } = useParams<{ plantId: PlantId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -62,59 +74,57 @@ const PlantDetails = (): JSX.Element => {
       });
   }, []);
 
-  // Delete plant
-  const handleDeletePlant = (
-    imagePublicId: ImagePublicId,
-    plantId: PlantId,
-    messages: Message[]
-  ) => {
-    // Delete all remaining messages for the plant
-    const deleteMessages = (messages: Message[], plantId: PlantId): void => {
-      messages.forEach((message: Message) => {
-        const { _id, plant }: any = message;
-        if (plant._id === plantId) {
-          dispatch(deleteMessage(_id))
-            .unwrap()
-            .then(() => {
-              dispatch(removeMessage(_id));
-              dispatch(decreaseAmountOfReplies());
-            })
-            .catch((rejectedValue: any) => {
-              console.log(rejectedValue.message);
-            });
-        }
+  // Delete all remaining messages for the plant
+  const handleDeleteMessages = (
+    messages: Message[],
+    plantId: PlantId
+  ): void => {
+    messages.forEach((message: Message) => {
+      const { _id, plant }: any = message;
+      if (plant._id === plantId) {
+        dispatch(setIsDeletingMessage(true));
+        dispatch(deleteMessage(_id))
+          .unwrap()
+          .then(() => {
+            dispatch(removeMessage(_id));
+            dispatch(decreaseAmountOfReplies());
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      }
+    });
+  };
+
+  // Delete plant image
+  const handleDeleteImage = (imagePublicId: ImagePublicId): void => {
+    const destroyImageData: DestroyImageData = {
+      imagePublicId,
+    };
+    dispatch(setIsDeletingPlantImage(true));
+    dispatch(deletePlantImage(destroyImageData))
+      .unwrap()
+      .then(() => {
+        return;
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
       });
-    };
+  };
 
-    // Delete plant image
-    const deleteImage = (
-      imagePublicId: ImagePublicId,
-      plantId: PlantId
-    ): void => {
-      const destroyImageData: DestroyImageData = {
-        imagePublicId,
-      };
-      dispatch(deletePlantImage(destroyImageData))
-        .unwrap()
-        .then(() => {
-          dispatch(deletePlant(plantId))
-            .unwrap()
-            .then(() => {
-              dispatch(removePlant(plantId));
-              history.push("/");
-              dispatch(scrollToPlants());
-            })
-            .catch((rejectedValue: any) => {
-              console.log(rejectedValue.message);
-            });
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    };
-
-    deleteMessages(messages, plantId);
-    deleteImage(imagePublicId, plantId);
+  // Delete plant
+  const handleDeletePlant = (plantId: PlantId) => {
+    dispatch(setIsDeletingPlant(true));
+    dispatch(deletePlant(plantId))
+      .unwrap()
+      .then(() => {
+        dispatch(removePlant(plantId));
+        history.push("/");
+        dispatch(scrollToPlants());
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   if (!loggedInUser) {
@@ -176,8 +186,17 @@ const PlantDetails = (): JSX.Element => {
                       </Link>
                       <button
                         className="btn btn-sm ml-2 form-control smallWidth mb-2"
+                        disabled={
+                          isDeletingMessage ||
+                          isDeletingPlantImage ||
+                          isDeletingPlant
+                            ? true
+                            : false
+                        }
                         onClick={() => {
-                          handleDeletePlant(imagePublicId, _id, messages);
+                          handleDeleteMessages(messages, _id);
+                          handleDeleteImage(imagePublicId);
+                          handleDeletePlant(_id);
                         }}
                       >
                         Delete
