@@ -587,14 +587,14 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(readPlant.rejected, (state) => {
       state.isFetchingPlant = false;
     });
-    builder.addCase(readPlant.fulfilled, (state) => {
-      state.isFetchingPlant = false;
+    builder.addCase(updatePlant.fulfilled, (state) => {
+      state.isUpdatingPlant = false;
     });
     builder.addCase(updatePlant.rejected, (state) => {
       state.isUpdatingPlant = false;
     });
-    builder.addCase(updatePlant.fulfilled, (state) => {
-      state.isUpdatingPlant = false;
+    builder.addCase(deletePlant.fulfilled, (state) => {
+      state.isDeletingPlant = false;
     });
     builder.addCase(deletePlant.rejected, (state) => {
       state.isDeletingPlant = false;
