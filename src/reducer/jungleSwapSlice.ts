@@ -510,12 +510,14 @@ export const jungleSwapSlice = createSlice({
       });
     },
     setStartAmountOfRequests: (state) => {
-      state.loggedInUser &&
-        (state.amountOfRequests = (state.loggedInUser as any).amountOfRequests);
+      if (state.amountOfRequests <= (state.loggedInUser as any).amountOfRequests) {
+        state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
+      }
     },
     setStartAmountOfReplies: (state) => {
-      state.loggedInUser &&
-        (state.amountOfReplies = (state.loggedInUser as any).amountOfReplies);
+      if (state.amountOfReplies <= (state.loggedInUser as any).amountOfReplies) {
+        state.amountOfReplies = (state.loggedInUser as any).amountOfReplies;
+      }
     },
     setAmountOfRequests: (state, action: PayloadAction<number>) => {
       state.amountOfRequests = action.payload;
