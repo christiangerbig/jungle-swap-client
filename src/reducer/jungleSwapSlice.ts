@@ -537,10 +537,10 @@ export const jungleSwapSlice = createSlice({
       state.delayCounter += 1;
     },
     decreaseAmountOfRequests: (state) => {
-      state.amountOfRequests && (state.amountOfRequests -= 1);
+      state.amountOfRequests -= 1;
     },
     decreaseAmountOfReplies: (state) => {
-      state.amountOfReplies && (state.amountOfReplies -= 1);
+      state.amountOfReplies -= 1;
     },
 
     // ---------- User ----------

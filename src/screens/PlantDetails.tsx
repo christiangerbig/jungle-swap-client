@@ -87,7 +87,7 @@ const PlantDetails = (): JSX.Element => {
           .unwrap()
           .then(() => {
             dispatch(removeMessage(_id));
-            dispatch(decreaseAmountOfReplies());
+            // dispatch(decreaseAmountOfReplies());
           })
           .catch((rejectedValue: any) => {
             console.log(rejectedValue.message);
