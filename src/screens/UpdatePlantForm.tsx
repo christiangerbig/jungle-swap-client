@@ -169,7 +169,7 @@ const UpdatePlantForm = (): JSX.Element => {
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
-          {isUploadingPlantImage ? (
+          {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <LoadingSpinner />
           ) : (
             <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
@@ -244,7 +244,11 @@ const UpdatePlantForm = (): JSX.Element => {
               <button
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 disabled={
-                  isDeletingPlantImage || isUpdatingPlant ? true : false
+                  isUploadingPlantImage ||
+                  isDeletingPlantImage ||
+                  isUpdatingPlant
+                    ? true
+                    : false
                 }
                 onClick={() => {
                   handleDeleteOldImage(oldImagePublicId);
