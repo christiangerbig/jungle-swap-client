@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   updatePlant,
@@ -17,8 +16,10 @@ import {
   setIsUploadingImage,
   ImagePublicId,
   setOldImagePublicId,
+  ImageUrl,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -34,20 +35,20 @@ const UpdatePlantForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads
+  // Scroll to top as soon as page loads if the user ia logged in
   useEffect(() => {
-    scroll.scrollToTop();
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
   }, []);
 
-  // Check which plant values changed
+  // Check which plant values have changed
   const handlePlantEntryChange = (
     { target }: any,
     plant: Plant,
@@ -75,6 +76,12 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   // Plant image changed
+  interface UploadPlantImageResponse {
+    imageUrl: ImageUrl;
+    imagePublicId: ImagePublicId;
+  }
+
+  // Upload a new image and update plant values
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
@@ -84,7 +91,7 @@ const UpdatePlantForm = (): JSX.Element => {
     dispatch(setIsUploadingImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: any) => {
+      .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
         const clonedPlant = JSON.parse(JSON.stringify(plant));
         clonedPlant.imagePublicId = imagePublicId;
         clonedPlant.imageUrl = imageUrl;
@@ -95,10 +102,33 @@ const UpdatePlantForm = (): JSX.Element => {
       });
   };
 
-  const handleUpdatePlant = (
-    oldImagePublicId: ImagePublicId,
-    {
-      _id,
+  // Delete old image
+  const handleDeleteOldImage = (oldImagePublicId: ImagePublicId): void => {
+    const destroyImageData = {
+      imagePublicId: oldImagePublicId,
+    };
+    dispatch(deletePlantImage(destroyImageData))
+      .unwrap()
+      .then(() => {
+        return;
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
+  };
+
+  // Update plant values
+  const handleUpdatePlant = ({
+    _id,
+    name,
+    description,
+    size,
+    imageUrl,
+    imagePublicId,
+    location,
+    price,
+  }: Plant): void => {
+    const updatedPlant: Plant = {
       name,
       description,
       size,
@@ -106,33 +136,13 @@ const UpdatePlantForm = (): JSX.Element => {
       imagePublicId,
       location,
       price,
-    }: Plant
-  ): void => {
-    const destroyImageData = {
-      imagePublicId: oldImagePublicId,
     };
-    dispatch(deletePlantImage(destroyImageData))
+    dispatch(updatePlant({ plantId: _id, updatedPlant }))
       .unwrap()
-      .then(() => {
-        const updatedPlant: Plant = {
-          name,
-          description,
-          size,
-          imageUrl,
-          imagePublicId,
-          location,
-          price,
-        };
-        dispatch(updatePlant({ plantId: _id, updatedPlant }))
-          .unwrap()
-          .then((updatedPlant) => {
-            dispatch(setPlantChanges(updatedPlant));
-            history.push("/");
-            dispatch(scrollToPlants());
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
+      .then((updatedPlant) => {
+        dispatch(setPlantChanges(updatedPlant));
+        history.push("/");
+        dispatch(scrollToPlants());
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -142,8 +152,8 @@ const UpdatePlantForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-
   const { name, description, size, imageUrl, price } = plant as Plant;
+
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
@@ -225,7 +235,8 @@ const UpdatePlantForm = (): JSX.Element => {
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 disabled={isUploadingImage ? true : false}
                 onClick={() => {
-                  handleUpdatePlant(oldImagePublicId, plant);
+                  handleDeleteOldImage(oldImagePublicId);
+                  handleUpdatePlant(plant);
                 }}
               >
                 Save

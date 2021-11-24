@@ -99,8 +99,8 @@ const CheckoutForm = (): JSX.Element => {
       setIsSucceeded(true);
     }
   };
-
   const { _id, name, price } = plant as Plant;
+
   return (
     <div className="container col-9">
       <form
@@ -139,10 +139,10 @@ const CheckoutForm = (): JSX.Element => {
               {paymentError}
             </div>
           )
-          /* Show success message upon completion */
         }
         <p
           className={
+            /* Show success message upon completion */
             isSucceeded
               ? "result-message text-center"
               : "result-message hidden text-center"

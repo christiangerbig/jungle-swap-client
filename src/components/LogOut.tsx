@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  IntervalId,
   logOut,
   setDelayCounter,
   setIntervalId,
@@ -30,7 +29,7 @@ const LogOut = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Update user and log out as soon as page loads
+  // Update user amount of requests/replies, log out and stop interval as soon as page loads
   useEffect(() => {
     const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
     clonedUser.amountOfRequests = amountOfRequests;

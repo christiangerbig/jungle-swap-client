@@ -1,18 +1,4 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { setLoggedInUser } from "../reducer/jungleSwapSlice";
-import { RootState } from "../store";
-
 const Unauthorized = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    loggedInUser && dispatch(setLoggedInUser(null));
-  }, []);
-
   return (
     <div className="notFound">
       <div>

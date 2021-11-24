@@ -92,8 +92,38 @@ const NavBar = (): JSX.Element => {
     }
   }, [isUserChange]);
 
-  // Check new requests/replies for logged in user every second
+  // Check new requests/replies for logged in user every second if user is logged in
   useEffect(() => {
+    // Check if there are new requests
+    const checkAmountOfRequests = (messages: Message[]): void => {
+      const currentAmountOfRequests = messages.filter((message: Message) => {
+        const { seller, messageState } = message;
+        return (
+          (seller as User)._id === (loggedInUser as User)._id &&
+          messageState === true
+        );
+      }).length;
+      if (amountOfRequests < currentAmountOfRequests) {
+        dispatch(setAmountOfRequests(currentAmountOfRequests));
+        dispatch(setIsNewRequest(true));
+      } else if (amountOfRequests > currentAmountOfRequests) {
+        dispatch(setAmountOfRequests(currentAmountOfRequests));
+      }
+    };
+
+    // Check if there are new replies
+    const checkAmountOfReplies = (messages: Message[]): void => {
+      const currentAmountOfReplies = messages.filter((message: Message) => {
+        const { buyer, reply } = message;
+        return (buyer as User)._id === (loggedInUser as User)._id && reply;
+      }).length;
+      if (amountOfReplies < currentAmountOfReplies) {
+        dispatch(setAmountOfReplies(currentAmountOfReplies));
+        dispatch(setIsNewReply(true));
+      }
+    };
+
+    // Check and update amount of new requests/replies if user is logged in
     if (loggedInUser) {
       dispatch(fetchAllMessages())
         .unwrap()
@@ -101,29 +131,8 @@ const NavBar = (): JSX.Element => {
           dispatch(setMessages(messages));
           isUserChange && dispatch(setStartAmountOfRequests());
           isUserChange && dispatch(setStartAmountOfReplies());
-          const currentAmountOfRequests = messages.filter(
-            (message: Message) => {
-              const { seller, messageState } = message;
-              return (
-                (seller as User)._id === loggedInUser._id &&
-                messageState === true
-              );
-            }
-          ).length;
-          if (amountOfRequests < currentAmountOfRequests) {
-            dispatch(setAmountOfRequests(currentAmountOfRequests));
-            dispatch(setIsNewRequest(true));
-          } else if (amountOfRequests > currentAmountOfRequests) {
-            dispatch(setAmountOfRequests(currentAmountOfRequests));
-          }
-          const currentAmountOfReplies = messages.filter((message: Message) => {
-            const { buyer, reply } = message;
-            return (buyer as User)._id === loggedInUser._id && reply;
-          }).length;
-          if (amountOfReplies < currentAmountOfReplies) {
-            dispatch(setAmountOfReplies(currentAmountOfReplies));
-            dispatch(setIsNewReply(true));
-          }
+          checkAmountOfRequests(messages);
+          checkAmountOfReplies(messages);
         })
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);

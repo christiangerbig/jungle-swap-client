@@ -35,9 +35,10 @@ const RepliesPage = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Fetch all requests and reset values as soon as page loads and reset values during cleanup
+  // Fetch all messages, reset and update values as soon as page loads and reset values during cleanup if the user is logged  in
   useEffect(() => {
-    const handleResetAll = (): void => {
+    // Reset values and scroll to top
+    const resetValues = (): void => {
       dispatch(setIsNewReply(false));
       scroll.scrollToTop();
     };
@@ -53,7 +54,7 @@ const RepliesPage = (): JSX.Element => {
             dispatch(setMessages(messages));
             isUserChange && dispatch(setStartAmountOfRequests());
             isUserChange && dispatch(setStartAmountOfReplies());
-            handleResetAll();
+            resetValues();
           })
           .catch((rejectedValue: any) => {
             console.log(rejectedValue.message);
@@ -63,7 +64,7 @@ const RepliesPage = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
     return () => {
-      handleResetAll();
+      resetValues();
     };
   }, []);
 
@@ -87,7 +88,7 @@ const RepliesPage = (): JSX.Element => {
           <LoadingSpinner />
         ) : (
           <div>
-            {messages.map((message: Message, index: number) => {
+            {messages.map((message: Message, index: number): JSX.Element => {
               return <ReplyTile message={message} key={index} />;
             })}
           </div>

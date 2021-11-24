@@ -37,7 +37,8 @@ const RequestsPage = (): JSX.Element => {
 
   // Fetch all messages and reset values as soon as page loads and reset values during cleanup
   useEffect(() => {
-    const handleResetAll = (): void => {
+    // Reset values and scroll to top
+    const resetValues = (): void => {
       dispatch(setIsNewRequest(false));
       scroll.scrollToTop();
     };
@@ -53,7 +54,7 @@ const RequestsPage = (): JSX.Element => {
             dispatch(setMessages(messages));
             isUserChange && dispatch(setStartAmountOfRequests());
             isUserChange && dispatch(setStartAmountOfReplies());
-            handleResetAll();
+            resetValues();
           })
           .catch((rejectedValue: any) => {
             console.log(rejectedValue.message);
@@ -63,7 +64,7 @@ const RequestsPage = (): JSX.Element => {
         console.log(rejectedValue.message);
       });
     return () => {
-      handleResetAll();
+      resetValues();
     };
   }, []);
 
@@ -87,7 +88,7 @@ const RequestsPage = (): JSX.Element => {
           <LoadingSpinner />
         ) : (
           <div>
-            {messages.map((message: Message, index: number) => {
+            {messages.map((message: Message, index: number): JSX.Element => {
               return <RequestTile message={message} key={index} />;
             })}
           </div>

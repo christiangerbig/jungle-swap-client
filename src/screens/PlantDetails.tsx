@@ -40,7 +40,7 @@ const PlantDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Read plant data and scroll to top as soon as page loads
+  // Read plant data and scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
     dispatch(checkUserLoggedIn())
       .unwrap()
@@ -68,46 +68,58 @@ const PlantDetails = (): JSX.Element => {
     plantId: PlantId,
     messages: Message[]
   ) => {
-    messages.forEach((message: Message) => {
-      const { _id, plant }: any = message;
-      if (plant._id === plantId) {
-        dispatch(deleteMessage(_id))
-          .unwrap()
-          .then(() => {
-            dispatch(removeMessage(_id));
-            dispatch(decreaseAmountOfReplies());
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-      }
-    });
-    const destroyImageData: DestroyImageData = {
-      imagePublicId,
-    };
-    dispatch(deletePlantImage(destroyImageData))
-      .unwrap()
-      .then(() => {
-        dispatch(deletePlant(plantId))
-          .unwrap()
-          .then(() => {
-            dispatch(removePlant(plantId));
-            history.push("/");
-            dispatch(scrollToPlants());
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+    // Delete all remaining messages for the plant
+    const deleteMessages = (messages: Message[], plantId: PlantId): void => {
+      messages.forEach((message: Message) => {
+        const { _id, plant }: any = message;
+        if (plant._id === plantId) {
+          dispatch(deleteMessage(_id))
+            .unwrap()
+            .then(() => {
+              dispatch(removeMessage(_id));
+              dispatch(decreaseAmountOfReplies());
+            })
+            .catch((rejectedValue: any) => {
+              console.log(rejectedValue.message);
+            });
+        }
       });
+    };
+
+    // Delete plant image
+    const deleteImage = (
+      imagePublicId: ImagePublicId,
+      plantId: PlantId
+    ): void => {
+      const destroyImageData: DestroyImageData = {
+        imagePublicId,
+      };
+      dispatch(deletePlantImage(destroyImageData))
+        .unwrap()
+        .then(() => {
+          dispatch(deletePlant(plantId))
+            .unwrap()
+            .then(() => {
+              dispatch(removePlant(plantId));
+              history.push("/");
+              dispatch(scrollToPlants());
+            })
+            .catch((rejectedValue: any) => {
+              console.log(rejectedValue.message);
+            });
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    deleteMessages(messages, plantId);
+    deleteImage(imagePublicId, plantId);
   };
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/signup"} />;
   }
-
   const {
     _id,
     name,

@@ -50,9 +50,10 @@ export type IntervalId = NodeJS.Timer | null;
 export type Error = string | null;
 export type PlantId = string | undefined;
 export type ImagePublicId = string | undefined;
+export type ImageUrl = string;
 export type MessageId = string | undefined;
 
-interface SliceState {
+interface InitialState {
   loggedInUser: LoggedInUser;
   isUserChange: boolean;
   isFetchingPlant: boolean;
@@ -77,7 +78,7 @@ interface SliceState {
   error: Error;
 }
 
-const initialState: SliceState = {
+const initialState: InitialState = {
   loggedInUser: null,
   isUserChange: false,
   isFetchingPlant: false,
@@ -85,7 +86,7 @@ const initialState: SliceState = {
   isUploadingImage: false,
   plants: [],
   plant: {},
-  oldImagePublicId:"",
+  oldImagePublicId: "",
   isFetchingMessage: false,
   isFetchingMessages: false,
   messages: [],
@@ -102,6 +103,7 @@ const initialState: SliceState = {
   error: null,
 };
 
+// Error handling
 const rejectWithValue = (data: any): void | PromiseLike<void> => {
   throw new Error(data);
 };
@@ -380,10 +382,11 @@ export const checkUserLoggedIn = createAsyncThunk(
   }
 );
 
-// ---------- Reducers ----------
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
+
+  // ---------- Reducers ----------
   reducers: {
     // --------- User -----------
     setUser: (state, action: PayloadAction<User>) => {
@@ -543,6 +546,7 @@ export const jungleSwapSlice = createSlice({
     },
   },
 
+  // Extra reducers
   extraReducers: (builder) => {
     // --------- Plants ----------
     builder.addCase(fetchAllPlants.fulfilled, (state) => {
@@ -586,6 +590,7 @@ export const jungleSwapSlice = createSlice({
   },
 });
 
+// Slice actions
 export const {
   // ----------- User -----------
   setUser,

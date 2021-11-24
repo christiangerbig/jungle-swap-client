@@ -19,7 +19,7 @@ const SignIn = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Clear variables and scroll to top as soon as page loads
+  // Reset variables and scroll to top as soon as page loads
   useEffect(() => {
     dispatch(setError(null));
     dispatch(setIsNewRequest(false));
@@ -27,7 +27,7 @@ const SignIn = (): JSX.Element => {
   }, []);
 
   // Sign in
-  const handleSignIn = (event: any, history: any): void => {
+  const handleSignIn = (event: any): void => {
     event.preventDefault();
     const { email, password } = event.target;
     const user: User = {
@@ -55,7 +55,7 @@ const SignIn = (): JSX.Element => {
         <h2 className="mb-5"> Sign In </h2>
         <form
           onSubmit={(event) => {
-            handleSignIn(event, history);
+            handleSignIn(event);
           }}
         >
           <div className="form-group">

@@ -16,7 +16,7 @@ const SignUp = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Clear variables and scroll to top as soon as page loads
+  // Reset variables and scroll to top as soon as page loads
   useEffect(() => {
     dispatch(setError(null));
     dispatch(setIsNewRequest(false));

@@ -22,13 +22,13 @@ const UpdateRequestForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads
+  // Scroll to top as soon as page loads if the use is logged in
   useEffect(() => {
-    scroll.scrollToTop();
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -74,8 +74,8 @@ const UpdateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-
   const { _id, request } = message as Message;
+
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">

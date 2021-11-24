@@ -16,7 +16,7 @@ const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
-  // Load plants and user data as soon as page loads
+  // Load plants and calculate scroll element positions as soon as page loads
   useEffect(() => {
     dispatch(setIsFetchingPlants(true));
     dispatch(fetchAllPlants())

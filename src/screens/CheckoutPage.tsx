@@ -18,13 +18,13 @@ const CheckoutPage = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Scroll to top as soon as page loads
+  // Scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    scroll.scrollToTop();
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);

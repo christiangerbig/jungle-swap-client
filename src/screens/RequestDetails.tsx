@@ -34,7 +34,7 @@ const RequestDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Read message and scroll to top as soon as page loads
+  // Read message and scroll to top as soon as page loads and the user is logged in
   useEffect(() => {
     dispatch(checkUserLoggedIn())
       .unwrap()
@@ -58,7 +58,7 @@ const RequestDetails = (): JSX.Element => {
   }, []);
 
   // Set message of the buyer inactive by the seller
-  const handleSetMessageInactive = (message: Message, history: any) => {
+  const handleSetMessageInactive = (message: Message): void => {
     const clonedMessage: Message = JSON.parse(JSON.stringify(message));
     clonedMessage.messageState = false;
     dispatch(setMessage(clonedMessage));
@@ -89,7 +89,6 @@ const RequestDetails = (): JSX.Element => {
   }
 
   const { _id, buyer, plant, request, reply } = message as Message;
-
   if (isFetchingMessage || !buyer || !plant) {
     return (
       <div className="container d-flex align-items-center justify-content-center mt-5">
@@ -98,12 +97,14 @@ const RequestDetails = (): JSX.Element => {
       </div>
     );
   }
+  const { name } = plant as Plant;
+  const { username } = buyer as User;
 
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Request for {(plant as Plant).name} </h2>
-        <h5> by {(buyer as User).username} </h5>
+        <h2 className="mb-5"> Request for {name} </h2>
+        <h5> by {username} </h5>
         <p className="textField p-3 mb-4"> {request} </p>
         {reply && (
           <div>
@@ -122,7 +123,7 @@ const RequestDetails = (): JSX.Element => {
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => {
-              handleSetMessageInactive(message, history);
+              handleSetMessageInactive(message);
             }}
           >
             Done

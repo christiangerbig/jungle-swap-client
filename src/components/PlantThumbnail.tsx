@@ -7,6 +7,7 @@ type PlantThumbnailProps = {
 
 const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   const { _id, name, imageUrl, price } = plant;
+  
   return (
     <div className="col mb-5" key={_id}>
       <div className="card card-medium-width text-center h-100">

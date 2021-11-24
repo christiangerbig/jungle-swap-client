@@ -24,23 +24,19 @@ const CreateRequestForm = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Set variable and scroll to top as soon as page loads
+  // Set variable and scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(setError(null));
-    scroll.scrollToTop();
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setError(null));
+        scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
   }, []);
-
-  if (!loggedInUser) {
-    return <Redirect to={"/auth/unauthorized"} />;
-  }
 
   // Create request
   const handleCreateMessage = (event: any, plant: Plant) => {
@@ -63,7 +59,11 @@ const CreateRequestForm = () => {
       });
   };
 
+  if (!loggedInUser) {
+    return <Redirect to={"/auth/unauthorized"} />;
+  }
   const { _id, name } = plant as Plant;
+
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">

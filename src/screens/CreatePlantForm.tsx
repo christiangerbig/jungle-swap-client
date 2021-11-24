@@ -25,23 +25,19 @@ const CreatePlantForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads and scroll to plants section during cleanup
+  // Scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(setError(null));
-    scroll.scrollToTop();
     dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
+        dispatch(setError(null));
+        scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
   }, []);
-
-  if (!loggedInUser) {
-    return <Redirect to={"/auth/unauthorized"} />;
-  }
 
   // Create plant
   const handleCreatePlant = (event: any) => {
@@ -81,7 +77,7 @@ const CreatePlantForm = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/auth/signup"} />;
+    return <Redirect to={"/auth/unauthorized"} />;
   }
 
   return (
