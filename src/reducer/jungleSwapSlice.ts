@@ -65,7 +65,7 @@ interface InitialState {
   isDeletingPlantImage: boolean;
   plants: Plant[];
   plant: Plant | {};
-  oldImagePublicId: ImagePublicId;
+  destroyImageData: DestroyImageData;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
   isDeletingMessage: boolean;
@@ -95,7 +95,7 @@ const initialState: InitialState = {
   isDeletingPlantImage: false,
   plants: [],
   plant: {},
-  oldImagePublicId: "",
+  destroyImageData: {},
   isFetchingMessage: false,
   isFetchingMessages: false,
   isDeletingMessage: false,
@@ -439,8 +439,8 @@ export const jungleSwapSlice = createSlice({
     setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
       state.isDeletingPlantImage = action.payload;
     },
-    setOldImagePublicId: (state, action: PayloadAction<string>) => {
-      state.oldImagePublicId = action.payload;
+    setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
+      state.destroyImageData = action.payload;
     },
     setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
@@ -664,7 +664,7 @@ export const {
   addPlant,
   setIsUploadingPlantImage,
   setIsDeletingPlantImage,
-  setOldImagePublicId,
+  setDestroyImageData,
   setPlantChanges,
   removePlant,
   setClientSecret,

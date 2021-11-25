@@ -14,12 +14,11 @@ import {
   checkUserLoggedIn,
   setLoggedInUser,
   setIsUploadingPlantImage,
-  ImagePublicId,
-  setOldImagePublicId,
-  ImageUrl,
+  setDestroyImageData,
   setIsDeletingPlantImage,
   setIsUpdatingPlant,
   UploadPlantImageResponse,
+  DestroyImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -34,8 +33,8 @@ const UpdatePlantForm = (): JSX.Element => {
   const isDeletingPlantImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isDeletingPlantImage
   );
-  const oldImagePublicId = useAppSelector(
-    (state: RootState) => state.jungleSwap.oldImagePublicId
+  const destroyImageData = useAppSelector(
+    (state: RootState) => state.jungleSwap.destroyImageData
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const isUpdatingPlant = useAppSelector(
@@ -89,7 +88,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
-    imagePublicId && dispatch(setOldImagePublicId(imagePublicId));
+    imagePublicId && dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     dispatch(setIsUploadingPlantImage(true));
@@ -107,10 +106,7 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   // Delete old image
-  const handleDeleteOldImage = (oldImagePublicId: ImagePublicId): void => {
-    const destroyImageData = {
-      imagePublicId: oldImagePublicId,
-    };
+  const handleDeleteOldImage = (destroyImageData: DestroyImageData): void => {
     dispatch(setIsDeletingPlantImage(true));
     dispatch(deletePlantImage(destroyImageData))
       .unwrap()
@@ -247,7 +243,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     : false
                 }
                 onClick={() => {
-                  handleDeleteOldImage(oldImagePublicId);
+                  handleDeleteOldImage(destroyImageData);
                   handleUpdatePlant(plant);
                 }}
               >
