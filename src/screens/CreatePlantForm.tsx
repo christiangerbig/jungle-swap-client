@@ -64,7 +64,8 @@ const CreatePlantForm = (): JSX.Element => {
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
       });
-    return value;
+      const { imageUrl, imagePublicId }: any = value;
+    return { imageUrl, imagePublicId };
   };
 
   // Create plant
