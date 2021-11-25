@@ -23,7 +23,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -215,6 +215,17 @@ const NavBar = (): JSX.Element => {
                 </Link>
               </>
             )}
+            <>
+              <Link
+                to="/"
+                className="p-2"
+                onClick={() => {
+                  dispatch(scrollToPlants());
+                }}
+              >
+                <FontAwesomeIcon icon={faSearch} />
+              </Link>
+            </>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
