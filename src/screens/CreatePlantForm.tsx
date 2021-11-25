@@ -107,6 +107,7 @@ const CreatePlantForm = (): JSX.Element => {
           onSubmit={(event) => {
             event.preventDefault();
             handleUploadPlantImage(event.target);
+            console.log("before:", uploadImageData);
             handleCreatePlant(event.target, uploadImageData);
           }}
         >
