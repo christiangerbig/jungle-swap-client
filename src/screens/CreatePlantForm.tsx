@@ -112,6 +112,7 @@ const CreatePlantForm = (): JSX.Element => {
             const newImageData: NewImageData = handleUploadPlantImage(
               event.target
             );
+            console.log("Data:", newImageData);
             handleCreatePlant(event.target, newImageData);
           }}
         >
