@@ -49,8 +49,11 @@ const CreatePlantForm = (): JSX.Element => {
       });
   }, []);
 
-  // Upload plant image
-  const handleUploadPlantImage = ({ plantImage }: any): void => {
+  // Create plant
+  const handleCreatePlant = (event: any): void => {
+    event.preventDefault();
+    // Upload plant image
+    const {name, description, size, location, price, plantImage} = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -58,43 +61,31 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
-        console.log("upload image .then:", imageUrl, imagePublicId);
-        const imageObject: UploadImageData = { imageUrl, imagePublicId };
-        console.log("image object:", imageObject)
-        dispatch(setUploadImageData(imageObject));
-        console.log("after state save:", uploadImageData);
+        // Create new plant
+        const newPlant: Plant = {
+          name: name.value,
+          description: description.value,
+          size: size.value,
+          imageUrl,
+          imagePublicId,
+          location: location.value,
+          price: price.value,
+        };
+        dispatch(setIsCreatingPlant(true));
+        dispatch(createPlant(newPlant))
+          .unwrap()
+          .then((plant: Plant) => {
+            dispatch(addPlant(plant));
+            history.push("/");
+            scroll.scrollToBottom();
+          })
+          .catch((rejectedValue: any) => {
+            dispatch(setError(rejectedValue.message));
+          });
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
-      });
-  };
-
-  // Create plant
-  const handleCreatePlant = (
-    { name, description, size, location, price }: any,
-    { imageUrl, imagePublicId }: UploadImageData
-  ): void => {
-    console.log("create plant:", imageUrl, imagePublicId);
-    const newPlant: Plant = {
-      name: name.value,
-      description: description.value,
-      size: size.value,
-      imageUrl,
-      imagePublicId,
-      location: location.value,
-      price: price.value,
-    };
-    dispatch(setIsCreatingPlant(true));
-    dispatch(createPlant(newPlant))
-      .unwrap()
-      .then((plant: Plant) => {
-        dispatch(addPlant(plant));
-        history.push("/");
-        scroll.scrollToBottom();
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setError(rejectedValue.message));
-      });
+      });  
   };
 
   if (!loggedInUser) {
@@ -107,14 +98,8 @@ const CreatePlantForm = (): JSX.Element => {
         <h2 className="mb-5 text-left"> Create a plant </h2>
         <form
           onSubmit={(event) => {
-            event.preventDefault();
-            console.log("1.")
-            handleUploadPlantImage(event.target);
-            console.log("2.")
-            console.log("before create plant call:", uploadImageData);
-            handleCreatePlant(event.target, uploadImageData);
-            console.log("3.")
-          }}
+            handleCreatePlant(event);
+        }}
         >
           <label htmlFor="enterName"> Name </label>
           <input
