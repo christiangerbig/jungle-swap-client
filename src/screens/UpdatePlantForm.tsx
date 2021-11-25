@@ -19,6 +19,7 @@ import {
   ImageUrl,
   setIsDeletingPlantImage,
   setIsUpdatingPlant,
+  UploadPlantImageResponse,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -84,11 +85,6 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   // Plant image changed
-  interface UploadPlantImageResponse {
-    imageUrl: ImageUrl;
-    imagePublicId: ImagePublicId;
-  }
-
   // Upload a new image and update plant values
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];

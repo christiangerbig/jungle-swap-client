@@ -146,6 +146,11 @@ export const fetchQueryPlants = createAsyncThunk(
 );
 
 // Upload plant image
+export interface UploadPlantImageResponse {
+  imageUrl: ImageUrl;
+  imagePublicId: ImagePublicId;
+}
+
 export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData) => {

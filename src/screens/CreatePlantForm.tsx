@@ -12,6 +12,7 @@ import {
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
+  UploadPlantImageResponse,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -55,7 +56,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(setIsUploadingPlantImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: any) => {
+      .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
         // Create plant
         const newPlant: Plant = {
           name: name.value,
