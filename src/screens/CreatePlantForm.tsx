@@ -56,7 +56,7 @@ const CreatePlantForm = (): JSX.Element => {
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     dispatch(setIsUploadingPlantImage(true));
-    dispatch(uploadPlantImage(uploadForm))
+    const value = dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
         return { imageUrl, imagePublicId };
@@ -64,6 +64,7 @@ const CreatePlantForm = (): JSX.Element => {
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
       });
+    return value;
   };
 
   // Create plant
