@@ -447,7 +447,9 @@ export const jungleSwapSlice = createSlice({
       state.isDeletingPlantImage = action.payload;
     },
     setUploadImageData: (state, action: PayloadAction<UploadImageData>) => {
+      console.log("action payload:",action.payload);
       state.uploadImageData = action.payload;
+      console.log("state reducer:", state.uploadImageData);
     },
     setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
       state.destroyImageData = action.payload;
