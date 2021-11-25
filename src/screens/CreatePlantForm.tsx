@@ -12,6 +12,8 @@ import {
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
+  ImageUrl,
+  ImagePublicId,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -43,38 +45,53 @@ const CreatePlantForm = (): JSX.Element => {
       });
   }, []);
 
-  // Create plant
-  const handleCreatePlant = (event: any) => {
-    event.preventDefault();
-    const { name, description, size, plantImage, location, price } =
-      event.target;
+  // Upload plant image
+  interface UploadPlantImageResponse {
+    imageUrl: ImageUrl;
+    imagePublicId: ImagePublicId;
+  }
+
+  const handleUploadPlantImage = ({ plantImage }: any): any => {
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     dispatch(setIsUploadingPlantImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: any) => {
-        const newPlant: Plant = {
-          name: name.value,
-          description: description.value,
-          size: size.value,
-          imageUrl,
-          imagePublicId,
-          location: location.value,
-          price: price.value,
-        };
-        dispatch(setIsCreatingPlant(true));
-        dispatch(createPlant(newPlant))
-          .unwrap()
-          .then((plant: Plant) => {
-            dispatch(addPlant(plant));
-            history.push("/");
-            scroll.scrollToBottom();
-          })
-          .catch((rejectedValue: any) => {
-            dispatch(setError(rejectedValue.message));
-          });
+      .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
+        return { imageUrl, imagePublicId };
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setError(rejectedValue.message));
+      });
+  };
+
+  // Create plant
+  interface NewImageData {
+    imageUrl: ImageUrl;
+    imagePublicId: ImagePublicId;
+  }
+
+  const handleCreatePlant = (
+    { name, description, size, location, price }: any,
+    { imageUrl, imagePublicId }: NewImageData
+  ): void => {
+    const newPlant: Plant = {
+      name: name.value,
+      description: description.value,
+      size: size.value,
+      imageUrl,
+      imagePublicId,
+      location: location.value,
+      price: price.value,
+    };
+    dispatch(setIsCreatingPlant(true));
+    dispatch(createPlant(newPlant))
+      .unwrap()
+      .then((plant: Plant) => {
+        dispatch(addPlant(plant));
+        history.push("/");
+        scroll.scrollToBottom();
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
@@ -91,7 +108,11 @@ const CreatePlantForm = (): JSX.Element => {
         <h2 className="mb-5 text-left"> Create a plant </h2>
         <form
           onSubmit={(event) => {
-            handleCreatePlant(event);
+            event.preventDefault();
+            const newImageData: NewImageData = handleUploadPlantImage(
+              event.target
+            );
+            handleCreatePlant(event.target, newImageData);
           }}
         >
           <label htmlFor="enterName"> Name </label>
