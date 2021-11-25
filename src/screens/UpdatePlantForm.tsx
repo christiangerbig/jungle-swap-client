@@ -17,8 +17,8 @@ import {
   setDestroyImageData,
   setIsDeletingPlantImage,
   setIsUpdatingPlant,
-  UploadPlantImageResponse,
   DestroyImageData,
+  UploadImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -94,7 +94,7 @@ const UpdatePlantForm = (): JSX.Element => {
     dispatch(setIsUploadingPlantImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
+      .then(({ imageUrl, imagePublicId }: UploadImageData) => {
         const clonedPlant = JSON.parse(JSON.stringify(plant));
         clonedPlant.imagePublicId = imagePublicId;
         clonedPlant.imageUrl = imageUrl;

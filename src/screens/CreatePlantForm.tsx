@@ -12,8 +12,6 @@ import {
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
-  UploadPlantImageResponse,
-  setUploadImageData,
   UploadImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
@@ -24,9 +22,6 @@ const CreatePlantForm = (): JSX.Element => {
   );
   const isUploadingPlantImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUploadingPlantImage
-  );
-  const uploadImageData = useAppSelector(
-    (state: RootState) => state.jungleSwap.uploadImageData
   );
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
@@ -60,7 +55,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(setIsUploadingPlantImage(true));
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
+      .then(({ imageUrl, imagePublicId }: UploadImageData) => {
         // Create new plant
         const newPlant: Plant = {
           name: name.value,

@@ -70,7 +70,6 @@ interface InitialState {
   isDeletingPlantImage: boolean;
   plants: Plant[];
   plant: Plant | {};
-  uploadImageData: UploadImageData;
   destroyImageData: DestroyImageData;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
@@ -101,7 +100,6 @@ const initialState: InitialState = {
   isDeletingPlantImage: false,
   plants: [],
   plant: {},
-  uploadImageData: {},
   destroyImageData: {},
   isFetchingMessage: false,
   isFetchingMessages: false,
@@ -153,11 +151,6 @@ export const fetchQueryPlants = createAsyncThunk(
 );
 
 // Upload plant image
-export interface UploadPlantImageResponse {
-  imageUrl: ImageUrl;
-  imagePublicId: ImagePublicId;
-}
-
 export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData) => {
@@ -446,11 +439,6 @@ export const jungleSwapSlice = createSlice({
     setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
       state.isDeletingPlantImage = action.payload;
     },
-    setUploadImageData: (state, action: PayloadAction<UploadImageData>) => {
-      console.log("action payload:",action.payload);
-      state.uploadImageData = action.payload;
-      console.log("state reducer:", state.uploadImageData);
-    },
     setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
       state.destroyImageData = action.payload;
     },
@@ -676,7 +664,6 @@ export const {
   addPlant,
   setIsUploadingPlantImage,
   setIsDeletingPlantImage,
-  setUploadImageData,
   setDestroyImageData,
   setPlantChanges,
   removePlant,
