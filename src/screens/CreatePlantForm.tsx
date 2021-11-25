@@ -58,8 +58,10 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
-        console.log("upload imafge .then:", imageUrl, imagePublicId);
-        dispatch(setUploadImageData({ imageUrl, imagePublicId }));
+        console.log("upload image .then:", imageUrl, imagePublicId);
+        const imageObject: UploadImageData = { imageUrl, imagePublicId };
+        console.log("image object:", imageObject)
+        dispatch(setUploadImageData(imageObject));
         console.log("after state save:", uploadImageData);
       })
       .catch((rejectedValue: any) => {

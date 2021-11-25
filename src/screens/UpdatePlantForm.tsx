@@ -88,7 +88,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const handleImageChange = ({ target }: any, plant: Plant): void => {
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
-    imagePublicId && dispatch(setDestroyImageData({ imagePublicId }));
+    dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     dispatch(setIsUploadingPlantImage(true));
