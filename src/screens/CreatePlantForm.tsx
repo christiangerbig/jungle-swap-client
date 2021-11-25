@@ -108,9 +108,12 @@ const CreatePlantForm = (): JSX.Element => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
+            console.log("1.")
             handleUploadPlantImage(event.target);
+            console.log("2.")
             console.log("before create plant call:", uploadImageData);
             handleCreatePlant(event.target, uploadImageData);
+            console.log("3.")
           }}
         >
           <label htmlFor="enterName"> Name </label>
