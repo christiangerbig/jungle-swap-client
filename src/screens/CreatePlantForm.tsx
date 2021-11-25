@@ -58,7 +58,9 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
+        console.log("upload imafge .then:", imageUrl, imagePublicId);
         dispatch(setUploadImageData({ imageUrl, imagePublicId }));
+        console.log("after state save:", uploadImageData);
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
@@ -68,11 +70,9 @@ const CreatePlantForm = (): JSX.Element => {
   // Create plant
   const handleCreatePlant = (
     { name, description, size, location, price }: any,
-    uploadImageData: UploadImageData
+    { imageUrl, imagePublicId }: UploadImageData
   ): void => {
-    console.log(uploadImageData);
-    const { imageUrl, imagePublicId } = uploadImageData;
-    console.log(imageUrl, imagePublicId);
+    console.log("create plant:", imageUrl, imagePublicId);
     const newPlant: Plant = {
       name: name.value,
       description: description.value,
@@ -107,7 +107,7 @@ const CreatePlantForm = (): JSX.Element => {
           onSubmit={(event) => {
             event.preventDefault();
             handleUploadPlantImage(event.target);
-            console.log("before:", uploadImageData);
+            console.log("before create plant call:", uploadImageData);
             handleCreatePlant(event.target, uploadImageData);
           }}
         >
