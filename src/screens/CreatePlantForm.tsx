@@ -48,7 +48,8 @@ const CreatePlantForm = (): JSX.Element => {
   const handleCreatePlant = (event: any): void => {
     event.preventDefault();
     // Upload plant image
-    const {name, description, size, location, price, plantImage} = event.target;
+    const { name, description, size, location, price, plantImage } =
+      event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -80,7 +81,7 @@ const CreatePlantForm = (): JSX.Element => {
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
-      });  
+      });
   };
 
   if (!loggedInUser) {
@@ -94,7 +95,7 @@ const CreatePlantForm = (): JSX.Element => {
         <form
           onSubmit={(event) => {
             handleCreatePlant(event);
-        }}
+          }}
         >
           <label htmlFor="enterName"> Name </label>
           <input
