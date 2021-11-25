@@ -44,10 +44,11 @@ const CreatePlantForm = (): JSX.Element => {
   }, []);
 
   // Create plant
-  const handleCreatePlant = (event: any) => {
+  const handleCreatePlant = (event: any): void => {
     event.preventDefault();
     const { name, description, size, plantImage, location, price } =
       event.target;
+    // Upload image
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -55,6 +56,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: any) => {
+        // Create plant
         const newPlant: Plant = {
           name: name.value,
           description: description.value,

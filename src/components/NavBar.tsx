@@ -96,13 +96,15 @@ const NavBar = (): JSX.Element => {
   useEffect(() => {
     // Check if there are new requests
     const checkAmountOfRequests = (messages: Message[]): void => {
-      const currentAmountOfRequests = messages.filter((message: Message) => {
-        const { seller, messageState } = message;
-        return (
-          (seller as User)._id === (loggedInUser as User)._id &&
-          messageState === true
-        );
-      }).length;
+      const currentAmountOfRequests = messages.filter(
+        (message: Message): boolean => {
+          const { seller, messageState } = message;
+          return (
+            (seller as User)._id === (loggedInUser as User)._id &&
+            messageState === true
+          );
+        }
+      ).length;
       if (amountOfRequests < currentAmountOfRequests) {
         dispatch(setAmountOfRequests(currentAmountOfRequests));
         dispatch(setIsNewRequest(true));
@@ -113,10 +115,14 @@ const NavBar = (): JSX.Element => {
 
     // Check if there are new replies
     const checkAmountOfReplies = (messages: Message[]): void => {
-      const currentAmountOfReplies = messages.filter((message: Message) => {
-        const { buyer, reply } = message;
-        return (buyer as User)._id === (loggedInUser as User)._id && reply;
-      }).length;
+      const currentAmountOfReplies = messages.filter(
+        (message: Message): boolean => {
+          const { buyer, reply } = message;
+          return (
+            (buyer as User)._id === (loggedInUser as User)._id && reply !== ""
+          );
+        }
+      ).length;
       if (amountOfReplies < currentAmountOfReplies) {
         dispatch(setAmountOfReplies(currentAmountOfReplies));
         dispatch(setIsNewReply(true));

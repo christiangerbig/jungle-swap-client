@@ -448,7 +448,7 @@ export const jungleSwapSlice = createSlice({
         location,
         price,
       } = action.payload;
-      state.plants = state.plants.map((singlePlant: Plant) => {
+      state.plants = state.plants.map((singlePlant: Plant): Plant => {
         if (singlePlant._id === _id) {
           singlePlant.name = name;
           singlePlant.description = description;
@@ -463,7 +463,7 @@ export const jungleSwapSlice = createSlice({
     },
     removePlant: (state, action: PayloadAction<string | undefined>) => {
       state.plants = state.plants.filter(
-        (plant: Plant) => plant._id !== action.payload
+        (plant: Plant): boolean => plant._id !== action.payload
       );
     },
     setClientSecret: (state, action: PayloadAction<string>) => {
@@ -505,7 +505,7 @@ export const jungleSwapSlice = createSlice({
       });
     },
     removeMessage: (state, action: PayloadAction<string | undefined>) => {
-      state.messages = state.messages.filter((message: Message) => {
+      state.messages = state.messages.filter((message: Message): boolean => {
         return message._id !== action.payload;
       });
     },
