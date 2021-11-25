@@ -13,6 +13,7 @@ import {
   setIsUploadingPlantImage,
   setIsCreatingPlant,
   UploadPlantImageResponse,
+  setUploadImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -22,6 +23,9 @@ const CreatePlantForm = (): JSX.Element => {
   );
   const isUploadingPlantImage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUploadingPlantImage
+  );
+  const uploadImageData = useAppSelector(
+    (state: RootState) => state.jungleSwap.uploadImageData
   );
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
@@ -44,12 +48,8 @@ const CreatePlantForm = (): JSX.Element => {
       });
   }, []);
 
-  // Create plant
-  const handleCreatePlant = (event: any): void => {
-    event.preventDefault();
-    const { name, description, size, plantImage, location, price } =
-      event.target;
-    // Upload image
+  // Upload plant image
+  const handleUploadPlantImage = ({ plantImage }: any): void => {
     const image = plantImage.files[0];
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -57,27 +57,38 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadPlantImageResponse) => {
-        // Create plant
-        const newPlant: Plant = {
-          name: name.value,
-          description: description.value,
-          size: size.value,
-          imageUrl,
-          imagePublicId,
-          location: location.value,
-          price: price.value,
-        };
-        dispatch(setIsCreatingPlant(true));
-        dispatch(createPlant(newPlant))
-          .unwrap()
-          .then((plant: Plant) => {
-            dispatch(addPlant(plant));
-            history.push("/");
-            scroll.scrollToBottom();
-          })
-          .catch((rejectedValue: any) => {
-            dispatch(setError(rejectedValue.message));
-          });
+        dispatch(setUploadImageData({ imageUrl, imagePublicId }));
+      })
+      .catch((rejectedValue: any) => {
+        dispatch(setError(rejectedValue.message));
+      });
+  };
+
+  // Create plant
+  const handleCreatePlant = ({
+    name,
+    description,
+    size,
+    location,
+    price,
+  }: any): void => {
+    const { imageUrl, imagePublicId } = uploadImageData;
+    const newPlant: Plant = {
+      name: name.value,
+      description: description.value,
+      size: size.value,
+      imageUrl,
+      imagePublicId,
+      location: location.value,
+      price: price.value,
+    };
+    dispatch(setIsCreatingPlant(true));
+    dispatch(createPlant(newPlant))
+      .unwrap()
+      .then((plant: Plant) => {
+        dispatch(addPlant(plant));
+        history.push("/");
+        scroll.scrollToBottom();
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
@@ -94,7 +105,9 @@ const CreatePlantForm = (): JSX.Element => {
         <h2 className="mb-5 text-left"> Create a plant </h2>
         <form
           onSubmit={(event) => {
-            handleCreatePlant(event);
+            event.preventDefault();
+            handleUploadPlantImage(event.target);
+            handleCreatePlant(event.target);
           }}
         >
           <label htmlFor="enterName"> Name </label>

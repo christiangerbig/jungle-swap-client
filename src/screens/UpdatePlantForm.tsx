@@ -105,8 +105,8 @@ const UpdatePlantForm = (): JSX.Element => {
       });
   };
 
-  // Delete old image
-  const handleDeleteOldImage = (destroyImageData: DestroyImageData): void => {
+  // Delete old plant image
+  const handleDeletePlantImage = (destroyImageData: DestroyImageData): void => {
     dispatch(setIsDeletingPlantImage(true));
     dispatch(deletePlantImage(destroyImageData))
       .unwrap()
@@ -243,7 +243,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     : false
                 }
                 onClick={() => {
-                  handleDeleteOldImage(destroyImageData);
+                  handleDeletePlantImage(destroyImageData);
                   handleUpdatePlant(plant);
                 }}
               >

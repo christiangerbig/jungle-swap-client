@@ -96,10 +96,7 @@ const PlantDetails = (): JSX.Element => {
   };
 
   // Delete plant image
-  const handleDeleteImage = (imagePublicId: ImagePublicId): void => {
-    const destroyImageData: DestroyImageData = {
-      imagePublicId,
-    };
+  const handleDeletePlantImage = (destroyImageData: DestroyImageData): void => {
     dispatch(setIsDeletingPlantImage(true));
     dispatch(deletePlantImage(destroyImageData))
       .unwrap()
@@ -194,7 +191,7 @@ const PlantDetails = (): JSX.Element => {
                         }
                         onClick={() => {
                           handleDeleteMessages(messages, _id);
-                          handleDeleteImage(imagePublicId);
+                          handleDeletePlantImage({ imagePublicId });
                           handleDeletePlant(_id);
                         }}
                       >
