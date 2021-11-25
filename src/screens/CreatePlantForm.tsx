@@ -14,6 +14,7 @@ import {
   setIsCreatingPlant,
   UploadPlantImageResponse,
   setUploadImageData,
+  UploadImageData,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -65,14 +66,13 @@ const CreatePlantForm = (): JSX.Element => {
   };
 
   // Create plant
-  const handleCreatePlant = ({
-    name,
-    description,
-    size,
-    location,
-    price,
-  }: any): void => {
+  const handleCreatePlant = (
+    { name, description, size, location, price }: any,
+    uploadImageData: UploadImageData
+  ): void => {
+    console.log(uploadImageData);
     const { imageUrl, imagePublicId } = uploadImageData;
+    console.log(imageUrl, imagePublicId);
     const newPlant: Plant = {
       name: name.value,
       description: description.value,
@@ -107,7 +107,7 @@ const CreatePlantForm = (): JSX.Element => {
           onSubmit={(event) => {
             event.preventDefault();
             handleUploadPlantImage(event.target);
-            handleCreatePlant(event.target);
+            handleCreatePlant(event.target, uploadImageData);
           }}
         >
           <label htmlFor="enterName"> Name </label>
