@@ -12,6 +12,7 @@ import {
   addMessage,
   checkUserLoggedIn,
   setLoggedInUser,
+  setIsCreatingMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -20,6 +21,9 @@ const CreateRequestForm = () => {
     (state: RootState) => state.jungleSwap.loggedInUser
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const isCreatingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isCreatingMessage
+  );
   const error = useAppSelector((state: RootState) => state.jungleSwap.error);
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -48,6 +52,7 @@ const CreateRequestForm = () => {
       plant: _id,
       request: request.value,
     };
+    dispatch(setIsCreatingMessage(true));
     dispatch(createMessage(newMessage))
       .unwrap()
       .then((newMessage) => {
@@ -88,6 +93,7 @@ const CreateRequestForm = () => {
             <button
               className="btn btn-sm mx-2 form-control smallWidth"
               type="submit"
+              disabled={isCreatingMessage || isCreatingMessage ? true : false}
             >
               Send
             </button>

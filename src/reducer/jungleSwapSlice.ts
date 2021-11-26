@@ -5,6 +5,14 @@ import { animateScroll as scroll } from "react-scroll";
 
 const apiPath = `${config.API_URL}/api`;
 
+export type LoggedInUser = User | null;
+export type IntervalId = NodeJS.Timer | null;
+export type Error = string | null;
+export type PlantId = string | undefined;
+export type ImagePublicId = string | undefined;
+export type ImageUrl = string;
+export type MessageId = string | undefined;
+
 export interface User {
   _id?: string;
   username?: string;
@@ -50,14 +58,6 @@ export interface DestroyImageData {
   imagePublicId?: ImagePublicId;
 }
 
-export type LoggedInUser = User | null;
-export type IntervalId = NodeJS.Timer | null;
-export type Error = string | null;
-export type PlantId = string | undefined;
-export type ImagePublicId = string | undefined;
-export type ImageUrl = string;
-export type MessageId = string | undefined;
-
 interface InitialState {
   loggedInUser: LoggedInUser;
   isUserChange: boolean;
@@ -73,9 +73,11 @@ interface InitialState {
   destroyImageData: DestroyImageData;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
+  isUpdatingMessage: boolean;
   isDeletingMessage: boolean;
   messages: Message[];
   message: Message | {};
+  isCreatingMessage: boolean;
   amountOfRequests: number;
   amountOfReplies: number;
   isNewRequest: boolean;
@@ -88,6 +90,17 @@ interface InitialState {
   error: Error;
 }
 
+interface UpdatePlantParameters {
+  plantId: PlantId;
+  updatedPlant: Plant;
+}
+
+interface UpdateMessageParameters {
+  messageId: MessageId;
+  updatedMessage: Message;
+}
+
+// Initialize states
 const initialState: InitialState = {
   loggedInUser: null,
   isUserChange: false,
@@ -103,9 +116,11 @@ const initialState: InitialState = {
   destroyImageData: {},
   isFetchingMessage: false,
   isFetchingMessages: false,
+  isUpdatingMessage: false,
   isDeletingMessage: false,
   messages: [],
   message: {},
+  isCreatingMessage: false,
   amountOfRequests: 0,
   amountOfReplies: 0,
   isNewRequest: false,
@@ -197,11 +212,6 @@ export const readPlant = createAsyncThunk(
 );
 
 // Update plant
-interface UpdatePlantParameters {
-  plantId: PlantId;
-  updatedPlant: Plant;
-}
-
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
   async ({ plantId, updatedPlant }: UpdatePlantParameters) => {
@@ -307,11 +317,6 @@ export const readMessage = createAsyncThunk(
 );
 
 // Update message
-interface UpdateMessageParameters {
-  messageId: MessageId;
-  updatedMessage: Message;
-}
-
 export const updateMessage = createAsyncThunk(
   "jungleSwap/updateMessage",
   async ({ messageId, updatedMessage }: UpdateMessageParameters) => {
@@ -514,6 +519,12 @@ export const jungleSwapSlice = createSlice({
         return message._id !== action.payload;
       });
     },
+    setIsCreatingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isCreatingMessage = action.payload;
+    },
+    setIsUpdatingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isUpdatingMessage = action.payload;
+    },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
     },
@@ -574,7 +585,7 @@ export const jungleSwapSlice = createSlice({
     },
   },
 
-  // Extra reducers
+  // ---------- Extra reducers ----------
   extraReducers: (builder) => {
     // --------- Plants ----------
     builder.addCase(fetchAllPlants.fulfilled, (state) => {
@@ -648,7 +659,7 @@ export const jungleSwapSlice = createSlice({
   },
 });
 
-// Slice actions
+// ---------- Slice actions ----------
 export const {
   // ----------- User -----------
   setUser,
@@ -678,6 +689,8 @@ export const {
   addMessage,
   setMessageChanges,
   removeMessage,
+  setIsCreatingMessage,
+  setIsUpdatingMessage,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
   setAmountOfRequests,

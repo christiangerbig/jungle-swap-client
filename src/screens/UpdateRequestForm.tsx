@@ -9,6 +9,7 @@ import {
   setMessageChanges,
   checkUserLoggedIn,
   setLoggedInUser,
+  setIsUpdatingMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -18,6 +19,9 @@ const UpdateRequestForm = (): JSX.Element => {
   );
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
+  );
+  const isUpdatingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isUpdatingMessage
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -60,6 +64,7 @@ const UpdateRequestForm = (): JSX.Element => {
       reply,
       messageState,
     };
+    dispatch(setIsUpdatingMessage(true));
     dispatch(updateMessage({ messageId: _id, updatedMessage }))
       .unwrap()
       .then((message) => {
@@ -96,6 +101,7 @@ const UpdateRequestForm = (): JSX.Element => {
             <div className="row justify-content-end px-3">
               <button
                 className="btn btn-sm smallWidth form-control mr-3 mb-2"
+                disabled={isUpdatingMessage || isUpdatingMessage ? true : false}
                 onClick={() => {
                   handleUpdateMessage(message);
                 }}
