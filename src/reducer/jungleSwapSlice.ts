@@ -61,9 +61,9 @@ export interface DestroyImageData {
 interface InitialState {
   loggedInUser: LoggedInUser;
   isUserChange: boolean;
+  isCreatingPlant: boolean;
   isFetchingPlant: boolean;
   isFetchingPlants: boolean;
-  isCreatingPlant: boolean;
   isUpdatingPlant: boolean;
   isDeletingPlant: boolean;
   isUploadingPlantImage: boolean;
@@ -71,13 +71,13 @@ interface InitialState {
   plants: Plant[];
   plant: Plant | {};
   destroyImageData: DestroyImageData;
+  isCreatingMessage: boolean;
   isFetchingMessage: boolean;
   isFetchingMessages: boolean;
   isUpdatingMessage: boolean;
   isDeletingMessage: boolean;
   messages: Message[];
   message: Message | {};
-  isCreatingMessage: boolean;
   amountOfRequests: number;
   amountOfReplies: number;
   isNewRequest: boolean;
@@ -104,9 +104,9 @@ interface UpdateMessageParameters {
 const initialState: InitialState = {
   loggedInUser: null,
   isUserChange: false,
+  isCreatingPlant: false,
   isFetchingPlant: false,
   isFetchingPlants: false,
-  isCreatingPlant: false,
   isUpdatingPlant: false,
   isDeletingPlant: false,
   isUploadingPlantImage: false,
@@ -114,13 +114,13 @@ const initialState: InitialState = {
   plants: [],
   plant: {},
   destroyImageData: {},
+  isCreatingMessage: false,
   isFetchingMessage: false,
   isFetchingMessages: false,
   isUpdatingMessage: false,
   isDeletingMessage: false,
   messages: [],
   message: {},
-  isCreatingMessage: false,
   amountOfRequests: 0,
   amountOfReplies: 0,
   isNewRequest: false,
@@ -644,11 +644,23 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchAllMessages.rejected, (state) => {
       state.isFetchingMessages = false;
     });
+    builder.addCase(createMessage.fulfilled, (state) => {
+      state.isCreatingMessage = false;
+    });
+    builder.addCase(createMessage.rejected, (state) => {
+      state.isCreatingMessage = false;
+    });
     builder.addCase(readMessage.fulfilled, (state) => {
       state.isFetchingMessage = false;
     });
     builder.addCase(readMessage.rejected, (state) => {
       state.isFetchingMessage = false;
+    });
+    builder.addCase(updateMessage.fulfilled, (state) => {
+      state.isUpdatingMessage = false;
+    });
+    builder.addCase(updateMessage.rejected, (state) => {
+      state.isUpdatingMessage = false;
     });
     builder.addCase(deleteMessage.fulfilled, (state) => {
       state.isDeletingMessage = false;

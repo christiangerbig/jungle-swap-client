@@ -93,7 +93,7 @@ const CreateRequestForm = () => {
             <button
               className="btn btn-sm mx-2 form-control smallWidth"
               type="submit"
-              disabled={isCreatingMessage || isCreatingMessage ? true : false}
+              disabled={isCreatingMessage ? true : false}
             >
               Send
             </button>
