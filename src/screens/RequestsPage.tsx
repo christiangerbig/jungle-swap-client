@@ -35,7 +35,7 @@ const RequestsPage = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Fetch all messages and reset values as soon as page loads and reset values during cleanup
+  // Fetch all messages and reset values as soon as page loads if user is logged in and reset values during cleanup
   useEffect(() => {
     // Reset values and scroll to top
     const resetValues = (): void => {

@@ -101,7 +101,7 @@ const UpdateRequestForm = (): JSX.Element => {
             <div className="row justify-content-end px-3">
               <button
                 className="btn btn-sm smallWidth form-control mr-3 mb-2"
-                disabled={isUpdatingMessage || isUpdatingMessage ? true : false}
+                disabled={isUpdatingMessage ? true : false}
                 onClick={() => {
                   handleUpdateMessage(message);
                 }}
