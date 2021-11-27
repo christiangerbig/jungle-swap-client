@@ -26,7 +26,7 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
             <div className="text-center">
               <Link
                 className="btn smallWidth form-control"
-                to={`/requests/read/${_id}`}
+                to={`/requests/fetch/${_id}`}
               >
                 Details
               </Link>

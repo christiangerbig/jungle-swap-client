@@ -55,7 +55,7 @@ const CreateRequestForm = () => {
       .unwrap()
       .then((newMessage) => {
         dispatch(addMessage(newMessage));
-        history.push(`/plants/read/${newMessage.plant}`);
+        history.push(`/plants/fetch/${newMessage.plant}`);
       })
       .catch((rejectedValue: any) => {
         dispatch(setError(rejectedValue.message));
@@ -95,7 +95,7 @@ const CreateRequestForm = () => {
             >
               Send
             </button>
-            <Link to={`/plants/read/${_id}`}>
+            <Link to={`/plants/fetch/${_id}`}>
               <button className="btn btn-sm mx-2 form-control smallWidth">
                 Go back
               </button>

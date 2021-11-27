@@ -69,7 +69,7 @@ const UpdateRequestForm = (): JSX.Element => {
       .unwrap()
       .then((message) => {
         dispatch(setMessageChanges(message));
-        history.push(`/requests/read/${_id}`);
+        history.push(`/requests/fetch/${_id}`);
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -108,7 +108,7 @@ const UpdateRequestForm = (): JSX.Element => {
               >
                 Submit
               </button>
-              <Link to={`/requests/read/${_id}`}>
+              <Link to={`/requests/fetch/${_id}`}>
                 <button className="btn btn-sm form-control mb-2">
                   Go back
                 </button>

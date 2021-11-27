@@ -17,7 +17,7 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
           <p> {price} € </p>
           <Link
             className="btn form-control smallWidth"
-            to={`/plants/read/${_id}`}
+            to={`/plants/fetch/${_id}`}
           >
             Details
           </Link>
