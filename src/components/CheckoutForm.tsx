@@ -162,7 +162,7 @@ const CheckoutForm = (): JSX.Element => {
             <button className="btn btn-sm form-control"> Go back </button>
           </Link>
         ) : (
-          <Link to={`/plants/read/${_id}`}>
+          <Link to={`/plants/fetch/${_id}`}>
             <button className="btn btn-sm form-control"> Go back </button>
           </Link>
         )}
