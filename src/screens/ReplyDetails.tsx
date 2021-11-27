@@ -5,20 +5,17 @@ import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  readMessage,
-  deleteMessage,
-  User,
-  Plant,
-  Message,
-  setMessage,
-  removeMessage,
-  decreaseAmountOfReplies,
   checkUserLoggedIn,
   setLoggedInUser,
-  MessageId,
   setIsFetchingMessage,
+  fetchMessage,
+  setMessage,
   setIsDeletingMessage,
+  deleteMessage,
+  removeMessage,
+  decreaseAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
+import { User, Plant, Message, MessageId } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const ReplyDetails = (): JSX.Element => {
@@ -45,7 +42,7 @@ const ReplyDetails = (): JSX.Element => {
       .then((user) => {
         dispatch(setLoggedInUser(user));
         dispatch(setIsFetchingMessage(true));
-        dispatch(readMessage(messageId))
+        dispatch(fetchMessage(messageId))
           .unwrap()
           .then((message) => {
             dispatch(setMessage(message));
@@ -68,7 +65,7 @@ const ReplyDetails = (): JSX.Element => {
       .then(() => {
         dispatch(removeMessage(messageId));
         dispatch(decreaseAmountOfReplies());
-        history && history.push("/replies/fetch");
+        history.push("/replies/fetch-all");
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -114,7 +111,7 @@ const ReplyDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link to={"/replies/fetch"} onClick={scroll.scrollToTop}>
+          <Link to={"/replies/fetch-all"} onClick={scroll.scrollToTop}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
               Go back
             </button>

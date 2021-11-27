@@ -3,11 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  setError,
-  setIsNewRequest,
   setIsUserChange,
   setLoggedInUser,
   signUp,
+  setIsNewRequest,
+  setError,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
@@ -93,7 +93,7 @@ const SignUp = (): JSX.Element => {
           </button>
           <p className="padding"> Already have an account? </p>
           <div className="text-right">
-            <Link to={"/auth/signin"}>
+            <Link to={"/auth/sign-in"}>
               <button className="btn btn-sm ml-4 smallWidth form-control mt-0 mb-2">
                 Sign In
               </button>

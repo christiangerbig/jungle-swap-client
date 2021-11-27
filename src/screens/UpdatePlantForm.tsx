@@ -4,22 +4,24 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  updatePlant,
-  setPlant,
-  Plant,
-  deletePlantImage,
-  uploadPlantImage,
-  setPlantChanges,
-  scrollToPlants,
-  checkUserLoggedIn,
   setLoggedInUser,
-  setIsUploadingPlantImage,
-  setDestroyImageData,
-  setIsDeletingPlantImage,
+  checkUserLoggedIn,
+  setPlant,
   setIsUpdatingPlant,
-  DestroyImageData,
-  UploadImageData,
+  updatePlant,
+  setPlantChanges,
+  setIsUploadingPlantImage,
+  uploadPlantImage,
+  setIsDeletingPlantImage,
+  deletePlantImage,
+  setDestroyImageData,
+  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
+import {
+  Plant,
+  UploadImageData,
+  DestroyImageData,
+} from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
 

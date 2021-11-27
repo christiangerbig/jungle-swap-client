@@ -28,27 +28,27 @@ informed when you got a new request or you got an answer for your request.
 # Client / Frontend
 
 ## React Router Routes (React App)
-| Path                       | Component                      | Permissions                | Behavior                            |
-| -------------------------- | ------------------------------ | ---------------------------| ----------------------------------- |
-| `/`                        | Home, NavBar, Footer,          | public    `<AnonRoute>`    | Home page, Shows all plants         |
-|                            | KommunicateChat                |                            |                                     |
-| `/auth/signup`             | SignUp                         | anon only `<AnonRoute>`    | Signup form, link to signin         ||                            |                                |                            | navigate to homepage after signup   |
-| `/auth/signin`             | SignIn                         | anon only `<AnonRoute>`    | Login form, link to signup,         |
-|                            |                                |                            | navigate to homepage after signin   |
-| `/auth/logout`             | n/a                            | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
-|                            |                                |                            | expire session                      |
-| `/auth/unauthorized`       | Unauthorized                   | user only `<AnonRoute>`    | Check profile with stat information |
-| `/plants/create`           | CreatePlantForm                | user only `<PrivateRoute>` | Create a plant                      |
-| `/plants/read/:plantId`    | PlantDetails                   | user only `<PrivateRoute>` | Shows plant deails or navigate to   |
-|                            |                                |                            | signup if user is not logged in     |
-| `/plants/update`           | UpdatePlantForm                | user only `<PrivateRoute>` | Update/Edit an plant                |
-| `/plants/checkout`         | CheckoutPage                   | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
-| `/messages/create`         | CreateRequestForm              | user only `<PrivateRoute>` | Create request to swap              |
-| `/messages/update`         | UpdateRequestForm              | user only `<PrivateRoute>` | reply a request                     |
-| `/requests/fetch`          | RequestsPage                   | user only `<PrivateRoute>` | Fetch all requests for the user     |
-| `/requests/read/:messageId`| RequestDetails                 | user only `<PrivateRoute>` | Shows request deails                |
-| `/replies/fetch`           | RepliesPage                    | user only `<PrivateRoute>` | Fetch all replies for the user      |
-| `/replies/read/:messageId` | ReplyDetails                   | user only `<PrivateRoute>` | Shows reply deails                  |
+| Path                        | Component                    | Permissions                | Behavior                            |
+| --------------------------- | ---------------------------- | ---------------------------| ----------------------------------- |
+| `/`                         | Home, NavBar, Footer,        | public    `<AnonRoute>`    | Home page, Shows all plants         |
+|                             | KommunicateChat              |                            |                                     |
+| `/auth/sign-up`             | SignUp                       | anon only `<AnonRoute>`    | Signup form, link to signin         ||                             |                              |                            | navigate to homepage after signup   |
+| `/auth/sign-in`             | SignIn                       | anon only `<AnonRoute>`    | Login form, link to signup,         |
+|                             |                              |                            | navigate to homepage after signin   |
+| `/auth/log-out`             | n/a                          | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
+|                             |                              |                            | expire session                      |
+| `/auth/unauthorized`        | Unauthorized                 | user only `<AnonRoute>`    | Check profile with stat information |
+| `/plants/create`            | CreatePlantForm              | user only `<PrivateRoute>` | Create a plant                      |
+| `/plants/fetch/:plantId`    | PlantDetails                 | user only `<PrivateRoute>` | Shows plant deails or navigate to   |
+|                             |                              |                            | signup if user is not logged in     |
+| `/plants/update`            | UpdatePlantForm              | user only `<PrivateRoute>` | Update/Edit an plant                |
+| `/plants/checkout`          | CheckoutPage                 | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
+| `/messages/create`          | CreateRequestForm            | user only `<PrivateRoute>` | Create request to swap              |
+| `/messages/update`          | UpdateRequestForm            | user only `<PrivateRoute>` | reply a request                     |
+| `/requests/fetch-all`       | RequestsPage                 | user only `<PrivateRoute>` | Fetch all requests for the user     |
+| `/requests/fetch/:messageId`| RequestDetails               | user only `<PrivateRoute>` | Shows request deails                |
+| `/replies/fetch-all`        | RepliesPage                  | user only `<PrivateRoute>` | Fetch all replies for the user      |
+| `/replies/fetch/:messageId` | ReplyDetails                 | user only `<PrivateRoute>` | Shows reply deails                  |
 
       
 ## Components
@@ -189,26 +189,26 @@ Message model
 
 | HTTP Method | URL                     | Request Body                | Success Status  | Error Status | Description                     |
 | ----------- | ----------------------- | --------------------------- | --------------- | ------------ | ------------------------------- |
-| GET         | `/auth/checkuser`       | Saved session               | 200             | 401          | Check if user is logged in      |
-| POST        | `/auth/signup`          | {name,email,password}       | 200             | 500          | Checks if fields not empty (422)|
+| GET         | `/auth/check-user`      | Saved session               | 200             | 401          | Check if user is logged in      |
+| POST        | `/auth/sign-up`         | {name,email,password}       | 200             | 500          | Checks if fields not empty (422)|
 |             |                         |                             |                 |              | and user not exists (409), then |
 |             |                         |                             |                 |              | create user with encrypted pass-|
 |             |                         |                             |                 |              | word, and store user in session |
-| POST        | `/auth/signin`          | {username,password}         | 200             | 500          | Checks if fields not empty (422)|
+| POST        | `/auth/sign-in`         | {username,password}         | 200             | 500          | Checks if fields not empty (422)|
 |             |                         |                             |                 |              | if user exists (404), and if    |
 |             |                         |                             |                 |              | password matches (404), then    |
 |             |                         |                             |                 |              | stores user in session          |
-| POST        | `/auth/logout`          | {empty}                     | 204             |              | Logs out the user               |
-| POST        | `/plants/search`        | {name}                      | 200             | 500          | Serch a plant by name           |
+| POST        | `/auth/log-out`         | {empty}                     | 204             |              | Logs out the user               |
 | POST        | `/plants/create`        | {name,desc,type,img,size}   | 200             | 500          | Create plant and add to list    |
+| GET         | `/plants/fetch-all`     | {name,desc,type,img,size}   | 200             | 500          | Fetch all plants                |
+| POST        | `/plants/search`        | {name}                      | 200             | 500          | Serch a plant by name           |
+| GET         | `/plants/fetch/:id`     | {plantId}                   | 200             | 500          | Show specific plant             |
 | PATCH       | `/plants/update`        | {name,desc,type,img,size}   | 200             | 500          | Update plant and add to list    |
 | DELETE      | `/plants/delete/:id`    | {plantId}                   | 200             | 500          | Delete plant and remove from    |
 |             |                         |                             |                 |              | list                            |
-| GET         | `/plants/read/:id`      | {plantId}                   | 200             | 500          | Show specific plant             |
-| GET         | `/plants/fetch`         | {name,desc,type,img,size}   | 200             | 500          | Fetch all plants                |
-| GET         | `/messages/fetch`       | {buyer,seller,plant,message}| 200             | 500          | Fetch all requests              |
 | POST        | `/messages/create`      | {buyer,seller,plant,message}| 200             | 500          | Create new request              |
-| POST        | `/messages/read/:id`    | {messageId}                 | 200             | 500          | Create new request              |
+| GET         | `/messages/fetch-all`   | {buyer,seller,plant,message}| 200             | 500          | Fetch all requests              |
+| POST        | `/messages/fetch/:id`   | {messageId}                 | 200             | 500          | Create new request              |
 | POST        | `/messages/update/:id`  | {messageId}                 | 200             | 500          | Create new request              |
 | POST        | `/messages/delete/:id`  | {messageId}                 | 200             | 500          | Create new request              |
 | POST        | `/cloudinary/upload`    |                             | 200             |              | Upload plant picture            |

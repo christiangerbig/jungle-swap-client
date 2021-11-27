@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
+  setIsFetchingPlants,
   fetchAllPlants,
   fetchQueryPlants,
-  Plant,
-  setIsFetchingPlants,
   setPlants,
 } from "../reducer/jungleSwapSlice";
+import { Plant } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
 import LoadingSpinner from "./LoadingSpinner";

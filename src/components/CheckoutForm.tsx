@@ -3,11 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
+  setClientSecret,
   createPayment,
   scrollToPlants,
-  Plant,
-  setClientSecret,
 } from "../reducer/jungleSwapSlice";
+import { Plant } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 interface CardStyle {

@@ -5,19 +5,16 @@ import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  readMessage,
-  User,
-  Plant,
-  Message,
-  setMessage,
-  updateMessage,
-  decreaseAmountOfRequests,
-  setMessageChanges,
   checkUserLoggedIn,
   setLoggedInUser,
-  MessageId,
   setIsFetchingMessage,
+  fetchMessage,
+  setMessage,
+  updateMessage,
+  setMessageChanges,
+  decreaseAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
+import { User, Plant, Message, MessageId } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const RequestDetails = (): JSX.Element => {
@@ -41,7 +38,7 @@ const RequestDetails = (): JSX.Element => {
       .then((user) => {
         dispatch(setLoggedInUser(user));
         dispatch(setIsFetchingMessage(true));
-        dispatch(readMessage(messageId))
+        dispatch(fetchMessage(messageId))
           .unwrap()
           .then((message) => {
             dispatch(setMessage(message));
@@ -77,7 +74,7 @@ const RequestDetails = (): JSX.Element => {
       .then((message) => {
         dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
-        history.push("/requests/fetch");
+        history.push("/requests/fetch-all");
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -130,7 +127,7 @@ const RequestDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link to={"/requests/fetch"} onClick={scroll.scrollToTop}>
+          <Link to={"/requests/fetch-all"} onClick={scroll.scrollToTop}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
               Go back
             </button>

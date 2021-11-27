@@ -2,91 +2,65 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import config from "../config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
+import {
+  User,
+  Plant,
+  PlantId,
+  Message,
+  MessageId,
+  DestroyImageData,
+  IntervalId,
+  Error,
+} from "./typeDefinitions";
 
 const apiPath = `${config.API_URL}/api`;
 
-export type LoggedInUser = User | null;
-export type IntervalId = NodeJS.Timer | null;
-export type Error = string | null;
-export type PlantId = string | undefined;
-export type ImagePublicId = string | undefined;
-export type ImageUrl = string;
-export type MessageId = string | undefined;
-
-export interface User {
-  _id?: string;
-  username?: string;
-  email: string;
-  password: string;
-  amountOfRequests?: number;
-  amountOfReplies?: number;
-}
-
-export interface MessageCounters {
-  amountOfRequests?: number;
-  amountOfReplies?: number;
-}
-
-export interface Plant {
-  _id?: string;
-  name?: string;
-  description?: string;
-  size?: number;
-  imageUrl?: string;
-  imagePublicId?: string;
-  location?: string;
-  price?: number;
-  creator?: string | User | undefined;
-}
-
-export interface Message {
-  _id?: string;
-  buyer?: string | User | undefined;
-  seller?: string | User | undefined;
-  plant?: string | Plant | undefined;
-  request?: string;
-  reply?: string;
-  messageState?: boolean;
-}
-
-export interface UploadImageData {
-  imageUrl?: ImageUrl;
-  imagePublicId?: ImagePublicId;
-}
-
-export interface DestroyImageData {
-  imagePublicId?: ImagePublicId;
-}
-
 interface InitialState {
-  loggedInUser: LoggedInUser;
+  // ---------- User authentication ----------
   isUserChange: boolean;
+  loggedInUser: User | null;
+
+  // ---------- Plants ----------
   isCreatingPlant: boolean;
-  isFetchingPlant: boolean;
   isFetchingPlants: boolean;
+  isFetchingPlant: boolean;
   isUpdatingPlant: boolean;
   isDeletingPlant: boolean;
-  isUploadingPlantImage: boolean;
-  isDeletingPlantImage: boolean;
   plants: Plant[];
   plant: Plant | {};
+
+  // ---------- Images ----------
+  isUploadingPlantImage: boolean;
+  isDeletingPlantImage: boolean;
   destroyImageData: DestroyImageData;
+
+  // ---------- Payment ----------
+  clientSecret: string;
+
+  // ---------- Messages ----------
   isCreatingMessage: boolean;
-  isFetchingMessage: boolean;
   isFetchingMessages: boolean;
+  isFetchingMessage: boolean;
   isUpdatingMessage: boolean;
   isDeletingMessage: boolean;
   messages: Message[];
   message: Message | {};
-  amountOfRequests: number;
-  amountOfReplies: number;
+
+  // ---------- Requests/Replies check ----------
   isNewRequest: boolean;
   isNewReply: boolean;
+  amountOfRequests: number;
+  amountOfReplies: number;
+
+  // ---------- Interval counter ----------
   intervalId: IntervalId;
   delayCounter: number;
+
+  // ---------- Pages handling ----------
   headerContainerHeight: number;
   aboutContainerHeight: number;
-  clientSecret: string;
+
+  // ---------- Error handling ----------
   error: Error;
 }
 
@@ -102,49 +76,138 @@ interface UpdateMessageParameters {
 
 // Initialize states
 const initialState: InitialState = {
-  loggedInUser: null,
+  // ---------- User authentication ----------
   isUserChange: false,
+  loggedInUser: null,
+
+  // ---------- Plants ----------
   isCreatingPlant: false,
-  isFetchingPlant: false,
   isFetchingPlants: false,
+  isFetchingPlant: false,
   isUpdatingPlant: false,
   isDeletingPlant: false,
-  isUploadingPlantImage: false,
-  isDeletingPlantImage: false,
   plants: [],
   plant: {},
+
+  // ---------- Images ----------
+  isUploadingPlantImage: false,
+  isDeletingPlantImage: false,
   destroyImageData: {},
+
+  // ---------- Payment ----------
+  clientSecret: "",
+
+  // ---------- Messages ----------
   isCreatingMessage: false,
-  isFetchingMessage: false,
   isFetchingMessages: false,
+  isFetchingMessage: false,
   isUpdatingMessage: false,
   isDeletingMessage: false,
   messages: [],
   message: {},
-  amountOfRequests: 0,
-  amountOfReplies: 0,
+
+  // ---------- Requests/Replies check ----------
   isNewRequest: false,
   isNewReply: false,
+  amountOfRequests: 0,
+  amountOfReplies: 0,
+
+  // ---------- Interval counter ----------
   intervalId: null,
   delayCounter: 0,
+
+  // ---------- Pages handling ----------
   headerContainerHeight: 0,
   aboutContainerHeight: 0,
-  clientSecret: "",
+
+  // ---------- Error handling ----------
   error: null,
 };
 
-// Error handling
 const rejectWithValue = (data: any): void | PromiseLike<void> => {
   throw new Error(data);
 };
 
+// ---------- User authentification ----------
+// Sign up
+export const signUp = createAsyncThunk(
+  "jungleSwap/signUp",
+  async (newUser: User) => {
+    try {
+      const response = await axios.post(`${apiPath}/auth/sign-up`, newUser);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Sign in
+export const signIn = createAsyncThunk(
+  "jungleSwap/signIn",
+  async (user: User) => {
+    try {
+      const response = await axios.post(`${apiPath}/auth/sign-in`, user, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Log out
+export const logOut = createAsyncThunk(
+  "jungleSwap/logOut",
+  async (user: User) => {
+    try {
+      await axios.post(`${apiPath}/auth/log-out`, user, {
+        withCredentials: true,
+      });
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Check if user is logged in
+export const checkUserLoggedIn = createAsyncThunk(
+  "jungleSwap/checkUserLoggedIn",
+  async () => {
+    try {
+      const response = await axios.get(`${apiPath}/auth/check-user`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
 // --------- Plants ---------
+// Create plant
+export const createPlant = createAsyncThunk(
+  "jungleSwap/createPlant",
+  async (newPlant: Plant) => {
+    try {
+      const response = await axios.post(`${apiPath}/plants/create`, newPlant, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
   async () => {
     try {
-      const response = await axios.get(`${apiPath}/plants/fetch`);
+      const response = await axios.get(`${apiPath}/plants/fetch-all`);
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.error);
@@ -165,43 +228,12 @@ export const fetchQueryPlants = createAsyncThunk(
   }
 );
 
-// Upload plant image
-export const uploadPlantImage = createAsyncThunk(
-  "jungleSwap/uploadPlantImage",
-  async (uploadForm: FormData) => {
-    try {
-      const response = await axios.post(
-        `${apiPath}/cloudinary/upload`,
-        uploadForm
-      );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Create plant
-export const createPlant = createAsyncThunk(
-  "jungleSwap/createPlant",
-  async (newPlant: Plant) => {
-    try {
-      const response = await axios.post(`${apiPath}/plants/create`, newPlant, {
-        withCredentials: true,
-      });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Read plant
-export const readPlant = createAsyncThunk(
-  "jungleSwap/readPlant",
+// Fetch single plant
+export const fetchPlant = createAsyncThunk(
+  "jungleSwap/fetchPlant",
   async (plantId: PlantId) => {
     try {
-      const response = await axios.get(`${apiPath}/plants/read/${plantId}`, {
+      const response = await axios.get(`${apiPath}/plants/fetch/${plantId}`, {
         withCredentials: true,
       });
       return response.data;
@@ -227,18 +259,6 @@ export const updatePlant = createAsyncThunk(
   }
 );
 
-// Delete plant image
-export const deletePlantImage = createAsyncThunk(
-  "jungleSwap/deletePlantImage",
-  async (destroyImageData: DestroyImageData) => {
-    try {
-      await axios.post(`${apiPath}/cloudinary/destroy`, destroyImageData);
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
 // Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
@@ -251,6 +271,36 @@ export const deletePlant = createAsyncThunk(
   }
 );
 
+// ---------- Images ----------
+// Upload plant image
+export const uploadPlantImage = createAsyncThunk(
+  "jungleSwap/uploadPlantImage",
+  async (uploadForm: FormData) => {
+    try {
+      const response = await axios.post(
+        `${apiPath}/cloudinary/upload`,
+        uploadForm
+      );
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Delete plant image
+export const deletePlantImage = createAsyncThunk(
+  "jungleSwap/deletePlantImage",
+  async (destroyImageData: DestroyImageData) => {
+    try {
+      await axios.post(`${apiPath}/cloudinary/destroy`, destroyImageData);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// ---------- Payment ----------
 // Create plant payment
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
@@ -270,20 +320,7 @@ export const createPayment = createAsyncThunk(
 );
 
 // --------- Messages ----------
-// Fetch all messages
-export const fetchAllMessages = createAsyncThunk(
-  "jungleSwap/fetchAllMessages",
-  async () => {
-    try {
-      const response = await axios.get(`${apiPath}/messages/fetch`);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Create messages
+// Create message
 export const createMessage = createAsyncThunk(
   "jungleSwap/createMessage",
   async (newMessage: Message) => {
@@ -300,13 +337,26 @@ export const createMessage = createAsyncThunk(
   }
 );
 
-// Read message
-export const readMessage = createAsyncThunk(
-  "jungleSwap/readMessage",
+// Fetch all messages
+export const fetchAllMessages = createAsyncThunk(
+  "jungleSwap/fetchAllMessages",
+  async () => {
+    try {
+      const response = await axios.get(`${apiPath}/messages/fetch-all`);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.error);
+    }
+  }
+);
+
+// Fetch single message
+export const fetchMessage = createAsyncThunk(
+  "jungleSwap/fetchMessage",
   async (messageId: MessageId) => {
     try {
       const response = await axios.get(
-        `${apiPath}/messages/read/${messageId}`,
+        `${apiPath}/messages/fetch/${messageId}`,
         { withCredentials: true }
       );
       return response.data;
@@ -344,87 +394,30 @@ export const deleteMessage = createAsyncThunk(
   }
 );
 
-// ---------- User authentification ----------
-// Sign up
-export const signUp = createAsyncThunk(
-  "jungleSwap/signUp",
-  async (newUser: User) => {
-    try {
-      const response = await axios.post(`${apiPath}/auth/signup`, newUser);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Sign in
-export const signIn = createAsyncThunk(
-  "jungleSwap/signIn",
-  async (user: User) => {
-    try {
-      const response = await axios.post(`${apiPath}/auth/signin`, user, {
-        withCredentials: true,
-      });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Log out
-export const logOut = createAsyncThunk(
-  "jungleSwap/logOut",
-  async (user: User) => {
-    try {
-      await axios.post(`${apiPath}/auth/logout`, user, {
-        withCredentials: true,
-      });
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
-// Check if user is logged in
-export const checkUserLoggedIn = createAsyncThunk(
-  "jungleSwap/checkUserLoggedIn",
-  async () => {
-    try {
-      const response = await axios.get(`${apiPath}/auth/checkuser`, {
-        withCredentials: true,
-      });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
-    }
-  }
-);
-
+// ---------- Slice ----------
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
 
   // ---------- Reducers ----------
   reducers: {
-    // --------- User -----------
-    setUser: (state, action: PayloadAction<User>) => {
+    // --------- User authentication -----------
+    setIsUserChange: (state, action: PayloadAction<boolean>) => {
+      state.isUserChange = action.payload;
+    },
+    setLoggedInUser: (state, action: PayloadAction<User | null>) => {
       state.loggedInUser = action.payload;
     },
 
     // --------- Plants ----------
+    setIsCreatingPlant: (state, action: PayloadAction<boolean>) => {
+      state.isCreatingPlant = action.payload;
+    },
     setIsFetchingPlants: (state, action: PayloadAction<boolean>) => {
       state.isFetchingPlants = action.payload;
     },
-    setPlants: (state, action: PayloadAction<Plant[]>) => {
-      state.plants = action.payload;
-    },
     setIsFetchingPlant: (state, action: PayloadAction<boolean>) => {
       state.isFetchingPlant = action.payload;
-    },
-    setIsCreatingPlant: (state, action: PayloadAction<boolean>) => {
-      state.isCreatingPlant = action.payload;
     },
     setIsUpdatingPlant: (state, action: PayloadAction<boolean>) => {
       state.isUpdatingPlant = action.payload;
@@ -432,20 +425,14 @@ export const jungleSwapSlice = createSlice({
     setIsDeletingPlant: (state, action: PayloadAction<boolean>) => {
       state.isDeletingPlant = action.payload;
     },
-    setPlant: (state, action: PayloadAction<Plant>) => {
-      state.plant = action.payload;
-    },
     addPlant: (state, action: PayloadAction<Plant>) => {
       state.plants.push(action.payload);
     },
-    setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
-      state.isUploadingPlantImage = action.payload;
+    setPlant: (state, action: PayloadAction<Plant>) => {
+      state.plant = action.payload;
     },
-    setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
-      state.isDeletingPlantImage = action.payload;
-    },
-    setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
-      state.destroyImageData = action.payload;
+    setPlants: (state, action: PayloadAction<Plant[]>) => {
+      state.plants = action.payload;
     },
     setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
@@ -476,28 +463,47 @@ export const jungleSwapSlice = createSlice({
         (plant: Plant): boolean => plant._id !== action.payload
       );
     },
+
+    // ---------- Images ----------
+    setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
+      state.isUploadingPlantImage = action.payload;
+    },
+    setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
+      state.isDeletingPlantImage = action.payload;
+    },
+    setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
+      state.destroyImageData = action.payload;
+    },
+
+    // ---------- Payment ----------
     setClientSecret: (state, action: PayloadAction<string>) => {
       state.clientSecret = action.payload;
     },
 
     // ---------- Messages ----------
+    setIsCreatingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isCreatingMessage = action.payload;
+    },
     setIsFetchingMessages: (state, action: PayloadAction<boolean>) => {
       state.isFetchingMessages = action.payload;
-    },
-    setMessages: (state, action: PayloadAction<Message[]>) => {
-      state.messages = action.payload;
     },
     setIsFetchingMessage: (state, action: PayloadAction<boolean>) => {
       state.isFetchingMessage = action.payload;
     },
+    setIsUpdatingMessage: (state, action: PayloadAction<boolean>) => {
+      state.isUpdatingMessage = action.payload;
+    },
     setIsDeletingMessage: (state, action: PayloadAction<boolean>) => {
       state.isDeletingMessage = action.payload;
     },
-    setMessage: (state, action: PayloadAction<Message>) => {
-      state.message = action.payload;
-    },
     addMessage: (state, action: PayloadAction<Message>) => {
       state.messages.push(action.payload);
+    },
+    setMessages: (state, action: PayloadAction<Message[]>) => {
+      state.messages = action.payload;
+    },
+    setMessage: (state, action: PayloadAction<Message>) => {
+      state.message = action.payload;
     },
     setMessageChanges: (state, action: PayloadAction<Message>) => {
       const { _id, buyer, seller, plant, request, reply, messageState } =
@@ -519,11 +525,13 @@ export const jungleSwapSlice = createSlice({
         return message._id !== action.payload;
       });
     },
-    setIsCreatingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isCreatingMessage = action.payload;
+
+    // --------- Requests/Replies check ----------
+    setIsNewRequest: (state, action: PayloadAction<boolean>) => {
+      state.isNewRequest = action.payload;
     },
-    setIsUpdatingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isUpdatingMessage = action.payload;
+    setIsNewReply: (state, action: PayloadAction<boolean>) => {
+      state.isNewReply = action.payload;
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
@@ -537,12 +545,14 @@ export const jungleSwapSlice = createSlice({
     setAmountOfReplies: (state, action: PayloadAction<number>) => {
       state.amountOfReplies = action.payload;
     },
-    setIsNewRequest: (state, action: PayloadAction<boolean>) => {
-      state.isNewRequest = action.payload;
+    decreaseAmountOfRequests: (state) => {
+      state.amountOfRequests -= 1;
     },
-    setIsNewReply: (state, action: PayloadAction<boolean>) => {
-      state.isNewReply = action.payload;
+    decreaseAmountOfReplies: (state) => {
+      state.amountOfReplies -= 1;
     },
+
+    // ---------- Interval counter ----------
     setIntervalId: (state, action: PayloadAction<IntervalId>) => {
       state.intervalId = action.payload;
     },
@@ -551,23 +561,6 @@ export const jungleSwapSlice = createSlice({
     },
     increaseDelayCounter: (state) => {
       state.delayCounter += 1;
-    },
-    decreaseAmountOfRequests: (state) => {
-      state.amountOfRequests -= 1;
-    },
-    decreaseAmountOfReplies: (state) => {
-      state.amountOfReplies -= 1;
-    },
-
-    // ---------- User ----------
-    setLoggedInUser: (state, action: PayloadAction<LoggedInUser>) => {
-      state.loggedInUser = action.payload;
-    },
-    setIsUserChange: (state, action: PayloadAction<boolean>) => {
-      state.isUserChange = action.payload;
-    },
-    setError: (state, action: PayloadAction<Error>) => {
-      state.error = action.payload;
     },
 
     // ---------- Pages handling ----------
@@ -583,11 +576,22 @@ export const jungleSwapSlice = createSlice({
     scrollToPlants: (state) => {
       scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
     },
+
+    // ---------- Error handling ----------
+    setError: (state, action: PayloadAction<Error>) => {
+      state.error = action.payload;
+    },
   },
 
   // ---------- Extra reducers ----------
   extraReducers: (builder) => {
     // --------- Plants ----------
+    builder.addCase(createPlant.fulfilled, (state) => {
+      state.isCreatingPlant = false;
+    });
+    builder.addCase(createPlant.rejected, (state) => {
+      state.isCreatingPlant = false;
+    });
     builder.addCase(fetchAllPlants.fulfilled, (state) => {
       state.isFetchingPlants = false;
     });
@@ -600,16 +604,10 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(fetchQueryPlants.rejected, (state) => {
       state.isFetchingPlants = false;
     });
-    builder.addCase(createPlant.fulfilled, (state) => {
-      state.isCreatingPlant = false;
-    });
-    builder.addCase(createPlant.rejected, (state) => {
-      state.isCreatingPlant = false;
-    });
-    builder.addCase(readPlant.fulfilled, (state) => {
+    builder.addCase(fetchPlant.fulfilled, (state) => {
       state.isFetchingPlant = false;
     });
-    builder.addCase(readPlant.rejected, (state) => {
+    builder.addCase(fetchPlant.rejected, (state) => {
       state.isFetchingPlant = false;
     });
     builder.addCase(updatePlant.fulfilled, (state) => {
@@ -624,6 +622,8 @@ export const jungleSwapSlice = createSlice({
     builder.addCase(deletePlant.rejected, (state) => {
       state.isDeletingPlant = false;
     });
+
+    // ---------- Images ----------
     builder.addCase(uploadPlantImage.fulfilled, (state) => {
       state.isUploadingPlantImage = false;
     });
@@ -638,22 +638,22 @@ export const jungleSwapSlice = createSlice({
     });
 
     // ---------- Messages ----------
-    builder.addCase(fetchAllMessages.fulfilled, (state) => {
-      state.isFetchingMessages = false;
-    });
-    builder.addCase(fetchAllMessages.rejected, (state) => {
-      state.isFetchingMessages = false;
-    });
     builder.addCase(createMessage.fulfilled, (state) => {
       state.isCreatingMessage = false;
     });
     builder.addCase(createMessage.rejected, (state) => {
       state.isCreatingMessage = false;
     });
-    builder.addCase(readMessage.fulfilled, (state) => {
+    builder.addCase(fetchAllMessages.fulfilled, (state) => {
+      state.isFetchingMessages = false;
+    });
+    builder.addCase(fetchAllMessages.rejected, (state) => {
+      state.isFetchingMessages = false;
+    });
+    builder.addCase(fetchMessage.fulfilled, (state) => {
       state.isFetchingMessage = false;
     });
-    builder.addCase(readMessage.rejected, (state) => {
+    builder.addCase(fetchMessage.rejected, (state) => {
       state.isFetchingMessage = false;
     });
     builder.addCase(updateMessage.fulfilled, (state) => {
@@ -673,58 +673,65 @@ export const jungleSwapSlice = createSlice({
 
 // ---------- Slice actions ----------
 export const {
-  // ----------- User -----------
-  setUser,
+  // ---------- User authentification ----------
+  setIsUserChange,
+  setLoggedInUser,
 
   // ----------- Plants ----------
-  setIsFetchingPlants,
-  setPlants,
-  setIsFetchingPlant,
   setIsCreatingPlant,
+  setIsFetchingPlants,
+  setIsFetchingPlant,
   setIsUpdatingPlant,
   setIsDeletingPlant,
-  setPlant,
   addPlant,
+  setPlants,
+  setPlant,
+  setPlantChanges,
+  removePlant,
+
+  // ---------- Images ----------
   setIsUploadingPlantImage,
   setIsDeletingPlantImage,
   setDestroyImageData,
-  setPlantChanges,
-  removePlant,
+
+  // ---------- Payment ----------
   setClientSecret,
 
-  // ---------- Requests ----------
+  // ---------- Messages ----------
+  setIsCreatingMessage,
   setIsFetchingMessages,
-  setMessages,
   setIsFetchingMessage,
+  setIsUpdatingMessage,
   setIsDeletingMessage,
-  setMessage,
   addMessage,
+  setMessages,
+  setMessage,
   setMessageChanges,
   removeMessage,
-  setIsCreatingMessage,
-  setIsUpdatingMessage,
+
+  // ---------- Requests/Replies check ----------
+  setIsNewRequest,
+  setIsNewReply,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
   setAmountOfRequests,
   setAmountOfReplies,
-  setIsNewRequest,
-  setIsNewReply,
-  setIntervalId,
-  setDelayCounter,
-  increaseDelayCounter,
   decreaseAmountOfRequests,
   decreaseAmountOfReplies,
 
-  // ---------- User authentification ----------
-  setLoggedInUser,
-  setIsUserChange,
-  setError,
+  // ---------- Interval counter ----------
+  setIntervalId,
+  setDelayCounter,
+  increaseDelayCounter,
 
   // ---------- Pages handling ----------
   setHeaderContainerHeight,
   setAboutContainerHeight,
   scrollToAbout,
   scrollToPlants,
+
+  // ---------- Error handling ----------
+  setError,
 } = jungleSwapSlice.actions;
 
 export default jungleSwapSlice.reducer;

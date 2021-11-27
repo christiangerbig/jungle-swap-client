@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Plant } from "../reducer/jungleSwapSlice";
+import { Plant } from "../reducer/typeDefinitions";
 
 type PlantThumbnailProps = {
   plant: Plant;

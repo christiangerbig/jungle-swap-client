@@ -31,10 +31,24 @@ const App = (): JSX.Element => {
         <Route exact path="/">
           <Home />
         </Route>
+
+        <Route path="/auth/sign-up">
+          <SignUp />
+        </Route>
+        <Route path="/auth/sign-in">
+          <SignIn />
+        </Route>
+        <Route path="/auth/log-out">
+          <LogOut />
+        </Route>
+        <Route path="/auth/unauthorized">
+          <Unauthorized />
+        </Route>
+
         <Route path="/plants/create">
           <CreatePlantForm />
         </Route>
-        <Route path="/plants/read/:plantId">
+        <Route path="/plants/fetch/:plantId">
           <PlantDetails />
         </Route>
         <Route path="/plants/update">
@@ -51,31 +65,18 @@ const App = (): JSX.Element => {
           <UpdateRequestForm />
         </Route>
 
-        <Route path="/requests/fetch">
+        <Route path="/requests/fetch-all">
           <RequestsPage />
         </Route>
-        <Route path="/requests/read/:messageId">
+        <Route path="/requests/fetch/:messageId">
           <RequestDetails />
         </Route>
 
-        <Route path="/replies/fetch">
+        <Route path="/replies/fetch-all">
           <RepliesPage />
         </Route>
-        <Route path="/replies/read/:messageId">
+        <Route path="/replies/fetch/:messageId">
           <ReplyDetails />
-        </Route>
-
-        <Route path="/auth/signup">
-          <SignUp />
-        </Route>
-        <Route path="/auth/signin">
-          <SignIn />
-        </Route>
-        <Route path="/auth/logout">
-          <LogOut />
-        </Route>
-        <Route path="/auth/unauthorized">
-          <Unauthorized />
         </Route>
 
         <Route component={NotFound} />

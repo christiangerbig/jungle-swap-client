@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../hooks";
-import { Message, Plant, User } from "../reducer/jungleSwapSlice";
+import { User, Plant, Message } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 type ReplyThumbnailProps = {

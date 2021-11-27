@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch } from "../hooks";
 import {
+  setIsFetchingPlants,
   fetchAllPlants,
+  setPlants,
   setHeaderContainerHeight,
   setAboutContainerHeight,
-  setPlants,
-  Plant,
-  setIsFetchingPlants,
 } from "../reducer/jungleSwapSlice";
+import { Plant } from "../reducer/typeDefinitions";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";

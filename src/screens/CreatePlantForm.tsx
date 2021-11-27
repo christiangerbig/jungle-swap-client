@@ -5,15 +5,14 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   addPlant,
   createPlant,
-  Plant,
   checkUserLoggedIn,
   setError,
   setLoggedInUser,
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
-  UploadImageData,
 } from "../reducer/jungleSwapSlice";
+import { Plant, UploadImageData } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const CreatePlantForm = (): JSX.Element => {
@@ -73,6 +72,7 @@ const CreatePlantForm = (): JSX.Element => {
 
   // Upload plant image
   const handleUploadImage = (event: any): void => {
+    event.preventDefault();
     const { plantImage } = event.target;
     const image = plantImage.files[0];
     const uploadForm = new FormData();
@@ -98,7 +98,6 @@ const CreatePlantForm = (): JSX.Element => {
         <h2 className="mb-5 text-left"> Create a plant </h2>
         <form
           onSubmit={(event) => {
-            event.preventDefault();
             handleUploadImage(event);
           }}
         >

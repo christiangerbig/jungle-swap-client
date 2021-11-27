@@ -4,26 +4,28 @@ import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  readPlant,
-  deletePlant,
-  deleteMessage,
-  scrollToPlants,
-  User,
-  Message,
-  Plant,
-  setPlant,
-  deletePlantImage,
-  removePlant,
-  PlantId,
-  DestroyImageData,
-  removeMessage,
   checkUserLoggedIn,
   setLoggedInUser,
   setIsFetchingPlant,
-  setIsDeletingMessage,
-  setIsDeletingPlantImage,
+  fetchPlant,
+  setPlant,
   setIsDeletingPlant,
+  deletePlant,
+  removePlant,
+  setIsDeletingMessage,
+  deleteMessage,
+  removeMessage,
+  setIsDeletingPlantImage,
+  deletePlantImage,
+  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
+import {
+  User,
+  Plant,
+  PlantId,
+  DestroyImageData,
+  Message,
+} from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const PlantDetails = (): JSX.Element => {
@@ -57,7 +59,7 @@ const PlantDetails = (): JSX.Element => {
       .then((user) => {
         dispatch(setLoggedInUser(user));
         dispatch(setIsFetchingPlant(true));
-        dispatch(readPlant(plantId))
+        dispatch(fetchPlant(plantId))
           .unwrap()
           .then((plant: Plant) => {
             dispatch(setPlant(plant));
@@ -122,7 +124,7 @@ const PlantDetails = (): JSX.Element => {
   };
 
   if (!loggedInUser) {
-    return <Redirect to={"/auth/signup"} />;
+    return <Redirect to={"/auth/sign-up"} />;
   }
   const {
     _id,

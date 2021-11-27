@@ -4,16 +4,14 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  createMessage,
-  setError,
-  Plant,
-  Message,
-  User,
-  addMessage,
   checkUserLoggedIn,
   setLoggedInUser,
   setIsCreatingMessage,
+  createMessage,
+  addMessage,
+  setError,
 } from "../reducer/jungleSwapSlice";
+import { User, Plant, Message } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const CreateRequestForm = () => {

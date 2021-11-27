@@ -3,14 +3,14 @@ import { Link, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  setMessage,
-  updateMessage,
-  Message,
-  setMessageChanges,
   checkUserLoggedIn,
   setLoggedInUser,
+  setMessage,
   setIsUpdatingMessage,
+  updateMessage,
+  setMessageChanges,
 } from "../reducer/jungleSwapSlice";
+import { Message } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const UpdateRequestForm = (): JSX.Element => {

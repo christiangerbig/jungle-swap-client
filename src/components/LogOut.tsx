@@ -3,16 +3,15 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  logOut,
-  setAmountOfReplies,
-  setAmountOfRequests,
-  setDelayCounter,
-  setIntervalId,
-  setIsNewRequest,
   setLoggedInUser,
-  setUser,
-  User,
+  logOut,
+  setIsNewRequest,
+  setAmountOfRequests,
+  setAmountOfReplies,
+  setIntervalId,
+  setDelayCounter,
 } from "../reducer/jungleSwapSlice";
+import { User } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const LogOut = (): JSX.Element => {
@@ -36,7 +35,7 @@ const LogOut = (): JSX.Element => {
     const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
     clonedUser.amountOfRequests = amountOfRequests;
     clonedUser.amountOfReplies = amountOfReplies;
-    dispatch(setUser(clonedUser));
+    dispatch(setLoggedInUser(clonedUser));
     dispatch(logOut(clonedUser))
       .unwrap()
       .then(() => {

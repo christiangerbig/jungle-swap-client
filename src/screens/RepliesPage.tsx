@@ -3,16 +3,15 @@ import { Link, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  fetchAllMessages,
-  setIsNewReply,
-  Message,
-  setMessages,
-  setStartAmountOfRequests,
-  setStartAmountOfReplies,
   checkUserLoggedIn,
   setLoggedInUser,
   setIsFetchingMessages,
+  fetchAllMessages,
+  setMessages,
+  setIsNewReply,
+  setStartAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
+import { Message } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -52,7 +51,6 @@ const RepliesPage = (): JSX.Element => {
           .unwrap()
           .then((messages) => {
             dispatch(setMessages(messages));
-            isUserChange && dispatch(setStartAmountOfRequests());
             isUserChange && dispatch(setStartAmountOfReplies());
             resetValues();
           })

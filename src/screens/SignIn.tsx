@@ -3,15 +3,15 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  setAmountOfReplies,
-  setAmountOfRequests,
-  setError,
-  setIsNewRequest,
   setIsUserChange,
   setLoggedInUser,
   signIn,
-  User,
+  setIsNewRequest,
+  setAmountOfRequests,
+  setAmountOfReplies,
+  setError,
 } from "../reducer/jungleSwapSlice";
+import { User } from "../reducer/typeDefinitions";
 import { RootState } from "../store";
 
 const SignIn = (): JSX.Element => {

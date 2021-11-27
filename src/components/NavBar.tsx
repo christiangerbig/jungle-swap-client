@@ -4,26 +4,25 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
-  fetchAllMessages,
   setIsUserChange,
+  setIsFetchingMessages,
+  fetchAllMessages,
+  setMessages,
   setIntervalId,
-  increaseDelayCounter,
   setDelayCounter,
-  setAmountOfRequests,
-  setAmountOfReplies,
+  increaseDelayCounter,
   setIsNewRequest,
   setIsNewReply,
-  scrollToPlants,
-  User,
-  Message,
-  setMessages,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
-  setIsFetchingMessages,
+  setAmountOfRequests,
+  setAmountOfReplies,
+  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Message, User } from "../reducer/typeDefinitions";
 
 const NavBar = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -179,7 +178,7 @@ const NavBar = (): JSX.Element => {
                 </Link>
                 <Link
                   className="p-2"
-                  to="/requests/fetch"
+                  to="/requests/fetch-all"
                   title={isNewRequest ? "new request" : ""}
                 >
                   {isNewRequest && <FontAwesomeIcon icon={faBell} />}
@@ -187,7 +186,7 @@ const NavBar = (): JSX.Element => {
                 </Link>
                 <Link
                   className="p-2"
-                  to="/replies/fetch"
+                  to="/replies/fetch-all"
                   title={isNewReply ? "new reply" : ""}
                 >
                   {isNewReply && <FontAwesomeIcon icon={faBell} />}
@@ -199,7 +198,7 @@ const NavBar = (): JSX.Element => {
               <>
                 <Link
                   className="p-2"
-                  to="/auth/logout"
+                  to="/auth/log-out"
                   title={loggedInUser.username}
                 >
                   Log out
@@ -207,10 +206,10 @@ const NavBar = (): JSX.Element => {
               </>
             ) : (
               <>
-                <Link className="p-2" to="/auth/signin">
+                <Link className="p-2" to="/auth/sign-in">
                   Sign in
                 </Link>
-                <Link className="p-2" to="/auth/signup">
+                <Link className="p-2" to="/auth/sign-up">
                   Sign up
                 </Link>
               </>
