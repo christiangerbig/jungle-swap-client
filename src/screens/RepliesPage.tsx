@@ -11,7 +11,7 @@ import {
   setIsNewReply,
   setStartAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../reducer/typeDefinitions";
+import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import ReplyTile from "../components/ReplyTile";
 import LoadingSpinner from "../components/LoadingSpinner";

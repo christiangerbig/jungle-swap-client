@@ -6,13 +6,13 @@ import {
   addPlant,
   createPlant,
   checkUserLoggedIn,
-  setError,
+  setErrorMessage,
   setLoggedInUser,
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
 } from "../reducer/jungleSwapSlice";
-import { Plant, UploadImageData } from "../reducer/typeDefinitions";
+import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 
 const CreatePlantForm = (): JSX.Element => {
@@ -25,7 +25,9 @@ const CreatePlantForm = (): JSX.Element => {
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
   );
-  const error = useAppSelector((state: RootState) => state.jungleSwap.error);
+  const errorMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.errorMessage
+  );
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -35,7 +37,7 @@ const CreatePlantForm = (): JSX.Element => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setError(null));
+        dispatch(setErrorMessage(null));
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
@@ -66,7 +68,7 @@ const CreatePlantForm = (): JSX.Element => {
         scroll.scrollToBottom();
       })
       .catch((rejectedValue: any) => {
-        dispatch(setError(rejectedValue.message));
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -84,7 +86,7 @@ const CreatePlantForm = (): JSX.Element => {
         handleCreatePlant(event.target, { imageUrl, imagePublicId });
       })
       .catch((rejectedValue: any) => {
-        dispatch(setError(rejectedValue.message));
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -153,7 +155,7 @@ const CreatePlantForm = (): JSX.Element => {
             type="file"
             id="enterImage"
           />
-          {error && <p className="warningColor"> {error} </p>}
+          {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <div className="col-12 text-right pr-0">
             <button
               className="btn btn-sm form-control smallWidth ml-4 mb-2"

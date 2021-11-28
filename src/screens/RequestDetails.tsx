@@ -14,7 +14,7 @@ import {
   setMessageChanges,
   decreaseAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
-import { User, Plant, Message, MessageId } from "../reducer/typeDefinitions";
+import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 
 const RequestDetails = (): JSX.Element => {

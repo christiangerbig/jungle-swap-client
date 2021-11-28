@@ -7,7 +7,7 @@ import {
   setHeaderContainerHeight,
   setAboutContainerHeight,
 } from "../reducer/jungleSwapSlice";
-import { Plant } from "../reducer/typeDefinitions";
+import { Plant } from "../typeDefinitions";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";

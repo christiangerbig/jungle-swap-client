@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../hooks";
-import { User, Plant, Message } from "../reducer/typeDefinitions";
+import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 
 type ReplyThumbnailProps = {

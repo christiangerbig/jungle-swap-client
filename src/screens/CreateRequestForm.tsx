@@ -9,9 +9,9 @@ import {
   setIsCreatingMessage,
   createMessage,
   addMessage,
-  setError,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
-import { User, Plant, Message } from "../reducer/typeDefinitions";
+import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 
 const CreateRequestForm = () => {
@@ -22,7 +22,9 @@ const CreateRequestForm = () => {
   const isCreatingMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingMessage
   );
-  const error = useAppSelector((state: RootState) => state.jungleSwap.error);
+  const errorMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.errorMessage
+  );
   const dispatch = useAppDispatch();
   const history = useHistory();
 
@@ -32,7 +34,7 @@ const CreateRequestForm = () => {
       .unwrap()
       .then((user) => {
         dispatch(setLoggedInUser(user));
-        dispatch(setError(null));
+        dispatch(setErrorMessage(null));
         scroll.scrollToTop();
       })
       .catch((rejectedValue: any) => {
@@ -58,7 +60,7 @@ const CreateRequestForm = () => {
         history.push(`/plants/fetch/${newMessage.plant}`);
       })
       .catch((rejectedValue: any) => {
-        dispatch(setError(rejectedValue.message));
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -86,7 +88,7 @@ const CreateRequestForm = () => {
               rows={7}
             />
           </div>
-          {error && <p className="warningColor"> {error} </p>}
+          {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <div className="text-right">
             <button
               className="btn btn-sm mx-2 form-control smallWidth"

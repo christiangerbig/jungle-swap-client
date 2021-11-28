@@ -7,7 +7,7 @@ import {
   createPayment,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
-import { Plant } from "../reducer/typeDefinitions";
+import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 
 interface CardStyle {

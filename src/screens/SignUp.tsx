@@ -7,18 +7,20 @@ import {
   setLoggedInUser,
   signUp,
   setIsNewRequest,
-  setError,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 
 const SignUp = (): JSX.Element => {
-  const error = useAppSelector((state: RootState) => state.jungleSwap.error);
+  const errorMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.errorMessage
+  );
   const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Reset variables and scroll to top as soon as page loads
   useEffect(() => {
-    dispatch(setError(null));
+    dispatch(setErrorMessage(null));
     dispatch(setIsNewRequest(false));
     scroll.scrollToTop();
   }, []);
@@ -40,7 +42,7 @@ const SignUp = (): JSX.Element => {
         history.push("/");
       })
       .catch((rejectedValue: any) => {
-        dispatch(setError(rejectedValue.message));
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -83,7 +85,7 @@ const SignUp = (): JSX.Element => {
               placeholder="Enter"
             />
           </div>
-          {error && <p className="warningColor"> {error} </p>}
+          {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <button
             type="submit"
             className="btn btn-sm mt-4 smallWidth form-control"

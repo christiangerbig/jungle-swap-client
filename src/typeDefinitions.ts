@@ -3,7 +3,7 @@ export type ImagePublicId = string | undefined;
 export type ImageUrl = string;
 export type MessageId = string | undefined;
 export type IntervalId = NodeJS.Timer | null;
-export type Error = string | null;
+export type ErrorMessage = string | null;
 
 export interface User {
   _id?: string;

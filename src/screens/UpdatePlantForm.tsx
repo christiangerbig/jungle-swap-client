@@ -21,7 +21,7 @@ import {
   Plant,
   UploadImageData,
   DestroyImageData,
-} from "../reducer/typeDefinitions";
+} from "../typeDefinitions";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
 

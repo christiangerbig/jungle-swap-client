@@ -11,7 +11,7 @@ import {
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../reducer/typeDefinitions";
+import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import RequestTile from "../components/RequestTile";
 import LoadingSpinner from "../components/LoadingSpinner";

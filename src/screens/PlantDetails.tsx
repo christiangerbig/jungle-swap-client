@@ -25,7 +25,7 @@ import {
   PlantId,
   DestroyImageData,
   Message,
-} from "../reducer/typeDefinitions";
+} from "../typeDefinitions";
 import { RootState } from "../store";
 
 const PlantDetails = (): JSX.Element => {

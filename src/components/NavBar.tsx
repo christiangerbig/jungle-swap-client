@@ -22,7 +22,7 @@ import {
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Message, User } from "../reducer/typeDefinitions";
+import { Message, User } from "../typeDefinitions";
 
 const NavBar = (): JSX.Element => {
   const loggedInUser = useAppSelector(

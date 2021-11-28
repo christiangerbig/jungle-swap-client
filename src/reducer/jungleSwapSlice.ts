@@ -10,8 +10,8 @@ import {
   MessageId,
   DestroyImageData,
   IntervalId,
-  Error,
-} from "./typeDefinitions";
+  ErrorMessage,
+} from "../typeDefinitions";
 
 const apiPath = `${config.API_URL}/api`;
 
@@ -61,7 +61,7 @@ interface InitialState {
   aboutContainerHeight: number;
 
   // ---------- Error handling ----------
-  error: Error;
+  errorMessage: ErrorMessage;
 }
 
 interface UpdatePlantParameters {
@@ -121,7 +121,7 @@ const initialState: InitialState = {
   aboutContainerHeight: 0,
 
   // ---------- Error handling ----------
-  error: null,
+  errorMessage: null,
 };
 
 const rejectWithValue = (data: any): void | PromiseLike<void> => {
@@ -578,8 +578,8 @@ export const jungleSwapSlice = createSlice({
     },
 
     // ---------- Error handling ----------
-    setError: (state, action: PayloadAction<Error>) => {
-      state.error = action.payload;
+    setErrorMessage: (state, action: PayloadAction<ErrorMessage>) => {
+      state.errorMessage = action.payload;
     },
   },
 
@@ -731,7 +731,7 @@ export const {
   scrollToPlants,
 
   // ---------- Error handling ----------
-  setError,
+  setErrorMessage,
 } = jungleSwapSlice.actions;
 
 export default jungleSwapSlice.reducer;

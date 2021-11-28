@@ -11,7 +11,7 @@ import {
   setIntervalId,
   setDelayCounter,
 } from "../reducer/jungleSwapSlice";
-import { User } from "../reducer/typeDefinitions";
+import { User } from "../typeDefinitions";
 import { RootState } from "../store";
 
 const LogOut = (): JSX.Element => {

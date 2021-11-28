@@ -10,7 +10,7 @@ import {
   updateMessage,
   setMessageChanges,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../reducer/typeDefinitions";
+import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
 
 const UpdateRequestForm = (): JSX.Element => {
