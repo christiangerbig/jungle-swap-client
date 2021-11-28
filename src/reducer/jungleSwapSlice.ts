@@ -247,7 +247,10 @@ export const fetchPlant = createAsyncThunk(
 // Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async ({ plantId, updatedPlant }: UpdatePlantParameters): Promise<Plant | any> => {
+  async ({
+    plantId,
+    updatedPlant,
+  }: UpdatePlantParameters): Promise<Plant | any> => {
     try {
       const response = await axios.patch(
         `${apiPath}/plants/update/${plantId}`,
@@ -370,7 +373,10 @@ export const fetchMessage = createAsyncThunk(
 // Update message
 export const updateMessage = createAsyncThunk(
   "jungleSwap/updateMessage",
-  async ({ messageId, updatedMessage }: UpdateMessageParameters): Promise<Message | any> => {
+  async ({
+    messageId,
+    updatedMessage,
+  }: UpdateMessageParameters): Promise<Message | any> => {
     try {
       const response = await axios.patch(
         `${apiPath}/messages/update/${messageId}`,
