@@ -9,11 +9,10 @@ import {
   Message,
   MessageId,
   DestroyImageData,
-  IntervalId,
-  ErrorMessage,
 } from "../typeDefinitions";
 
-const apiPath = `${config.API_URL}/api`;
+type IntervalId = NodeJS.Timer | null;
+type ErrorMessage = string | null;
 
 interface InitialState {
   // ---------- User authentication ----------
@@ -73,6 +72,8 @@ interface UpdateMessageParameters {
   messageId: MessageId;
   updatedMessage: Message;
 }
+
+const apiPath = `${config.API_URL}/api`;
 
 // Initialize states
 const initialState: InitialState = {

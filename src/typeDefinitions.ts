@@ -2,17 +2,11 @@
 export type PlantId = string | undefined;
 
 // ---------- Images ----------
-export type ImagePublicId = string | undefined;
-export type ImageUrl = string;
+type ImagePublicId = string | undefined;
+type ImageUrl = string;
 
 // ---------- Messages ----------
 export type MessageId = string | undefined;
-
-// ---------- Interval counter ----------
-export type IntervalId = NodeJS.Timer | null;
-
-// ---------- Error handling ----------
-export type ErrorMessage = string | null;
 
 // ---------- User authentication ----------
 export interface User {
