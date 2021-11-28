@@ -104,7 +104,7 @@ const ReplyDetails = (): JSX.Element => {
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
             disabled={isDeletingMessage ? true : false}
             onClick={() => {
-              handleDeleteMessage(_id);
+              _id && handleDeleteMessage(_id);
             }}
           >
             Delete

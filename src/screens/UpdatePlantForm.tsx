@@ -17,11 +17,7 @@ import {
   setDestroyImageData,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
-import {
-  Plant,
-  UploadImageData,
-  DestroyImageData,
-} from "../typeDefinitions";
+import { Plant, UploadImageData, DestroyImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -141,16 +137,17 @@ const UpdatePlantForm = (): JSX.Element => {
       price,
     };
     dispatch(setIsUpdatingPlant(true));
-    dispatch(updatePlant({ plantId: _id, updatedPlant }))
-      .unwrap()
-      .then((updatedPlant) => {
-        dispatch(setPlantChanges(updatedPlant));
-        history.push("/");
-        dispatch(scrollToPlants());
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    _id &&
+      dispatch(updatePlant({ plantId: _id, updatedPlant }))
+        .unwrap()
+        .then((updatedPlant) => {
+          dispatch(setPlantChanges(updatedPlant));
+          history.push("/");
+          dispatch(scrollToPlants());
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
   };
 
   if (!loggedInUser) {

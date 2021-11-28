@@ -133,7 +133,7 @@ const rejectWithValue = (data: any): void | PromiseLike<void> => {
 // Sign up
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
-  async (newUser: User) => {
+  async (newUser: User): Promise<User | any> => {
     try {
       const response = await axios.post(`${apiPath}/auth/sign-up`, newUser);
       return response.data;
@@ -146,7 +146,7 @@ export const signUp = createAsyncThunk(
 // Sign in
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
-  async (user: User) => {
+  async (user: User): Promise<User | any> => {
     try {
       const response = await axios.post(`${apiPath}/auth/sign-in`, user, {
         withCredentials: true,
@@ -161,7 +161,7 @@ export const signIn = createAsyncThunk(
 // Log out
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
-  async (user: User) => {
+  async (user: User): Promise<void | any> => {
     try {
       await axios.post(`${apiPath}/auth/log-out`, user, {
         withCredentials: true,
@@ -175,7 +175,7 @@ export const logOut = createAsyncThunk(
 // Check if user is logged in
 export const checkUserLoggedIn = createAsyncThunk(
   "jungleSwap/checkUserLoggedIn",
-  async () => {
+  async (): Promise<User | any> => {
     try {
       const response = await axios.get(`${apiPath}/auth/check-user`, {
         withCredentials: true,
@@ -191,7 +191,7 @@ export const checkUserLoggedIn = createAsyncThunk(
 // Create plant
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
-  async (newPlant: Plant) => {
+  async (newPlant: Plant): Promise<Plant | any> => {
     try {
       const response = await axios.post(`${apiPath}/plants/create`, newPlant, {
         withCredentials: true,
@@ -206,7 +206,7 @@ export const createPlant = createAsyncThunk(
 // Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
-  async () => {
+  async (): Promise<Plant[] | any> => {
     try {
       const response = await axios.get(`${apiPath}/plants/fetch-all`);
       return response.data;
@@ -219,7 +219,7 @@ export const fetchAllPlants = createAsyncThunk(
 // Fetch query plants
 export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
-  async (query: string) => {
+  async (query: string): Promise<Plant[] | any> => {
     try {
       const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
       return response.data;
@@ -232,7 +232,7 @@ export const fetchQueryPlants = createAsyncThunk(
 // Fetch single plant
 export const fetchPlant = createAsyncThunk(
   "jungleSwap/fetchPlant",
-  async (plantId: PlantId) => {
+  async (plantId: PlantId): Promise<Plant | any> => {
     try {
       const response = await axios.get(`${apiPath}/plants/fetch/${plantId}`, {
         withCredentials: true,
@@ -247,7 +247,7 @@ export const fetchPlant = createAsyncThunk(
 // Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
-  async ({ plantId, updatedPlant }: UpdatePlantParameters) => {
+  async ({ plantId, updatedPlant }: UpdatePlantParameters): Promise<Plant | any> => {
     try {
       const response = await axios.patch(
         `${apiPath}/plants/update/${plantId}`,
@@ -263,7 +263,7 @@ export const updatePlant = createAsyncThunk(
 // Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
-  async (plantId: PlantId) => {
+  async (plantId: PlantId): Promise<void | any> => {
     try {
       await axios.delete(`${apiPath}/plants/delete/${plantId}`);
     } catch (err: any) {
@@ -276,7 +276,7 @@ export const deletePlant = createAsyncThunk(
 // Upload plant image
 export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
-  async (uploadForm: FormData) => {
+  async (uploadForm: FormData): Promise<any> => {
     try {
       const response = await axios.post(
         `${apiPath}/cloudinary/upload`,
@@ -292,7 +292,7 @@ export const uploadPlantImage = createAsyncThunk(
 // Delete plant image
 export const deletePlantImage = createAsyncThunk(
   "jungleSwap/deletePlantImage",
-  async (destroyImageData: DestroyImageData) => {
+  async (destroyImageData: DestroyImageData): Promise<void | any> => {
     try {
       await axios.post(`${apiPath}/cloudinary/destroy`, destroyImageData);
     } catch (err: any) {
@@ -305,7 +305,7 @@ export const deletePlantImage = createAsyncThunk(
 // Create plant payment
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
-  async (plant: Plant) => {
+  async (plant: Plant): Promise<any> => {
     try {
       const response = await axios.post(
         `${apiPath}/stripe/create-payment-intent`,
@@ -324,7 +324,7 @@ export const createPayment = createAsyncThunk(
 // Create message
 export const createMessage = createAsyncThunk(
   "jungleSwap/createMessage",
-  async (newMessage: Message) => {
+  async (newMessage: Message): Promise<Message | any> => {
     try {
       const response = await axios.post(
         `${apiPath}/messages/create`,
@@ -341,7 +341,7 @@ export const createMessage = createAsyncThunk(
 // Fetch all messages
 export const fetchAllMessages = createAsyncThunk(
   "jungleSwap/fetchAllMessages",
-  async () => {
+  async (): Promise<Message[] | any> => {
     try {
       const response = await axios.get(`${apiPath}/messages/fetch-all`);
       return response.data;
@@ -354,7 +354,7 @@ export const fetchAllMessages = createAsyncThunk(
 // Fetch single message
 export const fetchMessage = createAsyncThunk(
   "jungleSwap/fetchMessage",
-  async (messageId: MessageId) => {
+  async (messageId: MessageId): Promise<Message | any> => {
     try {
       const response = await axios.get(
         `${apiPath}/messages/fetch/${messageId}`,
@@ -370,7 +370,7 @@ export const fetchMessage = createAsyncThunk(
 // Update message
 export const updateMessage = createAsyncThunk(
   "jungleSwap/updateMessage",
-  async ({ messageId, updatedMessage }: UpdateMessageParameters) => {
+  async ({ messageId, updatedMessage }: UpdateMessageParameters): Promise<Message | any> => {
     try {
       const response = await axios.patch(
         `${apiPath}/messages/update/${messageId}`,
@@ -386,7 +386,7 @@ export const updateMessage = createAsyncThunk(
 // Delete message
 export const deleteMessage = createAsyncThunk(
   "jungleSwap/deleteMessage",
-  async (messageId: MessageId) => {
+  async (messageId: MessageId): Promise<void | any> => {
     try {
       await axios.delete(`${apiPath}/messages/delete/${messageId}`);
     } catch (err: any) {
@@ -459,7 +459,7 @@ export const jungleSwapSlice = createSlice({
         return singlePlant;
       });
     },
-    removePlant: (state, action: PayloadAction<string | undefined>) => {
+    removePlant: (state, action: PayloadAction<PlantId>) => {
       state.plants = state.plants.filter(
         (plant: Plant): boolean => plant._id !== action.payload
       );
@@ -521,7 +521,7 @@ export const jungleSwapSlice = createSlice({
         return singleMessage;
       });
     },
-    removeMessage: (state, action: PayloadAction<string | undefined>) => {
+    removeMessage: (state, action: PayloadAction<MessageId>) => {
       state.messages = state.messages.filter((message: Message): boolean => {
         return message._id !== action.payload;
       });

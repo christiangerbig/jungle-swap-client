@@ -65,15 +65,16 @@ const UpdateRequestForm = (): JSX.Element => {
       messageState,
     };
     dispatch(setIsUpdatingMessage(true));
-    dispatch(updateMessage({ messageId: _id, updatedMessage }))
-      .unwrap()
-      .then((message) => {
-        dispatch(setMessageChanges(message));
-        history.push(`/requests/fetch/${_id}`);
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    _id &&
+      dispatch(updateMessage({ messageId: _id, updatedMessage }))
+        .unwrap()
+        .then((message) => {
+          dispatch(setMessageChanges(message));
+          history.push(`/requests/fetch/${_id}`);
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
   };
 
   if (!loggedInUser) {

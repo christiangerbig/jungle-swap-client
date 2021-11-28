@@ -1,12 +1,12 @@
 // ---------- Plants ----------
-export type PlantId = string | undefined;
+export type PlantId = string;
 
 // ---------- Images ----------
-type ImagePublicId = string | undefined;
+type ImagePublicId = string;
 type ImageUrl = string;
 
 // ---------- Messages ----------
-export type MessageId = string | undefined;
+export type MessageId = string;
 
 // ---------- User authentication ----------
 export interface User {
@@ -28,7 +28,7 @@ export interface Plant {
   imagePublicId?: string;
   location?: string;
   price?: number;
-  creator?: string | User | undefined;
+  creator?: string | User;
 }
 
 // ---------- Images ----------
@@ -44,9 +44,9 @@ export interface DestroyImageData {
 // ---------- Messages ----------
 export interface Message {
   _id?: string;
-  buyer?: string | User | undefined;
-  seller?: string | User | undefined;
-  plant?: string | Plant | undefined;
+  buyer?: string | User;
+  seller?: string | User;
+  plant?: string | Plant;
   request?: string;
   reply?: string;
   messageState?: boolean;

@@ -190,9 +190,9 @@ const PlantDetails = (): JSX.Element => {
                             : false
                         }
                         onClick={() => {
-                          handleDeleteMessages(messages, _id);
+                          _id && handleDeleteMessages(messages, _id);
                           handleDeletePlantImage({ imagePublicId });
-                          handleDeletePlant(_id);
+                          _id && handleDeletePlant(_id);
                         }}
                       >
                         Delete

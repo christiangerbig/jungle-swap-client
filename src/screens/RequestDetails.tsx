@@ -69,16 +69,17 @@ const RequestDetails = (): JSX.Element => {
       reply,
       messageState,
     };
-    dispatch(updateMessage({ messageId: _id, updatedMessage }))
-      .unwrap()
-      .then((message) => {
-        dispatch(setMessageChanges(message));
-        dispatch(decreaseAmountOfRequests());
-        history.push("/requests/fetch-all");
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    _id &&
+      dispatch(updateMessage({ messageId: _id, updatedMessage }))
+        .unwrap()
+        .then((message) => {
+          dispatch(setMessageChanges(message));
+          dispatch(decreaseAmountOfRequests());
+          history.push("/requests/fetch-all");
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
   };
 
   if (!loggedInUser) {
