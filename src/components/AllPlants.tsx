@@ -1,67 +1,22 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setIsFetchingPlants,
-  fetchAllPlants,
-  fetchQueryPlants,
-  setPlants,
-} from "../reducer/jungleSwapSlice";
+import { useAppSelector } from "../hooks";
 import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
 import LoadingSpinner from "./LoadingSpinner";
+import SearchPlant from "./SearchPlant";
 
 const AllPlants = (): JSX.Element => {
-  const [query, setQuery] = useState("");
   const isFetchingPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
-  const dispatch = useAppDispatch();
-
-  // Handle plant search result if user types in a query
-  useEffect(() => {
-    if (query) {
-      dispatch(setIsFetchingPlants(true));
-      dispatch(fetchQueryPlants(query))
-        .unwrap()
-        .then((plants: Plant[]) => {
-          dispatch(setPlants(plants));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    } else {
-      dispatch(setIsFetchingPlants(true));
-      dispatch(fetchAllPlants())
-        .unwrap()
-        .then((plants: Plant[]) => {
-          dispatch(setPlants(plants));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    }
-  }, [query]);
 
   return (
     <div className="container mt-5">
       <div className="mt-5 mb-3">
         <h2> Plants </h2>
-        <hr />
-        <h4> Search a plant </h4>
       </div>
-      <div className="mb-4">
-        <input
-          className="smallWidth form-control"
-          type="text"
-          placeholder="Search..."
-          value={query}
-          onChange={(event) => {
-            setQuery(event.target.value);
-          }}
-        />
-      </div>
+      <SearchPlant />
       {isFetchingPlants ? (
         <LoadingSpinner />
       ) : (
