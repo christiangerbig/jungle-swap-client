@@ -8,7 +8,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 
-const SearchPlant = () => {
+const SearchPlant = (): JSX.Element => {
   const [query, setQuery] = useState("");
   const dispatch = useAppDispatch();
 
