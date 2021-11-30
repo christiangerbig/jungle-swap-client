@@ -8,11 +8,10 @@ import {
   setIsNewRequest,
   setAmountOfRequests,
   setAmountOfReplies,
-  setIntervalId,
-  setDelayCounter,
 } from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 import { RootState } from "../store";
+import { stopIntervalCounter } from "../lib/utilities";
 
 const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -30,27 +29,35 @@ const LogOut = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Update user amount of requests/replies, log out and stop interval as soon as page loads
   useEffect(() => {
-    const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
-    clonedUser.amountOfRequests = amountOfRequests;
-    clonedUser.amountOfReplies = amountOfReplies;
-    dispatch(setLoggedInUser(clonedUser));
-    dispatch(logOut(clonedUser))
-      .unwrap()
-      .then(() => {
-        dispatch(setLoggedInUser(null));
-        if (intervalId) {
-          clearInterval(intervalId);
-          dispatch(setIntervalId(null));
-          dispatch(setDelayCounter(0));
-        }
-        dispatch(setIsNewRequest(false));
-        dispatch(setAmountOfRequests(0));
-        dispatch(setAmountOfReplies(0));
-        history.push("/");
-        scroll.scrollToTop();
-      });
+    // Reset variables
+    const resetVariables = (): void => {
+      dispatch(setIsNewRequest(false));
+      dispatch(setAmountOfRequests(0));
+      dispatch(setAmountOfReplies(0));
+    };
+
+    // Update user amount of requests/replies
+    const logOutUser = (
+      loggedInUser: User | null,
+      intervalId: NodeJS.Timeout | null
+    ) => {
+      const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
+      clonedUser.amountOfRequests = amountOfRequests;
+      clonedUser.amountOfReplies = amountOfReplies;
+      dispatch(setLoggedInUser(clonedUser));
+      dispatch(logOut(clonedUser))
+        .unwrap()
+        .then(() => {
+          dispatch(setLoggedInUser(null));
+          intervalId && stopIntervalCounter(intervalId, dispatch);
+          resetVariables();
+          history.push("/");
+          scroll.scrollToTop();
+        });
+    };
+
+    logOutUser(loggedInUser, intervalId);
   }, []);
 
   return <div />;

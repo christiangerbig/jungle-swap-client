@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
+import { protectPage } from "../lib/utilities";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { checkUserLoggedIn, setLoggedInUser } from "../reducer/jungleSwapSlice";
 import CheckoutForm from "../components/CheckoutForm";
 
 const stripePromise = loadStripe(
@@ -18,17 +18,10 @@ const CheckoutPage = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Scroll to top as soon as page loads if the user is logged in
+    protectPage(dispatch);
+    loggedInUser && scroll.scrollToTop();
   }, []);
 
   if (!loggedInUser) {

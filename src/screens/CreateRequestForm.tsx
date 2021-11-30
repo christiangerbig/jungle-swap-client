@@ -13,6 +13,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
+import { protectPage } from "../lib/utilities";
 
 const CreateRequestForm = () => {
   const loggedInUser = useAppSelector(
@@ -28,18 +29,13 @@ const CreateRequestForm = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Set variable and scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setErrorMessage(null));
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Set variable and scroll to top as soon as page loads if the user is logged in
+    protectPage(dispatch);
+    if (loggedInUser) {
+      dispatch(setErrorMessage(null));
+      scroll.scrollToTop();
+    }
   }, []);
 
   // Create request

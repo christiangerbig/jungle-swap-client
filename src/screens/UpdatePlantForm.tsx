@@ -4,21 +4,18 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  setLoggedInUser,
-  checkUserLoggedIn,
   setPlant,
   setIsUpdatingPlant,
   updatePlant,
   setPlantChanges,
   setIsUploadingPlantImage,
   uploadPlantImage,
-  setIsDeletingPlantImage,
-  deletePlantImage,
   setDestroyImageData,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
-import { Plant, UploadImageData, DestroyImageData } from "../typeDefinitions";
+import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
+import { handleDeletePlantImage, protectPage } from "../lib/utilities";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
@@ -41,17 +38,10 @@ const UpdatePlantForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads if the user ia logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Scroll to top if the user ia logged in
+    protectPage(dispatch);
+    loggedInUser && scroll.scrollToTop();
   }, []);
 
   // Check which plant values have changed
@@ -97,19 +87,6 @@ const UpdatePlantForm = (): JSX.Element => {
         clonedPlant.imagePublicId = imagePublicId;
         clonedPlant.imageUrl = imageUrl;
         dispatch(setPlant(clonedPlant));
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
-  };
-
-  // Delete old plant image
-  const handleDeletePlantImage = (destroyImageData: DestroyImageData): void => {
-    dispatch(setIsDeletingPlantImage(true));
-    dispatch(deletePlantImage(destroyImageData))
-      .unwrap()
-      .then(() => {
-        return;
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -242,7 +219,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     : false
                 }
                 onClick={() => {
-                  handleDeletePlantImage(destroyImageData);
+                  handleDeletePlantImage(destroyImageData, dispatch);
                   handleUpdatePlant(plant);
                 }}
               >

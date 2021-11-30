@@ -5,10 +5,6 @@ import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  checkUserLoggedIn,
-  setLoggedInUser,
-  setIsFetchingMessage,
-  fetchMessage,
   setMessage,
   updateMessage,
   setMessageChanges,
@@ -16,6 +12,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
+import { fetchSingleMessage, protectPage } from "../lib/utilities";
 
 const RequestDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -31,27 +28,10 @@ const RequestDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Read message and scroll to top as soon as page loads and the user is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingMessage(true));
-        dispatch(fetchMessage(messageId))
-          .unwrap()
-          .then((message) => {
-            dispatch(setMessage(message));
-            scroll.scrollToTop();
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Fetch single message and scroll to top if the user is logged in
+    protectPage(dispatch);
+    loggedInUser && fetchSingleMessage(messageId, dispatch);
   }, []);
 
   // Set message of the buyer inactive by the seller

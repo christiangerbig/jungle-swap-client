@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
 const KommunicateChat = (): JSX.Element => {
-  // Create launcher icon as soon as page loads
+  
   useEffect(() => {
+    // Create launcher icon as soon as page loads
     ((d, m) => {
       const kommunicateSettings = {
         appId: "10b22c52854a305b79bbdecc356bea5",

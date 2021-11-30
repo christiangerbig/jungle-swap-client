@@ -5,15 +5,14 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   addPlant,
   createPlant,
-  checkUserLoggedIn,
   setErrorMessage,
-  setLoggedInUser,
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
 } from "../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
+import { protectPage } from "../lib/utilities";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -31,18 +30,13 @@ const CreatePlantForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setErrorMessage(null));
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Scroll to top as soon as page loads if the user is logged in
+    protectPage(dispatch);
+    if (loggedInUser) {
+      dispatch(setErrorMessage(null));
+      scroll.scrollToTop();
+    }
   }, []);
 
   // Create plant

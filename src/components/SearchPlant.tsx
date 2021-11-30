@@ -12,29 +12,34 @@ const SearchPlant = (): JSX.Element => {
   const [query, setQuery] = useState("");
   const dispatch = useAppDispatch();
 
-  // Handle plant search result if user types in a query
+  // Handle plant query
   useEffect(() => {
-    if (query) {
-      dispatch(setIsFetchingPlants(true));
-      dispatch(fetchQueryPlants(query))
-        .unwrap()
-        .then((plants: Plant[]) => {
-          dispatch(setPlants(plants));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    } else {
-      dispatch(setIsFetchingPlants(true));
-      dispatch(fetchAllPlants())
-        .unwrap()
-        .then((plants: Plant[]) => {
-          dispatch(setPlants(plants));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    }
+    // Check if there is a plant query input by the user
+    const checkPlantQuery = (query: string) => {
+      if (query) {
+        dispatch(setIsFetchingPlants(true));
+        dispatch(fetchQueryPlants(query))
+          .unwrap()
+          .then((plants: Plant[]) => {
+            dispatch(setPlants(plants));
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      } else {
+        dispatch(setIsFetchingPlants(true));
+        dispatch(fetchAllPlants())
+          .unwrap()
+          .then((plants: Plant[]) => {
+            dispatch(setPlants(plants));
+          })
+          .catch((rejectedValue: any) => {
+            console.log(rejectedValue.message);
+          });
+      }
+    };
+
+    checkPlantQuery(query);
   }, [query]);
 
   return (

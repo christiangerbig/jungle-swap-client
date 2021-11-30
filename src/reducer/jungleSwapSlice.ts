@@ -11,7 +11,7 @@ import {
   DestroyImageData,
 } from "../typeDefinitions";
 
-type IntervalId = NodeJS.Timer | null;
+type IntervalId = NodeJS.Timeout | null;
 type ErrorMessage = string | null;
 
 interface InitialState {

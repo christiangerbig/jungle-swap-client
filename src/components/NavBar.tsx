@@ -9,7 +9,6 @@ import {
   fetchAllMessages,
   setMessages,
   setIntervalId,
-  setDelayCounter,
   increaseDelayCounter,
   setIsNewRequest,
   setIsNewReply,
@@ -19,10 +18,11 @@ import {
   setAmountOfReplies,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
+import { User, Message } from "../typeDefinitions";
 import { RootState } from "../store";
+import { stopIntervalCounter } from "../lib/utilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Message, User } from "../typeDefinitions";
 
 const NavBar = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -51,27 +51,24 @@ const NavBar = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Stop interval at cleanup
   useEffect(() => {
+    // Stop interval at cleanup
     return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        dispatch(setIntervalId(null));
-        dispatch(setDelayCounter(0));
-      }
+      intervalId && stopIntervalCounter(intervalId, dispatch);
     };
   }, []);
 
   // Start request/reply check if user changes
   useEffect(() => {
-    if (isUserChange) {
+    // Start request/reply check
+    const startRequestAndReplyCheck = () => {
       dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages) => {
           dispatch(setMessages(messages));
-          isUserChange && dispatch(setStartAmountOfRequests());
-          isUserChange && dispatch(setStartAmountOfReplies());
+          dispatch(setStartAmountOfRequests());
+          dispatch(setStartAmountOfReplies());
           dispatch(setIsUserChange(false));
           dispatch(
             setIntervalId(
@@ -88,10 +85,12 @@ const NavBar = (): JSX.Element => {
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);
         });
-    }
+    };
+
+    isUserChange && startRequestAndReplyCheck();
   }, [isUserChange]);
 
-  // Check new requests/replies for logged in user every second if user is logged in
+  // Check for new requests/replies every second if user is logged in
   useEffect(() => {
     // Check if there are new requests
     const checkAmountOfRequests = (messages: Message[]): void => {
@@ -130,8 +129,8 @@ const NavBar = (): JSX.Element => {
       }
     };
 
-    // Check and update amount of new requests/replies if user is logged in
-    if (loggedInUser) {
+    // Check and update amount of new requests/replies
+    const checkNewRequestsAndReplies = (isUserChange: boolean): void => {
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages) => {
@@ -144,7 +143,9 @@ const NavBar = (): JSX.Element => {
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);
         });
-    }
+    };
+
+    loggedInUser && checkNewRequestsAndReplies(isUserChange);
   }, [delayCounter]);
 
   return (

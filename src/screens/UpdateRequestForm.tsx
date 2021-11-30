@@ -3,8 +3,6 @@ import { Link, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  checkUserLoggedIn,
-  setLoggedInUser,
   setMessage,
   setIsUpdatingMessage,
   updateMessage,
@@ -12,6 +10,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
+import { protectPage } from "../lib/utilities";
 
 const UpdateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -26,17 +25,10 @@ const UpdateRequestForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Scroll to top as soon as page loads if the use is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        scroll.scrollToTop();
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Scroll to top if the user ia logged in
+    protectPage(dispatch);
+    loggedInUser && scroll.scrollToTop();
   }, []);
 
   // Create reply

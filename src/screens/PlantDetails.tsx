@@ -27,6 +27,7 @@ import {
   Message,
 } from "../typeDefinitions";
 import { RootState } from "../store";
+import { handleDeletePlantImage, protectPage } from "../lib/utilities";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -52,26 +53,23 @@ const PlantDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Read plant data and scroll to top as soon as page loads if the user is logged in
   useEffect(() => {
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingPlant(true));
-        dispatch(fetchPlant(plantId))
-          .unwrap()
-          .then((plant: Plant) => {
-            dispatch(setPlant(plant));
-            scroll.scrollToTop();
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Fetch plant data and scroll to top if the user is logged in
+    const fetchPlantData = (plantId: PlantId) => {
+      dispatch(setIsFetchingPlant(true));
+      dispatch(fetchPlant(plantId))
+        .unwrap()
+        .then((plant: Plant) => {
+          dispatch(setPlant(plant));
+          scroll.scrollToTop();
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    protectPage(dispatch);
+    loggedInUser && fetchPlantData(plantId);
   }, []);
 
   // Delete all remaining messages for the plant
@@ -93,19 +91,6 @@ const PlantDetails = (): JSX.Element => {
           });
       }
     });
-  };
-
-  // Delete plant image
-  const handleDeletePlantImage = (destroyImageData: DestroyImageData): void => {
-    dispatch(setIsDeletingPlantImage(true));
-    dispatch(deletePlantImage(destroyImageData))
-      .unwrap()
-      .then(() => {
-        return;
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
   };
 
   // Delete plant
@@ -191,7 +176,7 @@ const PlantDetails = (): JSX.Element => {
                         }
                         onClick={() => {
                           _id && handleDeleteMessages(messages, _id);
-                          handleDeletePlantImage({ imagePublicId });
+                          handleDeletePlantImage({ imagePublicId }, dispatch);
                           _id && handleDeletePlant(_id);
                         }}
                       >

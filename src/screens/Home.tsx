@@ -16,25 +16,34 @@ const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
-  // Load plants and calculate scroll element positions as soon as page loads
   useEffect(() => {
-    dispatch(setIsFetchingPlants(true));
-    dispatch(fetchAllPlants())
-      .unwrap()
-      .then((plants: Plant[]) => {
-        dispatch(setPlants(plants));
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
-    const headerElementHeight = Math.round(
-      (elementRef.current[0] as any).getBoundingClientRect().height
-    );
-    dispatch(setHeaderContainerHeight(headerElementHeight));
-    const aboutElementHeight = Math.round(
-      (elementRef.current[1] as any).getBoundingClientRect().height
-    );
-    dispatch(setAboutContainerHeight(aboutElementHeight));
+    // Load plants
+    const initializePlants = (): void => {
+      dispatch(setIsFetchingPlants(true));
+      dispatch(fetchAllPlants())
+        .unwrap()
+        .then((plants: Plant[]) => {
+          dispatch(setPlants(plants));
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    // Calculate scroll element positions
+    const getScrollElementsHeight = (): void => {
+      const headerElementHeight = Math.round(
+        (elementRef.current[0] as any).getBoundingClientRect().height
+      );
+      dispatch(setHeaderContainerHeight(headerElementHeight));
+      const aboutElementHeight = Math.round(
+        (elementRef.current[1] as any).getBoundingClientRect().height
+      );
+      dispatch(setAboutContainerHeight(aboutElementHeight));
+    };
+
+    initializePlants();
+    getScrollElementsHeight();
   }, []);
 
   return (

@@ -40,16 +40,21 @@ const CheckoutForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Create payment as soon as page loads
   useEffect(() => {
-    dispatch(createPayment(plant))
-      .unwrap()
-      .then((payment: any) => {
-        dispatch(setClientSecret(payment.clientSecret));
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
+    // Create payment as soon as page loads
+    const initializePayment = (plant: Plant) => {
+      dispatch(createPayment(plant))
+        .unwrap()
+        .then((payment: any) => {
+          dispatch(setClientSecret(payment.clientSecret));
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    initializePayment(plant);
+    // Return to Home page and scroll to plants section at cleanup
     return () => {
       history.push("/");
       dispatch(scrollToPlants());
@@ -140,9 +145,9 @@ const CheckoutForm = (): JSX.Element => {
             </div>
           )
         }
+        {/* Show success message upon completion */}
         <p
           className={
-            /* Show success message upon completion */
             isSucceeded
               ? "result-message text-center"
               : "result-message hidden text-center"

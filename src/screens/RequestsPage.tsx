@@ -3,16 +3,12 @@ import { Link, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  checkUserLoggedIn,
-  setLoggedInUser,
-  setIsFetchingMessages,
-  fetchAllMessages,
-  setMessages,
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
 import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
+import { fetchMessages, protectPage } from "../lib/utilities";
 import RequestTile from "../components/RequestTile";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -34,7 +30,6 @@ const RequestsPage = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  // Fetch all messages and reset values as soon as page loads if user is logged in
   useEffect(() => {
     // Reset values and scroll to top
     const resetValues = (): void => {
@@ -42,26 +37,14 @@ const RequestsPage = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    dispatch(checkUserLoggedIn())
-      .unwrap()
-      .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setIsFetchingMessages(true));
-        dispatch(fetchAllMessages())
-          .unwrap()
-          .then((messages) => {
-            dispatch(setMessages(messages));
-            isUserChange && dispatch(setStartAmountOfRequests());
-            resetValues();
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
-      })
-      .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
-      });
-    // Reset values during cleanup
+    // Fetch all messages if the user is logged in
+    protectPage(dispatch);
+    if (loggedInUser) {
+      fetchMessages(dispatch);
+      isUserChange && dispatch(setStartAmountOfRequests());
+      resetValues();
+    }
+    // Reset values at cleanup
     return () => {
       resetValues();
     };
