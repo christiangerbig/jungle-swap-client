@@ -15,7 +15,7 @@ const SearchPlant = (): JSX.Element => {
   // Handle plant query
   useEffect(() => {
     // Check if there is a plant query input by the user
-    const checkPlantQuery = (query: string) => {
+    const checkPlantQuery = (query: string): void => {
       if (query) {
         dispatch(setIsFetchingPlants(true));
         dispatch(fetchQueryPlants(query))

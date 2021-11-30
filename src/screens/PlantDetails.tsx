@@ -55,7 +55,7 @@ const PlantDetails = (): JSX.Element => {
 
   useEffect(() => {
     // Fetch plant data and scroll to top if the user is logged in
-    const fetchPlantData = (plantId: PlantId) => {
+    const fetchPlantData = (plantId: PlantId): void => {
       dispatch(setIsFetchingPlant(true));
       dispatch(fetchPlant(plantId))
         .unwrap()
@@ -77,7 +77,7 @@ const PlantDetails = (): JSX.Element => {
     messages: Message[],
     plantId: PlantId
   ): void => {
-    messages.forEach((message: Message) => {
+    messages.forEach((message: Message): void => {
       const { _id, plant }: any = message;
       if (plant._id === plantId) {
         dispatch(setIsDeletingMessage(true));
@@ -94,7 +94,7 @@ const PlantDetails = (): JSX.Element => {
   };
 
   // Delete plant
-  const handleDeletePlant = (plantId: PlantId) => {
+  const handleDeletePlant = (plantId: PlantId): void => {
     dispatch(setIsDeletingPlant(true));
     dispatch(deletePlant(plantId))
       .unwrap()

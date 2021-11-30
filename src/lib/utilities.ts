@@ -55,7 +55,7 @@ export const fetchSingleMessage = (
 };
 
 // Fetch all messages
-export const fetchMessages = (dispatch: any) => {
+export const fetchMessages = (dispatch: any): void => {
   dispatch(setIsFetchingMessages(true));
   dispatch(fetchAllMessages())
     .unwrap()

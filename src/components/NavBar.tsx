@@ -61,7 +61,7 @@ const NavBar = (): JSX.Element => {
   // Start request/reply check if user changes
   useEffect(() => {
     // Start request/reply check
-    const startRequestAndReplyCheck = () => {
+    const startRequestAndReplyCheck = (): void => {
       dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()

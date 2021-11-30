@@ -42,7 +42,7 @@ const CheckoutForm = (): JSX.Element => {
 
   useEffect(() => {
     // Create payment as soon as page loads
-    const initializePayment = (plant: Plant) => {
+    const initializePayment = (plant: Plant): void => {
       dispatch(createPayment(plant))
         .unwrap()
         .then((payment: any) => {

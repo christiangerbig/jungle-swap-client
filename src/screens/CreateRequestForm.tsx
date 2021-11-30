@@ -15,7 +15,7 @@ import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import { protectPage } from "../lib/utilities";
 
-const CreateRequestForm = () => {
+const CreateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -39,7 +39,7 @@ const CreateRequestForm = () => {
   }, []);
 
   // Create request
-  const handleCreateMessage = (event: any, plant: Plant) => {
+  const handleCreateMessage = (event: any, plant: Plant): void => {
     event.preventDefault();
     const { request } = event.target;
     const { _id, creator } = plant;
