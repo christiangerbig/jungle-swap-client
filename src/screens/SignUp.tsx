@@ -6,10 +6,10 @@ import {
   setIsUserChange,
   setLoggedInUser,
   signUp,
-  setIsNewRequest,
   setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
+import { User } from "../typeDefinitions";
 
 const SignUp = (): JSX.Element => {
   const errorMessage = useAppSelector(
@@ -18,15 +18,18 @@ const SignUp = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Reset variables and scroll to top as soon as page loads
   useEffect(() => {
     dispatch(setErrorMessage(null));
-    dispatch(setIsNewRequest(false));
     scroll.scrollToTop();
   }, []);
 
-  // Sign up
   const handleSignUp = (event: any): void => {
+    const setUserVariablesAndReturnToHomePage = (user: User): void => {
+      dispatch(setLoggedInUser(user));
+      dispatch(setIsUserChange(true));
+      history.push("/");
+    };
+
     event.preventDefault();
     const { username, email, password } = event.target;
     const newUser = {
@@ -37,9 +40,7 @@ const SignUp = (): JSX.Element => {
     dispatch(signUp(newUser))
       .unwrap()
       .then((user) => {
-        dispatch(setLoggedInUser(user));
-        dispatch(setIsUserChange(true));
-        history.push("/");
+        setUserVariablesAndReturnToHomePage(user);
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
@@ -59,20 +60,20 @@ const SignUp = (): JSX.Element => {
             <label htmlFor="InputUsername"> Username </label>
             <input
               type="text"
-              className="form-control"
               id="InputUsername"
               name="username"
               placeholder="Enter"
+              className="form-control"
             />
           </div>
           <div className="form-group">
             <label htmlFor="InputEmail"> Email address </label>
             <input
               type="email"
-              className="form-control"
               id="InputEmail"
               name="email"
               placeholder="Enter"
+              className="form-control"
             />
           </div>
           <div className="form-group">
@@ -80,16 +81,16 @@ const SignUp = (): JSX.Element => {
             <input
               name="password"
               type="password"
-              className="form-control"
               id="InputPassword"
               placeholder="Enter"
+              className="form-control"
             />
           </div>
           {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <button
             type="submit"
-            className="btn btn-sm mt-4 smallWidth form-control"
             formNoValidate
+            className="btn btn-sm mt-4 smallWidth form-control"
           >
             Sign up
           </button>

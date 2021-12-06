@@ -1,14 +1,17 @@
-// ---------- Plants ----------
+// ----- Plants -----
 export type PlantId = string;
 
-// ---------- Images ----------
+// ----- Images -----
 type ImagePublicId = string;
 type ImageUrl = string;
 
-// ---------- Messages ----------
+// ----- Interval -----
+export type IntervalId = NodeJS.Timeout | null;
+
+// ----- Messages -----
 export type MessageId = string;
 
-// ---------- User authentication ----------
+// ----- User authentication -----
 export interface User {
   _id?: string;
   username?: string;
@@ -18,7 +21,7 @@ export interface User {
   amountOfReplies?: number;
 }
 
-// ---------- Plants ----------
+// ----- Plants -----
 export interface Plant {
   _id?: string;
   name?: string;
@@ -31,7 +34,7 @@ export interface Plant {
   creator?: string | User;
 }
 
-// ---------- Images ----------
+// ----- Images -----
 export interface UploadImageData {
   imageUrl?: ImageUrl;
   imagePublicId?: ImagePublicId;
@@ -41,7 +44,7 @@ export interface DestroyImageData {
   imagePublicId?: ImagePublicId;
 }
 
-// ---------- Messages ----------
+// ----- Messages -----
 export interface Message {
   _id?: string;
   buyer?: string | User;

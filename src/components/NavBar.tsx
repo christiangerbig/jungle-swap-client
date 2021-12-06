@@ -5,9 +5,6 @@ import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
   setIsUserChange,
-  setIsFetchingMessages,
-  fetchAllMessages,
-  setMessages,
   setIntervalId,
   increaseDelayCounter,
   setIsNewRequest,
@@ -17,6 +14,9 @@ import {
   setAmountOfRequests,
   setAmountOfReplies,
   scrollToPlants,
+  setMessages,
+  setIsFetchingMessages,
+  fetchAllMessages,
 } from "../reducer/jungleSwapSlice";
 import { User, Message } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -25,11 +25,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
   const isUserChange = useAppSelector(
     (state: RootState) => state.jungleSwap.isUserChange
+  );
+  const loggedInUser = useAppSelector(
+    (state: RootState) => state.jungleSwap.loggedInUser
   );
   const intervalId = useAppSelector(
     (state: RootState) => state.jungleSwap.intervalId
@@ -37,120 +37,159 @@ const NavBar = (): JSX.Element => {
   const delayCounter = useAppSelector(
     (state: RootState) => state.jungleSwap.delayCounter
   );
-  const amountOfRequests = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfRequests
-  );
-  const amountOfReplies = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfReplies
-  );
   const isNewRequest = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewRequest
   );
   const isNewReply = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewReply
   );
+  const amountOfRequests = useAppSelector(
+    (state: RootState) => state.jungleSwap.amountOfRequests
+  );
+  const amountOfReplies = useAppSelector(
+    (state: RootState) => state.jungleSwap.amountOfReplies
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Stop interval at cleanup
     return () => {
       intervalId && stopIntervalCounter(intervalId, dispatch);
     };
   }, []);
 
-  // Start request/reply check if user changes
   useEffect(() => {
-    // Start request/reply check
-    const startRequestAndReplyCheck = (): void => {
-      dispatch(setIsFetchingMessages(true));
-      dispatch(fetchAllMessages())
-        .unwrap()
-        .then((messages) => {
+    const fetchMessagesAndStartRequestsRepliesCheck = (): void => {
+      const setMessageVariablesAndStartInterval = (
+        messages: Message[]
+      ): void => {
+        const setMessageVariables = (messages: Message[]): void => {
           dispatch(setMessages(messages));
           dispatch(setStartAmountOfRequests());
           dispatch(setStartAmountOfReplies());
           dispatch(setIsUserChange(false));
-          dispatch(
-            setIntervalId(
-              setInterval(
-                () => {
-                  dispatch(increaseDelayCounter());
-                },
-                1000 // every second
-              )
-            )
+        };
+
+        const startInterval = (): void => {
+          const intervalId = setInterval(
+            () => {
+              dispatch(increaseDelayCounter());
+            },
+            1000 // every second
           );
+          dispatch(setIntervalId(intervalId));
           dispatch(increaseDelayCounter());
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    };
+        };
 
-    isUserChange && startRequestAndReplyCheck();
-  }, [isUserChange]);
+        setMessageVariables(messages);
+        startInterval();
+      };
 
-  // Check for new requests/replies every second if user is logged in
-  useEffect(() => {
-    // Check if there are new requests
-    const checkAmountOfRequests = (messages: Message[]): void => {
-      const currentAmountOfRequests = messages.filter(
-        (message: Message): boolean => {
-          const { seller, messageState } = message;
-          return (
-            (seller as User)._id === (loggedInUser as User)._id &&
-            messageState === true
-          );
-        }
-      ).length;
-      if (amountOfRequests < currentAmountOfRequests) {
-        dispatch(setAmountOfRequests(currentAmountOfRequests));
-        dispatch(setIsNewRequest(true));
-      } else if (amountOfRequests > currentAmountOfRequests) {
-        dispatch(setAmountOfRequests(currentAmountOfRequests));
-      }
-    };
-
-    // Check if there are new replies
-    const checkAmountOfReplies = (messages: Message[]): void => {
-      const currentAmountOfReplies = messages.filter(
-        (message: Message): boolean => {
-          const { buyer, reply } = message;
-          return (
-            (buyer as User)._id === (loggedInUser as User)._id && reply !== ""
-          );
-        }
-      ).length;
-      if (amountOfReplies < currentAmountOfReplies) {
-        dispatch(setAmountOfReplies(currentAmountOfReplies));
-        dispatch(setIsNewReply(true));
-      } else if (amountOfReplies > currentAmountOfReplies) {
-        dispatch(setAmountOfReplies(currentAmountOfReplies));
-      }
-    };
-
-    // Check and update amount of new requests/replies
-    const checkNewRequestsAndReplies = (isUserChange: boolean): void => {
+      dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
-        .then((messages) => {
-          dispatch(setMessages(messages));
-          isUserChange && dispatch(setStartAmountOfRequests());
-          isUserChange && dispatch(setStartAmountOfReplies());
-          checkAmountOfRequests(messages);
-          checkAmountOfReplies(messages);
+        .then((messages: Message[]) => {
+          setMessageVariablesAndStartInterval(messages);
         })
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);
         });
     };
 
-    loggedInUser && checkNewRequestsAndReplies(isUserChange);
+    isUserChange && fetchMessagesAndStartRequestsRepliesCheck();
+  }, [isUserChange]);
+
+  useEffect(() => {
+    const fetchMessagesAndCheckNewRequestsReplies = (): void => {
+      const setMessagesVariableAndCheckNewRequestsReplies = (
+        messages: Message[]
+      ): void => {
+        const checkNewRequests = (messages: Message[]): void => {
+          const getAmountOfRequests = (messages: Message[]): number => {
+            const currentAmountOfRequests = messages.filter(
+              (message: Message): boolean => {
+                const { seller, messageState } = message;
+                return (
+                  (seller as User)._id === (loggedInUser as User)._id &&
+                  messageState === true
+                );
+              }
+            ).length;
+            return currentAmountOfRequests;
+          };
+
+          const checkAmountOfRequests = (
+            currentAmountOfRequests: number,
+            amountOfRequests: number
+          ): void => {
+            if (amountOfRequests < currentAmountOfRequests) {
+              dispatch(setIsNewRequest(true));
+            }
+            if (amountOfRequests !== currentAmountOfRequests) {
+              dispatch(setAmountOfRequests(currentAmountOfRequests));
+            }
+          };
+
+          const currentAmountOfRequests = getAmountOfRequests(messages);
+          checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
+        };
+
+        const checkNewReplies = (messages: Message[]): void => {
+          const getAmountOfReplies = (messages: Message[]): number => {
+            const currentAmountOfReplies = messages.filter(
+              (message: Message): boolean => {
+                const { buyer, reply } = message;
+                return (
+                  (buyer as User)._id === (loggedInUser as User)._id &&
+                  reply !== ""
+                );
+              }
+            ).length;
+            return currentAmountOfReplies;
+          };
+
+          const checkAmountOfReplies = (
+            currentAmountOfReplies: number,
+            amountOfReplies: number
+          ): void => {
+            if (amountOfReplies < currentAmountOfReplies) {
+              dispatch(setIsNewReply(true));
+            }
+            if (amountOfReplies !== currentAmountOfReplies) {
+              dispatch(setAmountOfReplies(currentAmountOfReplies));
+            }
+          };
+
+          const currentAmountOfReplies = getAmountOfReplies(messages);
+          checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
+        };
+
+        dispatch(setMessages(messages));
+        checkNewRequests(messages);
+        checkNewReplies(messages);
+      };
+
+      dispatch(fetchAllMessages())
+        .unwrap()
+        .then((messages: Message[]) => {
+          setMessagesVariableAndCheckNewRequestsReplies(messages);
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    if (isUserChange) {
+      dispatch(setStartAmountOfRequests());
+      dispatch(setStartAmountOfReplies());
+    }
+    if (loggedInUser) {
+      fetchMessagesAndCheckNewRequestsReplies();
+    }
   }, [delayCounter]);
 
   return (
     <div>
-      <Navbar className="pl-5" variant="dark" expand="lg" fixed="top">
+      <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
         <Navbar.Brand>
           <Link to="/" onClick={scroll.scrollToTop}>
             JungleSwap
@@ -174,21 +213,21 @@ const NavBar = (): JSX.Element => {
             </>
             {loggedInUser && (
               <>
-                <Link className="p-2" to="/plants/create">
+                <Link to="/plants/create" className="p-2">
                   Create Plant
                 </Link>
                 <Link
-                  className="p-2"
                   to="/requests/fetch-all"
                   title={isNewRequest ? "new request" : ""}
+                  className="p-2"
                 >
                   {isNewRequest && <FontAwesomeIcon icon={faBell} />}
                   Requests
                 </Link>
                 <Link
-                  className="p-2"
                   to="/replies/fetch-all"
                   title={isNewReply ? "new reply" : ""}
+                  className="p-2"
                 >
                   {isNewReply && <FontAwesomeIcon icon={faBell} />}
                   Replies
@@ -198,19 +237,19 @@ const NavBar = (): JSX.Element => {
             {loggedInUser ? (
               <>
                 <Link
-                  className="p-2"
                   to="/auth/log-out"
                   title={loggedInUser.username}
+                  className="p-2"
                 >
                   Log out
                 </Link>
               </>
             ) : (
               <>
-                <Link className="p-2" to="/auth/sign-in">
+                <Link to="/auth/sign-in" className="p-2">
                   Sign in
                 </Link>
-                <Link className="p-2" to="/auth/sign-up">
+                <Link to="/auth/sign-up" className="p-2">
                   Sign up
                 </Link>
               </>

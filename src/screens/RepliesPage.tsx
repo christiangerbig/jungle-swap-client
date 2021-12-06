@@ -8,7 +8,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { fetchMessages, protectPage } from "../lib/utilities";
+import { fetchMessages, protectRoute } from "../lib/utilities";
 import ReplyTile from "../components/ReplyTile";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -31,22 +31,20 @@ const RepliesPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Reset values and scroll to top
-    const resetValues = (): void => {
+    const resetReplyVariableAndScrollToTop = (): void => {
       dispatch(setIsNewReply(false));
       scroll.scrollToTop();
     };
 
-    // Fetch all messages if the user is logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     if (loggedInUser) {
       fetchMessages(dispatch);
       isUserChange && dispatch(setStartAmountOfReplies());
-      resetValues();
+      resetReplyVariableAndScrollToTop();
     }
-    // Reset values at cleanup
+
     return () => {
-      resetValues();
+      resetReplyVariableAndScrollToTop();
     };
   }, []);
 

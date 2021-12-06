@@ -9,17 +9,17 @@ import {
   Message,
   MessageId,
   DestroyImageData,
+  IntervalId,
 } from "../typeDefinitions";
 
-type IntervalId = NodeJS.Timeout | null;
 type ErrorMessage = string | null;
 
 interface InitialState {
-  // ---------- User authentication ----------
+  // ----- User authentication -----
   isUserChange: boolean;
   loggedInUser: User | null;
 
-  // ---------- Plants ----------
+  // ----- Plants -----
   isCreatingPlant: boolean;
   isFetchingPlants: boolean;
   isFetchingPlant: boolean;
@@ -28,15 +28,15 @@ interface InitialState {
   plants: Plant[];
   plant: Plant | {};
 
-  // ---------- Images ----------
+  // ----- Images -----
   isUploadingPlantImage: boolean;
   isDeletingPlantImage: boolean;
   destroyImageData: DestroyImageData;
 
-  // ---------- Payment ----------
+  // ----- Payment -----
   clientSecret: string;
 
-  // ---------- Messages ----------
+  // ----- Messages -----
   isCreatingMessage: boolean;
   isFetchingMessages: boolean;
   isFetchingMessage: boolean;
@@ -45,21 +45,21 @@ interface InitialState {
   messages: Message[];
   message: Message | {};
 
-  // ---------- Requests/Replies check ----------
+  // ----- Requests/Replies check -----
   isNewRequest: boolean;
   isNewReply: boolean;
   amountOfRequests: number;
   amountOfReplies: number;
 
-  // ---------- Interval counter ----------
+  // ----- Interval counter -----
   intervalId: IntervalId;
   delayCounter: number;
 
-  // ---------- Pages handling ----------
-  headerContainerHeight: number;
-  aboutContainerHeight: number;
+  // ----- Pages handling -----
+  titleSectionHeight: number;
+  aboutSectionHeight: number;
 
-  // ---------- Error handling ----------
+  // ----- Error handling -----
   errorMessage: ErrorMessage;
 }
 
@@ -77,11 +77,11 @@ const apiPath = `${config.API_URL}/api`;
 
 // Initialize states
 const initialState: InitialState = {
-  // ---------- User authentication ----------
+  // ----- User authentication -----
   isUserChange: false,
   loggedInUser: null,
 
-  // ---------- Plants ----------
+  // ----- Plants -----
   isCreatingPlant: false,
   isFetchingPlants: false,
   isFetchingPlant: false,
@@ -90,15 +90,15 @@ const initialState: InitialState = {
   plants: [],
   plant: {},
 
-  // ---------- Images ----------
+  // ----- Images -----
   isUploadingPlantImage: false,
   isDeletingPlantImage: false,
   destroyImageData: {},
 
-  // ---------- Payment ----------
+  // ----- Payment -----
   clientSecret: "",
 
-  // ---------- Messages ----------
+  // ----- Messages -----
   isCreatingMessage: false,
   isFetchingMessages: false,
   isFetchingMessage: false,
@@ -107,21 +107,21 @@ const initialState: InitialState = {
   messages: [],
   message: {},
 
-  // ---------- Requests/Replies check ----------
+  // ----- Requests/Replies check -----
   isNewRequest: false,
   isNewReply: false,
   amountOfRequests: 0,
   amountOfReplies: 0,
 
-  // ---------- Interval counter ----------
+  // ----- Interval counter -----
   intervalId: null,
   delayCounter: 0,
 
-  // ---------- Pages handling ----------
-  headerContainerHeight: 0,
-  aboutContainerHeight: 0,
+  // ----- Pages handling -----
+  titleSectionHeight: 0,
+  aboutSectionHeight: 0,
 
-  // ---------- Error handling ----------
+  // ----- Error handling -----
   errorMessage: null,
 };
 
@@ -129,8 +129,7 @@ const rejectWithValue = (data: any): void | PromiseLike<void> => {
   throw new Error(data);
 };
 
-// ---------- User authentification ----------
-// Sign up
+// ----- User authentification -----
 export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async (newUser: User): Promise<User | any> => {
@@ -143,7 +142,6 @@ export const signUp = createAsyncThunk(
   }
 );
 
-// Sign in
 export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async (user: User): Promise<User | any> => {
@@ -158,7 +156,6 @@ export const signIn = createAsyncThunk(
   }
 );
 
-// Log out
 export const logOut = createAsyncThunk(
   "jungleSwap/logOut",
   async (user: User): Promise<void | any> => {
@@ -172,7 +169,6 @@ export const logOut = createAsyncThunk(
   }
 );
 
-// Check if user is logged in
 export const checkUserLoggedIn = createAsyncThunk(
   "jungleSwap/checkUserLoggedIn",
   async (): Promise<User | any> => {
@@ -187,8 +183,7 @@ export const checkUserLoggedIn = createAsyncThunk(
   }
 );
 
-// --------- Plants ---------
-// Create plant
+// ----- Plants -----
 export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
   async (newPlant: Plant): Promise<Plant | any> => {
@@ -203,7 +198,6 @@ export const createPlant = createAsyncThunk(
   }
 );
 
-// Fetch all plants
 export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
   async (): Promise<Plant[] | any> => {
@@ -216,7 +210,6 @@ export const fetchAllPlants = createAsyncThunk(
   }
 );
 
-// Fetch query plants
 export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
   async (query: string): Promise<Plant[] | any> => {
@@ -229,7 +222,6 @@ export const fetchQueryPlants = createAsyncThunk(
   }
 );
 
-// Fetch single plant
 export const fetchPlant = createAsyncThunk(
   "jungleSwap/fetchPlant",
   async (plantId: PlantId): Promise<Plant | any> => {
@@ -244,7 +236,6 @@ export const fetchPlant = createAsyncThunk(
   }
 );
 
-// Update plant
 export const updatePlant = createAsyncThunk(
   "jungleSwap/updatePlant",
   async ({
@@ -263,7 +254,6 @@ export const updatePlant = createAsyncThunk(
   }
 );
 
-// Delete Plant
 export const deletePlant = createAsyncThunk(
   "jungleSwap/deletePlant",
   async (plantId: PlantId): Promise<void | any> => {
@@ -275,8 +265,7 @@ export const deletePlant = createAsyncThunk(
   }
 );
 
-// ---------- Images ----------
-// Upload plant image
+// ----- Images -----
 export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData): Promise<any> => {
@@ -292,7 +281,6 @@ export const uploadPlantImage = createAsyncThunk(
   }
 );
 
-// Delete plant image
 export const deletePlantImage = createAsyncThunk(
   "jungleSwap/deletePlantImage",
   async (destroyImageData: DestroyImageData): Promise<void | any> => {
@@ -304,8 +292,7 @@ export const deletePlantImage = createAsyncThunk(
   }
 );
 
-// ---------- Payment ----------
-// Create plant payment
+// ----- Payment -----
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
   async (plant: Plant): Promise<any> => {
@@ -323,8 +310,7 @@ export const createPayment = createAsyncThunk(
   }
 );
 
-// --------- Messages ----------
-// Create message
+// ----- Messages -----
 export const createMessage = createAsyncThunk(
   "jungleSwap/createMessage",
   async (newMessage: Message): Promise<Message | any> => {
@@ -341,7 +327,6 @@ export const createMessage = createAsyncThunk(
   }
 );
 
-// Fetch all messages
 export const fetchAllMessages = createAsyncThunk(
   "jungleSwap/fetchAllMessages",
   async (): Promise<Message[] | any> => {
@@ -354,7 +339,6 @@ export const fetchAllMessages = createAsyncThunk(
   }
 );
 
-// Fetch single message
 export const fetchMessage = createAsyncThunk(
   "jungleSwap/fetchMessage",
   async (messageId: MessageId): Promise<Message | any> => {
@@ -370,7 +354,6 @@ export const fetchMessage = createAsyncThunk(
   }
 );
 
-// Update message
 export const updateMessage = createAsyncThunk(
   "jungleSwap/updateMessage",
   async ({
@@ -389,7 +372,6 @@ export const updateMessage = createAsyncThunk(
   }
 );
 
-// Delete message
 export const deleteMessage = createAsyncThunk(
   "jungleSwap/deleteMessage",
   async (messageId: MessageId): Promise<void | any> => {
@@ -401,14 +383,14 @@ export const deleteMessage = createAsyncThunk(
   }
 );
 
-// ---------- Slice ----------
+// ----- Slice -----
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
 
-  // ---------- Reducers ----------
+  // ----- Reducers -----
   reducers: {
-    // --------- User authentication -----------
+    // ----- User authentication ------
     setIsUserChange: (state, action: PayloadAction<boolean>) => {
       state.isUserChange = action.payload;
     },
@@ -416,7 +398,7 @@ export const jungleSwapSlice = createSlice({
       state.loggedInUser = action.payload;
     },
 
-    // --------- Plants ----------
+    // ----- Plants ------
     setIsCreatingPlant: (state, action: PayloadAction<boolean>) => {
       state.isCreatingPlant = action.payload;
     },
@@ -471,7 +453,7 @@ export const jungleSwapSlice = createSlice({
       );
     },
 
-    // ---------- Images ----------
+    // ----- Images -----
     setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
       state.isUploadingPlantImage = action.payload;
     },
@@ -482,12 +464,12 @@ export const jungleSwapSlice = createSlice({
       state.destroyImageData = action.payload;
     },
 
-    // ---------- Payment ----------
+    // ----- Payment -----
     setClientSecret: (state, action: PayloadAction<string>) => {
       state.clientSecret = action.payload;
     },
 
-    // ---------- Messages ----------
+    // ----- Messages -----
     setIsCreatingMessage: (state, action: PayloadAction<boolean>) => {
       state.isCreatingMessage = action.payload;
     },
@@ -533,7 +515,7 @@ export const jungleSwapSlice = createSlice({
       });
     },
 
-    // --------- Requests/Replies check ----------
+    // ----- Requests/Replies check ------
     setIsNewRequest: (state, action: PayloadAction<boolean>) => {
       state.isNewRequest = action.payload;
     },
@@ -559,7 +541,7 @@ export const jungleSwapSlice = createSlice({
       state.amountOfReplies -= 1;
     },
 
-    // ---------- Interval counter ----------
+    // ----- Interval counter -----
     setIntervalId: (state, action: PayloadAction<IntervalId>) => {
       state.intervalId = action.payload;
     },
@@ -570,29 +552,29 @@ export const jungleSwapSlice = createSlice({
       state.delayCounter += 1;
     },
 
-    // ---------- Pages handling ----------
-    setHeaderContainerHeight: (state, action: PayloadAction<number>) => {
-      state.headerContainerHeight = action.payload;
+    // ----- Pages handling -----
+    setTitleSectionHeight: (state, action: PayloadAction<number>) => {
+      state.titleSectionHeight = action.payload;
     },
-    setAboutContainerHeight: (state, action: PayloadAction<number>) => {
-      state.aboutContainerHeight = action.payload;
+    setAboutSectionHeight: (state, action: PayloadAction<number>) => {
+      state.aboutSectionHeight = action.payload;
     },
     scrollToAbout: (state) => {
-      scroll.scrollTo(state.headerContainerHeight);
+      scroll.scrollTo(state.titleSectionHeight);
     },
     scrollToPlants: (state) => {
-      scroll.scrollTo(state.headerContainerHeight + state.aboutContainerHeight);
+      scroll.scrollTo(state.titleSectionHeight + state.aboutSectionHeight);
     },
 
-    // ---------- Error handling ----------
+    // ----- Error handling -----
     setErrorMessage: (state, action: PayloadAction<ErrorMessage>) => {
       state.errorMessage = action.payload;
     },
   },
 
-  // ---------- Extra reducers ----------
+  // ----- Extra reducers -----
   extraReducers: (builder) => {
-    // --------- Plants ----------
+    // ----- Plants ------
     builder.addCase(createPlant.fulfilled, (state) => {
       state.isCreatingPlant = false;
     });
@@ -630,7 +612,7 @@ export const jungleSwapSlice = createSlice({
       state.isDeletingPlant = false;
     });
 
-    // ---------- Images ----------
+    // ----- Images -----
     builder.addCase(uploadPlantImage.fulfilled, (state) => {
       state.isUploadingPlantImage = false;
     });
@@ -644,7 +626,7 @@ export const jungleSwapSlice = createSlice({
       state.isDeletingPlantImage = false;
     });
 
-    // ---------- Messages ----------
+    // ----- Messages -----
     builder.addCase(createMessage.fulfilled, (state) => {
       state.isCreatingMessage = false;
     });
@@ -678,13 +660,13 @@ export const jungleSwapSlice = createSlice({
   },
 });
 
-// ---------- Slice actions ----------
+// ----- Slice actions -----
 export const {
-  // ---------- User authentification ----------
+  // ----- User authentification -----
   setIsUserChange,
   setLoggedInUser,
 
-  // ----------- Plants ----------
+  // ----- Plants -----
   setIsCreatingPlant,
   setIsFetchingPlants,
   setIsFetchingPlant,
@@ -696,15 +678,15 @@ export const {
   setPlantChanges,
   removePlant,
 
-  // ---------- Images ----------
+  // ----- Images -----
   setIsUploadingPlantImage,
   setIsDeletingPlantImage,
   setDestroyImageData,
 
-  // ---------- Payment ----------
+  // ----- Payment -----
   setClientSecret,
 
-  // ---------- Messages ----------
+  // ----- Messages -----
   setIsCreatingMessage,
   setIsFetchingMessages,
   setIsFetchingMessage,
@@ -716,7 +698,7 @@ export const {
   setMessageChanges,
   removeMessage,
 
-  // ---------- Requests/Replies check ----------
+  // ----- Requests/Replies check -----
   setIsNewRequest,
   setIsNewReply,
   setStartAmountOfRequests,
@@ -726,18 +708,18 @@ export const {
   decreaseAmountOfRequests,
   decreaseAmountOfReplies,
 
-  // ---------- Interval counter ----------
+  // ----- Interval counter -----
   setIntervalId,
   setDelayCounter,
   increaseDelayCounter,
 
-  // ---------- Pages handling ----------
-  setHeaderContainerHeight,
-  setAboutContainerHeight,
+  // ----- Pages handling -----
+  setTitleSectionHeight,
+  setAboutSectionHeight,
   scrollToAbout,
   scrollToPlants,
 
-  // ---------- Error handling ----------
+  // ----- Error handling -----
   setErrorMessage,
 } = jungleSwapSlice.actions;
 

@@ -9,9 +9,9 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   const { _id, name, imageUrl, price } = plant;
 
   return (
-    <div className="col mb-5" key={_id}>
+    <div className="col mb-5">
       <div className="card card-medium-width text-center h-100">
-        <img className="card-img-top mediumPicSize" src={imageUrl} alt={name} />
+        <img src={imageUrl} alt={name} className="card-img-top mediumPicSize" />
         <div className="card-body mb-5">
           <h5> {name} </h5>
           <p> {price} € </p>

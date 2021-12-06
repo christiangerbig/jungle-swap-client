@@ -12,7 +12,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
-import { fetchSingleMessage, protectPage } from "../lib/utilities";
+import { fetchSingleMessage, protectRoute } from "../lib/utilities";
 
 const RequestDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -29,37 +29,52 @@ const RequestDetails = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Fetch single message and scroll to top if the user is logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && fetchSingleMessage(messageId, dispatch);
   }, []);
 
-  // Set message of the buyer inactive by the seller
-  const handleSetMessageInactive = (message: Message): void => {
-    const clonedMessage: Message = JSON.parse(JSON.stringify(message));
-    clonedMessage.messageState = false;
-    dispatch(setMessage(clonedMessage));
-    const { _id, buyer, seller, plant, request, reply, messageState } =
-      clonedMessage;
-    const updatedMessage: Message = {
+  const handleChangeMessageState = (message: Message): void => {
+    const setBuyerMessageInactive = (message: Message): void => {
+      const clonedMessage: Message = JSON.parse(JSON.stringify(message));
+      clonedMessage.messageState = false;
+      dispatch(setMessage(clonedMessage));
+    };
+
+    const updateBuyerMessage = ({
+      _id,
       buyer,
       seller,
       plant,
       request,
       reply,
       messageState,
-    };
-    _id &&
-      dispatch(updateMessage({ messageId: _id, updatedMessage }))
+    }: Message) => {
+      const setMessageChangesAndReturnToRequestsPage = (message: Message): void => {
+        dispatch(setMessageChanges(message));
+        dispatch(decreaseAmountOfRequests());
+        history.push("/requests/fetch-all");
+      };
+
+      const updatedMessage: Message = {
+        buyer,
+        seller,
+        plant,
+        request,
+        reply,
+        messageState,
+      };
+      dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
         .unwrap()
         .then((message) => {
-          dispatch(setMessageChanges(message));
-          dispatch(decreaseAmountOfRequests());
-          history.push("/requests/fetch-all");
+          setMessageChangesAndReturnToRequestsPage(message);
         })
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);
         });
+    };
+
+    setBuyerMessageInactive(message);
+    updateBuyerMessage(message);
   };
 
   if (!loggedInUser) {
@@ -101,7 +116,7 @@ const RequestDetails = (): JSX.Element => {
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => {
-              handleSetMessageInactive(message);
+              handleChangeMessageState(message);
             }}
           >
             Done

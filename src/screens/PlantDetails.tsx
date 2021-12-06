@@ -4,8 +4,6 @@ import { animateScroll as scroll } from "react-scroll";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  checkUserLoggedIn,
-  setLoggedInUser,
   setIsFetchingPlant,
   fetchPlant,
   setPlant,
@@ -15,19 +13,11 @@ import {
   setIsDeletingMessage,
   deleteMessage,
   removeMessage,
-  setIsDeletingPlantImage,
-  deletePlantImage,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
-import {
-  User,
-  Plant,
-  PlantId,
-  DestroyImageData,
-  Message,
-} from "../typeDefinitions";
+import { User, Plant, PlantId, Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { handleDeletePlantImage, protectPage } from "../lib/utilities";
+import { handleDeletePlantImage, protectRoute } from "../lib/utilities";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -54,37 +44,39 @@ const PlantDetails = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Fetch plant data and scroll to top if the user is logged in
     const fetchPlantData = (plantId: PlantId): void => {
+      const setPlantAndScrollToTop = (plant: Plant): void => {
+        dispatch(setPlant(plant));
+        scroll.scrollToTop();
+      };
+
       dispatch(setIsFetchingPlant(true));
       dispatch(fetchPlant(plantId))
         .unwrap()
         .then((plant: Plant) => {
-          dispatch(setPlant(plant));
-          scroll.scrollToTop();
+          setPlantAndScrollToTop(plant);
         })
         .catch((rejectedValue: any) => {
           console.log(rejectedValue.message);
         });
     };
 
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && fetchPlantData(plantId);
   }, []);
 
-  // Delete all remaining messages for the plant
   const handleDeleteMessages = (
     messages: Message[],
     plantId: PlantId
   ): void => {
     messages.forEach((message: Message): void => {
-      const { _id, plant }: any = message;
-      if (plant._id === plantId) {
+      const { _id, plant } = message;
+      if ((plant as Plant)._id === plantId) {
         dispatch(setIsDeletingMessage(true));
-        dispatch(deleteMessage(_id))
+        dispatch(deleteMessage(_id as PlantId))
           .unwrap()
           .then(() => {
-            dispatch(removeMessage(_id));
+            dispatch(removeMessage(_id as PlantId));
           })
           .catch((rejectedValue: any) => {
             console.log(rejectedValue.message);
@@ -93,15 +85,18 @@ const PlantDetails = (): JSX.Element => {
     });
   };
 
-  // Delete plant
   const handleDeletePlant = (plantId: PlantId): void => {
+    const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
+      dispatch(removePlant(plantId));
+      history.push("/");
+      dispatch(scrollToPlants());
+    };
+
     dispatch(setIsDeletingPlant(true));
     dispatch(deletePlant(plantId))
       .unwrap()
       .then(() => {
-        dispatch(removePlant(plantId));
-        history.push("/");
-        dispatch(scrollToPlants());
+        removePlantAndReturnToPlantsSection(plantId);
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -135,9 +130,9 @@ const PlantDetails = (): JSX.Element => {
           <div className="card cardMediumWidth">
             {imageUrl && (
               <img
-                className="card-img-top mediumPicSize"
                 src={imageUrl}
                 alt={name}
+                className="card-img-top mediumPicSize"
               />
             )}
             <div className="ml-2 mt-2">
@@ -166,7 +161,6 @@ const PlantDetails = (): JSX.Element => {
                         </button>
                       </Link>
                       <button
-                        className="btn btn-sm ml-2 form-control smallWidth mb-2"
                         disabled={
                           isDeletingMessage ||
                           isDeletingPlantImage ||
@@ -174,10 +168,11 @@ const PlantDetails = (): JSX.Element => {
                             ? true
                             : false
                         }
+                        className="btn btn-sm ml-2 form-control smallWidth mb-2"
                         onClick={() => {
-                          _id && handleDeleteMessages(messages, _id);
+                          handleDeleteMessages(messages, _id as PlantId);
                           handleDeletePlantImage({ imagePublicId }, dispatch);
-                          _id && handleDeletePlant(_id);
+                          handleDeletePlant(_id as PlantId);
                         }}
                       >
                         Delete

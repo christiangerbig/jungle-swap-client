@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../hooks";
+import { fetchPlants } from "../lib/utilities";
 import {
-  fetchAllPlants,
   fetchQueryPlants,
   setIsFetchingPlants,
   setPlants,
@@ -12,10 +12,8 @@ const SearchPlant = (): JSX.Element => {
   const [query, setQuery] = useState("");
   const dispatch = useAppDispatch();
 
-  // Handle plant query
   useEffect(() => {
-    // Check if there is a plant query input by the user
-    const checkPlantQuery = (query: string): void => {
+    const fetchPlantQuery = (query: string): void => {
       if (query) {
         dispatch(setIsFetchingPlants(true));
         dispatch(fetchQueryPlants(query))
@@ -27,19 +25,11 @@ const SearchPlant = (): JSX.Element => {
             console.log(rejectedValue.message);
           });
       } else {
-        dispatch(setIsFetchingPlants(true));
-        dispatch(fetchAllPlants())
-          .unwrap()
-          .then((plants: Plant[]) => {
-            dispatch(setPlants(plants));
-          })
-          .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
-          });
+        fetchPlants(dispatch);
       }
     };
 
-    checkPlantQuery(query);
+    fetchPlantQuery(query);
   }, [query]);
 
   return (
@@ -47,10 +37,10 @@ const SearchPlant = (): JSX.Element => {
       <hr />
       <h4> Search a plant </h4>
       <input
-        className="smallWidth form-control"
         type="text"
         placeholder="Search..."
         value={query}
+        className="smallWidth form-control"
         onChange={(event) => {
           setQuery(event.target.value);
         }}

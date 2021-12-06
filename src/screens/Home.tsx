@@ -1,61 +1,48 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch } from "../hooks";
 import {
-  setIsFetchingPlants,
-  fetchAllPlants,
-  setPlants,
-  setHeaderContainerHeight,
-  setAboutContainerHeight,
+  setTitleSectionHeight,
+  setAboutSectionHeight,
 } from "../reducer/jungleSwapSlice";
-import { Plant } from "../typeDefinitions";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
+import { fetchPlants } from "../lib/utilities";
 
 const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
   useEffect(() => {
-    // Load plants
-    const initializePlants = (): void => {
-      dispatch(setIsFetchingPlants(true));
-      dispatch(fetchAllPlants())
-        .unwrap()
-        .then((plants: Plant[]) => {
-          dispatch(setPlants(plants));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    };
-
-    // Calculate scroll element positions
-    const getScrollElementsHeight = (): void => {
-      const headerElementHeight = Math.round(
+    const getTitleSectionHeight = (): void => {
+      const titleSectionHeight = Math.round(
         (elementRef.current[0] as any).getBoundingClientRect().height
       );
-      dispatch(setHeaderContainerHeight(headerElementHeight));
-      const aboutElementHeight = Math.round(
-        (elementRef.current[1] as any).getBoundingClientRect().height
-      );
-      dispatch(setAboutContainerHeight(aboutElementHeight));
+      dispatch(setTitleSectionHeight(titleSectionHeight));
     };
 
-    initializePlants();
-    getScrollElementsHeight();
+    const getAboutSectionHeight = (): void => {
+      const aboutSectionHeight = Math.round(
+        (elementRef.current[1] as any).getBoundingClientRect().height
+      );
+      dispatch(setAboutSectionHeight(aboutSectionHeight));
+    };
+
+    fetchPlants(dispatch);
+    getTitleSectionHeight();
+    getAboutSectionHeight();
   }, []);
 
   return (
     <div>
-      <header
-        className="text-center pt-5 pb-5 headerImg"
+      <section
         ref={(headerElement) => {
           (elementRef.current[0] as any) = headerElement;
         }}
+        className="text-center pt-5 pb-5 headerImg"
       >
         <Title />
-      </header>
+      </section>
 
       <section
         ref={(aboutElement) => {

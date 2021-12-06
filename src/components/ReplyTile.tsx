@@ -17,22 +17,20 @@ const ReplyThumbnail = ({ message }: ReplyThumbnailProps): JSX.Element => {
 
   return (
     <>
-      {loggedInUser &&
-        (buyer as User)._id === loggedInUser._id &&
-        reply !== "" && (
-          <div className="card p-3 mt-4 " key={_id}>
-            <h4> Reply for {name} </h4>
-            <h5> by {username} </h5>
-            <div className="text-center">
-              <Link
-                className="btn smallWidth form-control"
-                to={`/replies/fetch/${_id}`}
-              >
-                Details
-              </Link>
-            </div>
+      {(buyer as User)._id === (loggedInUser as User)._id && reply !== "" && (
+        <div className="card p-3 mt-4 ">
+          <h4> Reply for {name} </h4>
+          <h5> by {username} </h5>
+          <div className="text-center">
+            <Link             
+              to={`/replies/fetch/${_id}`}
+              className="btn smallWidth form-control"
+            >
+              Details
+            </Link>
           </div>
-        )}
+        </div>
+      )}
     </>
   );
 };

@@ -8,9 +8,9 @@ import {
   updateMessage,
   setMessageChanges,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../typeDefinitions";
+import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
-import { protectPage } from "../lib/utilities";
+import { protectRoute } from "../lib/utilities";
 
 const UpdateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -26,19 +26,16 @@ const UpdateRequestForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Scroll to top if the user ia logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && scroll.scrollToTop();
   }, []);
 
-  // Create reply
   const handleCreateReply = ({ target }: any, message: Message): void => {
     const clonedMessage: Message = JSON.parse(JSON.stringify(message));
     clonedMessage.reply = target.value;
     dispatch(setMessage(clonedMessage));
   };
 
-  // Update message
   const handleUpdateMessage = ({
     _id,
     buyer,
@@ -48,6 +45,12 @@ const UpdateRequestForm = (): JSX.Element => {
     reply,
     messageState,
   }: Message): void => {
+    const setMessageChangesAndReturnToRequestPage = (message: Message): void => {
+      dispatch(setMessageChanges(message));
+      const { _id } = message;
+      history.push(`/requests/fetch/${_id}`);
+    };
+
     const updatedMessage: Message = {
       buyer,
       seller,
@@ -57,16 +60,14 @@ const UpdateRequestForm = (): JSX.Element => {
       messageState,
     };
     dispatch(setIsUpdatingMessage(true));
-    _id &&
-      dispatch(updateMessage({ messageId: _id, updatedMessage }))
-        .unwrap()
-        .then((message) => {
-          dispatch(setMessageChanges(message));
-          history.push(`/requests/fetch/${_id}`);
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
+    dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
+      .unwrap()
+      .then((message) => {
+        setMessageChangesAndReturnToRequestPage(message);
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   if (!loggedInUser) {

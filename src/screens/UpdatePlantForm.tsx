@@ -13,9 +13,9 @@ import {
   setDestroyImageData,
   scrollToPlants,
 } from "../reducer/jungleSwapSlice";
-import { Plant, UploadImageData } from "../typeDefinitions";
+import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
-import { handleDeletePlantImage, protectPage } from "../lib/utilities";
+import { handleDeletePlantImage, protectRoute } from "../lib/utilities";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
@@ -39,41 +39,42 @@ const UpdatePlantForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Scroll to top if the user ia logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && scroll.scrollToTop();
   }, []);
 
-  // Check which plant values have changed
-  const handlePlantEntryChange = (
-    { target }: any,
-    plant: Plant,
-    itemNumber: number
-  ): void => {
+  const handlePlantEntryChange = ({ target }: any, plant: Plant): void => {
     const clonedPlant: Plant = JSON.parse(JSON.stringify(plant));
-    // eslint-disable-next-line default-case
-    switch (itemNumber) {
-      case 0:
+    switch (target.name) {
+      case "name":
         clonedPlant.name = target.value;
         break;
-      case 1:
+      case "decription":
         clonedPlant.description = target.value;
         break;
-      case 2:
+      case "size":
         clonedPlant.size = target.value;
         break;
-      case 3:
+      case "location":
         clonedPlant.location = target.value;
         break;
-      case 4:
+      case "price":
         clonedPlant.price = target.value;
     }
     dispatch(setPlant(clonedPlant));
   };
 
-  // Plant image changed
-  // Upload a new image and update plant values
-  const handleImageChange = ({ target }: any, plant: Plant): void => {
+  const handlePlantImageChange = ({ target }: any, plant: Plant): void => {
+    const setImageDataForPlant = (
+      plant: Plant,
+      { imageUrl, imagePublicId }: UploadImageData
+    ) => {
+      const clonedPlant = JSON.parse(JSON.stringify(plant));
+      clonedPlant.imagePublicId = imagePublicId;
+      clonedPlant.imageUrl = imageUrl;
+      dispatch(setPlant(clonedPlant));
+    };
+
     const image = target.files[0];
     const { imagePublicId } = plant as Plant;
     dispatch(setDestroyImageData({ imagePublicId }));
@@ -83,17 +84,13 @@ const UpdatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        const clonedPlant = JSON.parse(JSON.stringify(plant));
-        clonedPlant.imagePublicId = imagePublicId;
-        clonedPlant.imageUrl = imageUrl;
-        dispatch(setPlant(clonedPlant));
+        setImageDataForPlant(plant, { imageUrl, imagePublicId });
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
       });
   };
 
-  // Update plant values
   const handleUpdatePlant = ({
     _id,
     name,
@@ -104,6 +101,12 @@ const UpdatePlantForm = (): JSX.Element => {
     location,
     price,
   }: Plant): void => {
+    const setPlantChangesAndReturnToPlantsSection = (updatedPlant: Plant): void => {
+      dispatch(setPlantChanges(updatedPlant));
+      history.push("/");
+      dispatch(scrollToPlants());
+    };
+
     const updatedPlant: Plant = {
       name,
       description,
@@ -114,17 +117,14 @@ const UpdatePlantForm = (): JSX.Element => {
       price,
     };
     dispatch(setIsUpdatingPlant(true));
-    _id &&
-      dispatch(updatePlant({ plantId: _id, updatedPlant }))
-        .unwrap()
-        .then((updatedPlant) => {
-          dispatch(setPlantChanges(updatedPlant));
-          history.push("/");
-          dispatch(scrollToPlants());
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
+    dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
+      .unwrap()
+      .then((updatedPlant) => {
+        setPlantChangesAndReturnToPlantsSection(updatedPlant);
+      })
+      .catch((rejectedValue: any) => {
+        console.log(rejectedValue.message);
+      });
   };
 
   if (!loggedInUser) {
@@ -140,48 +140,51 @@ const UpdatePlantForm = (): JSX.Element => {
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <LoadingSpinner />
           ) : (
-            <img className="mb-2 smallPicSize" src={imageUrl} alt={name} />
+            <img src={imageUrl} alt={name} className="mb-2 smallPicSize" />
           )}
           <div className="card-body">
             <label htmlFor="updateName"> Name </label>
             <input
-              className="mb-4 form-control"
               type="text"
-              onChange={(event) => {
-                handlePlantEntryChange(event, plant, 0);
-              }}
-              value={name}
               id="updateName"
+              name="name"
+              value={name}
+              className="mb-4 form-control"
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant);
+              }}
             />
             <label htmlFor="updateDescription"> Description </label>
             <input
-              className="mb-4 form-control"
               type="text"
-              onChange={(event) => {
-                handlePlantEntryChange(event, plant, 1);
-              }}
-              value={description}
               id="updateDescription"
+              name="description"
+              value={description}
+              className="mb-4 form-control"
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant);
+              }}
             />
             <label htmlFor="updateSize"> Size (cm) </label>
             <input
-              className="mb-4 form-control"
               type="number"
-              onChange={(event) => {
-                handlePlantEntryChange(event, plant, 2);
-              }}
-              value={size}
               id="updateSize"
+              name="size"
+              value={size}
+              className="mb-4 form-control"
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant);
+              }}
             />
             <label htmlFor="updateLocation"> Location </label>
             <select
-              className="mb-4 form-control px-2"
-              onChange={(event) => {
-                handlePlantEntryChange(event, plant, 3);
-              }}
+              id="updateLocation"
               name="location"
               placeholder="Select"
-              id="updateLocation"
+              className="mb-4 form-control px-2"
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant);
+              }}
             >
               <option value="sun"> sun </option>
               <option value="shade"> shade </option>
@@ -189,28 +192,27 @@ const UpdatePlantForm = (): JSX.Element => {
             </select>
             <label htmlFor="updatePrice"> Price (EUR) </label>
             <input
-              className="mb-4 form-control"
-              name="price"
               type="number"
-              min="1"
-              onChange={(event) => {
-                handlePlantEntryChange(event, plant, 4);
-              }}
-              value={price}
               id="updatePrice"
+              name="price"
+              value={price}
+              min="1"
+              className="mb-4 form-control"
+              onChange={(event) => {
+                handlePlantEntryChange(event, plant);
+              }}
             />
             <label htmlFor="updateImage"> Image </label>
             <input
-              className="mb-4 form-control"
-              onChange={(event) => {
-                handleImageChange(event, plant);
-              }}
               type="file"
               id="updateImage"
+              className="mb-4 form-control"
+              onChange={(event) => {
+                handlePlantImageChange(event, plant);
+              }}
             />
             <div className="col-12 text-right pr-0">
               <button
-                className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 disabled={
                   isUploadingPlantImage ||
                   isDeletingPlantImage ||
@@ -218,6 +220,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     ? true
                     : false
                 }
+                className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => {
                   handleDeletePlantImage(destroyImageData, dispatch);
                   handleUpdatePlant(plant);

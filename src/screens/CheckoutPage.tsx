@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
-import { protectPage } from "../lib/utilities";
+import { protectRoute } from "../lib/utilities";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
@@ -19,8 +19,7 @@ const CheckoutPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Scroll to top as soon as page loads if the user is logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && scroll.scrollToTop();
   }, []);
 

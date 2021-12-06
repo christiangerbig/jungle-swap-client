@@ -12,7 +12,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
-import { fetchSingleMessage, protectPage } from "../lib/utilities";
+import { fetchSingleMessage, protectRoute } from "../lib/utilities";
 
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -32,20 +32,24 @@ const ReplyDetails = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Fetch single message and scroll to top if the user is logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     loggedInUser && fetchSingleMessage(messageId, dispatch);
   }, []);
 
-  // Delete Message
   const handleDeleteMessage = (messageId: MessageId): void => {
+    const removeMessageReplyAndReturnToRepliesPage = (
+      messageId: MessageId
+    ): void => {
+      dispatch(removeMessage(messageId));
+      dispatch(decreaseAmountOfReplies());
+      history.push("/replies/fetch-all");
+    };
+
     dispatch(setIsDeletingMessage(true));
     dispatch(deleteMessage(messageId))
       .unwrap()
       .then(() => {
-        dispatch(removeMessage(messageId));
-        dispatch(decreaseAmountOfReplies());
-        history.push("/replies/fetch-all");
+        removeMessageReplyAndReturnToRepliesPage(messageId);
       })
       .catch((rejectedValue: any) => {
         console.log(rejectedValue.message);
@@ -81,10 +85,10 @@ const ReplyDetails = (): JSX.Element => {
         )}
         <div className="text-right px-3">
           <button
-            className="btn btn-sm ml-2 smallWidth form-control mb-1"
             disabled={isDeletingMessage ? true : false}
+            className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => {
-              _id && handleDeleteMessage(_id);
+              handleDeleteMessage(_id as MessageId);
             }}
           >
             Delete

@@ -31,37 +31,14 @@ const CheckoutForm = (): JSX.Element => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [paymentError, setPaymentError] = useState("");
-  const stripe = useStripe();
-  const elements = useElements();
   const clientSecret = useAppSelector(
     (state: RootState) => state.jungleSwap.clientSecret
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useAppDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    // Create payment as soon as page loads
-    const initializePayment = (plant: Plant): void => {
-      dispatch(createPayment(plant))
-        .unwrap()
-        .then((payment: any) => {
-          dispatch(setClientSecret(payment.clientSecret));
-        })
-        .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
-        });
-    };
-
-    initializePayment(plant);
-    // Return to Home page and scroll to plants section at cleanup
-    return () => {
-      history.push("/");
-      dispatch(scrollToPlants());
-    };
-  }, []);
-
-  // Card styling
+  const stripe = useStripe();
+  const elements = useElements();
   const cardStyle: CardStyle = {
     style: {
       base: {
@@ -78,17 +55,39 @@ const CheckoutForm = (): JSX.Element => {
     },
   };
 
-  // Listen for changes in Card element and display any errors as customer types card details
-  const handleChange = async (event: any): Promise<void> => {
+  useEffect(() => {
+    const initializePayment = (plant: Plant): void => {
+      dispatch(createPayment(plant))
+        .unwrap()
+        .then((payment: any) => {
+          dispatch(setClientSecret(payment.clientSecret));
+        })
+        .catch((rejectedValue: any) => {
+          console.log(rejectedValue.message);
+        });
+    };
+
+    initializePayment(plant);
+
+    return () => {
+      const returnToPlantsSection = (): void => {
+        history.push("/");
+        dispatch(scrollToPlants());
+      };
+
+      returnToPlantsSection();
+    };
+  }, []);
+
+  const handleCardElementInputChanges = async (event: any): Promise<void> => {
     setIsDisabled(event.empty);
     setPaymentError(event.error ? event.error.message : "");
   };
 
-  // Submit payment
   const handleSubmitPayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    // Stripe.js has not yet loaded.
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
       return;
     }
     setIsProcessing(true);
@@ -109,28 +108,28 @@ const CheckoutForm = (): JSX.Element => {
   return (
     <div className="container col-9">
       <form
-        className="checkoutForm mt-5"
         id="payment-form"
-        onSubmit={handleSubmitPayment}
+        className="checkoutForm mt-5"
+        onSubmit={handleSubmitPayment}        
       >
         <h2 className="text-left mb-2 p-2"> {name} </h2>
         <h3 className="text-left mb-4 p-2"> Price: {price} € </h3>
         <CardElement
-          className="p-2"
           id="card-element"
           options={cardStyle}
-          onChange={handleChange}
+          className="p-2"
+          onChange={handleCardElementInputChanges}
         />
         <div className="row justify-content-center">
           <button
-            className="btn btn-sm mt-5 mb-4"
             type="submit"
-            disabled={isProcessing || isDisabled || isSucceeded}
             id="submit"
+            disabled={isProcessing || isDisabled || isSucceeded}
+            className="btn btn-sm mt-5 mb-4"
           >
             <span id="button-text">
               {isProcessing ? (
-                <div className="spinner" id="spinner" />
+                <div id="spinner" className="spinner" />
               ) : (
                 "Pay now"
               )}
@@ -140,7 +139,7 @@ const CheckoutForm = (): JSX.Element => {
         {
           /* Show any error that happens when processing the payment */
           paymentError && (
-            <div className="card-error" role="alert">
+            <div role="alert" className="card-error">
               {paymentError}
             </div>
           )

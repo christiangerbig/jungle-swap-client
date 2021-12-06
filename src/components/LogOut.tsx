@@ -30,34 +30,52 @@ const LogOut = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Reset variables
-    const resetVariables = (): void => {
-      dispatch(setIsNewRequest(false));
-      dispatch(setAmountOfRequests(0));
-      dispatch(setAmountOfReplies(0));
-    };
-
-    // Update user amount of requests/replies
     const logOutUser = (
-      loggedInUser: User | null,
-      intervalId: NodeJS.Timeout | null
-    ) => {
-      const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
-      clonedUser.amountOfRequests = amountOfRequests;
-      clonedUser.amountOfReplies = amountOfReplies;
-      dispatch(setLoggedInUser(clonedUser));
-      dispatch(logOut(clonedUser))
-        .unwrap()
-        .then(() => {
+      loggedInUser: User,
+      intervalId: NodeJS.Timeout
+    ): void => {
+      const saveUserRequestsAndReplies = (loggedInUser: User): void => {
+        const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
+        clonedUser.amountOfRequests = amountOfRequests;
+        clonedUser.amountOfReplies = amountOfReplies;
+        dispatch(setLoggedInUser(clonedUser));
+      };
+
+      const saveUserData = (loggedInUser: User): void => {
+        const resetUserVariablesAndReturnToHomePage = (
+          intervalId: NodeJS.Timeout
+        ): void => {
+          const resetRequestAndReplyVariables = (): void => {
+            dispatch(setIsNewRequest(false));
+            dispatch(setAmountOfRequests(0));
+            dispatch(setAmountOfReplies(0));
+          };
+
+          const returnToHomePage = (): void => {
+            history.push("/");
+            scroll.scrollToTop();
+          };
+
           dispatch(setLoggedInUser(null));
-          intervalId && stopIntervalCounter(intervalId, dispatch);
-          resetVariables();
-          history.push("/");
-          scroll.scrollToTop();
-        });
+          stopIntervalCounter(intervalId, dispatch);
+          resetRequestAndReplyVariables();
+          returnToHomePage();
+        };
+
+        dispatch(logOut(loggedInUser))
+          .unwrap()
+          .then(() => {
+            resetUserVariablesAndReturnToHomePage(intervalId);
+          });
+      };
+
+      saveUserRequestsAndReplies(loggedInUser);
+      saveUserData(loggedInUser);
     };
 
-    logOutUser(loggedInUser, intervalId);
+    if (loggedInUser && intervalId) {
+      logOutUser(loggedInUser, intervalId);
+    }
   }, []);
 
   return <div />;

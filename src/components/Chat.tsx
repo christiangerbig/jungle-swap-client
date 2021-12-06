@@ -1,24 +1,30 @@
 import { useEffect } from "react";
 
+interface KommunicateSettings {
+  appId: string;
+  popupWidget: boolean;
+  automaticChatOpenOnNavigation: boolean;
+}
+
 const KommunicateChat = (): JSX.Element => {
-  
   useEffect(() => {
-    // Create launcher icon as soon as page loads
-    ((d, m) => {
-      const kommunicateSettings = {
+    const createLauncherIcon = (document: any, method: any) => {
+      const kommunicateSettings: KommunicateSettings = {
         appId: "10b22c52854a305b79bbdecc356bea5",
         popupWidget: true,
         automaticChatOpenOnNavigation: true,
       };
-      const s = document.createElement("script");
-      s.type = "text/javascript";
-      s.async = true;
-      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-      const h = document.getElementsByTagName("head")[0];
-      h.appendChild(s);
-      (window as any).kommunicate = m;
-      m._globals = kommunicateSettings;
-    })(document, (window as any).kommunicate || {});
+      const scriptElement = document.createElement("script");
+      scriptElement.type = "text/javascript";
+      scriptElement.async = true;
+      scriptElement.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+      const headElement = document.getElementsByTagName("head")[0];
+      headElement.appendChild(scriptElement);
+      (window as any).kommunicate = method;
+      method._globals = kommunicateSettings;
+    };
+
+    createLauncherIcon(document, (window as any).kommunicate || {});
   }, []);
 
   return <div />;

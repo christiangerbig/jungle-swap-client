@@ -17,10 +17,9 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
 
   return (
     <>
-      {loggedInUser &&
-        (seller as User)._id === loggedInUser._id &&
+      {(seller as User)._id === (loggedInUser as User)._id &&
         messageState === true && (
-          <div className="card p-3 mt-4" key={_id}>
+          <div className="card p-3 mt-4">
             <h4> Request for {name} </h4>
             <h5> by {username} </h5>
             <div className="text-center">

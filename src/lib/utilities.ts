@@ -3,20 +3,28 @@ import {
   checkUserLoggedIn,
   deletePlantImage,
   fetchAllMessages,
+  fetchAllPlants,
   fetchMessage,
   setDelayCounter,
   setIntervalId,
   setIsDeletingPlantImage,
   setIsFetchingMessage,
   setIsFetchingMessages,
+  setIsFetchingPlants,
   setLoggedInUser,
   setMessage,
   setMessages,
+  setPlants,
 } from "../reducer/jungleSwapSlice";
-import { DestroyImageData, Message, MessageId, User } from "../typeDefinitions";
+import {
+  DestroyImageData,
+  Message,
+  MessageId,
+  Plant,
+  User,
+} from "../typeDefinitions";
 
-// Check if a user is logged in
-export const protectPage = (dispatch: any): void => {
+export const protectRoute = (dispatch: any): void => {
   dispatch(checkUserLoggedIn())
     .unwrap()
     .then((user: User) => {
@@ -27,7 +35,18 @@ export const protectPage = (dispatch: any): void => {
     });
 };
 
-// Stop interval counter and reset its variables
+export const fetchPlants = (dispatch: any): void => {
+  dispatch(setIsFetchingPlants(true));
+  dispatch(fetchAllPlants())
+    .unwrap()
+    .then((plants: Plant[]) => {
+      dispatch(setPlants(plants));
+    })
+    .catch((rejectedValue: any) => {
+      console.log(rejectedValue.message);
+    });
+};
+
 export const stopIntervalCounter = (
   intervalId: NodeJS.Timeout,
   dispatch: any
@@ -37,7 +56,6 @@ export const stopIntervalCounter = (
   dispatch(setDelayCounter(0));
 };
 
-// Fetch single message and scroll page to top
 export const fetchSingleMessage = (
   messageId: MessageId,
   dispatch: any
@@ -54,7 +72,6 @@ export const fetchSingleMessage = (
     });
 };
 
-// Fetch all messages
 export const fetchMessages = (dispatch: any): void => {
   dispatch(setIsFetchingMessages(true));
   dispatch(fetchAllMessages())
@@ -67,7 +84,6 @@ export const fetchMessages = (dispatch: any): void => {
     });
 };
 
-// Delete old plant image
 export const handleDeletePlantImage = (
   destroyImageData: DestroyImageData,
   dispatch: any

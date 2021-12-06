@@ -4,8 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  checkUserLoggedIn,
-  setLoggedInUser,
   setIsCreatingMessage,
   createMessage,
   addMessage,
@@ -13,7 +11,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { protectPage } from "../lib/utilities";
+import { protectRoute } from "../lib/utilities";
 
 const CreateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -30,16 +28,19 @@ const CreateRequestForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    // Set variable and scroll to top as soon as page loads if the user is logged in
-    protectPage(dispatch);
+    protectRoute(dispatch);
     if (loggedInUser) {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();
     }
   }, []);
 
-  // Create request
-  const handleCreateMessage = (event: any, plant: Plant): void => {
+  const handleCreateMessageForRequest = (event: any, plant: Plant): void => {
+    const addMessageAndReturnToPlantPage = (message: Message): void => {
+      dispatch(addMessage(message));
+      history.push(`/plants/fetch/${message.plant}`);
+    };
+
     event.preventDefault();
     const { request } = event.target;
     const { _id, creator } = plant;
@@ -51,9 +52,8 @@ const CreateRequestForm = (): JSX.Element => {
     dispatch(setIsCreatingMessage(true));
     dispatch(createMessage(newMessage))
       .unwrap()
-      .then((newMessage) => {
-        dispatch(addMessage(newMessage));
-        history.push(`/plants/fetch/${newMessage.plant}`);
+      .then((message) => {
+        addMessageAndReturnToPlantPage(message);
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
@@ -68,28 +68,28 @@ const CreateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-4"> Your message </h2>
+        <h2 className="mb-4"> Your request </h2>
         <h3 className="mb-4"> for {name} </h3>
         <form
           className="pl-0"
           onSubmit={(event) => {
-            handleCreateMessage(event, plant);
+            handleCreateMessageForRequest(event, plant);
           }}
         >
           <div>
             <textarea
-              className="mb-4 form-control"
               name="request"
               cols={35}
               rows={7}
+              className="mb-4 form-control"
             />
           </div>
           {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <div className="text-right">
             <button
-              className="btn btn-sm mx-2 form-control smallWidth"
               type="submit"
               disabled={isCreatingMessage ? true : false}
+              className="btn btn-sm mx-2 form-control smallWidth"
             >
               Send
             </button>

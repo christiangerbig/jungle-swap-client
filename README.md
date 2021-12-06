@@ -29,7 +29,7 @@ informed when you got a new request or you got an answer for your request.
 
 ## React Router Routes (React App)
 | Path                        | Component                    | Permissions                | Behavior                            |
-| --------------------------- | ---------------------------- | ---------------------------| ----------------------------------- |
+| ----------------- | ------------------ | -----------------| -------------------- |
 | `/`                         | Home, NavBar, Footer,        | public    `<AnonRoute>`    | Home page, Shows all plants         |
 |                             | KommunicateChat              |                            |                                     |
 | `/auth/sign-up`             | SignUp                       | anon only `<AnonRoute>`    | Signup form, link to signin         ||                             |                              |                            | navigate to homepage after signup   |
@@ -188,7 +188,7 @@ Message model
 ## API Endpoints (backend routes)
 
 | HTTP Method | URL                     | Request Body                | Success Status  | Error Status | Description                     |
-| ----------- | ----------------------- | --------------------------- | --------------- | ------------ | ------------------------------- |
+| ------ | ------------- | ----------------- | ---------- | ------- | ---------------- |
 | GET         | `/auth/check-user`      | Saved session               | 200             | 401          | Check if user is logged in      |
 | POST        | `/auth/sign-up`         | {name,email,password}       | 200             | 500          | Checks if fields not empty (422)|
 |             |                         |                             |                 |              | and user not exists (409), then |

@@ -6,7 +6,6 @@ import {
   setIsUserChange,
   setLoggedInUser,
   signIn,
-  setIsNewRequest,
   setAmountOfRequests,
   setAmountOfReplies,
   setErrorMessage,
@@ -21,15 +20,21 @@ const SignIn = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  // Reset variables and scroll to top as soon as page loads
   useEffect(() => {
     dispatch(setErrorMessage(null));
-    dispatch(setIsNewRequest(false));
     scroll.scrollToTop();
   }, []);
 
-  // Sign in
   const handleSignIn = (event: any): void => {
+    const setUserVariablesAndReturnToHomePage = (user: User): void => {
+      dispatch(setLoggedInUser(user));
+      dispatch(setIsUserChange(true));
+      const { amountOfRequests, amountOfReplies } = user;
+      dispatch(setAmountOfRequests(amountOfRequests as number));
+      dispatch(setAmountOfReplies(amountOfReplies as number));
+      history.push("/");
+    };
+
     event.preventDefault();
     const { email, password } = event.target;
     const user: User = {
@@ -39,12 +44,7 @@ const SignIn = (): JSX.Element => {
     dispatch(signIn(user))
       .unwrap()
       .then((user) => {
-        dispatch(setLoggedInUser(user));
-        const { amountOfRequests, amountOfReplies } = user;
-        dispatch(setAmountOfRequests(amountOfRequests));
-        dispatch(setAmountOfReplies(amountOfReplies));
-        dispatch(setIsUserChange(true));
-        history.push("/");
+        setUserVariablesAndReturnToHomePage(user);
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
@@ -64,10 +64,10 @@ const SignIn = (): JSX.Element => {
             <label htmlFor="InputEmail"> Email address </label>
             <input
               type="email"
-              className="form-control"
               id="InputEmail"
               name="email"
               placeholder="Enter"
+              className="form-control"
             />
           </div>
           <div className="form-group">
@@ -75,16 +75,16 @@ const SignIn = (): JSX.Element => {
             <input
               name="password"
               type="password"
-              className="form-control"
               id="InputPassword"
               placeholder="Enter"
+              className="form-control"
             />
           </div>
           {errorMessage && <p className="warningColor"> {errorMessage} </p>}
           <button
             type="submit"
-            className="btn btn-sm mt-4 smallWidth form-control"
             formNoValidate
+            className="btn btn-sm mt-4 smallWidth form-control"
           >
             Sign in
           </button>
