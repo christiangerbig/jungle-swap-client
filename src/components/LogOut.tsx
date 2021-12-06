@@ -34,11 +34,12 @@ const LogOut = (): JSX.Element => {
       loggedInUser: User,
       intervalId: NodeJS.Timeout
     ): void => {
-      const saveUserRequestsAndReplies = (loggedInUser: User): void => {
+      const updateUserRequestsAndReplies = (loggedInUser: User): User => {
         const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
         clonedUser.amountOfRequests = amountOfRequests;
         clonedUser.amountOfReplies = amountOfReplies;
         dispatch(setLoggedInUser(clonedUser));
+        return clonedUser;
       };
 
       const saveUserData = (loggedInUser: User): void => {
@@ -69,8 +70,8 @@ const LogOut = (): JSX.Element => {
           });
       };
 
-      saveUserRequestsAndReplies(loggedInUser);
-      saveUserData(loggedInUser);
+      const updatedUser = updateUserRequestsAndReplies(loggedInUser);
+      saveUserData(updatedUser);
     };
 
     if (loggedInUser && intervalId) {
