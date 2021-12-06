@@ -49,7 +49,7 @@ const UpdatePlantForm = (): JSX.Element => {
       case "name":
         clonedPlant.name = target.value;
         break;
-      case "decription":
+      case "description":
         clonedPlant.description = target.value;
         break;
       case "size":

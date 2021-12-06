@@ -34,10 +34,11 @@ const RequestDetails = (): JSX.Element => {
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
-    const setBuyerMessageInactive = (message: Message): void => {
+    const setBuyerMessageInactive = (message: Message): Message => {
       const clonedMessage: Message = JSON.parse(JSON.stringify(message));
       clonedMessage.messageState = false;
       dispatch(setMessage(clonedMessage));
+      return clonedMessage;
     };
 
     const updateBuyerMessage = ({
@@ -49,7 +50,9 @@ const RequestDetails = (): JSX.Element => {
       reply,
       messageState,
     }: Message) => {
-      const setMessageChangesAndReturnToRequestsPage = (message: Message): void => {
+      const setMessageChangesAndReturnToRequestsPage = (
+        message: Message
+      ): void => {
         dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
         history.push("/requests/fetch-all");
@@ -73,8 +76,8 @@ const RequestDetails = (): JSX.Element => {
         });
     };
 
-    setBuyerMessageInactive(message);
-    updateBuyerMessage(message);
+    const updatedMessage = setBuyerMessageInactive(message);
+    updateBuyerMessage(updatedMessage);
   };
 
   if (!loggedInUser) {
