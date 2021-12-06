@@ -65,7 +65,7 @@ const PlantDetails = (): JSX.Element => {
     loggedInUser && fetchPlantData(plantId);
   }, []);
 
-  const handleDeleteMessages = (
+  const handleDeleteRemainingMessages = (
     messages: Message[],
     plantId: PlantId
   ): void => {
@@ -170,7 +170,7 @@ const PlantDetails = (): JSX.Element => {
                         }
                         className="btn btn-sm ml-2 form-control smallWidth mb-2"
                         onClick={() => {
-                          handleDeleteMessages(messages, _id as PlantId);
+                          handleDeleteRemainingMessages(messages, _id as PlantId);
                           handleDeletePlantImage({ imagePublicId }, dispatch);
                           handleDeletePlant(_id as PlantId);
                         }}
