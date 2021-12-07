@@ -42,7 +42,7 @@ const CreatePlantForm = (): JSX.Element => {
     { name, description, size, location, price }: any,
     { imageUrl, imagePublicId }: UploadImageData
   ): void => {
-    const addPlantAndReturnToHomepage = (plant: Plant): void => {
+    const addPlantAndReturnToHomePage = (plant: Plant): void => {
       dispatch(addPlant(plant));
       history.push("/");
       scroll.scrollToBottom();
@@ -61,7 +61,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(createPlant(newPlant))
       .unwrap()
       .then((plant: Plant) => {
-        addPlantAndReturnToHomepage(plant);
+        addPlantAndReturnToHomePage(plant);
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
@@ -100,33 +100,33 @@ const CreatePlantForm = (): JSX.Element => {
         >
           <label htmlFor="enterName"> Name </label>
           <input
-            name="name"
             type="text"
-            placeholder="Enter"
             id="enterName"
+            name="name"
+            placeholder="Enter"
             className="mb-4 form-control"
           />
           <label htmlFor="enterDescription"> Description </label>
           <input
-            name="description"
             type="text"
-            placeholder="Enter"
             id="enterDescription"
+            name="description"
+            placeholder="Enter"
             className="mb-4 form-control"
           />
           <label htmlFor="enterSize"> Size (cm) </label>
           <input
-            name="size"
             type="number"
-            min="1"
-            placeholder="Enter"
             id="enterSize"
+            name="size"
+            placeholder="Enter"
+            min="1"
             className="mb-4 form-control"
           />
           <label htmlFor="enterLocation"> Location </label>
           <select
-            name="location"
             id="enterLocation"
+            name="location"
             className="mb-4 form-control p-2"
           >
             <option> Select location </option>
@@ -136,18 +136,18 @@ const CreatePlantForm = (): JSX.Element => {
           </select>
           <label htmlFor="enterPrice"> Price (EUR) </label>
           <input
-            name="price"
             type="number"
-            min="1"
-            placeholder="Enter"
             id="enterPrice"
+            name="price"
+            placeholder="Enter"
+            min="1"
             className="mb-4 form-control"
           />
           <label htmlFor="enterImage"> Image </label>
           <input
-            name="plantImage"
             type="file"
             id="enterImage"
+            name="plantImage"
             className="mb-4 form-control"
           />
           {errorMessage && <p className="warningColor"> {errorMessage} </p>}

@@ -34,7 +34,7 @@ const LogOut = (): JSX.Element => {
       loggedInUser: User,
       intervalId: NodeJS.Timeout
     ): void => {
-      const updateUserRequestsAndReplies = (loggedInUser: User): User => {
+      const updateUserRequestsReplies = (loggedInUser: User): User => {
         const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
         clonedUser.amountOfRequests = amountOfRequests;
         clonedUser.amountOfReplies = amountOfReplies;
@@ -42,11 +42,11 @@ const LogOut = (): JSX.Element => {
         return clonedUser;
       };
 
-      const saveUserData = (loggedInUser: User): void => {
-        const resetUserVariablesAndReturnToHomePage = (
+      const updateUserData = (loggedInUser: User): void => {
+        const resetRequestReplyVariablesAndReturnToHomePage = (
           intervalId: NodeJS.Timeout
         ): void => {
-          const resetRequestAndReplyVariables = (): void => {
+          const resetRequestReplyVariables = (): void => {
             dispatch(setIsNewRequest(false));
             dispatch(setAmountOfRequests(0));
             dispatch(setAmountOfReplies(0));
@@ -59,24 +59,22 @@ const LogOut = (): JSX.Element => {
 
           dispatch(setLoggedInUser(null));
           stopIntervalCounter(intervalId, dispatch);
-          resetRequestAndReplyVariables();
+          resetRequestReplyVariables();
           returnToHomePage();
         };
 
         dispatch(logOut(loggedInUser))
           .unwrap()
           .then(() => {
-            resetUserVariablesAndReturnToHomePage(intervalId);
+            resetRequestReplyVariablesAndReturnToHomePage(intervalId);
           });
       };
 
-      const updatedUser = updateUserRequestsAndReplies(loggedInUser);
-      saveUserData(updatedUser);
+      const updatedUser = updateUserRequestsReplies(loggedInUser);
+      updateUserData(updatedUser);
     };
 
-    if (loggedInUser && intervalId) {
-      logOutUser(loggedInUser, intervalId);
-    }
+    logOutUser(loggedInUser as User, intervalId as NodeJS.Timeout);
   }, []);
 
   return <div />;

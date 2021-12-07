@@ -36,9 +36,10 @@ const CreateRequestForm = (): JSX.Element => {
   }, []);
 
   const handleCreateMessageForRequest = (event: any, plant: Plant): void => {
-    const addMessageAndReturnToPlantPage = (message: Message): void => {
+    const addMessageAndReturnToPlantDetailsPage = (message: Message): void => {
       dispatch(addMessage(message));
-      history.push(`/plants/fetch/${message.plant}`);
+      const { plant } = message;
+      history.push(`/plants/fetch/${(plant as Plant)._id}`);
     };
 
     event.preventDefault();
@@ -53,7 +54,7 @@ const CreateRequestForm = (): JSX.Element => {
     dispatch(createMessage(newMessage))
       .unwrap()
       .then((message) => {
-        addMessageAndReturnToPlantPage(message);
+        addMessageAndReturnToPlantDetailsPage(message);
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));

@@ -86,7 +86,7 @@ const CheckoutForm = (): JSX.Element => {
 
   const handleSubmitPayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    // Stripe.js has not yet loaded.
+    // Stripe.js has not yet loaded
     if (!stripe || !elements) {
       return;
     }

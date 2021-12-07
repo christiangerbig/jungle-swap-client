@@ -45,7 +45,9 @@ const UpdateRequestForm = (): JSX.Element => {
     reply,
     messageState,
   }: Message): void => {
-    const setMessageChangesAndReturnToRequestPage = (message: Message): void => {
+    const setMessageChangesAndReturnToRequestPage = (
+      message: Message
+    ): void => {
       dispatch(setMessageChanges(message));
       const { _id } = message;
       history.push(`/requests/fetch/${_id}`);
@@ -83,19 +85,19 @@ const UpdateRequestForm = (): JSX.Element => {
           <div className="card-body">
             <p> {request} </p>
             <textarea
-              className="mb-4 form-control"
               name="reply"
+              placeholder="Your reply"
               cols={31}
               rows={6}
-              placeholder="Your reply"
+              className="mb-4 form-control"
               onChange={(event) => {
                 handleCreateReply(event, message);
               }}
             />
             <div className="row justify-content-end px-3">
               <button
-                className="btn btn-sm smallWidth form-control mr-3 mb-2"
                 disabled={isUpdatingMessage ? true : false}
+                className="btn btn-sm smallWidth form-control mr-3 mb-2"
                 onClick={() => {
                   handleUpdateMessage(message);
                 }}

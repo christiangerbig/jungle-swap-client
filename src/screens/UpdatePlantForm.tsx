@@ -101,7 +101,9 @@ const UpdatePlantForm = (): JSX.Element => {
     location,
     price,
   }: Plant): void => {
-    const setPlantChangesAndReturnToPlantsSection = (updatedPlant: Plant): void => {
+    const setPlantChangesAndReturnToPlantsSection = (
+      updatedPlant: Plant
+    ): void => {
       dispatch(setPlantChanges(updatedPlant));
       history.push("/");
       dispatch(scrollToPlants());
@@ -171,6 +173,7 @@ const UpdatePlantForm = (): JSX.Element => {
               id="updateSize"
               name="size"
               value={size}
+              min="1"
               className="mb-4 form-control"
               onChange={(event) => {
                 handlePlantEntryChange(event, plant);
@@ -180,7 +183,6 @@ const UpdatePlantForm = (): JSX.Element => {
             <select
               id="updateLocation"
               name="location"
-              placeholder="Select"
               className="mb-4 form-control px-2"
               onChange={(event) => {
                 handlePlantEntryChange(event, plant);
@@ -206,6 +208,7 @@ const UpdatePlantForm = (): JSX.Element => {
             <input
               type="file"
               id="updateImage"
+              name="plantImage"
               className="mb-4 form-control"
               onChange={(event) => {
                 handlePlantImageChange(event, plant);

@@ -182,9 +182,7 @@ const NavBar = (): JSX.Element => {
       dispatch(setStartAmountOfRequests());
       dispatch(setStartAmountOfReplies());
     }
-    if (loggedInUser) {
-      fetchMessagesAndCheckNewRequestsReplies();
-    }
+    loggedInUser && fetchMessagesAndCheckNewRequestsReplies();
   }, [delayCounter]);
 
   return (

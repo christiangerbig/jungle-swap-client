@@ -36,8 +36,8 @@ const Home = (): JSX.Element => {
   return (
     <div>
       <section
-        ref={(headerElement) => {
-          (elementRef.current[0] as any) = headerElement;
+        ref={(titleSection) => {
+          (elementRef.current[0] as any) = titleSection;
         }}
         className="text-center pt-5 pb-5 headerImg"
       >
@@ -45,8 +45,8 @@ const Home = (): JSX.Element => {
       </section>
 
       <section
-        ref={(aboutElement) => {
-          (elementRef.current[1] as any) = aboutElement;
+        ref={(aboutSection) => {
+          (elementRef.current[1] as any) = aboutSection;
         }}
       >
         <About />

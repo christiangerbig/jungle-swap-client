@@ -79,9 +79,9 @@ const SignUp = (): JSX.Element => {
           <div className="form-group">
             <label htmlFor="InputPassword"> Password </label>
             <input
-              name="password"
               type="password"
               id="InputPassword"
+              name="password"
               placeholder="Enter"
               className="form-control"
             />
