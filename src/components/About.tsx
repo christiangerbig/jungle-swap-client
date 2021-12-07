@@ -10,11 +10,11 @@ const About = (): JSX.Element => {
         </div>
         <br />
         <div className="about col-sm-6 col-md-5 col-lg-6 px-5 noOverflow">
-          <header>
-            <h4> Welcome to JungleSwap! </h4>
-            <h5> Add green to your Home </h5>
-          </header>
           <article>
+            <header>
+              <h4> Welcome to JungleSwap! </h4>
+              <h5> Add green to your Home </h5>
+            </header>
             <p>
               It"s easy-peasy. <br />
               Share your plant offshoots. <br />
