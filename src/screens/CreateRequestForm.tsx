@@ -85,7 +85,10 @@ const CreateRequestForm = (): JSX.Element => {
               className="mb-4 form-control"
             />
           </div>
-          {errorMessage && <p className="warningColor"> {errorMessage} </p>}
+          <p hidden={errorMessage ? false : true} className="warningColor">
+            {" "}
+            {errorMessage}{" "}
+          </p>
           <div className="text-right">
             <button
               type="submit"

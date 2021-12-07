@@ -77,12 +77,10 @@ const ReplyDetails = (): JSX.Element => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Your request for {name} </h2>
         <p className="textField p-3 mb-4"> {request} </p>
-        {reply && (
-          <div>
-            <h5> Reply by {username} </h5>
-            <p className="textField p-3 mb-4"> {reply} </p>
-          </div>
-        )}
+        <div hidden={reply ? false : true}>
+          <h5> Reply by {username} </h5>
+          <p className="textField p-3 mb-4"> {reply} </p>
+        </div>
         <div className="text-right px-3">
           <button
             disabled={isDeletingMessage ? true : false}

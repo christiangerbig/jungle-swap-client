@@ -73,15 +73,16 @@ const RepliesPage = (): JSX.Element => {
             })}
           </div>
         )}
-        {amountOfReplies !== 0 && (
-          <div className="text-right mt-4 pr-2">
-            <Link to={"/"}>
-              <button className="btn btn-sm mt-4 smallWidth form-control">
-                Go back
-              </button>
-            </Link>
-          </div>
-        )}
+        <div
+          hidden={amountOfReplies !== 0 ? false : true}
+          className="text-right mt-4 pr-2"
+        >
+          <Link to={"/"}>
+            <button className="btn btn-sm mt-4 smallWidth form-control">
+              Go back
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

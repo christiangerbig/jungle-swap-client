@@ -128,13 +128,12 @@ const PlantDetails = (): JSX.Element => {
       ) : (
         <div className="col">
           <div className="card cardMediumWidth">
-            {imageUrl && (
-              <img
-                src={imageUrl}
-                alt={name}
-                className="card-img-top mediumPicSize"
-              />
-            )}
+            <img
+              src={imageUrl}
+              alt={name}
+              hidden={imageUrl ? false : true}
+              className="card-img-top mediumPicSize"
+            />
             <div className="ml-2 mt-2">
               <span> Name: </span> {name}
             </div>
@@ -170,7 +169,10 @@ const PlantDetails = (): JSX.Element => {
                         }
                         className="btn btn-sm ml-2 form-control smallWidth mb-2"
                         onClick={() => {
-                          handleDeleteRemainingMessages(messages, _id as PlantId);
+                          handleDeleteRemainingMessages(
+                            messages,
+                            _id as PlantId
+                          );
                           handleDeletePlantImage({ imagePublicId }, dispatch);
                           handleDeletePlant(_id as PlantId);
                         }}

@@ -198,71 +198,71 @@ const NavBar = (): JSX.Element => {
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <>
-              <Link
-                to="/"
-                className="p-2"
-                onClick={() => {
-                  dispatch(scrollToPlants());
-                }}
-              >
-                All Plants
-              </Link>
-            </>
-            {loggedInUser && (
-              <>
-                <Link to="/plants/create" className="p-2">
-                  Create Plant
-                </Link>
-                <Link
-                  to="/requests/fetch-all"
-                  title={isNewRequest ? "new request" : ""}
-                  className="p-2"
-                >
-                  {isNewRequest && <FontAwesomeIcon icon={faBell} />}
-                  Requests
-                </Link>
-                <Link
-                  to="/replies/fetch-all"
-                  title={isNewReply ? "new reply" : ""}
-                  className="p-2"
-                >
-                  {isNewReply && <FontAwesomeIcon icon={faBell} />}
-                  Replies
-                </Link>
-              </>
-            )}
-            {loggedInUser ? (
-              <>
-                <Link
-                  to="/auth/log-out"
-                  title={loggedInUser.username}
-                  className="p-2"
-                >
-                  Log out
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link to="/auth/sign-in" className="p-2">
-                  Sign in
-                </Link>
-                <Link to="/auth/sign-up" className="p-2">
-                  Sign up
-                </Link>
-              </>
-            )}
-            <>
-              <Link
-                to="/"
-                className="p-2"
-                onClick={() => {
-                  dispatch(scrollToPlants());
-                }}
-              >
-                <FontAwesomeIcon icon={faSearch} />
-              </Link>
-            </>
+            <Link
+              to="/"
+              className="p-2"
+              onClick={() => {
+                dispatch(scrollToPlants());
+              }}
+            >
+              All Plants
+            </Link>
+            <Link
+              to="/plants/create"
+              hidden={loggedInUser ? false : true}
+              className="p-2"
+            >
+              Create Plant
+            </Link>
+            <Link
+              to="/requests/fetch-all"
+              title={isNewRequest ? "new request" : ""}
+              hidden={loggedInUser ? false : true}
+              className="p-2"
+            >
+              {isNewRequest && <FontAwesomeIcon icon={faBell} />}
+              Requests
+            </Link>
+            <Link
+              to="/replies/fetch-all"
+              title={isNewReply ? "new reply" : ""}
+              hidden={loggedInUser ? false : true}
+              className="p-2"
+            >
+              {isNewReply && <FontAwesomeIcon icon={faBell} />}
+              Replies
+            </Link>
+            <Link
+              to="/auth/log-out"
+              title={loggedInUser ? loggedInUser.username : ""}
+              hidden={loggedInUser ? false : true}
+              className="p-2"
+            >
+              Log out
+            </Link>
+            <Link
+              to="/auth/sign-in"
+              hidden={loggedInUser ? true : false}
+              className="p-2"
+            >
+              Sign in
+            </Link>
+            <Link
+              to="/auth/sign-up"
+              hidden={loggedInUser ? true : false}
+              className="p-2"
+            >
+              Sign up
+            </Link>
+            <Link
+              to="/"
+              className="p-2"
+              onClick={() => {
+                dispatch(scrollToPlants());
+              }}
+            >
+              <FontAwesomeIcon icon={faSearch} />
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

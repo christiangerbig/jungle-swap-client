@@ -102,20 +102,16 @@ const RequestDetails = (): JSX.Element => {
         <h2 className="mb-5"> Request for {name} </h2>
         <h5> by {username} </h5>
         <p className="textField p-3 mb-4"> {request} </p>
-        {reply && (
-          <div>
-            <h5> Your reply </h5>
-            <p className="textField p-3 mb-4"> {reply} </p>
-          </div>
-        )}
+        <div hidden={reply ? false : true}>
+          <h5> Your reply </h5>
+          <p className="textField p-3 mb-4"> {reply} </p>
+        </div>
         <div className="text-right px-3">
-          {!reply && (
-            <Link to={`/messages/update/${_id}`}>
-              <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
-                Reply
-              </button>
-            </Link>
-          )}
+          <Link to={`/messages/update/${_id}`} hidden={!reply ? false : true}>
+            <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
+              Reply
+            </button>
+          </Link>
           <button
             className="btn btn-sm ml-2 smallWidth form-control mb-1"
             onClick={() => {

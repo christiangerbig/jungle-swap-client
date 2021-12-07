@@ -86,7 +86,10 @@ const SignUp = (): JSX.Element => {
               className="form-control"
             />
           </div>
-          {errorMessage && <p className="warningColor"> {errorMessage} </p>}
+          <p hidden={errorMessage ? false : true} className="warningColor">
+            {" "}
+            {errorMessage}{" "}
+          </p>
           <button
             type="submit"
             formNoValidate

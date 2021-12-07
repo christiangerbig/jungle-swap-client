@@ -110,7 +110,7 @@ const CheckoutForm = (): JSX.Element => {
       <form
         id="payment-form"
         className="checkoutForm mt-5"
-        onSubmit={handleSubmitPayment}        
+        onSubmit={handleSubmitPayment}
       >
         <h2 className="text-left mb-2 p-2"> {name} </h2>
         <h3 className="text-left mb-4 p-2"> Price: {price} € </h3>
@@ -138,11 +138,13 @@ const CheckoutForm = (): JSX.Element => {
         </div>
         {
           /* Show any error that happens when processing the payment */
-          paymentError && (
-            <div role="alert" className="card-error">
-              {paymentError}
-            </div>
-          )
+          <div
+            role="alert"
+            hidden={paymentError ? false : true}
+            className="card-error"
+          >
+            {paymentError}
+          </div>
         }
         {/* Show success message upon completion */}
         <p
