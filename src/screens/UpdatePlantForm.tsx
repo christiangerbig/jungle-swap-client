@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
@@ -37,10 +37,16 @@ const UpdatePlantForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const selectElementRef = useRef(null);
 
   useEffect(() => {
+    const setPlantLocationAndScrollToTop = ({ location }: Plant) => {
+      (selectElementRef as any).current.value = location;
+      scroll.scrollToTop();
+    };
+
     protectRoute(dispatch);
-    loggedInUser && scroll.scrollToTop();
+    loggedInUser && setPlantLocationAndScrollToTop(plant);
   }, []);
 
   const handlePlantEntryChange = ({ target }: any, plant: Plant): void => {
@@ -181,6 +187,7 @@ const UpdatePlantForm = (): JSX.Element => {
             />
             <label htmlFor="updateLocation"> Location </label>
             <select
+              ref={selectElementRef}
               id="updateLocation"
               name="location"
               className="mb-4 form-control px-2"
