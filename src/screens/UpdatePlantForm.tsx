@@ -40,7 +40,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const selectElementRef = useRef(null);
 
   useEffect(() => {
-    const setPlantLocationAndScrollToTop = ({ location }: Plant) => {
+    const setPlantLocationAndScrollToTop = ({ location }: Plant): void => {
       (selectElementRef as any).current.value = location;
       scroll.scrollToTop();
     };
