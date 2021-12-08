@@ -3,7 +3,7 @@
 ## Description
 
 With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are looged in you will be
-informed when you got a new request or you got an answer for your request.
+informed when you got a new request or you got a reply for your request.
 
 ## User Stories
 
@@ -60,6 +60,8 @@ informed when you got a new request or you got an answer for your request.
 - Footer
 - LogOut
 - NavBar
+- NavLoggedInUserItems
+- NavAuthentificationItems
 - PlantThumbnail
 - ReplyTile
 - RequestTile

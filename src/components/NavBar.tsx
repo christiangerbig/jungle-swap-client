@@ -23,6 +23,8 @@ import { RootState } from "../store";
 import { stopIntervalCounter } from "../lib/utilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
+import NavLoggedInUserItems from "./NavLoggedInUserItems";
+import NavAuthentificationItems from "./NavAuthentificationItems";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(
@@ -207,53 +209,11 @@ const NavBar = (): JSX.Element => {
             >
               All Plants
             </Link>
-            <Link
-              to="/plants/create"
-              hidden={loggedInUser ? false : true}
-              className="p-2"
-            >
-              Create Plant
-            </Link>
-            <Link
-              to="/requests/fetch-all"
-              title={isNewRequest ? "new request" : ""}
-              hidden={loggedInUser ? false : true}
-              className="p-2"
-            >
-              {isNewRequest && <FontAwesomeIcon icon={faBell} />}
-              Requests
-            </Link>
-            <Link
-              to="/replies/fetch-all"
-              title={isNewReply ? "new reply" : ""}
-              hidden={loggedInUser ? false : true}
-              className="p-2"
-            >
-              {isNewReply && <FontAwesomeIcon icon={faBell} />}
-              Replies
-            </Link>
-            <Link
-              to="/auth/log-out"
-              title={loggedInUser ? loggedInUser.username : ""}
-              hidden={loggedInUser ? false : true}
-              className="p-2"
-            >
-              Log out
-            </Link>
-            <Link
-              to="/auth/sign-in"
-              hidden={loggedInUser ? true : false}
-              className="p-2"
-            >
-              Sign in
-            </Link>
-            <Link
-              to="/auth/sign-up"
-              hidden={loggedInUser ? true : false}
-              className="p-2"
-            >
-              Sign up
-            </Link>
+            {loggedInUser ? (
+              <NavLoggedInUserItems />
+            ) : (
+              <NavAuthentificationItems />
+            )}
             <Link
               to="/"
               className="p-2"

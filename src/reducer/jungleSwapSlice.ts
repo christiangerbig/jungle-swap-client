@@ -75,7 +75,6 @@ interface UpdateMessageParameters {
 
 const apiPath = `${config.API_URL}/api`;
 
-// Initialize states
 const initialState: InitialState = {
   // ----- User authentication -----
   isUserChange: false,
@@ -383,12 +382,10 @@ export const deleteMessage = createAsyncThunk(
   }
 );
 
-// ----- Slice -----
 export const jungleSwapSlice = createSlice({
   name: "jungleSwap",
   initialState,
 
-  // ----- Reducers -----
   reducers: {
     // ----- User authentication ------
     setIsUserChange: (state, action: PayloadAction<boolean>) => {
@@ -572,7 +569,6 @@ export const jungleSwapSlice = createSlice({
     },
   },
 
-  // ----- Extra reducers -----
   extraReducers: (builder) => {
     // ----- Plants ------
     builder.addCase(createPlant.fulfilled, (state) => {
