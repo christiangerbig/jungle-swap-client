@@ -30,7 +30,10 @@ const RequestDetails = (): JSX.Element => {
 
   useEffect(() => {
     protectRoute(dispatch);
-    loggedInUser && fetchSingleMessage(messageId, dispatch);
+    if (loggedInUser) {
+      fetchSingleMessage(messageId, dispatch);
+      scroll.scrollToTop();
+    }
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {

@@ -65,7 +65,6 @@ export const fetchSingleMessage = (
     .unwrap()
     .then((message: Message) => {
       dispatch(setMessage(message));
-      scroll.scrollToTop();
     })
     .catch((rejectedValue: any) => {
       console.log(rejectedValue.message);

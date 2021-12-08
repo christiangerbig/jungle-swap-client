@@ -33,7 +33,10 @@ const ReplyDetails = (): JSX.Element => {
 
   useEffect(() => {
     protectRoute(dispatch);
-    loggedInUser && fetchSingleMessage(messageId, dispatch);
+    if (loggedInUser) {
+      fetchSingleMessage(messageId, dispatch);
+      scroll.scrollToTop();
+    }
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
