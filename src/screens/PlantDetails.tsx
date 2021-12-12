@@ -131,7 +131,6 @@ const PlantDetails = (): JSX.Element => {
             <img
               src={imageUrl}
               alt={name}
-              hidden={imageUrl ? false : true}
               className="card-img-top mediumPicSize"
             />
             <div className="ml-2 mt-2">
