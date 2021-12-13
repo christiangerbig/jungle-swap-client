@@ -25,13 +25,14 @@ interface InitialState {
   isFetchingPlant: boolean;
   isUpdatingPlant: boolean;
   isDeletingPlant: boolean;
-  plants: Plant[];
   plant: Plant | {};
+  plants: Plant[];
+  filteredPlants: Plant[];
 
   // ----- Images -----
   isUploadingPlantImage: boolean;
   isDeletingPlantImage: boolean;
-  destroyImageData: DestroyImageData;
+  destroyImageData: DestroyImageData | null;
 
   // ----- Payment -----
   clientSecret: string;
@@ -86,13 +87,14 @@ const initialState: InitialState = {
   isFetchingPlant: false,
   isUpdatingPlant: false,
   isDeletingPlant: false,
-  plants: [],
   plant: {},
+  plants: [],
+  filteredPlants: [],
 
   // ----- Images -----
   isUploadingPlantImage: false,
   isDeletingPlantImage: false,
-  destroyImageData: {},
+  destroyImageData: null,
 
   // ----- Payment -----
   clientSecret: "",
@@ -420,6 +422,9 @@ export const jungleSwapSlice = createSlice({
     setPlants: (state, action: PayloadAction<Plant[]>) => {
       state.plants = action.payload;
     },
+    setFilteredPlants: (state, action: PayloadAction<Plant[]>) => {
+      state.filteredPlants = action.payload;
+    },
     setPlantChanges: (state, action: PayloadAction<Plant>) => {
       const {
         _id,
@@ -457,7 +462,10 @@ export const jungleSwapSlice = createSlice({
     setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
       state.isDeletingPlantImage = action.payload;
     },
-    setDestroyImageData: (state, action: PayloadAction<DestroyImageData>) => {
+    setDestroyImageData: (
+      state,
+      action: PayloadAction<DestroyImageData | null>
+    ) => {
       state.destroyImageData = action.payload;
     },
 
@@ -670,6 +678,7 @@ export const {
   setIsDeletingPlant,
   addPlant,
   setPlants,
+  setFilteredPlants,
   setPlant,
   setPlantChanges,
   removePlant,

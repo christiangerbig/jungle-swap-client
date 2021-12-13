@@ -232,7 +232,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 }
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => {
-                  handleDeletePlantImage(destroyImageData, dispatch);
+                  destroyImageData && handleDeletePlantImage(destroyImageData, dispatch);
                   handleUpdatePlant(plant);
                 }}
               >

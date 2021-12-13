@@ -2,12 +2,11 @@
 
 ## Description
 
-With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are looged in you will be
-informed when you got a new request or you got a reply for your request.
+With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are looged in you will be informed when you got a new request or you got a reply for your request.
 
 ## User Stories
 
-- **Home:** As a user/anon I can a start screen and scroll dowm to see all the plants. I can filter them by name and whether they like sun or shade.
+- **Home:** As a user/anon I can scroll dowm to see more information about the app or all the plants. I can search them by name or filter them whether they like sun, shade or sun or shade.
 - **Signup:** As an anon I can sign up in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Login:** As a user I can sign in in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.

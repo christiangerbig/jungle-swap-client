@@ -9,7 +9,9 @@ const AllPlants = (): JSX.Element => {
   const isFetchingPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
-  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
+  const filteredPlants = useAppSelector(
+    (state: RootState) => state.jungleSwap.filteredPlants
+  );
 
   return (
     <div className="container mt-5">
@@ -21,7 +23,7 @@ const AllPlants = (): JSX.Element => {
         <LoadingSpinner />
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {plants.map((plant: Plant, index: number): JSX.Element => {
+          {filteredPlants.map((plant: Plant, index: number): JSX.Element => {
             return <PlantThumbnail plant={plant} key={index} />;
           })}
         </div>

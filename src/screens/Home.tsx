@@ -1,15 +1,18 @@
 import { useEffect, useRef } from "react";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setTitleSectionHeight,
   setAboutSectionHeight,
+  setFilteredPlants,
 } from "../reducer/jungleSwapSlice";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
 import { fetchPlants } from "../lib/utilities";
+import { RootState } from "../store";
 
 const Home = (): JSX.Element => {
+  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const elementRef = useRef([]);
 
@@ -32,6 +35,10 @@ const Home = (): JSX.Element => {
     getTitleSectionHeight();
     getAboutSectionHeight();
   }, []);
+
+  useEffect(() => {
+    dispatch(setFilteredPlants(plants));
+  }, [plants]);
 
   return (
     <div>
