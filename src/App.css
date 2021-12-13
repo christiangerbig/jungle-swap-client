@@ -225,10 +225,6 @@ footer {
   }
 }
 
-.extraSmallWidth {
-  width: 15%;
-}
-
 .smallWidth {
   width: 30%;
 }
@@ -286,6 +282,16 @@ footer {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: .25rem;
+}
+
+.locationFilter {
+  width: 25%;
+}
+
+@media (max-width: 768px) {
+  .locationFilter {
+    width: 45%;
+  }
 }
 
 .loadingSpinner {

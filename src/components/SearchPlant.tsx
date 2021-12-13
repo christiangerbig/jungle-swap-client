@@ -63,7 +63,7 @@ const SearchPlant = (): JSX.Element => {
         />
         <select
           name="location"
-          className="extraSmallWidth form-control ml-4"
+          className="locationFilter form-control ml-4"
           onChange={(event) => {
             setFilter(event.target.value);
           }}
