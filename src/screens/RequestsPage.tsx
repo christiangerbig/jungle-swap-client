@@ -6,7 +6,7 @@ import {
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../typeDefinitions";
+import { Message, User } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
@@ -72,7 +72,13 @@ const RequestsPage = (): JSX.Element => {
         ) : (
           <div>
             {messages.map((message: Message, index: number): JSX.Element => {
-              return <RequestTile message={message} key={index} />;
+              const { seller, messageState } = message;
+              return (seller as User)._id === (loggedInUser as User)._id &&
+                messageState === true ? (
+                <RequestTile message={message} key={index} />
+              ) : (
+                <></>
+              );
             })}
           </div>
         )}

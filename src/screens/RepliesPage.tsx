@@ -6,7 +6,7 @@ import {
   setIsNewReply,
   setStartAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
-import { Message } from "../typeDefinitions";
+import { Message, User } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
@@ -72,7 +72,13 @@ const RepliesPage = (): JSX.Element => {
         ) : (
           <div>
             {messages.map((message: Message, index: number): JSX.Element => {
-              return <ReplyTile message={message} key={index} />;
+              const { buyer, reply } = message;
+              return (buyer as User)._id === (loggedInUser as User)._id &&
+                reply !== "" ? (
+                <ReplyTile message={message} key={index} />
+              ) : (
+                <></>
+              );
             })}
           </div>
         )}
