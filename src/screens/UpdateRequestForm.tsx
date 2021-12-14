@@ -10,7 +10,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
-import { protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
 
 const UpdateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -26,7 +26,8 @@ const UpdateRequestForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     loggedInUser && scroll.scrollToTop();
   }, []);
 

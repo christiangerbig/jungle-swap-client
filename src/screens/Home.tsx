@@ -8,8 +8,8 @@ import {
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
-import { fetchPlants } from "../lib/utilities";
 import { RootState } from "../store";
+import { PlantIO } from "../lib/plantIO";
 
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
@@ -31,7 +31,8 @@ const Home = (): JSX.Element => {
       dispatch(setAboutSectionHeight(aboutSectionHeight));
     };
 
-    fetchPlants(dispatch);
+    const plantIO = new PlantIO(dispatch);
+    plantIO.fetchAll();
     getTitleSectionHeight();
     getAboutSectionHeight();
   }, []);

@@ -11,7 +11,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
 
 const CreateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -28,7 +28,8 @@ const CreateRequestForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     if (loggedInUser) {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();

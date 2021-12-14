@@ -11,7 +11,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 import { RootState } from "../store";
-import { stopIntervalCounter } from "../lib/utilities";
+import { IntervalCounter } from "../lib/IntervalCounter";
 
 const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -58,7 +58,8 @@ const LogOut = (): JSX.Element => {
           };
 
           dispatch(setLoggedInUser(null));
-          stopIntervalCounter(intervalId, dispatch);
+          const intervalCounter = new IntervalCounter(dispatch);
+          intervalCounter.stop(intervalId);
           resetRequestReplyVariables();
           returnToHomePage();
         };

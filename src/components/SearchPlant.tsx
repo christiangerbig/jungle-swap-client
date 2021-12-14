@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchPlants } from "../lib/utilities";
+import { PlantIO } from "../lib/plantIO";
 import {
   fetchQueryPlants,
   setFilteredPlants,
@@ -29,7 +29,8 @@ const SearchPlant = (): JSX.Element => {
             console.log(rejectedValue.message);
           });
       } else {
-        fetchPlants(dispatch);
+        const plantIO = new PlantIO(dispatch);
+        plantIO.fetchAll();
       }
     };
 

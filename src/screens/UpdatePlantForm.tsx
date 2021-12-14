@@ -15,7 +15,8 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
-import { handleDeletePlantImage, protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
+import { PlantImageIO } from "../lib/plantImageIO";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
@@ -45,7 +46,8 @@ const UpdatePlantForm = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     loggedInUser && setPlantLocationAndScrollToTop(plant);
   }, []);
 
@@ -232,7 +234,10 @@ const UpdatePlantForm = (): JSX.Element => {
                 }
                 className="btn btn-sm ml-4 form-control smallWidth mb-2"
                 onClick={() => {
-                  destroyImageData && handleDeletePlantImage(destroyImageData, dispatch);
+                  if (destroyImageData) {
+                    const handlePlantImageIO = new PlantImageIO(dispatch);
+                    handlePlantImageIO.delete(destroyImageData);
+                  }
                   handleUpdatePlant(plant);
                 }}
               >

@@ -8,7 +8,8 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { fetchMessages, protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
+import { MessageIO } from "../lib/messageIO";
 import RequestTile from "../components/RequestTile";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -36,9 +37,11 @@ const RequestsPage = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     if (loggedInUser) {
-      fetchMessages(dispatch);
+      const messageIO = new MessageIO(dispatch);
+      messageIO.fetchAll();
       isUserChange && dispatch(setStartAmountOfRequests());
       resetRequestVariableAndScrollToTop();
     }

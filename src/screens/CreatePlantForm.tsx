@@ -12,7 +12,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
-import { protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -31,7 +31,8 @@ const CreatePlantForm = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     if (loggedInUser) {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();

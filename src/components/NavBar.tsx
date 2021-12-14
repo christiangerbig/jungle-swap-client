@@ -20,7 +20,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { stopIntervalCounter } from "../lib/utilities";
+import { IntervalCounter } from "../lib/IntervalCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import NavLoggedInUserItems from "./NavLoggedInUserItems";
@@ -55,7 +55,10 @@ const NavBar = (): JSX.Element => {
 
   useEffect(() => {
     return () => {
-      intervalId && stopIntervalCounter(intervalId, dispatch);
+      if (intervalId) {
+        const intervalCounter = new IntervalCounter(dispatch);
+        intervalCounter.stop(intervalId);
+      }
     };
   }, []);
 

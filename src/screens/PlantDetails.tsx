@@ -17,7 +17,8 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, PlantId, Message } from "../typeDefinitions";
 import { RootState } from "../store";
-import { handleDeletePlantImage, protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
+import { PlantImageIO } from "../lib/plantImageIO";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -61,7 +62,8 @@ const PlantDetails = (): JSX.Element => {
         });
     };
 
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     loggedInUser && fetchPlantData(plantId);
   }, []);
 
@@ -172,7 +174,8 @@ const PlantDetails = (): JSX.Element => {
                             messages,
                             _id as PlantId
                           );
-                          handleDeletePlantImage({ imagePublicId }, dispatch);
+                          const handlePlantImageIO = new PlantImageIO(dispatch);
+                          handlePlantImageIO.delete({ imagePublicId });
                           handleDeletePlant(_id as PlantId);
                         }}
                       >

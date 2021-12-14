@@ -12,7 +12,8 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
-import { fetchSingleMessage, protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
+import { MessageIO } from "../lib/messageIO";
 
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -32,9 +33,11 @@ const ReplyDetails = (): JSX.Element => {
   const history = useHistory();
 
   useEffect(() => {
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     if (loggedInUser) {
-      fetchSingleMessage(messageId, dispatch);
+      const messageIO = new MessageIO(dispatch);
+      messageIO.fetch(messageId);
       scroll.scrollToTop();
     }
   }, []);

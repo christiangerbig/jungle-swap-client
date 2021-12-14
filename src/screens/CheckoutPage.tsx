@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
-import { protectRoute } from "../lib/utilities";
+import { Routing } from "../lib/routing";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
@@ -19,7 +19,8 @@ const CheckoutPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    protectRoute(dispatch);
+    const routing = new Routing(dispatch);
+    routing.protect();
     loggedInUser && scroll.scrollToTop();
   }, []);
 
