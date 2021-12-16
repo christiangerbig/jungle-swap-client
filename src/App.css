@@ -261,6 +261,13 @@ footer {
   background-repeat: no-repeat;
 }
 
+.notFound h1 {
+  font-family: "Noto Serif", serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  padding: 0px 10px;
+}
+
 .notFound h2 {
   font-family: "Noto Serif", serif;
   font-size: 2rem;
@@ -269,6 +276,46 @@ footer {
 }
 
 .notFound h3 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #fbf8ef;
+  padding-top: 50px;
+  padding-bottom: 0px;
+}
+
+.unauthorized {
+  text-shadow: 5px black;
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  color: #fbf8ef;
+  background-image: url("./images/JungleSwap_Lost.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.unauthorized h1 {
+  font-family: "Noto Serif", serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  padding: 0px 10px;
+}
+
+.unauthorized h2 {
+  font-family: "Noto Serif", serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding: 0px 10px;
+}
+
+.unauthorized h3 {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   letter-spacing: 4px;
