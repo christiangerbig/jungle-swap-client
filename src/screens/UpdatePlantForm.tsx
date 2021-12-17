@@ -17,7 +17,7 @@ import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
-import LoadingSpinner from "../components/LoadingSpinner";
+import WaitSpinner from "../components/WaitSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -38,20 +38,27 @@ const UpdatePlantForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const selectElementRef = useRef(null);
+  const selectElementRef = useRef<HTMLSelectElement | null>(null);
 
   useEffect(() => {
-    const setPlantLocationAndScrollToTop = ({ location }: Plant): void => {
-      (selectElementRef as any).current.value = location;
-      scroll.scrollToTop();
+    const setPlantLocation = ({ location }: Plant): void => {
+      if (location) {
+        (selectElementRef.current as HTMLSelectElement).value = location;
+      }
     };
 
     const routing = new Routing(dispatch);
     routing.protect();
-    loggedInUser && setPlantLocationAndScrollToTop(plant);
+    if (loggedInUser) {
+      setPlantLocation(plant);
+      scroll.scrollToTop();
+    }
   }, []);
 
-  const handlePlantEntryChange = ({ target }: any, plant: Plant): void => {
+  const handlePlantEntryChange = (
+    { target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    plant: Plant
+  ): void => {
     const clonedPlant: Plant = JSON.parse(JSON.stringify(plant));
     switch (target.name) {
       case "name":
@@ -61,18 +68,21 @@ const UpdatePlantForm = (): JSX.Element => {
         clonedPlant.description = target.value;
         break;
       case "size":
-        clonedPlant.size = target.value;
+        clonedPlant.size = parseInt(target.value);
         break;
       case "location":
         clonedPlant.location = target.value;
         break;
       case "price":
-        clonedPlant.price = target.value;
+        clonedPlant.price = parseInt(target.value);
     }
     dispatch(setPlant(clonedPlant));
   };
 
-  const handlePlantImageChange = ({ target }: any, plant: Plant): void => {
+  const handlePlantImageChange = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    plant: Plant
+  ): void => {
     const setImageDataForPlant = (
       plant: Plant,
       { imageUrl, imagePublicId }: UploadImageData
@@ -83,7 +93,7 @@ const UpdatePlantForm = (): JSX.Element => {
       dispatch(setPlant(clonedPlant));
     };
 
-    const image = target.files[0];
+    const image = (target.files as any)[0];
     const { imagePublicId } = plant as Plant;
     dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
@@ -148,7 +158,7 @@ const UpdatePlantForm = (): JSX.Element => {
         <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
         <div className="card cardMediumWidth mb-5">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
-            <LoadingSpinner />
+            <WaitSpinner />
           ) : (
             <img src={imageUrl} alt={name} className="mb-2 smallPicSize" />
           )}
@@ -160,7 +170,7 @@ const UpdatePlantForm = (): JSX.Element => {
               name="name"
               value={name}
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -171,7 +181,7 @@ const UpdatePlantForm = (): JSX.Element => {
               name="description"
               value={description}
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -183,7 +193,7 @@ const UpdatePlantForm = (): JSX.Element => {
               value={size}
               min="1"
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -193,7 +203,7 @@ const UpdatePlantForm = (): JSX.Element => {
               id="updateLocation"
               name="location"
               className="mb-4 form-control px-2"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                 handlePlantEntryChange(event, plant);
               }}
             >
@@ -209,7 +219,7 @@ const UpdatePlantForm = (): JSX.Element => {
               value={price}
               min="1"
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -219,7 +229,7 @@ const UpdatePlantForm = (): JSX.Element => {
               id="updateImage"
               name="plantImage"
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 handlePlantImageChange(event, plant);
               }}
             />

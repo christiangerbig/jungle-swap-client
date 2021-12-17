@@ -9,6 +9,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
+import { Stripe } from "@stripe/stripe-js";
 
 interface CardStyle {
   style: {
@@ -91,8 +92,8 @@ const CheckoutForm = (): JSX.Element => {
       return;
     }
     setIsProcessing(true);
-    const payload = await (stripe as any).confirmCardPayment(clientSecret, {
-      payment_method: { card: (elements as any).getElement(CardElement) },
+    const payload = await (stripe as Stripe).confirmCardPayment(clientSecret, {
+      payment_method: { card: elements.getElement(CardElement) } as any,
     });
     if (payload.error) {
       setPaymentError(`Payment failed ${payload.error.message}`);

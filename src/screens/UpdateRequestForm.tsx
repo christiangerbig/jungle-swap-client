@@ -31,7 +31,10 @@ const UpdateRequestForm = (): JSX.Element => {
     loggedInUser && scroll.scrollToTop();
   }, []);
 
-  const handleCreateReply = ({ target }: any, message: Message): void => {
+  const handleCreateReply = (
+    { target }: React.ChangeEvent<HTMLTextAreaElement>,
+    message: Message
+  ): void => {
     const clonedMessage: Message = JSON.parse(JSON.stringify(message));
     clonedMessage.reply = target.value;
     dispatch(setMessage(clonedMessage));
@@ -91,7 +94,7 @@ const UpdateRequestForm = (): JSX.Element => {
               cols={31}
               rows={6}
               className="mb-4 form-control"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
                 handleCreateReply(event, message);
               }}
             />

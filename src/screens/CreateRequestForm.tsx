@@ -36,7 +36,10 @@ const CreateRequestForm = (): JSX.Element => {
     }
   }, []);
 
-  const handleCreateMessageForRequest = (event: any, plant: Plant): void => {
+  const handleCreateMessageForRequest = (
+    event: React.FormEvent<HTMLFormElement>,
+    plant: Plant
+  ): void => {
     const addMessageAndReturnToPlantDetailsPage = (message: Message): void => {
       dispatch(addMessage(message));
       const { plant } = message;
@@ -44,7 +47,7 @@ const CreateRequestForm = (): JSX.Element => {
     };
 
     event.preventDefault();
-    const { request } = event.target;
+    const { request } = event.target as any;
     const { _id, creator } = plant;
     const newMessage: Message = {
       seller: (creator as User)._id,
@@ -74,7 +77,7 @@ const CreateRequestForm = (): JSX.Element => {
         <h3 className="mb-4"> for {name} </h3>
         <form
           className="pl-0"
-          onSubmit={(event) => {
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             handleCreateMessageForRequest(event, plant);
           }}
         >

@@ -23,7 +23,7 @@ const SignUp = (): JSX.Element => {
     scroll.scrollToTop();
   }, []);
 
-  const handleSignUp = (event: any): void => {
+  const handleSignUp = (event: React.FormEvent<HTMLFormElement>): void => {
     const setUserVariablesAndReturnToHomePage = (user: User): void => {
       dispatch(setLoggedInUser(user));
       dispatch(setIsUserChange(true));
@@ -31,8 +31,8 @@ const SignUp = (): JSX.Element => {
     };
 
     event.preventDefault();
-    const { username, email, password } = event.target;
-    const newUser = {
+    const { username, email, password } = event.target as any;
+    const newUser: User = {
       username: username.value,
       email: email.value.toLowerCase(),
       password: password.value,
@@ -52,7 +52,7 @@ const SignUp = (): JSX.Element => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> Sign Up </h2>
         <form
-          onSubmit={(event) => {
+          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleSignUp(event);
           }}
         >

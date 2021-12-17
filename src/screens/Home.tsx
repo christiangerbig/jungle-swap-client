@@ -14,27 +14,20 @@ import { PlantIO } from "../lib/plantIO";
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
-  const elementRef = useRef([]);
+  const elementRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
-    const getTitleSectionHeight = (): void => {
-      const titleSectionHeight = Math.round(
-        (elementRef.current[0] as any).getBoundingClientRect().height
-      );
-      dispatch(setTitleSectionHeight(titleSectionHeight));
-    };
-
-    const getAboutSectionHeight = (): void => {
-      const aboutSectionHeight = Math.round(
-        (elementRef.current[1] as any).getBoundingClientRect().height
-      );
-      dispatch(setAboutSectionHeight(aboutSectionHeight));
+    const elementHeight = (elementRef: HTMLElement): number => {
+      const height = Math.round(elementRef.getBoundingClientRect().height);
+      return height;
     };
 
     const plantIO = new PlantIO(dispatch);
     plantIO.fetchAll();
-    getTitleSectionHeight();
-    getAboutSectionHeight();
+    const titleSectionHeight = elementHeight(elementRef.current[0]);
+    dispatch(setTitleSectionHeight(titleSectionHeight));
+    const aboutSectionHeight = elementHeight(elementRef.current[1]);
+    dispatch(setAboutSectionHeight(aboutSectionHeight));
   }, []);
 
   useEffect(() => {
@@ -45,7 +38,7 @@ const Home = (): JSX.Element => {
     <div>
       <section
         ref={(titleSection) => {
-          (elementRef.current[0] as any) = titleSection;
+          (elementRef.current[0] as HTMLElement | null) = titleSection;
         }}
         className="text-center pt-5 pb-5 headerImg"
       >
@@ -54,7 +47,7 @@ const Home = (): JSX.Element => {
 
       <section
         ref={(aboutSection) => {
-          (elementRef.current[1] as any) = aboutSection;
+          (elementRef.current[1] as HTMLElement | null) = aboutSection;
         }}
       >
         <About />

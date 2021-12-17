@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import LoadingSpinner from "../components/LoadingSpinner";
+import WaitSpinner from "../components/WaitSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsFetchingPlant,
@@ -126,7 +126,7 @@ const PlantDetails = (): JSX.Element => {
         <h2> Plant details </h2>
       </div>
       {isFetchingPlant || !creator ? (
-        <LoadingSpinner />
+        <WaitSpinner />
       ) : (
         <div className="col">
           <div className="card cardMediumWidth">

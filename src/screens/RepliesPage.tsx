@@ -11,7 +11,7 @@ import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
 import ReplyTile from "../components/ReplyTile";
-import LoadingSpinner from "../components/LoadingSpinner";
+import WaitSpinner from "../components/WaitSpinner";
 
 const RepliesPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -68,7 +68,7 @@ const RepliesPage = (): JSX.Element => {
           </Link>
         </div>
         {isFetchingMessages ? (
-          <LoadingSpinner />
+          <WaitSpinner />
         ) : (
           <div>
             {messages.map((message: Message, index: number): JSX.Element => {

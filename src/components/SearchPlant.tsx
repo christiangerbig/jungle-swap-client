@@ -58,14 +58,14 @@ const SearchPlant = (): JSX.Element => {
           placeholder="Enter name"
           value={query}
           className="smallWidth form-control"
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setQuery(event.target.value);
           }}
         />
         <select
           name="location"
           className="locationFilter form-control ml-4"
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             setFilter(event.target.value);
           }}
         >

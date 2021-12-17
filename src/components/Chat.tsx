@@ -8,7 +8,7 @@ interface KommunicateSettings {
 
 const KommunicateChat = (): JSX.Element => {
   useEffect(() => {
-    const createLauncherIcon = (document: any, method: any): void => {
+    const createLauncherIcon = (document: Document, method: any): void => {
       const kommunicateSettings: KommunicateSettings = {
         appId: "10b22c52854a305b79bbdecc356bea5",
         popupWidget: true,

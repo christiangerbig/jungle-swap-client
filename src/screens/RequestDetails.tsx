@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import LoadingSpinner from "../components/LoadingSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
@@ -14,6 +13,7 @@ import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
+import WaitSpinnerText from "../components/WaitSpinnerText";
 
 const RequestDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -92,12 +92,7 @@ const RequestDetails = (): JSX.Element => {
 
   const { _id, buyer, plant, request, reply } = message as Message;
   if (isFetchingMessage || !buyer || !plant) {
-    return (
-      <div className="container d-flex align-items-center justify-content-center mt-5">
-        <LoadingSpinner />
-        <span> Loading request </span>
-      </div>
-    );
+    return <WaitSpinnerText text={"Loading request"} />;
   }
   const { name } = plant as Plant;
   const { username } = buyer as User;

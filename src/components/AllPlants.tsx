@@ -2,7 +2,7 @@ import { useAppSelector } from "../hooks";
 import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 import PlantThumbnail from "../components/PlantThumbnail";
-import LoadingSpinner from "./LoadingSpinner";
+import WaitSpinner from "./WaitSpinner";
 import SearchPlant from "./SearchPlant";
 
 const AllPlants = (): JSX.Element => {
@@ -20,7 +20,7 @@ const AllPlants = (): JSX.Element => {
       </div>
       <SearchPlant />
       {isFetchingPlants ? (
-        <LoadingSpinner />
+        <WaitSpinner />
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {filteredPlants.map((plant: Plant, index: number): JSX.Element => {
