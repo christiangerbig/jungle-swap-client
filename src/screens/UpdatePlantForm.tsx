@@ -68,13 +68,13 @@ const UpdatePlantForm = (): JSX.Element => {
         clonedPlant.description = target.value;
         break;
       case "size":
-        clonedPlant.size = parseInt(target.value);
+        clonedPlant.size = target.value as unknown as number;
         break;
       case "location":
         clonedPlant.location = target.value;
         break;
       case "price":
-        clonedPlant.price = parseInt(target.value);
+        clonedPlant.price = target.value as unknown as number;
     }
     dispatch(setPlant(clonedPlant));
   };
