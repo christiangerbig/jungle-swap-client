@@ -109,7 +109,7 @@ const NavBar = (): JSX.Element => {
         messages: Message[]
       ): void => {
         const checkNewRequests = (messages: Message[]): void => {
-          const getAmountOfRequests = (messages: Message[]): number => {
+          const calculateAmountOfRequests = (messages: Message[]): number => {
             const currentAmountOfRequests = messages.filter(
               (message: Message): boolean => {
                 const { seller, messageState } = message;
@@ -134,12 +134,12 @@ const NavBar = (): JSX.Element => {
             }
           };
 
-          const currentAmountOfRequests = getAmountOfRequests(messages);
+          const currentAmountOfRequests = calculateAmountOfRequests(messages);
           checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
         };
 
         const checkNewReplies = (messages: Message[]): void => {
-          const getAmountOfReplies = (messages: Message[]): number => {
+          const calculateAmountOfReplies = (messages: Message[]): number => {
             const currentAmountOfReplies = messages.filter(
               (message: Message): boolean => {
                 const { buyer, reply } = message;
@@ -164,7 +164,7 @@ const NavBar = (): JSX.Element => {
             }
           };
 
-          const currentAmountOfReplies = getAmountOfReplies(messages);
+          const currentAmountOfReplies = calculateAmountOfReplies(messages);
           checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
         };
 
