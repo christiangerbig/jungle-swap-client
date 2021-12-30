@@ -8,17 +8,17 @@ interface KommunicateSettings {
 
 const KommunicateChat = (): JSX.Element => {
   useEffect(() => {
-    const createLauncherIcon = (document: Document, method: any): void => {
+    const createLauncherIcon = (htmlDocument: Document, method: any): void => {
       const kommunicateSettings: KommunicateSettings = {
         appId: "10b22c52854a305b79bbdecc356bea5",
         popupWidget: true,
         automaticChatOpenOnNavigation: true,
       };
-      const scriptElement = document.createElement("script");
+      const scriptElement = htmlDocument.createElement("script");
       scriptElement.type = "text/javascript";
       scriptElement.async = true;
       scriptElement.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-      const headElement = document.getElementsByTagName("head")[0];
+      const headElement = htmlDocument.getElementsByTagName("head")[0];
       headElement.appendChild(scriptElement);
       (window as any).kommunicate = method;
       method._globals = kommunicateSettings;
