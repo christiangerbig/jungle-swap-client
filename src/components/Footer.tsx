@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 
 const Footer = (): JSX.Element => {
+  const currentTime = new Date();
+  let year = currentTime.getFullYear();
+
   return (
     <div className="footer-row">
       <footer>
-        © 2021
+        © {year}
         <Link to={"https://www.linkedin.com/in/christian-gerbig/"}>
           Christian Gerbig
         </Link>
