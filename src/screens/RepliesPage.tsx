@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -30,6 +30,7 @@ const RepliesPage = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     const resetReplyVariableAndScrollToTop = (): void => {
@@ -61,11 +62,14 @@ const RepliesPage = (): JSX.Element => {
         <h2> Replies for your requests </h2>
         <h3 className="mb-4"> [{amountOfReplies}] </h3>
         <div className="text-right pr-2">
-          <Link to={"/"}>
-            <button className="btn btn-sm mt-4 smallWidth form-control">
-              Go back
-            </button>
-          </Link>
+          <button
+            className="btn btn-sm mt-4 smallWidth form-control"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            Go back
+          </button>
         </div>
         {isFetchingMessages ? (
           <WaitSpinner />
@@ -84,11 +88,14 @@ const RepliesPage = (): JSX.Element => {
         )}
         {amountOfReplies !== 0 ? (
           <div className="text-right mt-4 pr-2">
-            <Link to={"/"}>
-              <button className="btn btn-sm mt-4 smallWidth form-control">
-                Go back
-              </button>
-            </Link>
+            <button
+              className="btn btn-sm mt-4 smallWidth form-control"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              Go back
+            </button>
           </div>
         ) : null}
       </div>
