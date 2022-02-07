@@ -101,11 +101,14 @@ const CreateRequestForm = (): JSX.Element => {
             >
               Send
             </button>
-            <Link to={`/plants/fetch/${_id}`}>
-              <button className="btn btn-sm mx-2 form-control smallWidth">
-                Go back
-              </button>
-            </Link>
+            <button
+              className="btn btn-sm mx-2 form-control smallWidth"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              Go back
+            </button>
           </div>
         </form>
       </div>

@@ -109,11 +109,14 @@ const UpdateRequestForm = (): JSX.Element => {
               >
                 Submit
               </button>
-              <Link to={`/requests/fetch/${_id}`}>
-                <button className="btn btn-sm form-control mb-2">
-                  Go back
-                </button>
-              </Link>
+              <button
+                className="btn btn-sm form-control mb-2"
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                Go back
+              </button>
             </div>
           </div>
         </div>
