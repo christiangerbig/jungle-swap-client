@@ -123,8 +123,9 @@ const UpdatePlantForm = (): JSX.Element => {
       updatedPlant: Plant
     ): void => {
       dispatch(setPlantChanges(updatedPlant));
-      history.push("/");
-      dispatch(scrollToPlants());
+      // history.push("/");
+      // dispatch(scrollToPlants());
+      history.goBack();
     };
 
     const updatedPlant: Plant = {

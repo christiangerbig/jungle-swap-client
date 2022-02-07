@@ -90,8 +90,9 @@ const PlantDetails = (): JSX.Element => {
   const handleDeletePlant = (plantId: PlantId): void => {
     const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
       dispatch(removePlant(plantId));
-      history.push("/");
-      dispatch(scrollToPlants());
+      // history.push("/");
+      // dispatch(scrollToPlants());
+      history.goBack();
     };
 
     dispatch(setIsDeletingPlant(true));
@@ -196,16 +197,14 @@ const PlantDetails = (): JSX.Element => {
                       </Link>
                     </div>
                   )}
-                  <Link
-                    to={"/"}
+                  <button
+                    className="btn btn-sm ml-2 form-control smallWidth mb-3"
                     onClick={() => {
-                      dispatch(scrollToPlants());
+                      history.goBack();
                     }}
                   >
-                    <button className="btn btn-sm ml-2 form-control smallWidth mb-3">
-                      Go back
-                    </button>
-                  </Link>
+                    Go back
+                  </button>
                 </div>
               </div>
             </div>

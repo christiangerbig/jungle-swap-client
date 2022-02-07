@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -42,8 +41,9 @@ const CreateRequestForm = (): JSX.Element => {
   ): void => {
     const addMessageAndReturnToPlantDetailsPage = (message: Message): void => {
       dispatch(addMessage(message));
-      const { plant } = message;
-      history.push(`/plants/fetch/${(plant as Plant)._id}`);
+      // const { plant } = message;
+      // history.push(`/plants/fetch/${(plant as Plant)._id}`);
+      history.goBack();
     };
 
     event.preventDefault();

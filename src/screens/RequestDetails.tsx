@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -61,7 +60,8 @@ const RequestDetails = (): JSX.Element => {
       ): void => {
         dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
-        history.push("/requests/fetch-all");
+        // history.push("/requests/fetch-all");
+        history.goBack();
       };
 
       const updatedMessage: Message = {

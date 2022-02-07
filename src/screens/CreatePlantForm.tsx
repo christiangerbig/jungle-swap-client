@@ -165,11 +165,14 @@ const CreatePlantForm = (): JSX.Element => {
             >
               Create
             </button>
-            <Link to={"/"}>
-              <button className="btn btn-sm form-control smallWidth ml-4 mb-2">
-                Go back
-              </button>
-            </Link>
+            <button
+              className="btn btn-sm form-control smallWidth ml-4 mb-2"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              Go back
+            </button>
           </div>
         </form>
       </div>

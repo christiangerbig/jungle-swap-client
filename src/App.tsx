@@ -22,6 +22,7 @@ import UpdateRequestForm from "./screens/UpdateRequestForm";
 import Unauthorized from "./screens/Unauthorized";
 import NotFound from "./screens/NotFound";
 import KommunicateChat from "./components/Chat";
+import MyPlants from "./screens/MyPlants";
 
 const App = (): JSX.Element => {
   return (
@@ -56,6 +57,9 @@ const App = (): JSX.Element => {
         </Route>
         <Route path="/plants/checkout">
           <CheckoutPage />
+        </Route>
+        <Route path="/plants/my">
+          <MyPlants/>
         </Route>
 
         <Route path="/messages/create">

@@ -54,7 +54,8 @@ const UpdateRequestForm = (): JSX.Element => {
     ): void => {
       dispatch(setMessageChanges(message));
       const { _id } = message;
-      history.push(`/requests/fetch/${_id}`);
+      // history.push(`/requests/fetch/${_id}`);
+      history.goBack();
     };
 
     const updatedMessage: Message = {

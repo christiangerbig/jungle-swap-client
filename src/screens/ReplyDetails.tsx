@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -48,7 +47,8 @@ const ReplyDetails = (): JSX.Element => {
     ): void => {
       dispatch(removeMessage(messageId));
       dispatch(decreaseAmountOfReplies());
-      history.push("/replies/fetch-all");
+      // history.push("/replies/fetch-all");
+      history.goBack();
     };
 
     dispatch(setIsDeletingMessage(true));
