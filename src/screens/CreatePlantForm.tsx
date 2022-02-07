@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
