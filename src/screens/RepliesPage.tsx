@@ -65,7 +65,8 @@ const RepliesPage = (): JSX.Element => {
           <button
             className="btn btn-sm mt-4 smallWidth form-control"
             onClick={() => {
-              history.goBack();
+              history.push("/");
+              scroll.scrollToTop();
             }}
           >
             Go back
@@ -91,7 +92,8 @@ const RepliesPage = (): JSX.Element => {
             <button
               className="btn btn-sm mt-4 smallWidth form-control"
               onClick={() => {
-                history.goBack();
+                history.push("/");
+                scroll.scrollToTop();
               }}
             >
               Go back
