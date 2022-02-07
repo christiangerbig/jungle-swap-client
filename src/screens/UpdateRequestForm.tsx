@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -53,8 +53,6 @@ const UpdateRequestForm = (): JSX.Element => {
       message: Message
     ): void => {
       dispatch(setMessageChanges(message));
-      const { _id } = message;
-      // history.push(`/requests/fetch/${_id}`);
       history.goBack();
     };
 

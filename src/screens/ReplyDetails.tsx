@@ -47,7 +47,6 @@ const ReplyDetails = (): JSX.Element => {
     ): void => {
       dispatch(removeMessage(messageId));
       dispatch(decreaseAmountOfReplies());
-      // history.push("/replies/fetch-all");
       history.goBack();
     };
 

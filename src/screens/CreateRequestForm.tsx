@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -41,8 +41,6 @@ const CreateRequestForm = (): JSX.Element => {
   ): void => {
     const addMessageAndReturnToPlantDetailsPage = (message: Message): void => {
       dispatch(addMessage(message));
-      // const { plant } = message;
-      // history.push(`/plants/fetch/${(plant as Plant)._id}`);
       history.goBack();
     };
 
@@ -68,7 +66,7 @@ const CreateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-  const { _id, name } = plant as Plant;
+  const { name } = plant as Plant;
 
   return (
     <div className="container row mt-5">

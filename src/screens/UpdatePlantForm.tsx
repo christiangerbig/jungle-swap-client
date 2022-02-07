@@ -11,7 +11,6 @@ import {
   setIsUploadingPlantImage,
   uploadPlantImage,
   setDestroyImageData,
-  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -123,8 +122,6 @@ const UpdatePlantForm = (): JSX.Element => {
       updatedPlant: Plant
     ): void => {
       dispatch(setPlantChanges(updatedPlant));
-      // history.push("/");
-      // dispatch(scrollToPlants());
       history.goBack();
     };
 

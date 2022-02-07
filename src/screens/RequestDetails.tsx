@@ -60,7 +60,6 @@ const RequestDetails = (): JSX.Element => {
       ): void => {
         dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
-        // history.push("/requests/fetch-all");
         history.goBack();
       };
 

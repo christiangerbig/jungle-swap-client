@@ -13,7 +13,6 @@ import {
   setIsDeletingMessage,
   deleteMessage,
   removeMessage,
-  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, PlantId, Message } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -90,8 +89,6 @@ const PlantDetails = (): JSX.Element => {
   const handleDeletePlant = (plantId: PlantId): void => {
     const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
       dispatch(removePlant(plantId));
-      // history.push("/");
-      // dispatch(scrollToPlants());
       history.goBack();
     };
 
