@@ -58,7 +58,7 @@ const App = (): JSX.Element => {
         <Route path="/plants/checkout">
           <CheckoutPage />
         </Route>
-        <Route path="/plants/my">
+        <Route path="/plants/my-own">
           <MyPlants/>
         </Route>
 

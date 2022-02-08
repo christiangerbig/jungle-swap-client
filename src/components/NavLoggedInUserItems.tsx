@@ -17,7 +17,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/plants/my" className="p-2">
+      <Link to="/plants/my-own" className="p-2">
         My Plants
       </Link>
       <Link to="/plants/create" className="p-2">

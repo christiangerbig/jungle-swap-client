@@ -10,13 +10,16 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **Signup:** As an anon I can sign up in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Login:** As a user I can sign in in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.
+- **My plants page** As a user I can see all the plants I have uploaded.
 - **Create plant:** As a user I can upload my plants. 
 - **Plant detail Page:** As a user I can click on a certain plant to go to the detail page.
 - **Update plant:** As a user I can update/edit my uploaded plants.
 - **Delete plant:** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
+- **Requests page** As a user I can see all my requests for plants
 - **Create request:** As a user I can create a request to swap a plant. 
-- **Plant detail Page:** As a user I can click on a certain request to go to the detail page.
+- **Request detail page:** As a user I can click on a certain request to go to the detail page.
 - **Reply request:** As a user I can reply a request for my plant.
+- **Replies page** As a user I can see all the replied requests for plants.
 - **Delete request:** As a user I can delete a request.
 - **401:** As an anom I can see a 401 page if I try to accsess a special page
 - **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
@@ -42,6 +45,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 |                             |                              |                            | signup if user is not logged in     |
 | `/plants/update`            | UpdatePlantForm              | user only `<PrivateRoute>` | Update/Edit an plant                |
 | `/plants/checkout`          | CheckoutPage                 | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
+| `/plants/my-own`            | MyPlants                     | user only `<PrivateRoute>` | Show all my uploaded plants         |
 | `/messages/create`          | CreateRequestForm            | user only `<PrivateRoute>` | Create request to swap              |
 | `/messages/update`          | UpdateRequestForm            | user only `<PrivateRoute>` | reply a request                     |
 | `/requests/fetch-all`       | RequestsPage                 | user only `<PrivateRoute>` | Fetch all requests for the user     |
