@@ -78,7 +78,7 @@ const UpdateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-  const { _id, request } = message as Message;
+  const { request } = message as Message;
 
   return (
     <div className="container row mt-5 ">

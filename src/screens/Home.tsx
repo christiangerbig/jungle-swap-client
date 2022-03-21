@@ -18,8 +18,7 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     const elementHeight = (elementRef: HTMLElement): number => {
-      const height = Math.round(elementRef.getBoundingClientRect().height);
-      return height;
+      return Math.round(elementRef.getBoundingClientRect().height);
     };
 
     const plantIO = new PlantIO(dispatch);
