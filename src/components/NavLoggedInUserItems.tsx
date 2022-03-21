@@ -15,6 +15,10 @@ const NavLoggedInUserItems = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.isNewReply
   );
 
+  const loggedInUserTitle = () => {
+    return loggedInUser ? loggedInUser.username : "";
+  };
+
   return (
     <>
       <Link to="/plants/my-own" className="p-2">
@@ -39,11 +43,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
         {isNewReply && <FontAwesomeIcon icon={faBell} />}
         Replies
       </Link>
-      <Link
-        to="/auth/log-out"
-        title={loggedInUser ? loggedInUser.username : ""}
-        className="p-2"
-      >
+      <Link to="/auth/log-out" title={loggedInUserTitle()} className="p-2">
         Log out
       </Link>
     </>

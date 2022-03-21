@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsNewReply,
   setStartAmountOfReplies,
 } from "../reducer/jungleSwapSlice";
-import { Message, User } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
-import ReplyTile from "../components/ReplyTile";
 import WaitSpinner from "../components/WaitSpinner";
+import RepliesCollection from "../components/RepliesCollection";
+import { MainPageScrolling } from "../lib/MainPageScrolling";
 
 const RepliesPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -22,9 +22,6 @@ const RepliesPage = (): JSX.Element => {
   );
   const isFetchingMessages = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingMessages
-  );
-  const messages = useAppSelector(
-    (state: RootState) => state.jungleSwap.messages
   );
   const amountOfReplies = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfReplies
@@ -52,6 +49,11 @@ const RepliesPage = (): JSX.Element => {
     };
   }, []);
 
+  const handleGoBack = () => {
+    const pageScrolling = new MainPageScrolling(history);
+    pageScrolling.toTop();
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -72,29 +74,12 @@ const RepliesPage = (): JSX.Element => {
             Go back
           </button>
         </div>
-        {isFetchingMessages ? (
-          <WaitSpinner />
-        ) : (
-          <div>
-            {messages.map((message: Message, index: number): JSX.Element => {
-              const { buyer, reply } = message;
-              return (buyer as User)._id === (loggedInUser as User)._id &&
-                reply !== "" ? (
-                <ReplyTile message={message} key={index} />
-              ) : (
-                <></>
-              );
-            })}
-          </div>
-        )}
+        {isFetchingMessages ? <WaitSpinner /> : <RepliesCollection />}
         {amountOfReplies !== 0 ? (
           <div className="text-right mt-4 pr-2">
             <button
               className="btn btn-sm mt-4 smallWidth form-control"
-              onClick={() => {
-                history.push("/");
-                scroll.scrollToTop();
-              }}
+              onClick={handleGoBack}
             >
               Go back
             </button>

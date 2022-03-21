@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../reducer/jungleSwapSlice";
-import { Message, User } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
-import RequestTile from "../components/RequestTile";
 import WaitSpinner from "../components/WaitSpinner";
+import RequestsCollection from "../components/RequestsCollection";
+import { MainPageScrolling } from "../lib/MainPageScrolling";
 
 const RequestsPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -22,9 +22,6 @@ const RequestsPage = (): JSX.Element => {
   );
   const isFetchingMessages = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingMessages
-  );
-  const messages = useAppSelector(
-    (state: RootState) => state.jungleSwap.messages
   );
   const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
@@ -52,6 +49,11 @@ const RequestsPage = (): JSX.Element => {
     };
   }, []);
 
+  const handleGoBack = () => {
+    const pageScrolling = new MainPageScrolling(history);
+    pageScrolling.toTop();
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -72,29 +74,12 @@ const RequestsPage = (): JSX.Element => {
             Go back
           </button>
         </div>
-        {isFetchingMessages ? (
-          <WaitSpinner />
-        ) : (
-          <div>
-            {messages.map((message: Message, index: number): JSX.Element => {
-              const { seller, messageState } = message;
-              return (seller as User)._id === (loggedInUser as User)._id &&
-                messageState === true ? (
-                <RequestTile message={message} key={index} />
-              ) : (
-                <></>
-              );
-            })}
-          </div>
-        )}
+        {isFetchingMessages ? <WaitSpinner /> : <RequestsCollection />}
         {amountOfRequests !== 0 ? (
           <div className="text-right mt-4 pr-2">
             <button
               className="btn btn-sm mt-4 smallWidth form-control"
-              onClick={() => {
-                history.push("/");
-                scroll.scrollToTop();
-              }}
+              onClick={handleGoBack}
             >
               Go back
             </button>
