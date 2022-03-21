@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -27,7 +27,6 @@ const RequestsPage = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     const resetRequestVariableAndScrollToTop = (): void => {
