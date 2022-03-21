@@ -10,8 +10,8 @@ import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { MessageIO } from "../lib/messageIO";
 import WaitSpinner from "../components/WaitSpinner";
-import RequestsCollection from "../components/RequestsCollection";
-import { MainPageScrolling } from "../lib/MainPageScrolling";
+import RequestsOverview from "../components/RequestsOverview";
+import GoBackButton from "../components/GoBackButton";
 
 const RequestsPage = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -49,11 +49,6 @@ const RequestsPage = (): JSX.Element => {
     };
   }, []);
 
-  const handleGoBack = () => {
-    const pageScrolling = new MainPageScrolling(history);
-    pageScrolling.toTop();
-  };
-
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -63,28 +58,9 @@ const RequestsPage = (): JSX.Element => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2> Requests for your plants </h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
-        <div className="text-right pr-2">
-          <button
-            className="btn btn-sm mt-4 smallWidth form-control"
-            onClick={() => {
-              history.push("/");
-              scroll.scrollToTop();
-            }}
-          >
-            Go back
-          </button>
-        </div>
-        {isFetchingMessages ? <WaitSpinner /> : <RequestsCollection />}
-        {amountOfRequests !== 0 ? (
-          <div className="text-right mt-4 pr-2">
-            <button
-              className="btn btn-sm mt-4 smallWidth form-control"
-              onClick={handleGoBack}
-            >
-              Go back
-            </button>
-          </div>
-        ) : null}
+        <GoBackButton />
+        {isFetchingMessages ? <WaitSpinner /> : <RequestsOverview />}
+        {amountOfRequests !== 0 ? <GoBackButton /> : null}
       </div>
     </div>
   );

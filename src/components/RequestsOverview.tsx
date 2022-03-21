@@ -1,9 +1,9 @@
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { Message, User } from "../typeDefinitions";
-import RequestTile from "../components/RequestTile";
+import RequestTile from "./RequestTile";
 
-const RequestsCollection = () => {
+const RequestsOverview = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -26,4 +26,4 @@ const RequestsCollection = () => {
   );
 };
 
-export default RequestsCollection;
+export default RequestsOverview;

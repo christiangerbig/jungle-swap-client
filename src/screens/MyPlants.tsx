@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import WaitSpinner from "../components/WaitSpinner";
-import MyPlantsCollection from "../components/MyPlantsCollection";
+import MyPlantsOverview from "../components/MyPlantsOverview";
 
 const MyPlants = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -27,7 +27,7 @@ const MyPlants = (): JSX.Element => {
       <div className="mt-5 mb-5">
         <h2> My plants </h2>
       </div>
-      {isFetchingPlants ? <WaitSpinner /> : <MyPlantsCollection />}
+      {isFetchingPlants ? <WaitSpinner /> : <MyPlantsOverview />}
     </div>
   );
 };

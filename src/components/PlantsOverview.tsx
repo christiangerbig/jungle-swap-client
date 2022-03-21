@@ -1,9 +1,9 @@
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { Plant } from "../typeDefinitions";
-import PlantThumbnail from "../components/PlantThumbnail";
+import PlantThumbnail from "./PlantThumbnail";
 
-const PlantsCollection = (): JSX.Element => {
+const PlantsOverview = (): JSX.Element => {
   const filteredPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.filteredPlants
   );
@@ -17,4 +17,4 @@ const PlantsCollection = (): JSX.Element => {
   );
 };
 
-export default PlantsCollection;
+export default PlantsOverview;

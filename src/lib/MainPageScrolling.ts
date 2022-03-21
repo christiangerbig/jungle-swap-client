@@ -6,7 +6,7 @@ export class MainPageScrolling {
     this.history = history;
   }
 
-  toTop = () => {
+  toTop = (): void => {
     this.history.push("/");
     scroll.scrollToTop();
   };

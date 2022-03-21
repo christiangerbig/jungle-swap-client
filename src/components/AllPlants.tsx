@@ -2,7 +2,7 @@ import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import WaitSpinner from "./WaitSpinner";
 import SearchPlant from "./SearchPlant";
-import PlantsCollection from "./PlantsCollection";
+import PlantsOverview from "./PlantsOverview";
 
 const AllPlants = (): JSX.Element => {
   const isFetchingPlants = useAppSelector(
@@ -15,7 +15,7 @@ const AllPlants = (): JSX.Element => {
         <h2> Plants </h2>
       </div>
       <SearchPlant />
-      {isFetchingPlants ? <WaitSpinner /> : <PlantsCollection />}
+      {isFetchingPlants ? <WaitSpinner /> : <PlantsOverview />}
     </div>
   );
 };

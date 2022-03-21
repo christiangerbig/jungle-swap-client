@@ -1,9 +1,9 @@
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { Message, User } from "../typeDefinitions";
-import ReplyTile from "../components/ReplyTile";
+import ReplyTile from "./ReplyTile";
 
-const RepliesCollection = () => {
+const RepliesOverview = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -26,4 +26,4 @@ const RepliesCollection = () => {
   );
 };
 
-export default RepliesCollection;
+export default RepliesOverview;
