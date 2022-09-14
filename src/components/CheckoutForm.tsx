@@ -156,7 +156,7 @@ const CheckoutForm = (): JSX.Element => {
               : "result-message hidden text-center"
           }
         >
-          {t("checkoutForm.paymentSccessful")}
+          {t("checkoutForm.paymentSuccessful")}
         </p>
       </form>
       <div className="row justify-content-center">
