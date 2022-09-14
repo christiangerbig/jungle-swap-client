@@ -118,7 +118,7 @@ const CheckoutForm = (): JSX.Element => {
       >
         <h2 className="text-left mb-2 p-2">{name}</h2>
         <h3 className="text-left mb-4 p-2">
-          {t("checkForm.price")} {price} {t("checkForm.currency")}
+          {t("checkoutForm.price")} {price} {t("checkoutForm.currency")}
         </h3>
         <CardElement
           id="card-element"
@@ -137,7 +137,7 @@ const CheckoutForm = (): JSX.Element => {
               {isProcessing ? (
                 <div id="spinner" className="spinner" />
               ) : (
-                "Pay now"
+                t("checkoutForm.payNow")
               )}
             </span>
           </button>

@@ -110,9 +110,10 @@ const en = {
       price: "Price:",
       currency: "€",
     },
-    checkForm: {
+    checkoutForm: {
       price: " Price:",
       currency: "€",
+      payNow: "Pay now",
       paymentSuccessful: "Payment succeeded.",
     },
     /* Requests */
