@@ -56,7 +56,7 @@ const en = {
     allPlants: {
       headline: "Plants",
     },
-    searchPlants: {
+    searchPlant: {
       headline: "Search a plant",
       namePlaceholder: "Enter name",
     },
