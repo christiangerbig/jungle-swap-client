@@ -92,7 +92,7 @@ const CreateRequestForm = (): JSX.Element => {
             />
           </div>
           {errorMessage && (
-            <span className="warningColor"> {errorMessage} </span>
+            <span className="warningColor">{errorMessage}</span>
           )}
           <div className="text-right">
             <button

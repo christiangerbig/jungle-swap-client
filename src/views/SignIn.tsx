@@ -83,7 +83,7 @@ const SignIn = (): JSX.Element => {
             />
           </div>
           {errorMessage && (
-            <span className="warningColor"> {errorMessage} </span>
+            <span className="warningColor">{errorMessage}</span>
           )}
           <button
             type="submit"

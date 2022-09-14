@@ -155,7 +155,7 @@ const CreatePlantForm = (): JSX.Element => {
             name="plantImage"
             className="mb-4 form-control"
           />
-          {errorMessage && <span className="warningColor"> {errorMessage} </span>}
+          {errorMessage && <span className="warningColor">{errorMessage}</span>}
           <div className="col-12 text-right pr-0">
             <button
               type="submit"
