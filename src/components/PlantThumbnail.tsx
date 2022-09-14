@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Plant } from "../typeDefinitions";
 
 type PlantThumbnailProps = {
@@ -7,6 +8,7 @@ type PlantThumbnailProps = {
 
 const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   const { _id, name, imageUrl, price } = plant;
+  const { t } = useTranslation();
 
   return (
     <div className="col mb-5">
@@ -14,12 +16,14 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
         <img src={imageUrl} alt={name} className="card-img-top mediumPicSize" />
         <div className="card-body mb-5">
           <h5> {name} </h5>
-          <p> {price} € </p>
+          <p>
+            {price} {t("plantThumbnail.currency")}
+          </p>
           <Link
             className="btn form-control smallWidth"
             to={`/plants/fetch/${_id}`}
           >
-            Details
+            {t("link.details")}
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
@@ -27,6 +28,7 @@ const RequestDetails = (): JSX.Element => {
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -99,12 +101,16 @@ const RequestDetails = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Request for {name} </h2>
-        <h5> by {username} </h5>
+        <h2 className="mb-5">
+          {t("requestDetails.headline")} {name}
+        </h2>
+        <h5>
+          {t("requestDetails.subheadline")} {username}
+        </h5>
         <p className="textField p-3 mb-4"> {request} </p>
         {reply ? (
           <div>
-            <h5> Your reply </h5>
+            <h5> {t("requestDetails.yourReply")} </h5>
             <p className="textField p-3 mb-4"> {reply} </p>
           </div>
         ) : null}
@@ -112,7 +118,7 @@ const RequestDetails = (): JSX.Element => {
           {!reply ? (
             <Link to={`/messages/update/${_id}`}>
               <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
-                Reply
+                {t("button.reply")}
               </button>
             </Link>
           ) : null}
@@ -122,13 +128,13 @@ const RequestDetails = (): JSX.Element => {
               handleChangeMessageState(message);
             }}
           >
-            Done
+            {t("button.done")}
           </button>
         </div>
         <div className="text-right px-3">
           <Link to={"/requests/fetch-all"} onClick={scroll.scrollToTop}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
-              Go back
+              {t("button.goBack")}
             </button>
           </Link>
         </div>

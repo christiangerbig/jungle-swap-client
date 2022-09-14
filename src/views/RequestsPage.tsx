@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsNewRequest,
@@ -27,6 +28,7 @@ const RequestsPage = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const resetRequestVariableAndScrollToTop = (): void => {
@@ -55,7 +57,7 @@ const RequestsPage = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2> Requests for your plants </h2>
+        <h2> {t("requestsPage.headline")} </h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
         <GoBackButton />
         {isFetchingMessages ? <WaitSpinner /> : <RequestsOverview />}

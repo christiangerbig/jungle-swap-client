@@ -1,8 +1,10 @@
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 import { MainPageScrolling } from "../lib/MainPageScrolling";
 
 const GoBackButton = () => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const handleGoBack = () => {
     const pageScrolling = new MainPageScrolling(history);
@@ -15,7 +17,7 @@ const GoBackButton = () => {
         className="btn btn-sm mt-4 smallWidth form-control"
         onClick={handleGoBack}
       >
-        Go back
+        {t("button.goBack")}
       </button>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsNewReply,
@@ -27,6 +28,7 @@ const RepliesPage = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const resetReplyVariableAndScrollToTop = (): void => {
@@ -55,7 +57,7 @@ const RepliesPage = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2> Replies for your requests </h2>
+        <h2> {t("repliesPage.headline")} </h2>
         <h3 className="mb-4"> [{amountOfReplies}] </h3>
         <GoBackButton />
         {isFetchingMessages ? <WaitSpinner /> : <RepliesOverview />}

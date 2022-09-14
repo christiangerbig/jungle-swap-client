@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, Redirect, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import WaitSpinner from "../components/WaitSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
@@ -42,6 +43,7 @@ const PlantDetails = (): JSX.Element => {
   const { plantId } = useParams<{ plantId: PlantId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPlantData = (plantId: PlantId): void => {
@@ -121,7 +123,7 @@ const PlantDetails = (): JSX.Element => {
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
       <div className="mt-4 mb-3 pt-4 container">
-        <h2> Plant details </h2>
+        <h2> {t("plantDetails.headline")} </h2>
       </div>
       {isFetchingPlant || !creator ? (
         <WaitSpinner />
@@ -134,19 +136,21 @@ const PlantDetails = (): JSX.Element => {
               className="card-img-top mediumPicSize"
             />
             <div className="ml-2 mt-2">
-              <span> Name: </span> {name}
+              <span> {t("plantDetails.name")} </span> {name}
             </div>
             <div className="ml-2 mt-2">
-              <span> Description: </span> {description}
+              <span> {t("plantDetails.description")} </span> {description}
             </div>
             <div className="ml-2 mt-2">
-              <span> Size: </span> {size} cm
+              <span> {t("plantDetails.size")} </span> {size}
+              {t("plantDetails.sizeUnit")}
             </div>
             <div className="ml-2 mt-2">
-              <span> Likes: </span> {location}
+              <span> {t("plantDetails.likes")} </span> {location}
             </div>
             <div className="ml-2 mt-2">
-              <span> Price: </span> {price} €
+              <span> {t("plantDetails.price")} </span> {price}
+              {t("plantDetails.currency")}
             </div>
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">
@@ -155,7 +159,7 @@ const PlantDetails = (): JSX.Element => {
                     <div className="p-0">
                       <Link to={"/plants/update"}>
                         <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
-                          Update
+                          {t("button.update")}
                         </button>
                       </Link>
                       <button
@@ -177,19 +181,19 @@ const PlantDetails = (): JSX.Element => {
                           handleDeletePlant(_id as PlantId);
                         }}
                       >
-                        Delete
+                        {t("button.delete")}
                       </button>
                     </div>
                   ) : (
                     <div>
                       <Link to="/plants/checkout">
                         <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
-                          Buy
+                          {t("button.buy")}
                         </button>
                       </Link>
                       <Link to="/messages/create">
                         <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
-                          Swap
+                          {t("button.swap")}
                         </button>
                       </Link>
                     </div>
@@ -200,7 +204,7 @@ const PlantDetails = (): JSX.Element => {
                       history.goBack();
                     }}
                   >
-                    Go back
+                    {t("button.goBack")}
                   </button>
                 </div>
               </div>

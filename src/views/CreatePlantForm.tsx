@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   addPlant,
@@ -29,6 +30,7 @@ const CreatePlantForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -101,52 +103,52 @@ const CreatePlantForm = (): JSX.Element => {
             handleUploadPlantImage(event);
           }}
         >
-          <label htmlFor="enterName"> Name </label>
+          <label htmlFor="enterName"> {t("createPlantForm.name")} </label>
           <input
             type="text"
             id="enterName"
             name="name"
-            placeholder="Enter"
+            placeholder={t("createPlantForm.enterPlaceholder")}
             className="mb-4 form-control"
           />
-          <label htmlFor="enterDescription"> Description </label>
+          <label htmlFor="enterDescription"> {t("createPlantForm.description")} </label>
           <input
             type="text"
             id="enterDescription"
             name="description"
-            placeholder="Enter"
+            placeholder={t("createPlantForm.enterPlaceholder")}
             className="mb-4 form-control"
           />
-          <label htmlFor="enterSize"> Size (cm) </label>
+          <label htmlFor="enterSize"> {t("createPlantForm.size")} </label>
           <input
             type="number"
             id="enterSize"
             name="size"
-            placeholder="Enter"
+            placeholder={t("createPlantForm.enterPlaceholder")}
             min="1"
             className="mb-4 form-control"
           />
-          <label htmlFor="enterLocation"> Location </label>
+          <label htmlFor="enterLocation"> {t("createPlantForm.location")} </label>
           <select
             id="enterLocation"
             name="location"
             className="mb-4 form-control p-2"
           >
-            <option> Select location </option>
-            <option value="sun"> sun </option>
-            <option value="shade"> shade </option>
-            <option value="sun and shade"> sun and shade </option>
+            <option> {t("selectLocation.title")} </option>
+            <option value="sun"> {t("selectLocation.sun")} </option>
+            <option value="shade"> {t("selectLocation.shade")} </option>
+            <option value="sun and shade"> {t("selectLocation.sunAndShade")} </option>
           </select>
-          <label htmlFor="enterPrice"> Price (EUR) </label>
+          <label htmlFor="enterPrice"> {t("createPlantForm.price")} </label>
           <input
             type="number"
             id="enterPrice"
             name="price"
-            placeholder="Enter"
+            placeholder={t("createPlantForm.enterPlaceholder")}
             min="1"
             className="mb-4 form-control"
           />
-          <label htmlFor="enterImage"> Image </label>
+          <label htmlFor="enterImage"> {t("createPlantForm.image")} </label>
           <input
             type="file"
             id="enterImage"
@@ -160,7 +162,7 @@ const CreatePlantForm = (): JSX.Element => {
               disabled={isUploadingPlantImage || isCreatingPlant ? true : false}
               className="btn btn-sm form-control smallWidth ml-4 mb-2"
             >
-              Create
+              {t("button.create")}
             </button>
             <button
               className="btn btn-sm form-control smallWidth ml-4 mb-2"
@@ -168,7 +170,7 @@ const CreatePlantForm = (): JSX.Element => {
                 history.goBack();
               }}
             >
-              Go back
+              {t("button.goBack")}
             </button>
           </div>
         </form>

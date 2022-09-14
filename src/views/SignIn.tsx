@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsUserChange,
@@ -19,6 +20,7 @@ const SignIn = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(setErrorMessage(null));
@@ -54,29 +56,29 @@ const SignIn = (): JSX.Element => {
   return (
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Sign In </h2>
+        <h2 className="mb-5"> {t("signIn.headline")} </h2>
         <form
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleSignIn(event);
           }}
         >
           <div className="form-group">
-            <label htmlFor="InputEmail"> Email address </label>
+            <label htmlFor="InputEmail"> {t("signIn.email")} </label>
             <input
               type="email"
               id="InputEmail"
               name="email"
-              placeholder="Enter"
+              placeholder={t("signIn.enterPlaceholder")}
               className="form-control"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputPassword"> Password </label>
+            <label htmlFor="InputPassword"> {t("signIn.password")} </label>
             <input
               type="password"
               id="InputPassword"
               name="password"
-              placeholder="Enter"
+              placeholder={t("signIn.enterPlaceholder")}
               className="form-control"
             />
           </div>
@@ -88,7 +90,7 @@ const SignIn = (): JSX.Element => {
             formNoValidate
             className="btn btn-sm mt-4 smallWidth form-control"
           >
-            Sign in
+            {t("button.signIn")}
           </button>
         </form>
       </div>

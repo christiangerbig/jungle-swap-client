@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
@@ -24,6 +25,7 @@ const UpdateRequestForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -83,13 +85,13 @@ const UpdateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mt-5 mb-4"> Reply your request </h2>
+        <h2 className="mt-5 mb-4"> {t("updateRequestForm.headline")} </h2>
         <div className="card cardSmallWidth mb-5">
           <div className="card-body">
             <p> {request} </p>
             <textarea
               name="reply"
-              placeholder="Your reply"
+              placeholder={t("updateRequestForm.replyPlaceholder")}
               cols={31}
               rows={6}
               className="mb-4 form-control"
@@ -105,7 +107,7 @@ const UpdateRequestForm = (): JSX.Element => {
                   handleUpdateMessage(message);
                 }}
               >
-                Submit
+                {t("button.submit")}
               </button>
               <button
                 className="btn btn-sm form-control mb-2"
@@ -113,7 +115,7 @@ const UpdateRequestForm = (): JSX.Element => {
                   history.goBack();
                 }}
               >
-                Go back
+                {t("button.goBack")}
               </button>
             </div>
           </div>

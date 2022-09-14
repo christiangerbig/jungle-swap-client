@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { PlantIO } from "../lib/plantIO";
 import {
@@ -15,6 +16,7 @@ const SearchPlant = (): JSX.Element => {
   const [filter, setFilter] = useState("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPlantQueryByName = (query: string): void => {
@@ -51,11 +53,11 @@ const SearchPlant = (): JSX.Element => {
   return (
     <div className="mb-4">
       <hr />
-      <h4> Search a plant </h4>
+      <h4> {t("searchPlants.headline")} </h4>
       <div className="d-flex">
         <input
           type="text"
-          placeholder="Enter name"
+          placeholder={t("searchPlant.namePlaceholder")}
           value={query}
           className="smallWidth form-control"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +71,12 @@ const SearchPlant = (): JSX.Element => {
             setFilter(event.target.value);
           }}
         >
-          <option value=""> Select location </option>
-          <option value="sun"> sun </option>
-          <option value="shade"> shade </option>
-          <option value="sun and shade"> sun and shade </option>
+          <option value="">{t("selectLocation.title")}</option>
+          <option value="sun">{t("selectLocation.sun")}</option>
+          <option value="shade">{t("selectLocation.shade")}</option>
+          <option value="sun and shade">
+            {t("selectLocation.sunAndShade")}
+          </option>
         </select>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
@@ -52,6 +53,7 @@ const NavBar = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     return () => {
@@ -195,7 +197,7 @@ const NavBar = (): JSX.Element => {
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
         <Navbar.Brand>
           <Link to="/" onClick={scroll.scrollToTop}>
-            JungleSwap
+            {t("link.jungleSwap")}
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav">
@@ -210,7 +212,7 @@ const NavBar = (): JSX.Element => {
                 dispatch(scrollToPlants());
               }}
             >
-              All Plants
+              {t("link.allPlants")}
             </Link>
             {loggedInUser ? (
               <NavLoggedInUserItems />

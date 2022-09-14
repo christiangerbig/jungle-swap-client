@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +15,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
   const isNewReply = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewReply
   );
+  const { t } = useTranslation();
 
   const loggedInUserTitle = () => {
     return loggedInUser ? loggedInUser.username : "";
@@ -22,10 +24,10 @@ const NavLoggedInUserItems = (): JSX.Element => {
   return (
     <>
       <Link to="/plants/my-own" className="p-2">
-        My Plants
+        {t("link.myPlants")}
       </Link>
       <Link to="/plants/create" className="p-2">
-        Create Plant
+        {t("link.createPlant")}
       </Link>
       <Link
         to="/requests/fetch-all"
@@ -33,7 +35,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
         className="p-2"
       >
         {isNewRequest && <FontAwesomeIcon icon={faBell} />}
-        Requests
+        {t("link.requests")}
       </Link>
       <Link
         to="/replies/fetch-all"
@@ -41,10 +43,10 @@ const NavLoggedInUserItems = (): JSX.Element => {
         className="p-2"
       >
         {isNewReply && <FontAwesomeIcon icon={faBell} />}
-        Replies
+        {t("link.replies")}
       </Link>
       <Link to="/auth/log-out" title={loggedInUserTitle()} className="p-2">
-        Log out
+        {t("link.logOut")}
       </Link>
     </>
   );

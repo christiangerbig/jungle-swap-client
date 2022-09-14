@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsCreatingMessage,
@@ -25,6 +26,7 @@ const CreateRequestForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -71,8 +73,10 @@ const CreateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-4"> Your request </h2>
-        <h3 className="mb-4"> for {name} </h3>
+        <h2 className="mb-4"> {t("createRequestForm.headline")} </h2>
+        <h3 className="mb-4">
+          {t("createRequestForm.subheadline")} {name}
+        </h3>
         <form
           className="pl-0"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
@@ -96,7 +100,7 @@ const CreateRequestForm = (): JSX.Element => {
               disabled={isCreatingMessage ? true : false}
               className="btn btn-sm mx-2 form-control smallWidth"
             >
-              Send
+              {t("createRequestForm.send")}
             </button>
             <button
               className="btn btn-sm mx-2 form-control smallWidth"
@@ -104,7 +108,7 @@ const CreateRequestForm = (): JSX.Element => {
                 history.goBack();
               }}
             >
-              Go back
+              {t("button.goBack")}
             </button>
           </div>
         </form>

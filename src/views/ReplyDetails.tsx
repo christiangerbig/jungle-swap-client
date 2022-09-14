@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsDeletingMessage,
@@ -30,6 +31,7 @@ const ReplyDetails = (): JSX.Element => {
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -75,11 +77,15 @@ const ReplyDetails = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> Your request for {name} </h2>
+        <h2 className="mb-5">
+          {t("replyDetails.headline")} {name}
+        </h2>
         <p className="textField p-3 mb-4"> {request} </p>
         {reply ? (
           <div>
-            <h5> Reply by {username} </h5>
+            <h5>
+              {t("replyDetails.replyBy")} {username}
+            </h5>
             <p className="textField p-3 mb-4"> {reply} </p>
           </div>
         ) : null}
@@ -91,13 +97,13 @@ const ReplyDetails = (): JSX.Element => {
               handleDeleteMessage(_id as MessageId);
             }}
           >
-            Delete
+            {t("button.delete")}
           </button>
         </div>
         <div className="text-right px-3">
           <Link to={"/replies/fetch-all"} onClick={scroll.scrollToTop}>
             <button className="btn btn-sm mt-4 smallWidth form-control">
-              Go back
+              {t("button.goBack")}
             </button>
           </Link>
         </div>

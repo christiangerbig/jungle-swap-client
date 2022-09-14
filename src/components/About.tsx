@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import plantsImage from "../images/JungleSwap_Home.png";
 import plantPotIcon from "../images/JungleSwap_Icon.png";
 
 const About = (): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="about centered container">
       <div className="row">
@@ -12,16 +15,16 @@ const About = (): JSX.Element => {
         <div className="about col-sm-6 col-md-5 col-lg-6 px-5 noOverflow">
           <article>
             <header>
-              <h4> Welcome to JungleSwap! </h4>
-              <h5> Add green to your Home </h5>
+              <h4> {t("about.headline")} </h4>
+              <h5> {t("about.subheadline")} </h5>
             </header>
             <p>
-              It"s easy-peasy. <br />
-              Share your plant offshoots. <br />
-              Make money! <br />
-              Or swap them for another plant. <br />
-              Don"t have any baby plants? <br />
-              You can simply shop and give a plant a new home.
+              {t("about.paragraph.line1")} <br />
+              {t("about.paragraph.line2")} <br />
+              {t("about.paragraph.line3")} <br />
+              {t("about.paragraph.line4")} <br />
+              {t("about.paragraph.line5")} <br />
+              {t("about.paragraph.line6")}
             </p>
             <img src={plantPotIcon} alt="plant pot" className="icon" />
           </article>

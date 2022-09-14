@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setPlant,
@@ -38,6 +39,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const setPlantLocation = ({ location }: Plant): void => {
@@ -153,7 +155,9 @@ const UpdatePlantForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
-        <h2 className="mt-5 mb-4 text-left"> Update your plant </h2>
+        <h2 className="mt-5 mb-4 text-left">
+          {t("updatePlantForm.headline")}
+        </h2>
         <div className="card cardMediumWidth mb-5">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
@@ -161,7 +165,7 @@ const UpdatePlantForm = (): JSX.Element => {
             <img src={imageUrl} alt={name} className="mb-2 smallPicSize" />
           )}
           <div className="card-body">
-            <label htmlFor="updateName"> Name </label>
+            <label htmlFor="updateName"> {t("updatePlantForm.name")} </label>
             <input
               type="text"
               id="updateName"
@@ -172,7 +176,9 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateDescription"> Description </label>
+            <label htmlFor="updateDescription">
+              {t("updatePlantForm.description")}
+            </label>
             <input
               type="text"
               id="updateDescription"
@@ -183,7 +189,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateSize"> Size (cm) </label>
+            <label htmlFor="updateSize"> {t("updatePlantForm.size")} </label>
             <input
               type="number"
               id="updateSize"
@@ -195,7 +201,9 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateLocation"> Location </label>
+            <label htmlFor="updateLocation">
+              {t("updatePlantForm.location")}
+            </label>
             <select
               ref={selectElementRef}
               id="updateLocation"
@@ -205,11 +213,13 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             >
-              <option value="sun"> sun </option>
-              <option value="shade"> shade </option>
-              <option value="sun and shade"> sun and shade </option>
+              <option value="sun"> {t("selectLocation.sun")} </option>
+              <option value="shade"> {t("selectLocation.shade")} </option>
+              <option value="sun and shade">
+                {t("selectLocation.sunAndShade")}
+              </option>
             </select>
-            <label htmlFor="updatePrice"> Price (EUR) </label>
+            <label htmlFor="updatePrice"> {t("updatedPlantForm.price")} </label>
             <input
               type="number"
               id="updatePrice"
@@ -221,7 +231,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateImage"> Image </label>
+            <label htmlFor="updateImage"> {t("updatedPlantForm.image")} </label>
             <input
               type="file"
               id="updateImage"
@@ -249,7 +259,7 @@ const UpdatePlantForm = (): JSX.Element => {
                   handleUpdatePlant(plant);
                 }}
               >
-                Save
+                {t("button.save")}
               </button>
             </div>
           </div>

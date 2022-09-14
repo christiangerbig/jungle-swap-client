@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
@@ -40,6 +41,8 @@ const CheckoutForm = (): JSX.Element => {
   const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
+  const { t } = useTranslation();
+
   const cardStyle: CardStyle = {
     style: {
       base: {
@@ -113,8 +116,10 @@ const CheckoutForm = (): JSX.Element => {
         className="checkoutForm mt-5"
         onSubmit={handleSubmitPayment}
       >
-        <h2 className="text-left mb-2 p-2"> {name} </h2>
-        <h3 className="text-left mb-4 p-2"> Price: {price} € </h3>
+        <h2 className="text-left mb-2 p-2">{name}</h2>
+        <h3 className="text-left mb-4 p-2">
+          {t("checkForm.price")} {price} {t("checkForm.currency")}
+        </h3>
         <CardElement
           id="card-element"
           options={cardStyle}
@@ -151,7 +156,7 @@ const CheckoutForm = (): JSX.Element => {
               : "result-message hidden text-center"
           }
         >
-          Payment succeeded.
+          {t("checkoutForm.paymentSccessful")}
         </p>
       </form>
       <div className="row justify-content-center">
@@ -162,11 +167,15 @@ const CheckoutForm = (): JSX.Element => {
               dispatch(scrollToPlants());
             }}
           >
-            <button className="btn btn-sm form-control"> Go back </button>
+            <button className="btn btn-sm form-control">
+              {t("button.goBack")}
+            </button>
           </Link>
         ) : (
           <Link to={`/plants/fetch/${_id}`}>
-            <button className="btn btn-sm form-control"> Go back </button>
+            <button className="btn btn-sm form-control">
+              {t("button.goBack")}
+            </button>
           </Link>
         )}
       </div>

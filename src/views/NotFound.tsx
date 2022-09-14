@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const NotFound = (): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="notFound">
       <div>
-        <h1> Oh-oh! </h1>
-        <h2> We think you got lost in the jungle! </h2>
-        <h3> 404 Not Found </h3>
+        <h1> {t("notFound.headline")} </h1>
+        <h2> {t("notFound.subheadline1")} </h2>
+        <h3> {t("notFound.subheadline2")} </h3>
         <Link to={"/"}>
           <button className="btn btn-sm ml-2 smallWidth form-control">
-            Take me home{" "}
+            {t("link.takeMeHome")}
           </button>
         </Link>
       </div>
