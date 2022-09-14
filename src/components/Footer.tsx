@@ -7,7 +7,7 @@ const Footer = (): JSX.Element => {
   return (
     <div className="footer-row">
       <footer>
-        © {year} { }
+        © {year}{" "}
         <Link to={"https://www.linkedin.com/in/christian-gerbig/"}>
           Christian Gerbig
         </Link>

@@ -5,24 +5,24 @@ import "./App.min.css";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Home from "./screens/Home";
-import SignUp from "./screens/SignUp";
-import SignIn from "./screens/SignIn";
+import Home from "./views/Home";
+import SignUp from "./views/SignUp";
+import SignIn from "./views/SignIn";
 import LogOut from "./components/LogOut";
-import CreatePlantForm from "./screens/CreatePlantForm";
-import PlantDetails from "./screens/PlantDetails";
-import UpdatePlantForm from "./screens/UpdatePlantForm";
-import CheckoutPage from "./screens/CheckoutPage";
-import RequestsPage from "./screens/RequestsPage";
-import RepliesPage from "./screens/RepliesPage";
-import CreateRequestForm from "./screens/CreateRequestForm";
-import RequestDetails from "./screens/RequestDetails";
-import ReplyDetails from "./screens/ReplyDetails";
-import UpdateRequestForm from "./screens/UpdateRequestForm";
-import Unauthorized from "./screens/Unauthorized";
-import NotFound from "./screens/NotFound";
+import CreatePlantForm from "./views/CreatePlantForm";
+import PlantDetails from "./views/PlantDetails";
+import UpdatePlantForm from "./views/UpdatePlantForm";
+import CheckoutPage from "./views/CheckoutPage";
+import RequestsPage from "./views/RequestsPage";
+import RepliesPage from "./views/RepliesPage";
+import CreateRequestForm from "./views/CreateRequestForm";
+import RequestDetails from "./views/RequestDetails";
+import ReplyDetails from "./views/ReplyDetails";
+import UpdateRequestForm from "./views/UpdateRequestForm";
+import Unauthorized from "./views/Unauthorized";
+import NotFound from "./views/NotFound";
 import KommunicateChat from "./components/Chat";
-import MyPlants from "./screens/MyPlants";
+import MyPlants from "./views/MyPlants";
 
 const App = (): JSX.Element => {
   return (
@@ -59,7 +59,7 @@ const App = (): JSX.Element => {
           <CheckoutPage />
         </Route>
         <Route path="/plants/my-own">
-          <MyPlants/>
+          <MyPlants />
         </Route>
 
         <Route path="/messages/create">

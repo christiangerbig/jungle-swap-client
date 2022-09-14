@@ -137,16 +137,12 @@ const CheckoutForm = (): JSX.Element => {
             </span>
           </button>
         </div>
-        {
-          /* Show any error that happens when processing the payment */
-          <div
-            role="alert"
-            hidden={paymentError ? false : true}
-            className="card-error"
-          >
+        {/* Show any error that happens when processing the payment */}
+        {paymentError && (
+          <div role="alert" className="card-error">
             {paymentError}
           </div>
-        }
+        )}
         {/* Show success message upon completion */}
         <p
           className={
