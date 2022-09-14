@@ -136,20 +136,20 @@ const PlantDetails = (): JSX.Element => {
               className="card-img-top mediumPicSize"
             />
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.name")}</span>{name}
+              <span>{t("plantDetails.name")}</span>{" "}{name}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.description")}</span>{description}
+              <span>{t("plantDetails.description")}</span>{" "}{description}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.size")}</span>{size}{" "}
+              <span>{t("plantDetails.size")}</span>{" "}{size}{" "}
               {t("plantDetails.sizeUnit")}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.likes")}</span>{location}
+              <span>{t("plantDetails.likes")}</span>{" "}{location}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.price")}</span>{price}{" "}
+              <span>{t("plantDetails.price")}</span>{" "}{price}{" "}
               {t("plantDetails.currency")}
             </div>
             <div className="ml-2 mt-2 col justify-content-center">

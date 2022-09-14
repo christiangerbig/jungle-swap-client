@@ -165,7 +165,7 @@ const UpdatePlantForm = (): JSX.Element => {
             <img src={imageUrl} alt={name} className="mb-2 smallPicSize" />
           )}
           <div className="card-body">
-            <label htmlFor="updateName"> {t("updatePlantForm.name")} </label>
+            <label htmlFor="updateName">{t("updatePlantForm.name")}</label>
             <input
               type="text"
               id="updateName"
@@ -189,7 +189,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateSize"> {t("updatePlantForm.size")} </label>
+            <label htmlFor="updateSize">{t("updatePlantForm.size")}</label>
             <input
               type="number"
               id="updateSize"
@@ -219,7 +219,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 {t("selectLocation.sunAndShade")}
               </option>
             </select>
-            <label htmlFor="updatePrice"> {t("updatedPlantForm.price")} </label>
+            <label htmlFor="updatePrice">{t("updatePlantForm.price")}</label>
             <input
               type="number"
               id="updatePrice"
@@ -231,7 +231,7 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateImage"> {t("updatedPlantForm.image")} </label>
+            <label htmlFor="updateImage">{t("updatePlantForm.image")}</label>
             <input
               type="file"
               id="updateImage"

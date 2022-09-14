@@ -110,7 +110,7 @@ const UpdateRequestForm = (): JSX.Element => {
                 {t("button.submit")}
               </button>
               <button
-                className="btn btn-sm form-control mb-2"
+                className="btn btn-sm smallWidth form-control mb-2"
                 onClick={() => {
                   history.goBack();
                 }}
