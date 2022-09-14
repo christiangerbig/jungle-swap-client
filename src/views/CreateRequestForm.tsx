@@ -100,7 +100,7 @@ const CreateRequestForm = (): JSX.Element => {
               disabled={isCreatingMessage ? true : false}
               className="btn btn-sm mx-2 form-control smallWidth"
             >
-              {t("createRequestForm.send")}
+              {t("button.send")}
             </button>
             <button
               className="btn btn-sm mx-2 form-control smallWidth"

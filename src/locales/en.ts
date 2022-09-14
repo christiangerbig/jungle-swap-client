@@ -23,6 +23,7 @@ const en = {
       save: "Save",
       delete: "Delete",
       send: "Send",
+      submit: "Submit",
       buy: "Buy",
       swap: "Swap",
       reply: "Reply",
