@@ -52,11 +52,11 @@ const SignUp = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Username missing":
-        return t("errors.signIUp.form.usernameMissing");
+        return t("errors.signUp.form.usernameMissing");
       case "Form: Email missing":
-        return t("errors.signIUp.form.emailMissing");
+        return t("errors.signUp.form.emailMissing");
       case "Form: Password missing":
-        return t("errors.signIUp.form.passwordMissing");
+        return t("errors.signUp.form.passwordMissing");
       case "Form: Email format invalid":
         return t("errors.signUp.form.emailFormatInvalid");
       case "Form: Password invalid":
@@ -109,7 +109,7 @@ const SignUp = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold">
+            <span className="is-danger is-text-bold is-display-block">
               {printErrorMessage(errorMessage)}
             </span>
           )}

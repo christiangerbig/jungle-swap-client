@@ -91,6 +91,7 @@ const CreatePlantForm = (): JSX.Element => {
   };
 
   const printErrorMessage = (errorMessage: string): string => {
+    console.log(errorMessage);
     switch (errorMessage) {
       case "Form: Name missing":
         return t("errors.plant.form.nameMissing");
@@ -180,7 +181,7 @@ const CreatePlantForm = (): JSX.Element => {
             className="mb-4 form-control is-width-full"
           />
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold">
+            <span className="is-danger is-text-bold is-display-block">
               {printErrorMessage(errorMessage)}
             </span>
           )}

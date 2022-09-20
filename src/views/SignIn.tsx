@@ -56,7 +56,7 @@ const SignIn = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Email missing":
-        return t("errors.sign.form.emailMissing");
+        return t("errors.signIn.form.emailMissing");
       case "Form: Password missing":
         return t("errors.signIn.form.passwordMissing");
       case "Form: Email format invalid":
@@ -99,7 +99,7 @@ const SignIn = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold">
+            <span className="is-danger is-text-bold is-display-block">
               {printErrorMessage(errorMessage)}
             </span>
           )}
