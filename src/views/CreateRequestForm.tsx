@@ -101,7 +101,7 @@ const CreateRequestForm = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold">
+            <span className="is-danger is-text-bold is-display-block">
               {printErrorMessage(errorMessage)}
             </span>
           )}

@@ -23,6 +23,9 @@ const UpdateRequestForm = (): JSX.Element => {
   const isUpdatingMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.isUpdatingMessage
   );
+  const errorMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.errorMessage
+  );
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
@@ -80,6 +83,16 @@ const UpdateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
+
+  const printErrorMessage = (errorMessage: string): string => {
+    switch (errorMessage) {
+      case "Form: Reply text missing":
+        return t("errors.message.form.replyTextMissing");
+      default:
+        return t("errors.general");
+    }
+  };
+
   const { request } = message as Message;
 
   return (
@@ -99,6 +112,11 @@ const UpdateRequestForm = (): JSX.Element => {
                 handleCreateReply(event, message);
               }}
             />
+            {errorMessage && errorMessage.includes("Form") && (
+              <span className="is-danger is-text-bold is-display-block">
+                {printErrorMessage(errorMessage)}
+              </span>
+            )}
             <div className="row justify-content-end px-3">
               <button
                 disabled={isUpdatingMessage ? true : false}
