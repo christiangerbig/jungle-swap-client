@@ -18,6 +18,7 @@ import {
   setMessages,
   setIsFetchingMessages,
   fetchAllMessages,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Message } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -98,7 +99,7 @@ const NavBar = (): JSX.Element => {
           setMessageVariablesAndStartInterval(messages);
         })
         .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
+          dispatch(setErrorMessage(rejectedValue.message));
         });
     };
 
@@ -181,7 +182,7 @@ const NavBar = (): JSX.Element => {
           setMessagesVariableAndCheckNewRequestsReplies(messages);
         })
         .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
+          dispatch(setErrorMessage(rejectedValue.message));
         });
     };
 

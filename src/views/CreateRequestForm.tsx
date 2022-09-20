@@ -61,6 +61,7 @@ const CreateRequestForm = (): JSX.Element => {
         addMessageAndReturnToPlantDetailsPage(message);
       })
       .catch((rejectedValue: any) => {
+        console.log("Create Plant Error: ", rejectedValue.message);
         dispatch(setErrorMessage(rejectedValue.message));
       });
   };

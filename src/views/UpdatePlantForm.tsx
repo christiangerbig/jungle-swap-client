@@ -12,6 +12,7 @@ import {
   setIsUploadingPlantImage,
   uploadPlantImage,
   setDestroyImageData,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -106,7 +107,7 @@ const UpdatePlantForm = (): JSX.Element => {
         setImageDataForPlant(plant, { imageUrl, imagePublicId });
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -143,7 +144,7 @@ const UpdatePlantForm = (): JSX.Element => {
         setPlantChangesAndReturnToPlantsSection(updatedPlant);
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 

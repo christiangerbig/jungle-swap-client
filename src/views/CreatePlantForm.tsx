@@ -91,7 +91,6 @@ const CreatePlantForm = (): JSX.Element => {
   };
 
   const printErrorMessage = (errorMessage: string): string => {
-    console.log(errorMessage);
     switch (errorMessage) {
       case "Form: Name missing":
         return t("errors.plant.form.nameMissing");

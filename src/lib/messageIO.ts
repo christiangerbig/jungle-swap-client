@@ -1,6 +1,7 @@
 import {
   fetchAllMessages,
   fetchMessage,
+  setErrorMessage,
   setIsFetchingMessage,
   setIsFetchingMessages,
   setMessage,
@@ -21,7 +22,7 @@ export class MessageIO {
         this.dispatch(setMessage(message));
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
@@ -33,7 +34,7 @@ export class MessageIO {
         this.dispatch(setMessages(messages));
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 }

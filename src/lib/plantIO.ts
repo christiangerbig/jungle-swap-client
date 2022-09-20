@@ -1,5 +1,6 @@
 import {
   fetchAllPlants,
+  setErrorMessage,
   setIsFetchingPlants,
   setPlants,
 } from "../reducer/jungleSwapSlice";
@@ -18,7 +19,7 @@ export class PlantIO {
         this.dispatch(setPlants(plants));
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 }

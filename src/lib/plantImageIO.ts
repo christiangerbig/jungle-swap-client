@@ -1,5 +1,6 @@
 import {
   deletePlantImage,
+  setErrorMessage,
   setIsDeletingPlantImage,
 } from "../reducer/jungleSwapSlice";
 import { DestroyImageData } from "../typeDefinitions";
@@ -17,7 +18,7 @@ export class PlantImageIO {
         return;
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 }

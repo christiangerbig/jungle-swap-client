@@ -14,6 +14,7 @@ import {
   setIsDeletingMessage,
   deleteMessage,
   removeMessage,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, PlantId, Message } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -59,7 +60,7 @@ const PlantDetails = (): JSX.Element => {
           setPlantAndScrollToTop(plant);
         })
         .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
+          dispatch(setErrorMessage(rejectedValue.message));
         });
     };
 
@@ -82,7 +83,7 @@ const PlantDetails = (): JSX.Element => {
             dispatch(removeMessage(_id as PlantId));
           })
           .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
+            dispatch(setErrorMessage(rejectedValue.message));
           });
       }
     });
@@ -101,7 +102,7 @@ const PlantDetails = (): JSX.Element => {
         removePlantAndReturnToPlantsSection(plantId);
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 

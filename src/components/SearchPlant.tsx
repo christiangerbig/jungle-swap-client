@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { PlantIO } from "../lib/plantIO";
 import {
   fetchQueryPlants,
+  setErrorMessage,
   setFilteredPlants,
   setIsFetchingPlants,
   setPlants,
@@ -28,7 +29,7 @@ const SearchPlant = (): JSX.Element => {
             dispatch(setPlants(plants));
           })
           .catch((rejectedValue: any) => {
-            console.log(rejectedValue.message);
+            dispatch(setErrorMessage(rejectedValue.message));
           });
       } else {
         const plantIO = new PlantIO(dispatch);
@@ -52,7 +53,7 @@ const SearchPlant = (): JSX.Element => {
 
   return (
     <div className="mb-4">
-      <hr className="horizontal-rule"/>
+      <hr className="horizontal-rule" />
       <h4> {t("searchPlant.headline")} </h4>
       <div className="d-flex">
         <input

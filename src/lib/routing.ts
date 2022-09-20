@@ -1,4 +1,8 @@
-import { checkUserLoggedIn, setLoggedInUser } from "../reducer/jungleSwapSlice";
+import {
+  checkUserLoggedIn,
+  setErrorMessage,
+  setLoggedInUser,
+} from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 
 export class Routing {
@@ -13,7 +17,7 @@ export class Routing {
         this.dispatch(setLoggedInUser(user));
       })
       .catch((rejectedValue: any) => {
-        console.log(rejectedValue.message);
+        this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 }

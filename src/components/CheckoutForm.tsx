@@ -7,6 +7,7 @@ import {
   setClientSecret,
   createPayment,
   scrollToPlants,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -67,7 +68,7 @@ const CheckoutForm = (): JSX.Element => {
           dispatch(setClientSecret(payment.clientSecret));
         })
         .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
+          dispatch(setErrorMessage(rejectedValue.message));
         });
     };
 

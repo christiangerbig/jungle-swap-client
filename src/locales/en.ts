@@ -27,7 +27,7 @@ const en = {
       swap: "Swap",
       reply: "Reply",
       done: "Done",
-      goBack: "Go back",
+      goBack: "Back",
       proceed: "Proceed",
       takeMeHome: "Take me home",
     },

@@ -8,6 +8,7 @@ import {
   updateMessage,
   setMessageChanges,
   decreaseAmountOfRequests,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -79,7 +80,7 @@ const RequestDetails = (): JSX.Element => {
           setMessageChangesAndReturnToRequestsPage(message);
         })
         .catch((rejectedValue: any) => {
-          console.log(rejectedValue.message);
+          dispatch(setErrorMessage(rejectedValue.message));
         });
     };
 
