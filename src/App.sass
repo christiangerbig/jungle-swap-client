@@ -26,48 +26,80 @@ body
 nav 
   background-color: $transparentFloralWhite1
 
-a 
-  color: $royalBlue
-  &:hover 
-    text-decoration: none
-    color: $darkGreen
- 
-a.navbar-brand:hover
-  color: $darkGreen
-
-div input 
-  width: 100%
-
-span 
-  font-weight: 700
-  
-hr 
-  width: 80%
-  padding-bottom: 50px
-
-form 
-  background-color: $floralWhite
-  padding: 15px
-  margin-bottom: 15px
-
-  input 
-    width: 100%
-
-textarea 
-  width: 100%
-
 footer 
   text-align: center
   background-color: $transparentFloralWhite2
   color: $royalBlue
   padding: 15px 0px
 
+/* Custom classes */
 
-/* Lisa"s styles */ 
+.is-warning 
+  color: $gold
 
-.main 
-  padding: 0px
-  margin: 0px
+.is-danger
+  color: $tomato
+
+.is-no-overflow 
+  overflow: hidden
+
+.is-padding-top
+  padding-top: 20px
+
+.is-text-bold 
+  font-weight: 700
+
+.is-link
+  color: $royalBlue
+  &:hover 
+    text-decoration: none
+    color: $darkGreen
+
+.is-image-size-xs 
+  width: 6rem
+
+.is-image-size-s 
+  height: 18rem
+  object-fit: cover
+
+.is-image-size-l 
+  height: 22rem
+  object-fit: cover
+
+.is-card-width-s 
+  width: 18rem
+
+.is-card-width-l 
+  width: 22rem
+
+.is-width-xs 
+  width: 20%
+
+.is-width-s 
+  width: 30%
+
+@media (max-width: 1024px) 
+  .is-width-s 
+    width: 35%
+
+@media (max-width: 768px) 
+  .is-width-s 
+    width: 50%
+
+.is-width-full
+  width: 100%
+
+.has-border-around
+  margin-top: 500px
+
+.form-style 
+  background-color: $floralWhite
+  padding: 15px
+  margin-bottom: 15px
+
+.horizontal-rule
+  width: 80%
+  padding-bottom: 50px
 
 .about 
   background-color: $gold
@@ -88,19 +120,7 @@ footer
       font:
         weight: 700
 
-
-/* Custom classes */
-
-.alertColor 
-  color: $gold
-
-.warningColor 
-  color: $tomato
-
-.noOverflow 
-  overflow: hidden
-
-.headerImg 
+.header-image 
   background:
     image: url("./images/JungleSwap_Header.png")
     size: cover
@@ -124,11 +144,11 @@ footer
     color: $floralWhite
 
 @media only screen and (max-width: 768px) 
-  .headerImg h2 
+  .header-image h2 
     font-size: 40px
 
 @media (max-width: 480px) 
-  .headerImg h2
+  .header-image h2
     margin-left: -45px   
   
 .image 
@@ -143,6 +163,24 @@ footer
   height: 300px
   margin-left: 80px
 
+.navbar-toggler   
+  background-color: $royalBlue
+
+.text-field
+  background-color: white
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+
+.location-filter
+  width: 25%
+
+@media (max-width: 768px)
+  .location-filter
+    width: 45%
+
+.loading-wait-spinner
+  color: $darkGreen
+
 .footer-row 
   background:
     image: url("./images/JungleSwap_Header.png")
@@ -153,40 +191,56 @@ footer
 .title 
   margin-top: 150px
 
-.borderAround 
-  margin-top: 500px
-
-.padding 
-  padding-top: 20px
-
 .container 
   margin-bottom: 80px
+  h2 
+    font:
+      family: "Noto Serif", serif
+      size: 60px
+    letter-spacing: -1px
+    color: $darkGreen
 
-.container h2 
+.error-modal
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  position: fixed
+  top: 3.5rem
+  left: 0
+  right: 0
+  width: inherit
+  height: 100%
+  z-index: 1050
+  background-color: rgba(0, 0, 0, 0.7)
+  /*backdrop-filter: blur(15px)*/
+
+.error-modal-box
+  text-align: center
+  width: 70%
+  background-color: $floralWhite
+  padding: 3rem 2rem 2rem 2rem
+  border: 1px solid black
+  h1 
   font:
     family: "Noto Serif", serif
-    size: 60px
-  letter-spacing: -1px
-  color: $darkGreen
+    size: 2.5rem
+  letter-spacing: 1px
+  h2
+    margin-bottom: 2rem
+    font:
+      family: "Noto Serif", serif
+      size: 2rem
+    letter-spacing: 1px
+  h3
+    margin-bottom: 2rem
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 4px
+    text-transform: uppercase
 
-.miniPicSize 
-  width: 6rem
-
-.smallPicSize 
-  height: 18rem
-  object-fit: cover
-
-.mediumPicSize 
-  height: 22rem
-  object-fit: cover
-
-.cardSmallWidth 
-  width: 18rem
-
-.cardMediumWidth 
-  width: 22rem
-
-.biggerFontSize
+.is-font-size-l
   font: 
     family: "Noto Serif", serif
     size: 2rem
@@ -197,22 +251,8 @@ footer
   padding: 10px 50px
 
 @media only screen and (max-width: 768px) 
-  .biggerFontSize 
+  .is-font-size-l 
     font-size: 1rem
-
-.smallWidth 
-  width: 30%
-
-@media (max-width: 1024px) 
-  .smallWidth 
-    width: 35%
-
-@media (max-width: 768px) 
-  .smallWidth 
-    width: 50%
-
-.navbar-toggler   
-  background-color: $royalBlue
 
 .notFound 
   text:
@@ -292,23 +332,12 @@ footer
       top: 50px
       bottom: 0px
 
-.textField
-  background-color: white
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
-
-.locationFilter
-  width: 25%
-
-@media (max-width: 768px)
-  .locationFilter
-    width: 45%
-
-.loadingWaitSpinner
-  color: $darkGreen
-
 
 /* Bootstrap classes */
+
+.navbar-brand
+  &:hover
+    color: $darkGreen
 
 .navbar-dark
 .navbar-brand 
@@ -357,18 +386,19 @@ footer
 .hidden 
   display: none
 
+.card-button
+  &:disabled 
+    opacity: 0.5
+    cursor: default
+    border: none
+    border-radius: 3px
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
+
 .card-error 
   text-align: center
   color: rgb(238, 63, 20)
 
-button:disabled 
-  opacity: 0.5
-  cursor: default
-  border: none
-  border-radius: 3px
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
- 
-/* spinner/processing state, errors */
+/* Stripe: spinner/processing state, errors */
 .spinner,
 .spinner:before,
 .spinner:after 

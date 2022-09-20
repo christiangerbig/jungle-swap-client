@@ -196,7 +196,7 @@ const NavBar = (): JSX.Element => {
     <div>
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
         <Navbar.Brand>
-          <Link to="/" onClick={scroll.scrollToTop}>
+          <Link to="/" className="is-link" onClick={scroll.scrollToTop}>
             {t("link.jungleSwap")}
           </Link>
         </Navbar.Brand>
@@ -207,7 +207,7 @@ const NavBar = (): JSX.Element => {
           <Nav className="mr-auto">
             <Link
               to="/"
-              className="p-2"
+              className="p-2 is-link"
               onClick={() => {
                 dispatch(scrollToPlants());
               }}
@@ -221,7 +221,7 @@ const NavBar = (): JSX.Element => {
             )}
             <Link
               to="/"
-              className="p-2"
+              className="p-2 is-link"
               onClick={() => {
                 dispatch(scrollToPlants());
               }}

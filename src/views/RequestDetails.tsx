@@ -107,23 +107,23 @@ const RequestDetails = (): JSX.Element => {
         <h5>
           {t("requestDetails.subheadline")} {username}
         </h5>
-        <p className="textField p-3 mb-4"> {request} </p>
+        <p className="text-field p-3 mb-4"> {request} </p>
         {reply ? (
           <div>
             <h5> {t("requestDetails.yourReply")} </h5>
-            <p className="textField p-3 mb-4"> {reply} </p>
+            <p className="text-field p-3 mb-4"> {reply} </p>
           </div>
         ) : null}
         <div className="text-right px-3">
           {!reply ? (
-            <Link to={`/messages/update/${_id}`}>
-              <button className="btn btn-sm ml-2 smallWidth form-control mb-1">
+            <Link to={`/messages/update/${_id}`} className="is-link">
+              <button className="btn btn-sm ml-2 is-width-s form-control mb-1">
                 {t("button.reply")}
               </button>
             </Link>
           ) : null}
           <button
-            className="btn btn-sm ml-2 smallWidth form-control mb-1"
+            className="btn btn-sm ml-2 is-width-s form-control mb-1"
             onClick={() => {
               handleChangeMessageState(message);
             }}
@@ -132,8 +132,12 @@ const RequestDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link to={"/requests/fetch-all"} onClick={scroll.scrollToTop}>
-            <button className="btn btn-sm mt-4 smallWidth form-control">
+          <Link
+            to={"/requests/fetch-all"}
+            className="is-link"
+            onClick={scroll.scrollToTop}
+          >
+            <button className="btn btn-sm mt-4 is-width-s form-control">
               {t("button.goBack")}
             </button>
           </Link>

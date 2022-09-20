@@ -80,19 +80,19 @@ const ReplyDetails = (): JSX.Element => {
         <h2 className="mb-5">
           {t("replyDetails.headline")} {name}
         </h2>
-        <p className="textField p-3 mb-4"> {request} </p>
+        <p className="text-field p-3 mb-4"> {request} </p>
         {reply ? (
           <div>
             <h5>
               {t("replyDetails.replyBy")} {username}
             </h5>
-            <p className="textField p-3 mb-4"> {reply} </p>
+            <p className="text-field p-3 mb-4"> {reply} </p>
           </div>
         ) : null}
         <div className="text-right px-3">
           <button
             disabled={isDeletingMessage ? true : false}
-            className="btn btn-sm ml-2 smallWidth form-control mb-1"
+            className="btn btn-sm ml-2 is-width-s form-control mb-1"
             onClick={() => {
               handleDeleteMessage(_id as MessageId);
             }}
@@ -101,8 +101,12 @@ const ReplyDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link to={"/replies/fetch-all"} onClick={scroll.scrollToTop}>
-            <button className="btn btn-sm mt-4 smallWidth form-control">
+          <Link
+            to={"/replies/fetch-all"}
+            className="is-link"
+            onClick={scroll.scrollToTop}
+          >
+            <button className="btn btn-sm mt-4 is-width-s form-control">
               {t("button.goBack")}
             </button>
           </Link>

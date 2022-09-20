@@ -52,21 +52,21 @@ const SearchPlant = (): JSX.Element => {
 
   return (
     <div className="mb-4">
-      <hr />
+      <hr className="horizontal-rule"/>
       <h4> {t("searchPlant.headline")} </h4>
       <div className="d-flex">
         <input
           type="text"
           placeholder={t("searchPlant.namePlaceholder")}
           value={query}
-          className="smallWidth form-control"
+          className="is-width-s form-control"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setQuery(event.target.value);
           }}
         />
         <select
           name="location"
-          className="locationFilter form-control ml-4"
+          className="location-filter form-control ml-4"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             setFilter(event.target.value);
           }}

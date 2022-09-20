@@ -8,6 +8,7 @@ import {
   setIsNewRequest,
   setAmountOfRequests,
   setAmountOfReplies,
+  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -68,6 +69,9 @@ const LogOut = (): JSX.Element => {
           .unwrap()
           .then(() => {
             resetRequestReplyVariablesAndReturnToHomePage(intervalId);
+          })
+          .catch((rejectedValue: any) => {
+            dispatch(setErrorMessage(rejectedValue.message));
           });
       };
 

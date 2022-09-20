@@ -26,7 +26,7 @@ const MyPlants = (): JSX.Element => {
   return (
     <div className="container mt-5">
       <div className="mt-5 mb-5">
-        <h2> {t("myPlants.headline")} </h2>
+        <h2>{t("myPlants.headline")}</h2>
       </div>
       {isFetchingPlants ? <WaitSpinner /> : <MyPlantsOverview />}
     </div>

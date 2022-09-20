@@ -20,10 +20,11 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
       <h5> {username} </h5>
       <div className="text-center">
         <Link
-          className="btn smallWidth form-control"
           to={`/requests/fetch/${_id}`}
+          className="btn is-width-s form-control is-link"
         >
           {t("link.details")}
+          
         </Link>
       </div>
     </div>

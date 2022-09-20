@@ -39,7 +39,7 @@ const Home = (): JSX.Element => {
         ref={(titleSection) => {
           (elementRef.current[0] as HTMLElement | null) = titleSection;
         }}
-        className="text-center pt-5 pb-5 headerImg"
+        className="text-center pt-5 pb-5 header-image"
       >
         <Title />
       </section>

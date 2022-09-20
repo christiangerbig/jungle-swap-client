@@ -86,7 +86,7 @@ const UpdateRequestForm = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mt-5 mb-4"> {t("updateRequestForm.headline")} </h2>
-        <div className="card cardSmallWidth mb-5">
+        <div className="card is-card-width-s mb-5">
           <div className="card-body">
             <p> {request} </p>
             <textarea
@@ -94,7 +94,7 @@ const UpdateRequestForm = (): JSX.Element => {
               placeholder={t("updateRequestForm.replyPlaceholder")}
               cols={31}
               rows={6}
-              className="mb-4 form-control"
+              className="mb-4 form-control is-width-full"
               onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
                 handleCreateReply(event, message);
               }}
@@ -102,7 +102,7 @@ const UpdateRequestForm = (): JSX.Element => {
             <div className="row justify-content-end px-3">
               <button
                 disabled={isUpdatingMessage ? true : false}
-                className="btn btn-sm smallWidth form-control mr-3 mb-2"
+                className="btn btn-sm is-width-s form-control mr-3 mb-2"
                 onClick={() => {
                   handleUpdateMessage(message);
                 }}
@@ -110,7 +110,7 @@ const UpdateRequestForm = (): JSX.Element => {
                 {t("button.submit")}
               </button>
               <button
-                className="btn btn-sm smallWidth form-control mb-2"
+                className="btn btn-sm is-width-s form-control mb-2"
                 onClick={() => {
                   history.goBack();
                 }}

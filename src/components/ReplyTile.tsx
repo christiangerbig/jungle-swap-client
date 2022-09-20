@@ -23,7 +23,7 @@ const ReplyThumbnail = ({ message }: ReplyThumbnailProps): JSX.Element => {
       <div className="text-center">
         <Link
           to={`/replies/fetch/${_id}`}
-          className="btn smallWidth form-control"
+          className="btn is-width-s form-control is-link"
         >
           {t("link.details")}
         </Link>

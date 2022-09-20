@@ -9,13 +9,13 @@ const Title = (): JSX.Element => {
 
   return (
     <div className="row my-5">
-      <div className="col-6 offset-3 my-5 borderAround">
+      <div className="col-6 offset-3 my-5 has-border-around">
         <h2 className="title mb-2">{t("title.headline")}</h2>
         <h5 className="mt-3 mb-5">{t("title.subheadline")}</h5>
         <div className="mb-5">
           <Link
             to={"/"}
-            className="biggerFontSize"
+            className="is-font-size-l is-link"
             onClick={() => {
               dispatch(scrollToAbout());
             }}

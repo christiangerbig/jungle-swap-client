@@ -23,16 +23,16 @@ const NavLoggedInUserItems = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/plants/my-own" className="p-2">
+      <Link to="/plants/my-own" className="p-2 is-link">
         {t("link.myPlants")}
       </Link>
-      <Link to="/plants/create" className="p-2">
+      <Link to="/plants/create" className="p-2 is-link">
         {t("link.createPlant")}
       </Link>
       <Link
         to="/requests/fetch-all"
         title={isNewRequest ? "new request" : ""}
-        className="p-2"
+        className="p-2 is-link"
       >
         {isNewRequest && <FontAwesomeIcon icon={faBell} />}
         {t("link.requests")}
@@ -40,12 +40,16 @@ const NavLoggedInUserItems = (): JSX.Element => {
       <Link
         to="/replies/fetch-all"
         title={isNewReply ? "new reply" : ""}
-        className="p-2"
+        className="p-2 is-link"
       >
         {isNewReply && <FontAwesomeIcon icon={faBell} />}
         {t("link.replies")}
       </Link>
-      <Link to="/auth/log-out" title={loggedInUserTitle()} className="p-2">
+      <Link
+        to="/auth/log-out"
+        title={loggedInUserTitle()}
+        className="p-2 is-link"
+      >
         {t("link.logOut")}
       </Link>
     </>

@@ -113,7 +113,7 @@ const CheckoutForm = (): JSX.Element => {
     <div className="container col-9">
       <form
         id="payment-form"
-        className="checkoutForm mt-5"
+        className="checkoutForm form-style mt-5"
         onSubmit={handleSubmitPayment}
       >
         <h2 className="text-left mb-2 p-2">{name}</h2>
@@ -131,11 +131,11 @@ const CheckoutForm = (): JSX.Element => {
             type="submit"
             id="submit"
             disabled={isProcessing || isDisabled || isSucceeded}
-            className="btn btn-sm mt-5 mb-4"
+            className="btn btn-sm mt-5 mb-4 card-button"
           >
             <span id="button-text">
               {isProcessing ? (
-                <div id="spinner" className="spinner" />
+                <div id="spinner" className="spinner is-text-bold" />
               ) : (
                 t("checkoutForm.payNow")
               )}
@@ -166,13 +166,14 @@ const CheckoutForm = (): JSX.Element => {
             onClick={() => {
               dispatch(scrollToPlants());
             }}
+            className="is-link"
           >
             <button className="btn btn-sm form-control">
               {t("button.goBack")}
             </button>
           </Link>
         ) : (
-          <Link to={`/plants/fetch/${_id}`}>
+          <Link to={`/plants/fetch/${_id}`} className="is-link">
             <button className="btn btn-sm form-control">
               {t("button.goBack")}
             </button>

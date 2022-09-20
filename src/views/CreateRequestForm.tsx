@@ -65,6 +65,15 @@ const CreateRequestForm = (): JSX.Element => {
       });
   };
 
+  const printErrorMessage = (errorMessage: string): string => {
+    switch (errorMessage) {
+      case "Form: Request text missing":
+        return t("errors.message.form.requestTextMissing");
+      default:
+        return t("errors.general");
+    }
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -73,12 +82,12 @@ const CreateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-4"> {t("createRequestForm.headline")} </h2>
+        <h2 className="mb-4">{t("createRequestForm.headline")}</h2>
         <h3 className="mb-4">
           {t("createRequestForm.subheadline")} {name}
         </h3>
         <form
-          className="pl-0"
+          className="pl-0 form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             handleCreateMessageForRequest(event, plant);
           }}
@@ -88,22 +97,24 @@ const CreateRequestForm = (): JSX.Element => {
               name="request"
               cols={35}
               rows={7}
-              className="mb-4 form-control"
+              className="mb-4 form-control is-width-full"
             />
           </div>
-          {errorMessage && (
-            <span className="warningColor">{errorMessage}</span>
+          {errorMessage && errorMessage.includes("Form") && (
+            <span className="is-danger is-text-bold">
+              {printErrorMessage(errorMessage)}
+            </span>
           )}
           <div className="text-right">
             <button
               type="submit"
               disabled={isCreatingMessage ? true : false}
-              className="btn btn-sm mx-2 form-control smallWidth"
+              className="btn btn-sm mx-2 form-control is-width-s"
             >
               {t("button.send")}
             </button>
             <button
-              className="btn btn-sm mx-2 form-control smallWidth"
+              className="btn btn-sm mx-2 form-control is-width-s"
               onClick={() => {
                 history.goBack();
               }}

@@ -123,42 +123,46 @@ const PlantDetails = (): JSX.Element => {
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
       <div className="mt-4 mb-3 pt-4 container">
-        <h2> {t("plantDetails.headline")} </h2>
+        <h2>{t("plantDetails.headline")}</h2>
       </div>
       {isFetchingPlant || !creator ? (
         <WaitSpinner />
       ) : (
         <div className="col">
-          <div className="card cardMediumWidth">
+          <div className="card is-card-width-l">
             <img
               src={imageUrl}
               alt={name}
-              className="card-img-top mediumPicSize"
+              className="card-img-top is-image-size-l"
             />
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.name")}</span>{" "}{name}
+              <span className="is-text-bold">{t("plantDetails.name")}</span>{" "}
+              {name}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.description")}</span>{" "}{description}
+              <span className="is-text-bold">
+                {t("plantDetails.description")}
+              </span>{" "}
+              {description}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.size")}</span>{" "}{size}{" "}
-              {t("plantDetails.sizeUnit")}
+              <span className="is-text-bold">{t("plantDetails.size")}</span>{" "}
+              {size} {t("plantDetails.sizeUnit")}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.likes")}</span>{" "}{location}
+              <span>{t("plantDetails.likes")}</span> {location}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.price")}</span>{" "}{price}{" "}
-              {t("plantDetails.currency")}
+              <span className="is-text-bold">{t("plantDetails.price")}</span>{" "}
+              {price} {t("plantDetails.currency")}
             </div>
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">
                 <div className="card-body text-right pt-0">
                   {loggedInUser._id === (creator as User)._id ? (
                     <div className="p-0">
-                      <Link to={"/plants/update"}>
-                        <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
+                      <Link to={"/plants/update"} className="is-link">
+                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
                           {t("button.update")}
                         </button>
                       </Link>
@@ -170,7 +174,7 @@ const PlantDetails = (): JSX.Element => {
                             ? true
                             : false
                         }
-                        className="btn btn-sm ml-2 form-control smallWidth mb-2"
+                        className="btn btn-sm ml-2 form-control is-width-s mb-2"
                         onClick={() => {
                           handleDeleteRemainingMessages(
                             messages,
@@ -186,20 +190,20 @@ const PlantDetails = (): JSX.Element => {
                     </div>
                   ) : (
                     <div>
-                      <Link to="/plants/checkout">
-                        <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
+                      <Link to="/plants/checkout" className="is-link">
+                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
                           {t("button.buy")}
                         </button>
                       </Link>
-                      <Link to="/messages/create">
-                        <button className="btn btn-sm ml-2 form-control smallWidth mb-2">
+                      <Link to="/messages/create" className="is-link">
+                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
                           {t("button.swap")}
                         </button>
                       </Link>
                     </div>
                   )}
                   <button
-                    className="btn btn-sm ml-2 form-control smallWidth mb-3"
+                    className="btn btn-sm ml-2 form-control is-width-s mb-3"
                     onClick={() => {
                       history.goBack();
                     }}

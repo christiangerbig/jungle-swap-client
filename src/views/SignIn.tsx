@@ -53,11 +53,27 @@ const SignIn = (): JSX.Element => {
       });
   };
 
+  const printErrorMessage = (errorMessage: string): string => {
+    switch (errorMessage) {
+      case "Form: Email missing":
+        return t("errors.sign.form.emailMissing");
+      case "Form: Password missing":
+        return t("errors.signIn.form.passwordMissing");
+      case "Form: Email format invalid":
+        return t("errors.signIn.form.emailFormatInvalid");
+      case "Form: Passwords don't match":
+        return t("errors.signIn.form.noMatchPasswords");
+      default:
+        return t("errors.general");
+    }
+  };
+
   return (
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> {t("signIn.headline")} </h2>
         <form
+          className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleSignIn(event);
           }}
@@ -69,7 +85,7 @@ const SignIn = (): JSX.Element => {
               id="InputEmail"
               name="email"
               placeholder={t("signIn.enterPlaceholder")}
-              className="form-control"
+              className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
@@ -79,16 +95,18 @@ const SignIn = (): JSX.Element => {
               id="InputPassword"
               name="password"
               placeholder={t("signIn.enterPlaceholder")}
-              className="form-control"
+              className="form-control is-width-full"
             />
           </div>
-          {errorMessage && (
-            <span className="warningColor">{errorMessage}</span>
+          {errorMessage && errorMessage.includes("Form") && (
+            <span className="is-danger is-text-bold">
+              {printErrorMessage(errorMessage)}
+            </span>
           )}
           <button
             type="submit"
             formNoValidate
-            className="btn btn-sm mt-4 smallWidth form-control"
+            className="btn btn-sm mt-4 is-width-s form-control"
           >
             {t("button.signIn")}
           </button>

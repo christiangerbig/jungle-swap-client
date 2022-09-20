@@ -13,14 +13,14 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   return (
     <div className="col mb-5">
       <div className="card card-medium-width text-center h-100">
-        <img src={imageUrl} alt={name} className="card-img-top mediumPicSize" />
+        <img src={imageUrl} alt={name} className="card-img-top is-image-size-l" />
         <div className="card-body mb-5">
           <h5> {name} </h5>
           <p>
             {price} {t("plantThumbnail.currency")}
           </p>
           <Link
-            className="btn form-control smallWidth"
+            className="btn form-control is-width-s is-link"
             to={`/plants/fetch/${_id}`}
           >
             {t("link.details")}

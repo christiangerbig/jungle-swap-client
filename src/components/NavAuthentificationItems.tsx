@@ -6,10 +6,10 @@ const NavAuthentificationItems = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/auth/sign-in" className="p-2">
+      <Link to="/auth/sign-in" className="p-2 is-link">
         {t("link.signIn")}
       </Link>
-      <Link to="/auth/sign-up" className="p-2">
+      <Link to="/auth/sign-up" className="p-2 is-link">
         {t("link.signUp")}
       </Link>
     </>

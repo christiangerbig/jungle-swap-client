@@ -90,45 +90,67 @@ const CreatePlantForm = (): JSX.Element => {
       });
   };
 
+  const printErrorMessage = (errorMessage: string): string => {
+    switch (errorMessage) {
+      case "Form: Name missing":
+        return t("errors.plant.form.nameMissing");
+      case "Form: Description missing":
+        return t("errors.plant.form.descriptiomMissing");
+      case "Form: Size missing":
+        return t("errors.plant.form.sizeMissing");
+      case "Form: Location missing":
+        return t("errors.plant.form.locationMissing");
+      case "Form: Price missing":
+        return t("errors.plant.form.priceMissing");
+      case "Form: Image missing":
+        return t("errors.plant.form.imageMissing");
+      default:
+        return t("errors.general");
+    }
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
   return (
     <div className="container row mt-5 fullscreen">
-      <div className="mt-5 col-12 col-md-6 offset-md-6">
-        <h2 className="mb-5 text-left"> Create a plant </h2>
+      <div className="mt-5 col-12 col-md-6 offset-md-4">
+        <h2 className="mb-5 text-left"> {t("createPlantForm.headline")} </h2>
         <form
+          className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             handleUploadPlantImage(event);
           }}
         >
-          <label htmlFor="enterName"> {t("createPlantForm.name")} </label>
+          <label htmlFor="enterName">{t("createPlantForm.name")}</label>
           <input
             type="text"
             id="enterName"
             name="name"
             placeholder={t("createPlantForm.enterPlaceholder")}
-            className="mb-4 form-control"
+            className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterDescription"> {t("createPlantForm.description")} </label>
+          <label htmlFor="enterDescription">
+            {t("createPlantForm.description")}
+          </label>
           <input
             type="text"
             id="enterDescription"
             name="description"
             placeholder={t("createPlantForm.enterPlaceholder")}
-            className="mb-4 form-control"
+            className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterSize"> {t("createPlantForm.size")} </label>
+          <label htmlFor="enterSize">{t("createPlantForm.size")}</label>
           <input
             type="number"
             id="enterSize"
             name="size"
             placeholder={t("createPlantForm.enterPlaceholder")}
             min="1"
-            className="mb-4 form-control"
+            className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterLocation"> {t("createPlantForm.location")} </label>
+          <label htmlFor="enterLocation">{t("createPlantForm.location")}</label>
           <select
             id="enterLocation"
             name="location"
@@ -137,35 +159,41 @@ const CreatePlantForm = (): JSX.Element => {
             <option> {t("selectLocation.title")} </option>
             <option value="sun"> {t("selectLocation.sun")} </option>
             <option value="shade"> {t("selectLocation.shade")} </option>
-            <option value="sun and shade"> {t("selectLocation.sunAndShade")} </option>
+            <option value="sun and shade">
+              {t("selectLocation.sunAndShade")}
+            </option>
           </select>
-          <label htmlFor="enterPrice"> {t("createPlantForm.price")} </label>
+          <label htmlFor="enterPrice">{t("createPlantForm.price")}</label>
           <input
             type="number"
             id="enterPrice"
             name="price"
             placeholder={t("createPlantForm.enterPlaceholder")}
             min="1"
-            className="mb-4 form-control"
+            className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterImage"> {t("createPlantForm.image")} </label>
+          <label htmlFor="enterImage">{t("createPlantForm.image")}</label>
           <input
             type="file"
             id="enterImage"
             name="plantImage"
-            className="mb-4 form-control"
+            className="mb-4 form-control is-width-full"
           />
-          {errorMessage && <span className="warningColor">{errorMessage}</span>}
+          {errorMessage && errorMessage.includes("Form") && (
+            <span className="is-danger is-text-bold">
+              {printErrorMessage(errorMessage)}
+            </span>
+          )}
           <div className="col-12 text-right pr-0">
             <button
               type="submit"
               disabled={isUploadingPlantImage || isCreatingPlant ? true : false}
-              className="btn btn-sm form-control smallWidth ml-4 mb-2"
+              className="ml-4 mb-2 btn btn-sm form-control is-width-s"
             >
               {t("button.create")}
             </button>
             <button
-              className="btn btn-sm form-control smallWidth ml-4 mb-2"
+              className="ml-4 mb-2 btn btn-sm form-control is-width-s"
               onClick={() => {
                 history.goBack();
               }}

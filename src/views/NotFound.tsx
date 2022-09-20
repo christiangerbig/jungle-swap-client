@@ -10,9 +10,9 @@ const NotFound = (): JSX.Element => {
         <h1> {t("notFound.headline")} </h1>
         <h2> {t("notFound.subheadline1")} </h2>
         <h3> {t("notFound.subheadline2")} </h3>
-        <Link to={"/"}>
-          <button className="btn btn-sm ml-2 smallWidth form-control">
-            {t("link.takeMeHome")}
+        <Link to={"/"} className="is-link">
+          <button className="ml-2 btn btn-sm is-width-s form-control">
+            {t("button.takeMeHome")}
           </button>
         </Link>
       </div>

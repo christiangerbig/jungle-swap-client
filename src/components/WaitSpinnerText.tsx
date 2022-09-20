@@ -8,7 +8,7 @@ const WaitSpinnerText = ({ text }: WaitSpinnerTextProps): JSX.Element => {
   return (
     <div className="container d-flex align-items-center justify-content-center mt-5">
       <WaitSpinner />
-      <span>{text}</span>
+      <span className="is-text-bold">{text}</span>
     </div>
   );
 };

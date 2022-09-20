@@ -1,4 +1,6 @@
 import { Route, Switch, withRouter } from "react-router-dom";
+import { useAppSelector } from "./hooks";
+import { RootState } from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
@@ -23,10 +25,15 @@ import Unauthorized from "./views/Unauthorized";
 import NotFound from "./views/NotFound";
 import KommunicateChat from "./components/Chat";
 import MyPlants from "./views/MyPlants";
+import ErrorModal from "./components/ErrorModal";
 
 const App = (): JSX.Element => {
+  const errorMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.errorMessage
+  );
+
   return (
-    <div className="main">
+    <div>
       <NavBar />
       <Switch>
         <Route exact path="/">
@@ -87,6 +94,9 @@ const App = (): JSX.Element => {
       </Switch>
       <KommunicateChat />
       <Footer />
+      {errorMessage && !errorMessage.includes("Form") && (
+        <ErrorModal errorMessage={errorMessage} />
+      )}
     </div>
   );
 };

@@ -49,11 +49,31 @@ const SignUp = (): JSX.Element => {
       });
   };
 
+  const printErrorMessage = (errorMessage: string): string => {
+    switch (errorMessage) {
+      case "Form: Username missing":
+        return t("errors.signIUp.form.usernameMissing");
+      case "Form: Email missing":
+        return t("errors.signIUp.form.emailMissing");
+      case "Form: Password missing":
+        return t("errors.signIUp.form.passwordMissing");
+      case "Form: Email format invalid":
+        return t("errors.signUp.form.emailFormatInvalid");
+      case "Form: Password invalid":
+        return t("errors.signUp.form.passwordInvalid");
+      case "Form: Username or email already exists":
+        return t("errors.signUp.form.userAlreadyExists");
+      default:
+        return t("errors.general");
+    }
+  };
+
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5"> {t("signUp.headline")} </h2>
         <form
+          className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleSignUp(event);
           }}
@@ -65,7 +85,7 @@ const SignUp = (): JSX.Element => {
               id="InputUsername"
               name="username"
               placeholder={t("signUp.enterPlaceholder")}
-              className="form-control"
+              className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
@@ -75,7 +95,7 @@ const SignUp = (): JSX.Element => {
               id="InputEmail"
               name="email"
               placeholder={t("signUp.enterPlaceholder")}
-              className="form-control"
+              className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
@@ -85,23 +105,28 @@ const SignUp = (): JSX.Element => {
               id="InputPassword"
               name="password"
               placeholder={t("signUp.enterPlaceholder")}
-              className="form-control"
+              className="form-control is-width-full"
             />
           </div>
-          {errorMessage && (
-            <span className="warningColor">{errorMessage}</span>
+          {errorMessage && errorMessage.includes("Form") && (
+            <span className="is-danger is-text-bold">
+              {printErrorMessage(errorMessage)}
+            </span>
           )}
           <button
             type="submit"
             formNoValidate
-            className="btn btn-sm mt-4 smallWidth form-control"
+            className="btn btn-sm mt-4 is-width-s form-control"
           >
             {t("button.signUp")}
           </button>
-          <p className="padding"> {t("signUp.alreadyAccountCreated")} </p>
+          <p className="is-padding-top">
+            {" "}
+            {t("signUp.alreadyAccountCreated")}{" "}
+          </p>
           <div className="text-right">
-            <Link to={"/auth/sign-in"}>
-              <button className="btn btn-sm ml-4 smallWidth form-control mt-0 mb-2">
+            <Link to={"/auth/sign-in"} className="is-link">
+              <button className="btn btn-sm ml-4 is-width-s form-control mt-0 mb-2">
                 {t("button.signIn")}
               </button>
             </Link>

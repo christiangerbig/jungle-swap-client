@@ -15,14 +15,16 @@ const Footer = (): JSX.Element => {
           to={{ pathname: linkedInPath1 }}
           target="_blank"
           rel="noreferrer noopener"
+          className="is-link"
         >
           {t("footer.appAuthor1")}
-        </Link>
-        {" "}&amp;{" "}
+        </Link>{" "}
+        &amp;{" "}
         <Link
           to={{ pathname: linkedInPath2 }}
           target="_blank"
           rel="noreferrer noopener"
+          className="is-link"
         >
           {t("footer.appAuthor2")}
         </Link>
