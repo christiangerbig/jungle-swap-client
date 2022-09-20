@@ -95,7 +95,7 @@ const CreatePlantForm = (): JSX.Element => {
       case "Form: Name missing":
         return t("errors.plant.form.nameMissing");
       case "Form: Description missing":
-        return t("errors.plant.form.descriptiomMissing");
+        return t("errors.plant.form.descriptionMissing");
       case "Form: Size missing":
         return t("errors.plant.form.sizeMissing");
       case "Form: Location missing":

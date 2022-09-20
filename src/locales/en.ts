@@ -85,7 +85,7 @@ const en = {
       message: {
         form: {
           requestTextMissing: "Please enter request text",
-          replyTextMissing: "Please enter reply text"
+          replyTextMissing: "Please enter reply text",
         },
         createMessageFailed: "Creating message failed",
         fetchMessageFailed: "Fetching message failed",

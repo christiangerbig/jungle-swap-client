@@ -81,10 +81,6 @@ const UpdateRequestForm = (): JSX.Element => {
       });
   };
 
-  if (!loggedInUser) {
-    return <Redirect to={"/auth/unauthorized"} />;
-  }
-
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Reply text missing":
@@ -93,6 +89,10 @@ const UpdateRequestForm = (): JSX.Element => {
         return t("errors.general");
     }
   };
+
+  if (!loggedInUser) {
+    return <Redirect to={"/auth/unauthorized"} />;
+  }
 
   const { request } = message as Message;
 
