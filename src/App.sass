@@ -34,14 +34,14 @@ footer
 
 /* Custom classes */
 
-.is-display-block
-  display: block
-
 .is-warning 
   color: $gold
 
 .is-danger
   color: $tomato
+
+.is-display-block
+  display: block
 
 .is-no-overflow 
   overflow: hidden
@@ -52,41 +52,44 @@ footer
 .is-text-bold 
   font-weight: 700
 
+.is-word-break
+  word-wrap: break-word
+
 .is-link
   color: $royalBlue
   &:hover 
     text-decoration: none
     color: $darkGreen
 
-.is-image-size-xs 
+.is-image-size-small 
   width: 6rem
 
-.is-image-size-s 
+.is-image-size-medium 
   height: 18rem
   object-fit: cover
 
-.is-image-size-l 
+.is-image-size-large 
   height: 22rem
   object-fit: cover
 
-.is-card-width-s 
+.is-card-width-small 
   width: 18rem
 
-.is-card-width-l 
+.is-card-width-large 
   width: 22rem
 
-.is-width-xs 
+.is-width-small 
   width: 20%
 
-.is-width-s 
+.is-width-medium 
   width: 30%
 
 @media (max-width: 1024px) 
-  .is-width-s 
+  .is-width-medium 
     width: 35%
 
 @media (max-width: 768px) 
-  .is-width-s 
+  .is-width-medium 
     width: 50%
 
 .is-width-full
@@ -94,6 +97,18 @@ footer
 
 .has-border-around
   margin-top: 500px
+
+.has-icon 
+  height: 300px
+  margin-left: 80px
+
+.has-background-image 
+  width: 30rem
+  object-fit: cover
+
+@media only screen and (max-width: 768px) 
+  .has-background-image 
+    width: 21rem
 
 .form-style 
   background-color: $floralWhite
@@ -147,32 +162,22 @@ footer
     color: $floralWhite
 
 @media only screen and (max-width: 768px) 
-  .header-image h2 
-    font-size: 40px
+  .header-image
+    h2 
+      font-size: 40px
 
 @media (max-width: 480px) 
-  .header-image h2
-    margin-left: -45px   
+  .header-image
+    h2
+      margin-left: -45px   
   
-.image 
-  width: 30rem
-  object-fit: cover
-
-@media only screen and (max-width: 768px) 
-  .image 
-    width: 21rem
-  
-.icon 
-  height: 300px
-  margin-left: 80px
-
 .navbar-toggler   
   background-color: $royalBlue
 
 .text-field
   background-color: white
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
+  border: 1px solid rgba(0,0,0,.125)
+  border-radius: .25rem
 
 .location-filter
   width: 25%
@@ -243,7 +248,7 @@ footer
     letter-spacing: 4px
     text-transform: uppercase
 
-.is-font-size-l
+.is-font-size-large
   font: 
     family: "Noto Serif", serif
     size: 2rem
@@ -254,10 +259,10 @@ footer
   padding: 10px 50px
 
 @media only screen and (max-width: 768px) 
-  .is-font-size-l 
+  .is-font-size-large 
     font-size: 1rem
 
-.notFound 
+.not-found 
   text:
     shadow: 5px black
     align: center
@@ -365,12 +370,13 @@ footer
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
   margin-bottom: 40px
 
-.card-body h5 
-  font:
-    family: "Noto Serif", serif
-    size: 25px
-    weight: 900
-    align: center
+.card-body
+  h5 
+    font:
+      family: "Noto Serif", serif
+      size: 25px
+      weight: 900
+      align: center
 
 
 /* Stripe */
@@ -402,8 +408,8 @@ footer
   color: rgb(238, 63, 20)
 
 /* Stripe: spinner/processing state, errors */
-.spinner,
-.spinner:before,
+.spinner
+.spinner:before
 .spinner:after 
   border: none
   border-radius: 3px

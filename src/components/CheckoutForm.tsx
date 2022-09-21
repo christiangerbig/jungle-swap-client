@@ -111,16 +111,16 @@ const CheckoutForm = (): JSX.Element => {
   const { _id, name, price } = plant as Plant;
 
   return (
-    <div className="container col-9">
+    <div className="container col-md-9 col-sm-12">
+      <h2 className="mb-4 is-word-break">{name}</h2>
+      <h3 className="mb-4">
+        {t("checkoutForm.price")} {price} {t("checkoutForm.currency")}
+      </h3>
       <form
         id="payment-form"
         className="checkoutForm form-style mt-5"
         onSubmit={handleSubmitPayment}
       >
-        <h2 className="text-left mb-2 p-2">{name}</h2>
-        <h3 className="text-left mb-4 p-2">
-          {t("checkoutForm.price")} {price} {t("checkoutForm.currency")}
-        </h3>
         <CardElement
           id="card-element"
           options={cardStyle}
@@ -175,7 +175,7 @@ const CheckoutForm = (): JSX.Element => {
           </Link>
         ) : (
           <Link to={`/plants/fetch/${_id}`} className="is-link">
-            <button className="btn btn-sm form-control">
+            <button className="btn btn-sm form-control pl-3 pr-3">
               {t("button.goBack")}
             </button>
           </Link>

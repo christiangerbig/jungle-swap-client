@@ -14,7 +14,7 @@ const GoBackButton = () => {
   return (
     <div className="text-right pr-2">
       <button
-        className="btn btn-sm mt-4 is-width-s form-control"
+        className="btn btn-sm mt-4 is-width-medium form-control"
         onClick={handleGoBack}
       >
         {t("button.goBack")}

@@ -188,12 +188,12 @@ const CreatePlantForm = (): JSX.Element => {
             <button
               type="submit"
               disabled={isUploadingPlantImage || isCreatingPlant ? true : false}
-              className="ml-4 mb-2 btn btn-sm form-control is-width-s"
+              className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
             >
               {t("button.create")}
             </button>
             <button
-              className="ml-4 mb-2 btn btn-sm form-control is-width-s"
+              className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
               onClick={() => {
                 history.goBack();
               }}

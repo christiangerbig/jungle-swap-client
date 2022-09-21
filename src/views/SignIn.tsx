@@ -106,7 +106,7 @@ const SignIn = (): JSX.Element => {
           <button
             type="submit"
             formNoValidate
-            className="btn btn-sm mt-4 is-width-s form-control"
+            className="btn btn-sm mt-4 is-width-medium form-control"
           >
             {t("button.signIn")}
           </button>

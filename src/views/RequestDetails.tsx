@@ -118,13 +118,13 @@ const RequestDetails = (): JSX.Element => {
         <div className="text-right px-3">
           {!reply ? (
             <Link to={`/messages/update/${_id}`} className="is-link">
-              <button className="btn btn-sm ml-2 is-width-s form-control mb-1">
+              <button className="btn btn-sm ml-2 is-width-medium form-control mb-1">
                 {t("button.reply")}
               </button>
             </Link>
           ) : null}
           <button
-            className="btn btn-sm ml-2 is-width-s form-control mb-1"
+            className="btn btn-sm ml-2 is-width-medium form-control mb-1"
             onClick={() => {
               handleChangeMessageState(message);
             }}
@@ -138,7 +138,7 @@ const RequestDetails = (): JSX.Element => {
             className="is-link"
             onClick={scroll.scrollToTop}
           >
-            <button className="btn btn-sm mt-4 is-width-s form-control">
+            <button className="btn btn-sm mt-4 is-width-medium form-control">
               {t("button.goBack")}
             </button>
           </Link>

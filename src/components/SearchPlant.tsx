@@ -60,7 +60,7 @@ const SearchPlant = (): JSX.Element => {
           type="text"
           placeholder={t("searchPlant.namePlaceholder")}
           value={query}
-          className="is-width-s form-control"
+          className="is-width-medium form-control"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setQuery(event.target.value);
           }}

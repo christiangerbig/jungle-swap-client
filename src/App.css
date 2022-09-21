@@ -23,16 +23,16 @@ footer {
 }
 
 /* Custom classes */
-.is-display-block {
-  display: block;
-}
-
 .is-warning {
   color: #ffcf60;
 }
 
 .is-danger {
   color: #ff474a;
+}
+
+.is-display-block {
+  display: block;
 }
 
 .is-no-overflow {
@@ -47,6 +47,10 @@ footer {
   font-weight: 700;
 }
 
+.is-word-break {
+  word-wrap: break-word;
+}
+
 .is-link {
   color: #415dfa;
 }
@@ -56,44 +60,44 @@ footer {
   color: #204d2c;
 }
 
-.is-image-size-xs {
+.is-image-size-small {
   width: 6rem;
 }
 
-.is-image-size-s {
+.is-image-size-medium {
   height: 18rem;
   object-fit: cover;
 }
 
-.is-image-size-l {
+.is-image-size-large {
   height: 22rem;
   object-fit: cover;
 }
 
-.is-card-width-s {
+.is-card-width-small {
   width: 18rem;
 }
 
-.is-card-width-l {
+.is-card-width-large {
   width: 22rem;
 }
 
-.is-width-xs {
+.is-width-small {
   width: 20%;
 }
 
-.is-width-s {
+.is-width-medium {
   width: 30%;
 }
 
 @media (max-width: 1024px) {
-  .is-width-s {
+  .is-width-medium {
     width: 35%;
   }
 }
 
 @media (max-width: 768px) {
-  .is-width-s {
+  .is-width-medium {
     width: 50%;
   }
 }
@@ -104,6 +108,22 @@ footer {
 
 .has-border-around {
   margin-top: 500px;
+}
+
+.has-icon {
+  height: 300px;
+  margin-left: 80px;
+}
+
+.has-background-image {
+  width: 30rem;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .has-background-image {
+    width: 21rem;
+  }
 }
 
 .form-style {
@@ -175,22 +195,6 @@ footer {
   .header-image h2 {
     margin-left: -45px;
   }
-}
-
-.image {
-  width: 30rem;
-  object-fit: cover;
-}
-
-@media only screen and (max-width: 768px) {
-  .image {
-    width: 21rem;
-  }
-}
-
-.icon {
-  height: 300px;
-  margin-left: 80px;
 }
 
 .navbar-toggler {
@@ -281,7 +285,7 @@ footer {
   text-transform: uppercase;
 }
 
-.is-font-size-l {
+.is-font-size-large {
   font-family: "Noto Serif", serif;
   font-size: 2rem;
   font-style: italic;
@@ -292,12 +296,12 @@ footer {
 }
 
 @media only screen and (max-width: 768px) {
-  .is-font-size-l {
+  .is-font-size-large {
     font-size: 1rem;
   }
 }
 
-.notFound {
+.not-found {
   text-shadow: 5px black;
   text-align: center;
   overflow: hidden;
@@ -313,21 +317,21 @@ footer {
   background-repeat: no-repeat;
 }
 
-.notFound h1 {
+.not-found h1 {
   font-family: "Noto Serif", serif;
   font-size: 2.5rem;
   letter-spacing: 1px;
   padding: 0px 10px;
 }
 
-.notFound h2 {
+.not-found h2 {
   font-family: "Noto Serif", serif;
   font-size: 2rem;
   letter-spacing: 1px;
   padding: 0px 10px;
 }
 
-.notFound h3 {
+.not-found h3 {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   letter-spacing: 4px;
@@ -447,8 +451,6 @@ footer {
 }
 
 /* Stripe: spinner/processing state, errors */
-.spinner,
-.spinner:before,
 .spinner:after {
   border: none;
   border-radius: 3px;

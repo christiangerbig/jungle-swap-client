@@ -110,12 +110,12 @@ const CreateRequestForm = (): JSX.Element => {
             <button
               type="submit"
               disabled={isCreatingMessage ? true : false}
-              className="btn btn-sm mx-2 form-control is-width-s"
+              className="btn btn-sm mx-2 form-control is-width-medium"
             >
               {t("button.send")}
             </button>
             <button
-              className="btn btn-sm mx-2 form-control is-width-s"
+              className="btn btn-sm mx-2 form-control is-width-medium"
               onClick={() => {
                 history.goBack();
               }}

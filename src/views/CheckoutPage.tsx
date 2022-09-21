@@ -30,7 +30,7 @@ const CheckoutPage = (): JSX.Element => {
 
   return (
     <div className="container row mt-5">
-      <div className="mt-5 col-11 col-md-6 offset-1 offset-md-5 App">
+      <div className="mt-5 col-11 col-md-6 offset-1 offset-md-5">
         <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>

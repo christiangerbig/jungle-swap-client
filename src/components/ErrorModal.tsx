@@ -59,7 +59,7 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
         <h2>{t("errorModal.subheadline")}</h2>
         <h3>{printErrorMessage(errorMessage)}</h3>
         <button
-          className="btn btn-sm form-control is-width-xs mt-4 mb-3"
+          className="btn btn-sm form-control is-width-small mt-4 mb-3"
           onClick={() => {
             closeModal();
           }}

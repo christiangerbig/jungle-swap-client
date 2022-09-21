@@ -5,13 +5,13 @@ const NotFound = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="notFound">
+    <div className="not-found">
       <div>
         <h1> {t("notFound.headline")} </h1>
         <h2> {t("notFound.subheadline1")} </h2>
         <h3> {t("notFound.subheadline2")} </h3>
         <Link to={"/"} className="is-link">
-          <button className="ml-2 btn btn-sm is-width-s form-control">
+          <button className="ml-2 btn btn-sm is-width-medium form-control">
             {t("button.takeMeHome")}
           </button>
         </Link>

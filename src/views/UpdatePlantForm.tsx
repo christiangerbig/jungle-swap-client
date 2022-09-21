@@ -157,11 +157,11 @@ const UpdatePlantForm = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left">{t("updatePlantForm.headline")}</h2>
-        <div className="card is-card-width-l mb-5">
+        <div className="card is-card-width-large mb-5">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
           ) : (
-            <img src={imageUrl} alt={name} className="mb-2 is-image-size-s" />
+            <img src={imageUrl} alt={name} className="mb-2 is-image-size-medium" />
           )}
           <div className="card-body">
             <label htmlFor="updateName">{t("updatePlantForm.name")}</label>
@@ -249,7 +249,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     ? true
                     : false
                 }
-                className="btn btn-sm ml-4 form-control is-width-s mb-2"
+                className="btn btn-sm ml-4 form-control is-width-medium mb-2"
                 onClick={() => {
                   if (destroyImageData) {
                     const handlePlantImageIO = new PlantImageIO(dispatch);

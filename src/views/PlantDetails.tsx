@@ -130,11 +130,11 @@ const PlantDetails = (): JSX.Element => {
         <WaitSpinner />
       ) : (
         <div className="col">
-          <div className="card is-card-width-l">
+          <div className="card is-card-width-large">
             <img
               src={imageUrl}
               alt={name}
-              className="card-img-top is-image-size-l"
+              className="card-img-top is-image-size-large"
             />
             <div className="ml-2 mt-2">
               <span className="is-text-bold">{t("plantDetails.name")}</span>{" "}
@@ -163,7 +163,7 @@ const PlantDetails = (): JSX.Element => {
                   {loggedInUser._id === (creator as User)._id ? (
                     <div className="p-0">
                       <Link to={"/plants/update"} className="is-link">
-                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
+                        <button className="btn btn-sm ml-2 form-control is-width-medium mb-2">
                           {t("button.update")}
                         </button>
                       </Link>
@@ -175,7 +175,7 @@ const PlantDetails = (): JSX.Element => {
                             ? true
                             : false
                         }
-                        className="btn btn-sm ml-2 form-control is-width-s mb-2"
+                        className="btn btn-sm ml-2 form-control is-width-medium mb-2"
                         onClick={() => {
                           handleDeleteRemainingMessages(
                             messages,
@@ -192,19 +192,19 @@ const PlantDetails = (): JSX.Element => {
                   ) : (
                     <div>
                       <Link to="/plants/checkout" className="is-link">
-                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
+                        <button className="btn btn-sm ml-2 form-control is-width-medium mb-2">
                           {t("button.buy")}
                         </button>
                       </Link>
                       <Link to="/messages/create" className="is-link">
-                        <button className="btn btn-sm ml-2 form-control is-width-s mb-2">
+                        <button className="btn btn-sm ml-2 form-control is-width-medium mb-2">
                           {t("button.swap")}
                         </button>
                       </Link>
                     </div>
                   )}
                   <button
-                    className="btn btn-sm ml-2 form-control is-width-s mb-3"
+                    className="btn btn-sm ml-2 form-control is-width-medium mb-3"
                     onClick={() => {
                       history.goBack();
                     }}
