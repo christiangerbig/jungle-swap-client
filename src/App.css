@@ -249,36 +249,40 @@ footer {
   justify-content: center;
   flex-direction: column;
   position: fixed;
-  top: 3.5rem;
+  top: 0;
   left: 0;
   right: 0;
   width: inherit;
   height: 100%;
-  z-index: 1050;
+  z-index: 1020;
   background-color: rgba(0, 0, 0, 0.7);
   /*backdrop-filter: blur(15px)*/
 }
 
 .error-modal-box {
   text-align: center;
-  width: 70%;
+  width: 60%;
   background-color: #fbf8ef;
   padding: 3rem 2rem 2rem 2rem;
   border: 1px solid black;
+}
+
+.error-modal-box h1 {
+  margin-bottom: 2rem;
   font-family: "Noto Serif", serif;
   font-size: 2.5rem;
   letter-spacing: 1px;
 }
 
 .error-modal-box h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   font-family: "Noto Serif", serif;
   font-size: 2rem;
   letter-spacing: 1px;
 }
 
 .error-modal-box h3 {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   letter-spacing: 4px;
