@@ -154,7 +154,7 @@ const CheckoutForm = (): JSX.Element => {
           className={
             isSucceeded
               ? "result-message text-center"
-              : "result-message hidden text-center"
+              : "result-message is-hiddentext-center"
           }
         >
           {t("checkoutForm.paymentSuccessful")}

@@ -15,7 +15,7 @@ const Title = (): JSX.Element => {
         <div className="mb-5">
           <Link
             to={"/"}
-            className="is-font-size-large is-link"
+            className="try-it-link is-link"
             onClick={() => {
               dispatch(scrollToAbout());
             }}
