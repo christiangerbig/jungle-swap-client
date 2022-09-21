@@ -12,6 +12,7 @@ import {
 import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
+import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const CreateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -102,9 +103,7 @@ const CreateRequestForm = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold is-display-block">
-              {printErrorMessage(errorMessage)}
-            </span>
+            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
           )}
           <div className="text-right">
             <button

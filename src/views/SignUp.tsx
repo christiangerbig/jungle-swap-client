@@ -11,6 +11,7 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { User } from "../typeDefinitions";
+import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const SignUp = (): JSX.Element => {
   const errorMessage = useAppSelector(
@@ -109,9 +110,7 @@ const SignUp = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold is-display-block">
-              {printErrorMessage(errorMessage)}
-            </span>
+            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
           )}
           <button
             type="submit"

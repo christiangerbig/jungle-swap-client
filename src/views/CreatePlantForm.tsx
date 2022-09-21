@@ -14,6 +14,7 @@ import {
 import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
+import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -180,9 +181,7 @@ const CreatePlantForm = (): JSX.Element => {
             className="mb-4 form-control is-width-full"
           />
           {errorMessage && errorMessage.includes("Form") && (
-            <span className="is-danger is-text-bold is-display-block">
-              {printErrorMessage(errorMessage)}
-            </span>
+            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
           )}
           <div className="col-12 text-right pr-0">
             <button

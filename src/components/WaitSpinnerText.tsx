@@ -1,6 +1,6 @@
 import WaitSpinner from "./WaitSpinner";
 
-interface WaitSpinnerTextProps {
+type WaitSpinnerTextProps = {
   text: string;
 }
 
