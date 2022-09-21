@@ -1,13 +1,13 @@
 import { useAppSelector } from "../hooks";
 import { RootState } from "../store";
 
-type MessageOutputProps = {
+type ErrorMessageOutputProps = {
   printErrorMessage: Function;
 };
 
-const MessageOutput = ({
+const ErrorMessageOutput = ({
   printErrorMessage,
-}: MessageOutputProps): JSX.Element => {
+}: ErrorMessageOutputProps): JSX.Element => {
   const errorMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.errorMessage
   );
@@ -21,4 +21,4 @@ const MessageOutput = ({
   );
 };
 
-export default MessageOutput;
+export default ErrorMessageOutput;
