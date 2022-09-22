@@ -2,7 +2,7 @@
 
 ## Description
 
-With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are looged in you will be informed when you got a new request or you got a reply for your request.
+With this app you can upload your indoor plant offshoots to swap for another plant or to sell for money. You can browse for plants and purchase them if you don't have any plants of your own. If you are logged in you will be informed when you got a new request or you got a reply for your request.
 
 ## User Stories
 
@@ -12,7 +12,8 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.
 - **My plants page** As a user I can see all the plants I have uploaded.
 - **Create plant:** As a user I can upload my plants. 
-- **Plant detail Page:** As a user I can click on a certain plant to go to the detail page.
+- **Plant detail page:** As a user I can click on a certain plant to go to the detail page.
+- **Checkout page:** As a user I can pay for a plant with my credit card
 - **Update plant:** As a user I can update/edit my uploaded plants.
 - **Delete plant:** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
 - **Requests page** As a user I can see all my requests for plants
@@ -60,35 +61,47 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - AllPlants
 - Chat (Socket.io)
 - CheckoutForm (Stripe)
+- ErrorMessageOutput
+- ErrorModal
 - Footer
+- GoBackButton
 - LogOut
+- MyPlantsOverview
+- NavAuthentificationItems
 - NavBar
 - NavLoggedInUserItems
 - NavAuthentificationItems
+- PlantsOverview
 - PlantThumbnail
+- Replies overview
 - ReplyTile
+- RequestsOverview
 - RequestTile
+- SearchPlant
 - Title
+- WaitSpinner
+- WaitSpinnerText
 - KommunicateChat (Socket.io)
 
 
-## Screens
+## Views
 
-- Home
+- CheckoutPage
 - CreatePlantForm
-- PlantDetails
-- UpdatePlantForm
-- CheckoutPage (Stripe)
 - CreateRequestForm
-- UpdateRequestForm
-- RequestsPage
-- RequestDetails
+- Home
+- MyPlants
+- NotFound
+- PlantDetails
 - RepliesPage
 - ReplyDetails
-- SignUp
+- RequestDetails
+- RequestsPage
 - SignIn
+- SignUp
 - Unauthorized
-- NotFound
+- UpdatePlantForm
+- UpdateRequestForm
 
 
 ## Services
