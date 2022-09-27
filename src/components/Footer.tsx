@@ -8,7 +8,7 @@ const Footer = (): JSX.Element => {
   const year = currentTime.getFullYear();
 
   return (
-    <div className="footer-row">
+    <div className="has-background-image">
       <footer>
         {t("footer.copyright")} {year}{" "}
         <Link

@@ -4,7 +4,7 @@ const Unauthorized = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="unauthorized">
+    <div className="unauthorized has-background-image2">
       <div>
         <h1> {t("unauthorized.headline")} </h1>
         <h2> {t("unauthorized.subheadline1")} </h2>

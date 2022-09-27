@@ -33,6 +33,7 @@ footer
   color: $royal-blue
   padding: 0.9375rem 0
 
+
 /* Custom classes */
 
 .is-warning 
@@ -96,20 +97,39 @@ footer
 .is-width-full
   width: 100%
 
-.has-border-around
-  margin-top: 31.25rem
-
-.has-icon 
+.is-icon 
   height: 18.75rem
   margin-left: 5rem
 
-.has-background-image 
+.is-background-image 
   width: 30rem
   object-fit: cover
 
 @media only screen and (max-width: 768px) 
-  .has-background-image 
+  .is-background-image 
     width: 21rem
+
+.has-border-around
+  margin-top: 31.25rem
+
+.has-background-image 
+  background:
+    image: url("./images/JungleSwap_Header.png")
+    size: cover
+    repeat: no-repeat
+
+.has-background-image2
+  background:
+    image: url("./images/JungleSwap_Lost.jpg")
+    size: cover
+    repeat: no-repeat
+
+.has-fixed-background-image
+  background:
+    image: url("./images/JungleSwap_Header.png")
+    size: cover
+    repeat: no-repeat
+    attachment: fixed
 
 .form-style 
   background-color: $floral-white
@@ -138,13 +158,8 @@ footer
     p 
       font-weight: 700
 
-.header-image 
+.title-header 
   height: 50rem
-  background:
-    image: url("./images/JungleSwap_Header.png")
-    size: cover
-    repeat: no-repeat
-    attachment: fixed
   h2 
     font:
       family: "Noto Serif", serif
@@ -162,18 +177,15 @@ footer
     color: $floral-white
 
 @media only screen and (max-width: 768px) 
-  .header-image
+  .title-header
     h2 
       font-size: 2.5rem
 
 @media (max-width: 480px) 
-  .header-image
+  .title-header
     h2
       margin-left: -2.8125rem  
   
-.navbar-toggler   
-  background-color: $royal-blue
-
 .text-field
   background-color: white
   border: 1px solid rgba(0,0,0,.125)
@@ -189,13 +201,6 @@ footer
 
 .loading-wait-spinner
   color: $dark-green
-
-.footer-row 
-  background:
-    image: url("./images/JungleSwap_Header.png")
-    size: cover
-    repeat: no-repeat
-    top: 12.5rem
 
 .title 
   margin-top: 9.375rem
@@ -275,10 +280,6 @@ footer
   width: 100%
   height: 100vh
   color: $floral-white
-  background:
-    image: url("./images/JungleSwap_Lost.jpg")
-    size: cover
-    repeat: no-repeat
   h1 
     font:
       family: "Noto Serif", serif
@@ -314,10 +315,6 @@ footer
   width: 100%
   height: 100vh
   color: $floral-white
-  background:
-    image: url("./images/JungleSwap_Lost.jpg")
-    size: cover
-    repeat: no-repeat
   h1 
     font:
       family: "Noto Serif", serif
@@ -354,6 +351,9 @@ footer
     family: "Noto Serif", serif
     size: 1.25rem
   color: $royal-blue
+
+.navbar-toggler   
+  background-color: $royal-blue
 
 .btn 
   letter-spacing: 0.0625rem

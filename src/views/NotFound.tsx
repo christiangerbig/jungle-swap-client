@@ -5,7 +5,7 @@ const NotFound = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="not-found">
+    <div className="not-found has-background-image2">
       <div>
         <h1> {t("notFound.headline")} </h1>
         <h2> {t("notFound.subheadline1")} </h2>
