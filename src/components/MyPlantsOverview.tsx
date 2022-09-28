@@ -11,10 +11,10 @@ const MyPlantsOverview = (): JSX.Element => {
 
   return (
     <div className="row row-cols-1 row-cols-md-3 g-4">
-      {plants.map((plant: Plant, index: number): JSX.Element => {
-        const { creator } = plant;
+      {plants.map((plant: Plant): JSX.Element => {
+        const { _id, creator } = plant;
         return (creator as User)._id === (loggedInUser as User)._id ? (
-          <PlantThumbnail plant={plant} key={index} />
+          <PlantThumbnail plant={plant} key={_id} />
         ) : (
           <></>
         );

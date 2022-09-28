@@ -13,11 +13,11 @@ const RequestsOverview = (): JSX.Element => {
 
   return (
     <div>
-      {messages.map((message: Message, index: number): JSX.Element => {
-        const { seller, messageState } = message;
+      {messages.map((message: Message): JSX.Element => {
+        const { _id, seller, messageState } = message;
         return (seller as User)._id === (loggedInUser as User)._id &&
           messageState === true ? (
-          <RequestTile message={message} key={index} />
+          <RequestTile message={message} key={_id} />
         ) : (
           <></>
         );

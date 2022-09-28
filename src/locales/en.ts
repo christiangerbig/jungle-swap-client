@@ -28,6 +28,7 @@ const en = {
       reply: "Reply",
       done: "Done",
       goBack: "Back",
+      more: "More",
       proceed: "Proceed",
       takeMeHome: "Take me home",
     },

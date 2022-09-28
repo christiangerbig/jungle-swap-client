@@ -13,11 +13,11 @@ const RepliesOverview = (): JSX.Element => {
 
   return (
     <div>
-      {messages.map((message: Message, index: number): JSX.Element => {
-        const { buyer, reply } = message;
+      {messages.map((message: Message): JSX.Element => {
+        const { _id, buyer, reply } = message;
         return (buyer as User)._id === (loggedInUser as User)._id &&
           reply !== "" ? (
-          <ReplyTile message={message} key={index} />
+          <ReplyTile message={message} key={_id} />
         ) : (
           <></>
         );

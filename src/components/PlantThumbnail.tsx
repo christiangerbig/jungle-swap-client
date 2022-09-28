@@ -13,7 +13,11 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   return (
     <div className="col mb-5">
       <div className="card card-medium-width text-center h-100">
-        <img src={imageUrl} alt={name} className="card-img-top is-image-size-large" />
+        <img
+          src={imageUrl}
+          alt={name}
+          className="card-img-top is-image-size-large"
+        />
         <div className="card-body mb-5">
           <h5> {name} </h5>
           <p>
