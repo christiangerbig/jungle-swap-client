@@ -16,7 +16,7 @@ const PlantsOverview = (): JSX.Element => {
   const { t } = useTranslation();
 
   const handleClickButton = (): void => {
-    dispatch(setNumberOfVisibleEntries(numberOfVisibleEntries + 3))
+    dispatch(setNumberOfVisibleEntries(numberOfVisibleEntries + 6))
   };
 
   return (
