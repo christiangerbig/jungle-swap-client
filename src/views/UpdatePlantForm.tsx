@@ -20,6 +20,7 @@ import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
 import WaitSpinner from "../components/WaitSpinner";
+import { PlantIO } from "../lib/plantIO";
 
 const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -38,9 +39,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const isUpdatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isUpdatingPlant
   );
-  const plants = useAppSelector(
-    (state: RootState) => state.jungleSwap.plants
-  );
+  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const history = useHistory();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
@@ -117,48 +116,13 @@ const UpdatePlantForm = (): JSX.Element => {
   };
 
   const handleUpdatePlant = () => {
-    const updatePlantData = ({
-      _id,
-      name,
-      description,
-      size,
-      imageUrl,
-      imagePublicId,
-      location,
-      price,
-    }: Plant): void => {
-      const setPlantChangesAndReturnToPlantsSection = (
-        updatedPlant: Plant
-      ): void => {
-        dispatch(setPlantChanges(updatedPlant));
-        history.goBack();
-      };
-
-      const updatedPlant: Plant = {
-        name,
-        description,
-        size,
-        imageUrl,
-        imagePublicId,
-        location,
-        price,
-      };
-      dispatch(setIsUpdatingPlant(true));
-      dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
-        .unwrap()
-        .then((updatedPlant) => {
-          setPlantChangesAndReturnToPlantsSection(updatedPlant);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
-    };
-
     if (destroyImageData) {
       const handlePlantImageIO = new PlantImageIO(dispatch);
       handlePlantImageIO.delete(destroyImageData);
     }
-    updatePlantData(plant);
+    const handlePlantIO = new PlantIO(dispatch);
+    handlePlantIO.update(plant);
+    history.goBack();
   };
 
   if (!loggedInUser) {

@@ -20,6 +20,8 @@ import { User, Plant, PlantId, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
+import { PlantIO } from "../lib/plantIO";
+import { MessageIO } from "../lib/messageIO";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -81,47 +83,13 @@ const PlantDetails = (): JSX.Element => {
   }, []);
 
   const handleDelete = () => {
-    const deleteRemainingMessages = (
-      messages: Message[],
-      plantId: PlantId
-    ): void => {
-      messages.forEach((message: Message): void => {
-        const { _id, plant } = message;
-        if ((plant as Plant)._id === plantId) {
-          dispatch(setIsDeletingMessage(true));
-          dispatch(deleteMessage(_id as PlantId))
-            .unwrap()
-            .then(() => {
-              dispatch(removeMessage(_id as PlantId));
-            })
-            .catch((rejectedValue: any) => {
-              dispatch(setErrorMessage(rejectedValue.message));
-            });
-        }
-      });
-    };
-
-    const deleteSinglePlant = (plantId: PlantId): void => {
-      const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
-        dispatch(removePlant(plantId));
-        history.goBack();
-      };
-
-      dispatch(setIsDeletingPlant(true));
-      dispatch(deletePlant(plantId))
-        .unwrap()
-        .then(() => {
-          removePlantAndReturnToPlantsSection(plantId);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
-    };
-
-    deleteRemainingMessages(messages, _id as PlantId);
+    const handleMessagesIO = new MessageIO(dispatch);
+    handleMessagesIO.deleteRemaining(messages, _id as PlantId);
     const handlePlantImageIO = new PlantImageIO(dispatch);
     handlePlantImageIO.delete({ imagePublicId });
-    deleteSinglePlant(_id as PlantId);
+    const handlePlantIO = new PlantIO(dispatch);
+    handlePlantIO.delete(_id as PlantId);
+    history.goBack();
   };
 
   if (!loggedInUser) {

@@ -4,18 +4,16 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  addPlant,
-  createPlant,
   setErrorMessage,
   uploadPlantImage,
   setIsUploadingPlantImage,
-  setIsCreatingPlant,
   setNumberOfVisibleEntries,
 } from "../reducer/jungleSwapSlice";
-import { Plant, UploadImageData } from "../typeDefinitions";
+import { UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
+import { PlantIO } from "../lib/plantIO";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -27,9 +25,7 @@ const CreatePlantForm = (): JSX.Element => {
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
   );
-  const plants = useAppSelector(
-    (state: RootState) => state.jungleSwap.plants
-  );
+  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const errorMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.errorMessage
   );
@@ -49,37 +45,6 @@ const CreatePlantForm = (): JSX.Element => {
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
   ): void => {
-    const createSinglePlant = (
-      { name, description, size, location, price }: any,
-      { imageUrl, imagePublicId }: UploadImageData
-    ): void => {
-      const addPlantAndReturnToHomePage = (plant: Plant): void => {
-        dispatch(addPlant(plant));
-        dispatch(setNumberOfVisibleEntries(plants.length));
-        history.push("/");
-        scroll.scrollToBottom();
-      };
-
-      const newPlant: Plant = {
-        name: name.value,
-        description: description.value,
-        size: size.value,
-        imageUrl,
-        imagePublicId,
-        location: location.value,
-        price: price.value,
-      };
-      dispatch(setIsCreatingPlant(true));
-      dispatch(createPlant(newPlant))
-        .unwrap()
-        .then((plant: Plant) => {
-          addPlantAndReturnToHomePage(plant);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
-    };
-
     event.preventDefault();
     const { plantImage } = event.target as any;
     const image = plantImage.files[0];
@@ -89,7 +54,11 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        createSinglePlant(event.target, { imageUrl, imagePublicId });
+        const handlePlantIO = new PlantIO(dispatch);
+        handlePlantIO.create(event.target, { imageUrl, imagePublicId });
+        dispatch(setNumberOfVisibleEntries(plants.length));
+        history.push("/");
+        scroll.scrollToBottom();
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
