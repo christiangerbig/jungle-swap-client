@@ -11,6 +11,7 @@ import {
   setIsUploadingPlantImage,
   setIsCreatingPlant,
   scrollToPlants,
+  setNumberOfVisibleEntries,
 } from "../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -26,6 +27,9 @@ const CreatePlantForm = (): JSX.Element => {
   );
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
+  );
+  const plants = useAppSelector(
+    (state: RootState) => state.jungleSwap.plants
   );
   const errorMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.errorMessage
@@ -53,6 +57,7 @@ const CreatePlantForm = (): JSX.Element => {
       const addPlantAndReturnToHomePage = (plant: Plant): void => {
         dispatch(addPlant(plant));
         history.push("/");
+        dispatch(setNumberOfVisibleEntries(plants.length));
         dispatch(scrollToPlants());
       };
 

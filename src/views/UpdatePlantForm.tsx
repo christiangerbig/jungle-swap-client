@@ -13,6 +13,7 @@ import {
   uploadPlantImage,
   setDestroyImageData,
   setErrorMessage,
+  setNumberOfVisibleEntries,
 } from "../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -36,6 +37,9 @@ const UpdatePlantForm = (): JSX.Element => {
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const isUpdatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isUpdatingPlant
+  );
+  const plants = useAppSelector(
+    (state: RootState) => state.jungleSwap.plants
   );
   const dispatch = useAppDispatch();
   const history = useHistory();

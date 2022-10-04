@@ -28,6 +28,7 @@ interface InitialState {
   plant: Plant | {};
   plants: Plant[];
   filteredPlants: Plant[];
+  numberOfVisibleEntries: number;
 
   // ----- Images -----
   isUploadingPlantImage: boolean;
@@ -90,6 +91,7 @@ const initialState: InitialState = {
   plant: {},
   plants: [],
   filteredPlants: [],
+  numberOfVisibleEntries: 6,
 
   // ----- Images -----
   isUploadingPlantImage: false,
@@ -454,6 +456,9 @@ export const jungleSwapSlice = createSlice({
         (plant: Plant): boolean => plant._id !== action.payload
       );
     },
+    setNumberOfVisibleEntries: (state, action: PayloadAction<number>) => {
+      state.numberOfVisibleEntries = action.payload;
+    },
 
     // ----- Images -----
     setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
@@ -682,6 +687,7 @@ export const {
   setPlant,
   setPlantChanges,
   removePlant,
+  setNumberOfVisibleEntries,
 
   // ----- Images -----
   setIsUploadingPlantImage,
