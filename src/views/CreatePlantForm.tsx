@@ -42,39 +42,39 @@ const CreatePlantForm = (): JSX.Element => {
     }
   }, []);
 
-  const handleCreatePlant = (
-    { name, description, size, location, price }: any,
-    { imageUrl, imagePublicId }: UploadImageData
-  ): void => {
-    const addPlantAndReturnToHomePage = (plant: Plant): void => {
-      dispatch(addPlant(plant));
-      history.push("/");
-      scroll.scrollToBottom();
-    };
-
-    const newPlant: Plant = {
-      name: name.value,
-      description: description.value,
-      size: size.value,
-      imageUrl,
-      imagePublicId,
-      location: location.value,
-      price: price.value,
-    };
-    dispatch(setIsCreatingPlant(true));
-    dispatch(createPlant(newPlant))
-      .unwrap()
-      .then((plant: Plant) => {
-        addPlantAndReturnToHomePage(plant);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
-  };
-
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
   ): void => {
+    const createSinglePlant = (
+      { name, description, size, location, price }: any,
+      { imageUrl, imagePublicId }: UploadImageData
+    ): void => {
+      const addPlantAndReturnToHomePage = (plant: Plant): void => {
+        dispatch(addPlant(plant));
+        history.push("/");
+        scroll.scrollToBottom();
+      };
+
+      const newPlant: Plant = {
+        name: name.value,
+        description: description.value,
+        size: size.value,
+        imageUrl,
+        imagePublicId,
+        location: location.value,
+        price: price.value,
+      };
+      dispatch(setIsCreatingPlant(true));
+      dispatch(createPlant(newPlant))
+        .unwrap()
+        .then((plant: Plant) => {
+          addPlantAndReturnToHomePage(plant);
+        })
+        .catch((rejectedValue: any) => {
+          dispatch(setErrorMessage(rejectedValue.message));
+        });
+    };
+
     event.preventDefault();
     const { plantImage } = event.target as any;
     const image = plantImage.files[0];
@@ -84,7 +84,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        handleCreatePlant(event.target, { imageUrl, imagePublicId });
+        createSinglePlant(event.target, { imageUrl, imagePublicId });
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));
