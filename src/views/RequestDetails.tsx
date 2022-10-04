@@ -108,11 +108,11 @@ const RequestDetails = (): JSX.Element => {
         <h5>
           {t("requestDetails.subheadline")} {username}
         </h5>
-        <p className="text-field p-3 mb-4"> {request} </p>
+        <p className="text-field p-3 mb-4">{request}</p>
         {reply ? (
           <div>
-            <h5> {t("requestDetails.yourReply")} </h5>
-            <p className="text-field p-3 mb-4"> {reply} </p>
+            <h5>{t("requestDetails.yourReply")}</h5>
+            <p className="text-field p-3 mb-4">{reply}</p>
           </div>
         ) : null}
         <div className="text-right px-3">

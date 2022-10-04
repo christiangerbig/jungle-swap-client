@@ -72,7 +72,7 @@ const SignIn = (): JSX.Element => {
   return (
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> {t("signIn.headline")} </h2>
+        <h2 className="mb-5">{t("signIn.headline")}</h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
@@ -80,7 +80,7 @@ const SignIn = (): JSX.Element => {
           }}
         >
           <div className="form-group">
-            <label htmlFor="InputEmail"> {t("signIn.email")} </label>
+            <label htmlFor="InputEmail">{t("signIn.email")}</label>
             <input
               type="email"
               id="InputEmail"
@@ -90,7 +90,7 @@ const SignIn = (): JSX.Element => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputPassword"> {t("signIn.password")} </label>
+            <label htmlFor="InputPassword">{t("signIn.password")}</label>
             <input
               type="password"
               id="InputPassword"

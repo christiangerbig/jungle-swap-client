@@ -45,6 +45,17 @@ const PlantDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+  const {
+    _id,
+    name,
+    description,
+    size,
+    imageUrl,
+    imagePublicId,
+    location,
+    price,
+    creator,
+  } = plant as Plant;
 
   useEffect(() => {
     const fetchPlantData = (plantId: PlantId): void => {
@@ -69,57 +80,53 @@ const PlantDetails = (): JSX.Element => {
     loggedInUser && fetchPlantData(plantId);
   }, []);
 
-  const handleDeleteRemainingMessages = (
-    messages: Message[],
-    plantId: PlantId
-  ): void => {
-    messages.forEach((message: Message): void => {
-      const { _id, plant } = message;
-      if ((plant as Plant)._id === plantId) {
-        dispatch(setIsDeletingMessage(true));
-        dispatch(deleteMessage(_id as PlantId))
-          .unwrap()
-          .then(() => {
-            dispatch(removeMessage(_id as PlantId));
-          })
-          .catch((rejectedValue: any) => {
-            dispatch(setErrorMessage(rejectedValue.message));
-          });
-      }
-    });
-  };
-
-  const handleDeletePlant = (plantId: PlantId): void => {
-    const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
-      dispatch(removePlant(plantId));
-      history.goBack();
+  const handleDelete = () => {
+    const deleteRemainingMessages = (
+      messages: Message[],
+      plantId: PlantId
+    ): void => {
+      messages.forEach((message: Message): void => {
+        const { _id, plant } = message;
+        if ((plant as Plant)._id === plantId) {
+          dispatch(setIsDeletingMessage(true));
+          dispatch(deleteMessage(_id as PlantId))
+            .unwrap()
+            .then(() => {
+              dispatch(removeMessage(_id as PlantId));
+            })
+            .catch((rejectedValue: any) => {
+              dispatch(setErrorMessage(rejectedValue.message));
+            });
+        }
+      });
     };
 
-    dispatch(setIsDeletingPlant(true));
-    dispatch(deletePlant(plantId))
-      .unwrap()
-      .then(() => {
-        removePlantAndReturnToPlantsSection(plantId);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    const deleteSinglePlant = (plantId: PlantId): void => {
+      const removePlantAndReturnToPlantsSection = (plantId: PlantId): void => {
+        dispatch(removePlant(plantId));
+        history.goBack();
+      };
+
+      dispatch(setIsDeletingPlant(true));
+      dispatch(deletePlant(plantId))
+        .unwrap()
+        .then(() => {
+          removePlantAndReturnToPlantsSection(plantId);
+        })
+        .catch((rejectedValue: any) => {
+          dispatch(setErrorMessage(rejectedValue.message));
+        });
+    };
+
+    deleteRemainingMessages(messages, _id as PlantId);
+    const handlePlantImageIO = new PlantImageIO(dispatch);
+    handlePlantImageIO.delete({ imagePublicId });
+    deleteSinglePlant(_id as PlantId);
   };
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/sign-up"} />;
   }
-  const {
-    _id,
-    name,
-    description,
-    size,
-    imageUrl,
-    imagePublicId,
-    location,
-    price,
-    creator,
-  } = plant as Plant;
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
@@ -176,15 +183,7 @@ const PlantDetails = (): JSX.Element => {
                             : false
                         }
                         className="btn btn-sm ml-2 form-control is-width-medium mb-2"
-                        onClick={() => {
-                          handleDeleteRemainingMessages(
-                            messages,
-                            _id as PlantId
-                          );
-                          const handlePlantImageIO = new PlantImageIO(dispatch);
-                          handlePlantImageIO.delete({ imagePublicId });
-                          handleDeletePlant(_id as PlantId);
-                        }}
+                        onClick={handleDelete}
                       >
                         {t("button.delete")}
                       </button>

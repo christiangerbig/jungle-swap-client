@@ -81,13 +81,13 @@ const ReplyDetails = (): JSX.Element => {
         <h2 className="mb-5">
           {t("replyDetails.headline")} {name}
         </h2>
-        <p className="text-field p-3 mb-4"> {request} </p>
+        <p className="text-field p-3 mb-4">{request}</p>
         {reply ? (
           <div>
             <h5>
               {t("replyDetails.replyBy")} {username}
             </h5>
-            <p className="text-field p-3 mb-4"> {reply} </p>
+            <p className="text-field p-3 mb-4">{reply}</p>
           </div>
         ) : null}
         <div className="text-right px-3">

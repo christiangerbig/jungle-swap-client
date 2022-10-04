@@ -7,9 +7,9 @@ const NotFound = (): JSX.Element => {
   return (
     <div className="not-found has-background-image2">
       <div>
-        <h1> {t("notFound.headline")} </h1>
-        <h2> {t("notFound.subheadline1")} </h2>
-        <h3> {t("notFound.subheadline2")} </h3>
+        <h1>{t("notFound.headline")}</h1>
+        <h2>{t("notFound.subheadline1")}</h2>
+        <h3>{t("notFound.subheadline2")}</h3>
         <Link to={"/"} className="is-link">
           <button className="ml-2 btn btn-sm is-width-medium form-control">
             {t("button.takeMeHome")}

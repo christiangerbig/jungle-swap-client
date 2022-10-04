@@ -117,7 +117,7 @@ const CreatePlantForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-12 col-md-6 offset-md-4">
-        <h2 className="mb-5 text-left"> {t("createPlantForm.headline")} </h2>
+        <h2 className="mb-5 text-left">{t("createPlantForm.headline")}</h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
@@ -157,9 +157,9 @@ const CreatePlantForm = (): JSX.Element => {
             name="location"
             className="mb-4 form-control p-2"
           >
-            <option> {t("selectLocation.title")} </option>
-            <option value="sun"> {t("selectLocation.sun")} </option>
-            <option value="shade"> {t("selectLocation.shade")} </option>
+            <option>{t("selectLocation.title")}</option>
+            <option value="sun">{t("selectLocation.sun")}</option>
+            <option value="shade">{t("selectLocation.shade")}</option>
             <option value="sun and shade">
               {t("selectLocation.sunAndShade")}
             </option>

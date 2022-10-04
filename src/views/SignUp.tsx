@@ -72,7 +72,7 @@ const SignUp = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5"> {t("signUp.headline")} </h2>
+        <h2 className="mb-5">{t("signUp.headline")}</h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
@@ -80,7 +80,7 @@ const SignUp = (): JSX.Element => {
           }}
         >
           <div className="form-group">
-            <label htmlFor="InputUsername"> {t("signUp.username")} </label>
+            <label htmlFor="InputUsername">{t("signUp.username")}</label>
             <input
               type="text"
               id="InputUsername"
@@ -90,7 +90,7 @@ const SignUp = (): JSX.Element => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputEmail"> {t("signUp.email")} </label>
+            <label htmlFor="InputEmail">{t("signUp.email")}</label>
             <input
               type="email"
               id="InputEmail"
@@ -100,7 +100,7 @@ const SignUp = (): JSX.Element => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputPassword"> {t("signUp.password")} </label>
+            <label htmlFor="InputPassword">{t("signUp.password")}</label>
             <input
               type="password"
               id="InputPassword"

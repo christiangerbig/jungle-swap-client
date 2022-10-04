@@ -54,7 +54,7 @@ const SearchPlant = (): JSX.Element => {
   return (
     <div className="mb-4">
       <hr className="horizontal-rule" />
-      <h4> {t("searchPlant.headline")} </h4>
+      <h4>{t("searchPlant.headline")}</h4>
       <div className="d-flex">
         <input
           type="text"

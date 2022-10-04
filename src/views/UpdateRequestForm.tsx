@@ -100,10 +100,10 @@ const UpdateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mt-5 mb-4"> {t("updateRequestForm.headline")} </h2>
+        <h2 className="mt-5 mb-4">{t("updateRequestForm.headline")}</h2>
         <div className="card is-card-width-small mb-5">
           <div className="card-body">
-            <p> {request} </p>
+            <p>{request}</p>
             <textarea
               name="reply"
               placeholder={t("updateRequestForm.replyPlaceholder")}

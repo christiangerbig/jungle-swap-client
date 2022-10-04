@@ -41,6 +41,7 @@ const UpdatePlantForm = (): JSX.Element => {
   const history = useHistory();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { t } = useTranslation();
+  const { name, description, size, imageUrl, price } = plant as Plant;
 
   useEffect(() => {
     const setPlantLocation = ({ location }: Plant): void => {
@@ -111,24 +112,9 @@ const UpdatePlantForm = (): JSX.Element => {
       });
   };
 
-  const handleUpdatePlant = ({
-    _id,
-    name,
-    description,
-    size,
-    imageUrl,
-    imagePublicId,
-    location,
-    price,
-  }: Plant): void => {
-    const setPlantChangesAndReturnToPlantsSection = (
-      updatedPlant: Plant
-    ): void => {
-      dispatch(setPlantChanges(updatedPlant));
-      history.goBack();
-    };
-
-    const updatedPlant: Plant = {
+  const handleUpdatePlant = () => {
+    const updatePlantData = ({
+      _id,
       name,
       description,
       size,
@@ -136,22 +122,44 @@ const UpdatePlantForm = (): JSX.Element => {
       imagePublicId,
       location,
       price,
+    }: Plant): void => {
+      const setPlantChangesAndReturnToPlantsSection = (
+        updatedPlant: Plant
+      ): void => {
+        dispatch(setPlantChanges(updatedPlant));
+        history.goBack();
+      };
+
+      const updatedPlant: Plant = {
+        name,
+        description,
+        size,
+        imageUrl,
+        imagePublicId,
+        location,
+        price,
+      };
+      dispatch(setIsUpdatingPlant(true));
+      dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
+        .unwrap()
+        .then((updatedPlant) => {
+          setPlantChangesAndReturnToPlantsSection(updatedPlant);
+        })
+        .catch((rejectedValue: any) => {
+          dispatch(setErrorMessage(rejectedValue.message));
+        });
     };
-    dispatch(setIsUpdatingPlant(true));
-    dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
-      .unwrap()
-      .then((updatedPlant) => {
-        setPlantChangesAndReturnToPlantsSection(updatedPlant);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+
+    if (destroyImageData) {
+      const handlePlantImageIO = new PlantImageIO(dispatch);
+      handlePlantImageIO.delete(destroyImageData);
+    }
+    updatePlantData(plant);
   };
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-  const { name, description, size, imageUrl, price } = plant as Plant;
 
   return (
     <div className="container row mt-5 ">
@@ -161,7 +169,11 @@ const UpdatePlantForm = (): JSX.Element => {
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
           ) : (
-            <img src={imageUrl} alt={name} className="mb-2 is-image-size-medium" />
+            <img
+              src={imageUrl}
+              alt={name}
+              className="mb-2 is-image-size-medium"
+            />
           )}
           <div className="card-body">
             <label htmlFor="updateName">{t("updatePlantForm.name")}</label>
@@ -212,8 +224,8 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             >
-              <option value="sun"> {t("selectLocation.sun")} </option>
-              <option value="shade"> {t("selectLocation.shade")} </option>
+              <option value="sun">{t("selectLocation.sun")}</option>
+              <option value="shade">{t("selectLocation.shade")}</option>
               <option value="sun and shade">
                 {t("selectLocation.sunAndShade")}
               </option>
@@ -250,13 +262,7 @@ const UpdatePlantForm = (): JSX.Element => {
                     : false
                 }
                 className="btn btn-sm ml-4 form-control is-width-medium mb-2"
-                onClick={() => {
-                  if (destroyImageData) {
-                    const handlePlantImageIO = new PlantImageIO(dispatch);
-                    handlePlantImageIO.delete(destroyImageData);
-                  }
-                  handleUpdatePlant(plant);
-                }}
+                onClick={handleUpdatePlant}
               >
                 {t("button.save")}
               </button>

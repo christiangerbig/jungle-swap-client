@@ -28,6 +28,7 @@ const CreateRequestForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+  const { name } = plant as Plant;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -79,7 +80,6 @@ const CreateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-  const { name } = plant as Plant;
 
   return (
     <div className="container row mt-5">

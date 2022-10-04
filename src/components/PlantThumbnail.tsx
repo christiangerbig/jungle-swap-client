@@ -19,7 +19,7 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
           className="card-img-top is-image-size-large"
         />
         <div className="card-body mb-5">
-          <h5> {name} </h5>
+          <h5>{name}</h5>
           <p>
             {price} {t("plantThumbnail.currency")}
           </p>
