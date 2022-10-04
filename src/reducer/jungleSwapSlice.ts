@@ -414,7 +414,7 @@ export const jungleSwapSlice = createSlice({
       state.isDeletingPlant = action.payload;
     },
     addPlant: (state, action: PayloadAction<Plant>) => {
-      state.plants.unshift(action.payload);
+      state.plants.push(action.payload);
     },
     setPlant: (state, action: PayloadAction<Plant>) => {
       state.plant = action.payload;
@@ -491,7 +491,7 @@ export const jungleSwapSlice = createSlice({
       state.isDeletingMessage = action.payload;
     },
     addMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.unshift(action.payload);
+      state.messages.push(action.payload);
     },
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
