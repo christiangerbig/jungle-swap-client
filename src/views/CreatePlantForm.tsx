@@ -10,6 +10,7 @@ import {
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
+  scrollToPlants,
 } from "../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -52,7 +53,7 @@ const CreatePlantForm = (): JSX.Element => {
       const addPlantAndReturnToHomePage = (plant: Plant): void => {
         dispatch(addPlant(plant));
         history.push("/");
-        scroll.scrollToBottom();
+        dispatch(scrollToPlants());
       };
 
       const newPlant: Plant = {
