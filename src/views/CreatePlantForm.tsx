@@ -10,7 +10,6 @@ import {
   uploadPlantImage,
   setIsUploadingPlantImage,
   setIsCreatingPlant,
-  scrollToPlants,
   setNumberOfVisibleEntries,
 } from "../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../typeDefinitions";
@@ -58,7 +57,7 @@ const CreatePlantForm = (): JSX.Element => {
         dispatch(addPlant(plant));
         history.push("/");
         dispatch(setNumberOfVisibleEntries(plants.length));
-        dispatch(scrollToPlants());
+        scroll.scrollToBottom();
       };
 
       const newPlant: Plant = {
