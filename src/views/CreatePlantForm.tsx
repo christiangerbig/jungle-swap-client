@@ -55,8 +55,8 @@ const CreatePlantForm = (): JSX.Element => {
     ): void => {
       const addPlantAndReturnToHomePage = (plant: Plant): void => {
         dispatch(addPlant(plant));
-        history.push("/");
         dispatch(setNumberOfVisibleEntries(plants.length));
+        history.push("/");
         scroll.scrollToBottom();
       };
 
