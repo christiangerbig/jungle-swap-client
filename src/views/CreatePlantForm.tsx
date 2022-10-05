@@ -45,6 +45,22 @@ const CreatePlantForm = (): JSX.Element => {
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
   ): void => {
+    const createPlantAndReturnToHomePage = ({
+      imageUrl,
+      imagePublicId,
+    }: UploadImageData): void => {
+      const plantIO = new PlantIO(dispatch);
+      plantIO.create(event.target, { imageUrl, imagePublicId });
+      if (errorMessage) {
+        history.push("/");
+        scroll.scrollToTop();
+      } else {
+        dispatch(setNumberOfVisibleEntries(plants.length));
+        history.push("/");
+        scroll.scrollToBottom();
+      }
+    };
+
     event.preventDefault();
     const { plantImage } = event.target as any;
     const image = plantImage.files[0];
@@ -54,11 +70,7 @@ const CreatePlantForm = (): JSX.Element => {
     dispatch(uploadPlantImage(uploadForm))
       .unwrap()
       .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        const handlePlantIO = new PlantIO(dispatch);
-        handlePlantIO.create(event.target, { imageUrl, imagePublicId });
-        dispatch(setNumberOfVisibleEntries(plants.length));
-        history.push("/");
-        scroll.scrollToBottom();
+        createPlantAndReturnToHomePage({ imageUrl, imagePublicId });
       })
       .catch((rejectedValue: any) => {
         dispatch(setErrorMessage(rejectedValue.message));

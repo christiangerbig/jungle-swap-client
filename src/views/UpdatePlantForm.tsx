@@ -117,11 +117,11 @@ const UpdatePlantForm = (): JSX.Element => {
 
   const handleUpdatePlant = () => {
     if (destroyImageData) {
-      const handlePlantImageIO = new PlantImageIO(dispatch);
-      handlePlantImageIO.delete(destroyImageData);
+      const plantImageIO = new PlantImageIO(dispatch);
+      plantImageIO.delete(destroyImageData);
     }
-    const handlePlantIO = new PlantIO(dispatch);
-    handlePlantIO.update(plant);
+    const plantIO = new PlantIO(dispatch);
+    plantIO.update(plant);
     history.goBack();
   };
 
