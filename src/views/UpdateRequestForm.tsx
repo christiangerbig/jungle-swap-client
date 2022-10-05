@@ -31,6 +31,7 @@ const UpdateRequestForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+  const { request } = message as Message;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -94,8 +95,6 @@ const UpdateRequestForm = (): JSX.Element => {
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
-
-  const { request } = message as Message;
 
   return (
     <div className="container row mt-5 ">

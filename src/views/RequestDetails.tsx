@@ -30,6 +30,7 @@ const RequestDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+  const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -92,7 +93,6 @@ const RequestDetails = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  const { _id, buyer, plant, request, reply } = message as Message;
   if (isFetchingMessage || !buyer || !plant) {
     return <WaitSpinnerText text={"Loading request"} />;
   }

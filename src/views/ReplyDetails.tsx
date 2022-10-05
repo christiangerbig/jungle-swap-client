@@ -33,6 +33,7 @@ const ReplyDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+  const { _id, seller, plant, request, reply } = message as Message;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -68,7 +69,6 @@ const ReplyDetails = (): JSX.Element => {
     return <Redirect to={"/auth/unauthorized"} />;
   }
 
-  const { _id, seller, plant, request, reply } = message as Message;
   if (isFetchingMessage || !seller || !plant) {
     return <WaitSpinnerText text={"Loading reply"} />;
   }
