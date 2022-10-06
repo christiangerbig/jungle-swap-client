@@ -16,7 +16,6 @@ import {
   setAmountOfReplies,
   scrollToPlants,
   setMessages,
-  setIsFetchingMessages,
   fetchAllMessages,
   setErrorMessage,
 } from "../reducer/jungleSwapSlice";
@@ -27,6 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import NavLoggedInUserItems from "./NavLoggedInUserItems";
 import NavAuthentificationItems from "./NavAuthentificationItems";
+import { MessageIO } from "../lib/messageIO";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(
@@ -66,44 +66,31 @@ const NavBar = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    const fetchMessagesAndStartRequestsRepliesCheck = (): void => {
-      const setMessageVariablesAndStartInterval = (
-        messages: Message[]
-      ): void => {
-        const setMessageVariables = (messages: Message[]): void => {
-          dispatch(setMessages(messages));
-          dispatch(setStartAmountOfRequests());
-          dispatch(setStartAmountOfReplies());
-          dispatch(setIsUserChange(false));
-        };
-
-        const startInterval = (): void => {
-          const intervalId = setInterval(
-            () => {
-              dispatch(increaseDelayCounter());
-            },
-            1000 // every second
-          );
-          dispatch(setIntervalId(intervalId));
-          dispatch(increaseDelayCounter());
-        };
-
-        setMessageVariables(messages);
-        startInterval();
+    const startRequestsRepliesCheck = (): void => {
+      const setInitialMessageVariables = (): void => {
+        dispatch(setStartAmountOfRequests());
+        dispatch(setStartAmountOfReplies());
+        dispatch(setIsUserChange(false));
       };
 
-      dispatch(setIsFetchingMessages(true));
-      dispatch(fetchAllMessages())
-        .unwrap()
-        .then((messages: Message[]) => {
-          setMessageVariablesAndStartInterval(messages);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
+      const startInterval = (): void => {
+        const intervalId = setInterval(
+          () => {
+            dispatch(increaseDelayCounter());
+          },
+          1000 // every second
+        );
+        dispatch(setIntervalId(intervalId));
+        dispatch(increaseDelayCounter());
+      };
+
+      const messageIO = new MessageIO(dispatch);
+      messageIO.fetchAll();
+      setInitialMessageVariables();
+      startInterval();
     };
 
-    isUserChange && fetchMessagesAndStartRequestsRepliesCheck();
+    isUserChange && startRequestsRepliesCheck();
   }, [isUserChange]);
 
   useEffect(() => {
