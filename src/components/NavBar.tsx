@@ -8,18 +8,10 @@ import {
   setIsUserChange,
   setIntervalId,
   increaseDelayCounter,
-  setIsNewRequest,
-  setIsNewReply,
   setStartAmountOfRequests,
   setStartAmountOfReplies,
-  setAmountOfRequests,
-  setAmountOfReplies,
   scrollToPlants,
-  setMessages,
-  fetchAllMessages,
-  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
-import { User, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import { IntervalCounter } from "../lib/IntervalCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -98,70 +90,10 @@ const NavBar = (): JSX.Element => {
 
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
-      const checkNewRequests = (messages: Message[]): void => {
-        const calculateAmountOfRequests = (messages: Message[]): number => {
-          const currentAmountOfRequests = messages.filter(
-            (message: Message): boolean => {
-              const { seller, messageState } = message;
-              return (
-                (seller as User)._id === (loggedInUser as User)._id &&
-                messageState === true
-              );
-            }
-          ).length;
-          return currentAmountOfRequests;
-        };
-
-        const checkAmountOfRequests = (
-          currentAmountOfRequests: number,
-          amountOfRequests: number
-        ): void => {
-          if (amountOfRequests < currentAmountOfRequests) {
-            dispatch(setIsNewRequest(true));
-          }
-          if (amountOfRequests !== currentAmountOfRequests) {
-            dispatch(setAmountOfRequests(currentAmountOfRequests));
-          }
-        };
-
-        const currentAmountOfRequests = calculateAmountOfRequests(messages);
-        checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
-      };
-
-      const checkNewReplies = (messages: Message[]): void => {
-        const calculateAmountOfReplies = (messages: Message[]): number => {
-          const currentAmountOfReplies = messages.filter(
-            (message: Message): boolean => {
-              const { buyer, reply } = message;
-              return (
-                (buyer as User)._id === (loggedInUser as User)._id &&
-                reply !== ""
-              );
-            }
-          ).length;
-          return currentAmountOfReplies;
-        };
-
-        const checkAmountOfReplies = (
-          currentAmountOfReplies: number,
-          amountOfReplies: number
-        ): void => {
-          if (amountOfReplies < currentAmountOfReplies) {
-            dispatch(setIsNewReply(true));
-          }
-          if (amountOfReplies !== currentAmountOfReplies) {
-            dispatch(setAmountOfReplies(currentAmountOfReplies));
-          }
-        };
-
-        const currentAmountOfReplies = calculateAmountOfReplies(messages);
-        checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
-      };
-
       const messageIO = new MessageIO(dispatch);
       messageIO.fetchCheck();
-      checkNewRequests(messages);
-      checkNewReplies(messages);
+      messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
+      messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
     };
 
     if (isUserChange) {

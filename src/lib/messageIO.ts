@@ -3,14 +3,18 @@ import {
   fetchAllMessages,
   fetchMessage,
   removeMessage,
+  setAmountOfReplies,
+  setAmountOfRequests,
   setErrorMessage,
   setIsDeletingMessage,
   setIsFetchingMessage,
   setIsFetchingMessages,
+  setIsNewReply,
+  setIsNewRequest,
   setMessage,
   setMessages,
 } from "../reducer/jungleSwapSlice";
-import { Message, MessageId, Plant, PlantId } from "../typeDefinitions";
+import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
 export class MessageIO {
   dispatch: any;
@@ -68,5 +72,72 @@ export class MessageIO {
           });
       }
     });
+  };
+
+  checkNewRequests = (
+    loggedInUser: User | null,
+    messages: Message[],
+    amountOfRequests: number
+  ): void => {
+    const calculateAmountOfRequests = (messages: Message[]): number => {
+      const currentAmountOfRequests = messages.filter(
+        (message: Message): boolean => {
+          const { seller, messageState } = message;
+          return (
+            (seller as User)._id === (loggedInUser as User)._id &&
+            messageState === true
+          );
+        }
+      ).length;
+      return currentAmountOfRequests;
+    };
+
+    const checkAmountOfRequests = (
+      currentAmountOfRequests: number,
+      amountOfRequests: number
+    ): void => {
+      if (amountOfRequests < currentAmountOfRequests) {
+        this.dispatch(setIsNewRequest(true));
+      }
+      if (amountOfRequests !== currentAmountOfRequests) {
+        this.dispatch(setAmountOfRequests(currentAmountOfRequests));
+      }
+    };
+
+    const currentAmountOfRequests = calculateAmountOfRequests(messages);
+    checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
+  };
+
+  checkNewReplies = (
+    loggedInUser: User | null,
+    messages: Message[],
+    amountOfReplies: number
+  ): void => {
+    const calculateAmountOfReplies = (messages: Message[]): number => {
+      const currentAmountOfReplies = messages.filter(
+        (message: Message): boolean => {
+          const { buyer, reply } = message;
+          return (
+            (buyer as User)._id === (loggedInUser as User)._id && reply !== ""
+          );
+        }
+      ).length;
+      return currentAmountOfReplies;
+    };
+
+    const checkAmountOfReplies = (
+      currentAmountOfReplies: number,
+      amountOfReplies: number
+    ): void => {
+      if (amountOfReplies < currentAmountOfReplies) {
+        this.dispatch(setIsNewReply(true));
+      }
+      if (amountOfReplies !== currentAmountOfReplies) {
+        this.dispatch(setAmountOfReplies(currentAmountOfReplies));
+      }
+    };
+
+    const currentAmountOfReplies = calculateAmountOfReplies(messages);
+    checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
   };
 }
