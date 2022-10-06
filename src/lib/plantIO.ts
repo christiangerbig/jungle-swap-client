@@ -3,12 +3,15 @@ import {
   createPlant,
   deletePlant,
   fetchAllPlants,
+  fetchPlant,
   removePlant,
   setErrorMessage,
   setIsCreatingPlant,
   setIsDeletingPlant,
+  setIsFetchingPlant,
   setIsFetchingPlants,
   setIsUpdatingPlant,
+  setPlant,
   setPlantChanges,
   setPlants,
   updatePlant,
@@ -20,6 +23,18 @@ export class PlantIO {
   constructor(dispatch: any) {
     this.dispatch = dispatch;
   }
+
+  fetch = (plantId: PlantId): void => {
+    this.dispatch(setIsFetchingPlant(true));
+    this.dispatch(fetchPlant(plantId))
+      .unwrap()
+      .then((plant: Plant) => {
+        this.dispatch(setPlant(plant));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
 
   fetchAll = (): void => {
     this.dispatch(setIsFetchingPlants(true));

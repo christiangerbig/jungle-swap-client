@@ -6,16 +6,12 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setPlant,
-  setIsUpdatingPlant,
-  updatePlant,
-  setPlantChanges,
   setIsUploadingPlantImage,
   uploadPlantImage,
   setDestroyImageData,
   setErrorMessage,
-  setNumberOfVisibleEntries,
 } from "../reducer/jungleSwapSlice";
-import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
+import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
@@ -39,7 +35,6 @@ const UpdatePlantForm = (): JSX.Element => {
   const isUpdatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isUpdatingPlant
   );
-  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const history = useHistory();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
@@ -89,30 +84,13 @@ const UpdatePlantForm = (): JSX.Element => {
     { target }: React.ChangeEvent<HTMLInputElement>,
     plant: Plant
   ): void => {
-    const setImageDataForPlant = (
-      plant: Plant,
-      { imageUrl, imagePublicId }: UploadImageData
-    ) => {
-      const clonedPlant = JSON.parse(JSON.stringify(plant));
-      clonedPlant.imagePublicId = imagePublicId;
-      clonedPlant.imageUrl = imageUrl;
-      dispatch(setPlant(clonedPlant));
-    };
-
     const image = (target.files as any)[0];
     const { imagePublicId } = plant as Plant;
     dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    dispatch(setIsUploadingPlantImage(true));
-    dispatch(uploadPlantImage(uploadForm))
-      .unwrap()
-      .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        setImageDataForPlant(plant, { imageUrl, imagePublicId });
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    const plantImageIO = new PlantImageIO(dispatch);
+    plantImageIO.create(plant, uploadForm);
   };
 
   const handleUpdatePlant = () => {

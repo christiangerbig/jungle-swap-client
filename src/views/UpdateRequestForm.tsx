@@ -14,6 +14,7 @@ import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
+import { MessageIO } from "../lib/messageIO";
 
 const UpdateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -48,39 +49,11 @@ const UpdateRequestForm = (): JSX.Element => {
     dispatch(setMessage(clonedMessage));
   };
 
-  const handleUpdateMessage = ({
-    _id,
-    buyer,
-    seller,
-    plant,
-    request,
-    reply,
-    messageState,
-  }: Message): void => {
-    const setMessageChangesAndReturnToRequestPage = (
-      message: Message
-    ): void => {
-      dispatch(setMessageChanges(message));
-      history.goBack();
-    };
-
-    const updatedMessage: Message = {
-      buyer,
-      seller,
-      plant,
-      request,
-      reply,
-      messageState,
-    };
-    dispatch(setIsUpdatingMessage(true));
-    dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
-      .unwrap()
-      .then((message) => {
-        setMessageChangesAndReturnToRequestPage(message);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+  const handleUpdateMessage = (updatedMessage: Message): void => {
+    const messageIO = new MessageIO(dispatch);
+    messageIO.update(updatedMessage._id as MessageId, updatedMessage);
+    dispatch(setMessageChanges(message));
+    history.goBack();
   };
 
   const printErrorMessage = (errorMessage: string): string => {

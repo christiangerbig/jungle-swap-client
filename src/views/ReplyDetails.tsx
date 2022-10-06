@@ -9,6 +9,7 @@ import {
   removeMessage,
   decreaseAmountOfReplies,
   setErrorMessage,
+  setMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -45,24 +46,19 @@ const ReplyDetails = (): JSX.Element => {
     }
   }, []);
 
-  const handleDeleteMessage = (messageId: MessageId): void => {
-    const removeMessageReplyAndReturnToRepliesPage = (
-      messageId: MessageId
-    ): void => {
-      dispatch(removeMessage(messageId));
-      dispatch(decreaseAmountOfReplies());
-      history.goBack();
+  const handleRemoveReply = (messageId: MessageId): void => {
+    const removeReply = (message: Message): Message => {
+      const clonedMessage: Message = JSON.parse(JSON.stringify(message));
+      clonedMessage.reply = "";
+      dispatch(setMessage(clonedMessage));
+      return clonedMessage;
     };
 
-    dispatch(setIsDeletingMessage(true));
-    dispatch(deleteMessage(messageId))
-      .unwrap()
-      .then(() => {
-        removeMessageReplyAndReturnToRepliesPage(messageId);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    const updatedMessage = removeReply(message);
+    const messageIO = new MessageIO(dispatch);
+    messageIO.update(messageId, updatedMessage);
+    dispatch(decreaseAmountOfReplies());
+    history.goBack();
   };
 
   if (!loggedInUser) {
@@ -95,7 +91,7 @@ const ReplyDetails = (): JSX.Element => {
             disabled={isDeletingMessage ? true : false}
             className="btn btn-sm ml-2 is-width-medium form-control mb-1"
             onClick={() => {
-              handleDeleteMessage(_id as MessageId);
+              handleRemoveReply(_id as MessageId);
             }}
           >
             {t("button.delete")}

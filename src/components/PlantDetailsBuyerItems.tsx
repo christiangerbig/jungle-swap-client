@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const PlantDetailsBuyerItems = () => {
+const PlantDetailsBuyerItems = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (

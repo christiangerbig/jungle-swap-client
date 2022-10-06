@@ -5,10 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
-  updateMessage,
-  setMessageChanges,
   decreaseAmountOfRequests,
-  setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -50,39 +47,11 @@ const RequestDetails = (): JSX.Element => {
       return clonedMessage;
     };
 
-    const updateBuyerMessage = ({
-      _id,
-      buyer,
-      seller,
-      plant,
-      request,
-      reply,
-      messageState,
-    }: Message) => {
-      const setMessageChangesAndReturnToRequestsPage = (
-        message: Message
-      ): void => {
-        dispatch(setMessageChanges(message));
-        dispatch(decreaseAmountOfRequests());
-        history.goBack();
-      };
-
-      const updatedMessage: Message = {
-        buyer,
-        seller,
-        plant,
-        request,
-        reply,
-        messageState,
-      };
-      dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
-        .unwrap()
-        .then((message) => {
-          setMessageChangesAndReturnToRequestsPage(message);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
+    const updateBuyerMessage = (updatedMessage: Message) => {
+      const messageIO = new MessageIO(dispatch);
+      messageIO.update(updatedMessage._id as MessageId, updatedMessage);
+      dispatch(decreaseAmountOfRequests());
+      history.goBack();
     };
 
     const updatedMessage = setBuyerMessageInactive(message);

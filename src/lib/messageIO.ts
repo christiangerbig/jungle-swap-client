@@ -11,8 +11,11 @@ import {
   setIsFetchingMessages,
   setIsNewReply,
   setIsNewRequest,
+  setIsUpdatingMessage,
   setMessage,
+  setMessageChanges,
   setMessages,
+  updateMessage,
 } from "../reducer/jungleSwapSlice";
 import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
@@ -72,6 +75,30 @@ export class MessageIO {
           });
       }
     });
+  };
+
+  delete = (messageId: MessageId): void => {
+    this.dispatch(setIsDeletingMessage(true));
+    this.dispatch(deleteMessage(messageId))
+      .unwrap()
+      .then(() => {
+        this.dispatch(removeMessage(messageId));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
+
+  update = (messageId: MessageId, updatedMessage: Message): void => {
+    this.dispatch(setIsUpdatingMessage(true));
+    this.dispatch(updateMessage({ messageId, updatedMessage }))
+      .unwrap()
+      .then((message: Message) => {
+        this.dispatch(setMessageChanges(message));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
   };
 
   checkNewRequests = (

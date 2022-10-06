@@ -2,17 +2,12 @@ import { useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import WaitSpinner from "../components/WaitSpinner";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setIsFetchingPlant,
-  fetchPlant,
-  setPlant,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
 import { User, Plant, PlantId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
+import { PlantIO } from "../lib/plantIO";
+import WaitSpinner from "../components/WaitSpinner";
 import PlantDetailsCreatorItems from "../components/PlantDetailsCreatorItems";
 import PlantDetailsBuyerItems from "../components/PlantDetailsBuyerItems";
 
@@ -32,26 +27,13 @@ const PlantDetails = (): JSX.Element => {
     plant as Plant;
 
   useEffect(() => {
-    const fetchPlantData = (plantId: PlantId): void => {
-      const setPlantAndScrollToTop = (plant: Plant): void => {
-        dispatch(setPlant(plant));
-        scroll.scrollToTop();
-      };
-
-      dispatch(setIsFetchingPlant(true));
-      dispatch(fetchPlant(plantId))
-        .unwrap()
-        .then((plant: Plant) => {
-          setPlantAndScrollToTop(plant);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
-    };
-
     const routing = new Routing(dispatch);
     routing.protect();
-    loggedInUser && fetchPlantData(plantId);
+    if (loggedInUser) {
+      const plantIO = new PlantIO(dispatch);
+      plantIO.fetch(plantId);
+      scroll.scrollToTop();
+    }
   }, []);
 
   if (!loggedInUser) {
