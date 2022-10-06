@@ -53,6 +53,9 @@ const NavBar = (): JSX.Element => {
   const amountOfReplies = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
+  const messages = useAppSelector(
+    (state: RootState) => state.jungleSwap.messages
+  );
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -94,90 +97,78 @@ const NavBar = (): JSX.Element => {
   }, [isUserChange]);
 
   useEffect(() => {
-    const fetchMessagesAndCheckNewRequestsReplies = (): void => {
-      const setMessagesVariableAndCheckNewRequestsReplies = (
-        messages: Message[]
-      ): void => {
-        const checkNewRequests = (messages: Message[]): void => {
-          const calculateAmountOfRequests = (messages: Message[]): number => {
-            const currentAmountOfRequests = messages.filter(
-              (message: Message): boolean => {
-                const { seller, messageState } = message;
-                return (
-                  (seller as User)._id === (loggedInUser as User)._id &&
-                  messageState === true
-                );
-              }
-            ).length;
-            return currentAmountOfRequests;
-          };
-
-          const checkAmountOfRequests = (
-            currentAmountOfRequests: number,
-            amountOfRequests: number
-          ): void => {
-            if (amountOfRequests < currentAmountOfRequests) {
-              dispatch(setIsNewRequest(true));
+    const checkNewRequestsReplies = (): void => {
+      const checkNewRequests = (messages: Message[]): void => {
+        const calculateAmountOfRequests = (messages: Message[]): number => {
+          const currentAmountOfRequests = messages.filter(
+            (message: Message): boolean => {
+              const { seller, messageState } = message;
+              return (
+                (seller as User)._id === (loggedInUser as User)._id &&
+                messageState === true
+              );
             }
-            if (amountOfRequests !== currentAmountOfRequests) {
-              dispatch(setAmountOfRequests(currentAmountOfRequests));
-            }
-          };
-
-          const currentAmountOfRequests = calculateAmountOfRequests(messages);
-          checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
+          ).length;
+          return currentAmountOfRequests;
         };
 
-        const checkNewReplies = (messages: Message[]): void => {
-          const calculateAmountOfReplies = (messages: Message[]): number => {
-            const currentAmountOfReplies = messages.filter(
-              (message: Message): boolean => {
-                const { buyer, reply } = message;
-                return (
-                  (buyer as User)._id === (loggedInUser as User)._id &&
-                  reply !== ""
-                );
-              }
-            ).length;
-            return currentAmountOfReplies;
-          };
-
-          const checkAmountOfReplies = (
-            currentAmountOfReplies: number,
-            amountOfReplies: number
-          ): void => {
-            if (amountOfReplies < currentAmountOfReplies) {
-              dispatch(setIsNewReply(true));
-            }
-            if (amountOfReplies !== currentAmountOfReplies) {
-              dispatch(setAmountOfReplies(currentAmountOfReplies));
-            }
-          };
-
-          const currentAmountOfReplies = calculateAmountOfReplies(messages);
-          checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
+        const checkAmountOfRequests = (
+          currentAmountOfRequests: number,
+          amountOfRequests: number
+        ): void => {
+          if (amountOfRequests < currentAmountOfRequests) {
+            dispatch(setIsNewRequest(true));
+          }
+          if (amountOfRequests !== currentAmountOfRequests) {
+            dispatch(setAmountOfRequests(currentAmountOfRequests));
+          }
         };
 
-        dispatch(setMessages(messages));
-        checkNewRequests(messages);
-        checkNewReplies(messages);
+        const currentAmountOfRequests = calculateAmountOfRequests(messages);
+        checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
       };
 
-      dispatch(fetchAllMessages())
-        .unwrap()
-        .then((messages: Message[]) => {
-          setMessagesVariableAndCheckNewRequestsReplies(messages);
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
+      const checkNewReplies = (messages: Message[]): void => {
+        const calculateAmountOfReplies = (messages: Message[]): number => {
+          const currentAmountOfReplies = messages.filter(
+            (message: Message): boolean => {
+              const { buyer, reply } = message;
+              return (
+                (buyer as User)._id === (loggedInUser as User)._id &&
+                reply !== ""
+              );
+            }
+          ).length;
+          return currentAmountOfReplies;
+        };
+
+        const checkAmountOfReplies = (
+          currentAmountOfReplies: number,
+          amountOfReplies: number
+        ): void => {
+          if (amountOfReplies < currentAmountOfReplies) {
+            dispatch(setIsNewReply(true));
+          }
+          if (amountOfReplies !== currentAmountOfReplies) {
+            dispatch(setAmountOfReplies(currentAmountOfReplies));
+          }
+        };
+
+        const currentAmountOfReplies = calculateAmountOfReplies(messages);
+        checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
+      };
+
+      const messageIO = new MessageIO(dispatch);
+      messageIO.fetchCheck();
+      checkNewRequests(messages);
+      checkNewReplies(messages);
     };
 
     if (isUserChange) {
       dispatch(setStartAmountOfRequests());
       dispatch(setStartAmountOfReplies());
     }
-    loggedInUser && fetchMessagesAndCheckNewRequestsReplies();
+    loggedInUser && checkNewRequestsReplies();
   }, [delayCounter]);
 
   return (

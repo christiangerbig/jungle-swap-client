@@ -17,7 +17,7 @@ export class MessageIO {
   constructor(dispatch: any) {
     this.dispatch = dispatch;
   }
-  
+
   fetch = (messageId: MessageId): void => {
     this.dispatch(setIsFetchingMessage(true));
     this.dispatch(fetchMessage(messageId))
@@ -32,6 +32,17 @@ export class MessageIO {
 
   fetchAll = (): void => {
     this.dispatch(setIsFetchingMessages(true));
+    this.dispatch(fetchAllMessages())
+      .unwrap()
+      .then((messages: Message[]) => {
+        this.dispatch(setMessages(messages));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
+
+  fetchCheck = (): void => {
     this.dispatch(fetchAllMessages())
       .unwrap()
       .then((messages: Message[]) => {
