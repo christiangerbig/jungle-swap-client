@@ -28,19 +28,21 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
 
   const handleDelete = () => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.deleteRemaining(messages, _id as PlantId);
-    if (!isDeletingMessage) {
+    messageIO.deleteRemaining(messages, _id as PlantId, () => {
       const plantImageIO = new PlantImageIO(dispatch);
       plantImageIO.delete({ imagePublicId });
       const plantIO = new PlantIO(dispatch);
-      plantIO.delete(_id as PlantId);
-      history.goBack();
-    }
+      plantIO.delete(_id as PlantId, () => {
+        history.goBack();
+      });
+    });
   };
 
   const buttonState = (): boolean => {
-    return (isDeletingMessage || isDeletingPlantImage || isDeletingPlant) ? true : false;
-  }
+    return isDeletingMessage || isDeletingPlantImage || isDeletingPlant
+      ? true
+      : false;
+  };
 
   return (
     <div className="p-0">

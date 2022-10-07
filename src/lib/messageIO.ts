@@ -28,24 +28,26 @@ export class MessageIO {
     this.dispatch = dispatch;
   }
 
-  create = (newMessage: Message): void => {
+  create = (newMessage: Message, callbackFunction: Function): void => {
     this.dispatch(setIsCreatingMessage(true));
     this.dispatch(createMessage(newMessage))
       .unwrap()
       .then((message: Message) => {
         this.dispatch(addMessage(message));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  fetch = (messageId: MessageId): void => {
+  fetch = (messageId: MessageId, callbackFunction: Function): void => {
     this.dispatch(setIsFetchingMessage(true));
     this.dispatch(fetchMessage(messageId))
       .unwrap()
       .then((message: Message) => {
         this.dispatch(setMessage(message));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
@@ -94,19 +96,24 @@ export class MessageIO {
       });
   };
 
-  delete = (messageId: MessageId): void => {
+  delete = (messageId: MessageId, callbackFunction: Function): void => {
     this.dispatch(setIsDeletingMessage(true));
     this.dispatch(deleteMessage(messageId))
       .unwrap()
       .then(() => {
         this.dispatch(removeMessage(messageId));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  deleteRemaining = (messages: Message[], plantId: PlantId): void => {
+  deleteRemaining = (
+    messages: Message[],
+    plantId: PlantId,
+    callbackFunction: Function
+  ): void => {
     messages.forEach(({ _id, plant }: Message): void => {
       if ((plant as Plant)._id === plantId) {
         this.dispatch(setIsDeletingMessage(true));
@@ -114,6 +121,7 @@ export class MessageIO {
           .unwrap()
           .then(() => {
             this.dispatch(removeMessage(_id as PlantId));
+            callbackFunction();
           })
           .catch((rejectedValue: any) => {
             this.dispatch(setErrorMessage(rejectedValue.message));

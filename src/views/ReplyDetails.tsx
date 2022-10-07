@@ -34,18 +34,18 @@ const ReplyDetails = (): JSX.Element => {
     routing.protect();
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetch(messageId);
-      !isFetchingMessage && scroll.scrollToTop();
+      messageIO.fetch(messageId, () => {
+        scroll.scrollToTop();
+      });
     }
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.delete(messageId);
-    if (!isDeletingMessage) {
+    messageIO.delete(messageId, () => {
       dispatch(decreaseAmountOfReplies());
       history.goBack();
-    }
+    });
   };
 
   const buttonState = (): boolean => {

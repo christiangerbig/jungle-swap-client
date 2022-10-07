@@ -103,12 +103,13 @@ export class PlantIO {
       });
   };
 
-  delete = (plantId: PlantId): void => {
+  delete = (plantId: PlantId, callbackFunction: Function): void => {
     this.dispatch(setIsDeletingPlant(true));
     this.dispatch(deletePlant(plantId))
       .unwrap()
       .then(() => {
         this.dispatch(removePlant(plantId));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
