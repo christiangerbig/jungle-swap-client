@@ -40,11 +40,10 @@ const RepliesPage = (): JSX.Element => {
     routing.protect();
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll();
-      if (!isFetchingMessages) {
+      messageIO.fetchAll(() => {
         isUserChange && dispatch(setStartAmountOfReplies());
         resetReplyVariableAndScrollToTop();
-      }
+      });
     }
 
     return () => {

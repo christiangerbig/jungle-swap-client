@@ -83,11 +83,11 @@ const NavBar = (): JSX.Element => {
       };
 
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll();
-      if (!isFetchingMessages) {
+      messageIO.fetchAll(() => {
         setInitialMessageVariables();
         startInterval();
-      }
+      });
+      
     };
 
     isUserChange && startRequestsRepliesCheck();

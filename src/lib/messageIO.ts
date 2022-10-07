@@ -52,12 +52,13 @@ export class MessageIO {
       });
   };
 
-  fetchAll = (): void => {
+  fetchAll = (callbackFunction: Function): void => {
     this.dispatch(setIsFetchingMessages(true));
     this.dispatch(fetchAllMessages())
       .unwrap()
       .then((messages: Message[]) => {
         this.dispatch(setMessages(messages));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
@@ -76,7 +77,11 @@ export class MessageIO {
       });
   };
 
-  update = (messageId: MessageId, updatedMessage: Message, callbackFunction: Function): void => {
+  update = (
+    messageId: MessageId,
+    updatedMessage: Message,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(setIsUpdatingMessage(true));
     this.dispatch(updateMessage({ messageId, updatedMessage }))
       .unwrap()
