@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
   decreaseAmountOfRequests,
+  setMessageChanges,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -54,6 +55,7 @@ const RequestDetails = (): JSX.Element => {
       const messageIO = new MessageIO(dispatch);
       messageIO.update(updatedMessage._id as MessageId, updatedMessage);
       if (!isUpdatingMessage) {
+        dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
         history.goBack();
       }
