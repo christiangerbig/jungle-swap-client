@@ -3,17 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import {
-  setClientSecret,
-  createPayment,
-  scrollToPlants,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
+import { scrollToPlants } from "../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Stripe } from "@stripe/stripe-js";
+import { PaymentIO } from "../lib/paymentIO";
 
-interface CardStyle {
+type CardStyle = {
   style: {
     base: {
       color: string;
@@ -27,7 +23,7 @@ interface CardStyle {
       iconColor: string;
     };
   };
-}
+};
 
 const CheckoutForm = (): JSX.Element => {
   const [isSucceeded, setIsSucceeded] = useState(false);
@@ -43,7 +39,7 @@ const CheckoutForm = (): JSX.Element => {
   const stripe = useStripe();
   const elements = useElements();
   const { t } = useTranslation();
-
+  const { _id, name, price } = plant as Plant;
   const cardStyle: CardStyle = {
     style: {
       base: {
@@ -61,37 +57,22 @@ const CheckoutForm = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const initializePayment = (plant: Plant): void => {
-      dispatch(createPayment(plant))
-        .unwrap()
-        .then((payment: any) => {
-          dispatch(setClientSecret(payment.clientSecret));
-        })
-        .catch((rejectedValue: any) => {
-          dispatch(setErrorMessage(rejectedValue.message));
-        });
-    };
-
-    initializePayment(plant);
-
+    const paymentIO = new PaymentIO(dispatch);
+    paymentIO.initialize(plant);
     return () => {
-      const returnToPlantsSection = (): void => {
-        history.push("/");
-        dispatch(scrollToPlants());
-      };
-
-      returnToPlantsSection();
+      history.push("/");
+      dispatch(scrollToPlants());
     };
   }, []);
 
-  const handleCardElementInputChanges = async (event: any): Promise<void> => {
+  const handleInputChanges = async (event: any): Promise<void> => {
     setIsDisabled(event.empty);
     setPaymentError(event.error ? event.error.message : "");
   };
 
   const handleSubmitPayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    // Stripe.js has not yet loaded
+    // Stripe.js has not yet been loaded
     if (!stripe || !elements) {
       return;
     }
@@ -108,7 +89,10 @@ const CheckoutForm = (): JSX.Element => {
       setIsSucceeded(true);
     }
   };
-  const { _id, name, price } = plant as Plant;
+
+  const successMessageStyle = (): string => {
+    return isSucceeded ? "result-message text-center" : "is-hidden";
+  };
 
   return (
     <div className="container col-md-9 col-sm-12">
@@ -125,7 +109,7 @@ const CheckoutForm = (): JSX.Element => {
           id="card-element"
           options={cardStyle}
           className="p-2"
-          onChange={handleCardElementInputChanges}
+          onChange={handleInputChanges}
         />
         <div className="row justify-content-center">
           <button
@@ -150,13 +134,7 @@ const CheckoutForm = (): JSX.Element => {
           </div>
         )}
         {/* Show success message upon completion */}
-        <p
-          className={
-            isSucceeded
-              ? "result-message text-center"
-              : "result-message is-hiddentext-center"
-          }
-        >
+        <p className={successMessageStyle()}>
           {t("checkoutForm.paymentSuccessful")}
         </p>
       </form>

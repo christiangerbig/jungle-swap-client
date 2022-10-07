@@ -4,11 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
-  setIsDeletingMessage,
-  deleteMessage,
-  removeMessage,
   decreaseAmountOfReplies,
-  setErrorMessage,
   setMessage,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
@@ -61,6 +57,10 @@ const ReplyDetails = (): JSX.Element => {
     history.goBack();
   };
 
+  const buttonState = (): boolean => {
+    return isDeletingMessage ? true : false;
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -88,7 +88,7 @@ const ReplyDetails = (): JSX.Element => {
         ) : null}
         <div className="text-right px-3">
           <button
-            disabled={isDeletingMessage ? true : false}
+            disabled={buttonState()}
             className="btn btn-sm ml-2 is-width-medium form-control mb-1"
             onClick={() => {
               handleRemoveReply(_id as MessageId);

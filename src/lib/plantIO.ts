@@ -4,6 +4,7 @@ import {
   deletePlant,
   fetchAllPlants,
   fetchPlant,
+  fetchQueryPlants,
   removePlant,
   setErrorMessage,
   setIsCreatingPlant,
@@ -24,30 +25,6 @@ export class PlantIO {
     this.dispatch = dispatch;
   }
 
-  fetch = (plantId: PlantId): void => {
-    this.dispatch(setIsFetchingPlant(true));
-    this.dispatch(fetchPlant(plantId))
-      .unwrap()
-      .then((plant: Plant) => {
-        this.dispatch(setPlant(plant));
-      })
-      .catch((rejectedValue: any) => {
-        this.dispatch(setErrorMessage(rejectedValue.message));
-      });
-  };
-
-  fetchAll = (): void => {
-    this.dispatch(setIsFetchingPlants(true));
-    this.dispatch(fetchAllPlants())
-      .unwrap()
-      .then((plants: Plant[]) => {
-        this.dispatch(setPlants(plants));
-      })
-      .catch((rejectedValue: any) => {
-        this.dispatch(setErrorMessage(rejectedValue.message));
-      });
-  };
-
   create = (
     { name, description, size, location, price }: any,
     { imageUrl, imagePublicId }: UploadImageData
@@ -66,6 +43,30 @@ export class PlantIO {
       .unwrap()
       .then((plant: Plant) => {
         this.dispatch(addPlant(plant));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
+
+  fetch = (plantId: PlantId): void => {
+    this.dispatch(setIsFetchingPlant(true));
+    this.dispatch(fetchPlant(plantId))
+      .unwrap()
+      .then((plant: Plant) => {
+        this.dispatch(setPlant(plant));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
+
+  fetchAll = (): void => {
+    this.dispatch(setIsFetchingPlants(true));
+    this.dispatch(fetchAllPlants())
+      .unwrap()
+      .then((plants: Plant[]) => {
+        this.dispatch(setPlants(plants));
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
@@ -108,6 +109,18 @@ export class PlantIO {
       .unwrap()
       .then(() => {
         this.dispatch(removePlant(plantId));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
+
+  search = (query: string): void => {
+    this.dispatch(setIsFetchingPlants(true));
+    this.dispatch(fetchQueryPlants(query))
+      .unwrap()
+      .then((plants: Plant[]) => {
+        this.dispatch(setPlants(plants));
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));

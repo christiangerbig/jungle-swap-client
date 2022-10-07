@@ -1,4 +1,6 @@
 import {
+  addMessage,
+  createMessage,
   deleteMessage,
   fetchAllMessages,
   fetchMessage,
@@ -6,6 +8,7 @@ import {
   setAmountOfReplies,
   setAmountOfRequests,
   setErrorMessage,
+  setIsCreatingMessage,
   setIsDeletingMessage,
   setIsFetchingMessage,
   setIsFetchingMessages,
@@ -24,6 +27,18 @@ export class MessageIO {
   constructor(dispatch: any) {
     this.dispatch = dispatch;
   }
+
+  create = (newMessage: Message): void => {
+    this.dispatch(setIsCreatingMessage(true));
+    this.dispatch(createMessage(newMessage))
+      .unwrap()
+      .then((message: Message) => {
+        this.dispatch(addMessage(message));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
+  };
 
   fetch = (messageId: MessageId): void => {
     this.dispatch(setIsFetchingMessage(true));
@@ -60,21 +75,16 @@ export class MessageIO {
       });
   };
 
-  deleteRemaining = (messages: Message[], plantId: PlantId): void => {
-    messages.forEach((message: Message): void => {
-      const { _id, plant } = message;
-      if ((plant as Plant)._id === plantId) {
-        this.dispatch(setIsDeletingMessage(true));
-        this.dispatch(deleteMessage(_id as PlantId))
-          .unwrap()
-          .then(() => {
-            this.dispatch(removeMessage(_id as PlantId));
-          })
-          .catch((rejectedValue: any) => {
-            this.dispatch(setErrorMessage(rejectedValue.message));
-          });
-      }
-    });
+  update = (messageId: MessageId, updatedMessage: Message): void => {
+    this.dispatch(setIsUpdatingMessage(true));
+    this.dispatch(updateMessage({ messageId, updatedMessage }))
+      .unwrap()
+      .then((message: Message) => {
+        this.dispatch(setMessageChanges(message));
+      })
+      .catch((rejectedValue: any) => {
+        this.dispatch(setErrorMessage(rejectedValue.message));
+      });
   };
 
   delete = (messageId: MessageId): void => {
@@ -89,16 +99,20 @@ export class MessageIO {
       });
   };
 
-  update = (messageId: MessageId, updatedMessage: Message): void => {
-    this.dispatch(setIsUpdatingMessage(true));
-    this.dispatch(updateMessage({ messageId, updatedMessage }))
-      .unwrap()
-      .then((message: Message) => {
-        this.dispatch(setMessageChanges(message));
-      })
-      .catch((rejectedValue: any) => {
-        this.dispatch(setErrorMessage(rejectedValue.message));
-      });
+  deleteRemaining = (messages: Message[], plantId: PlantId): void => {
+    messages.forEach(({ _id, plant }: Message): void => {
+      if ((plant as Plant)._id === plantId) {
+        this.dispatch(setIsDeletingMessage(true));
+        this.dispatch(deleteMessage(_id as PlantId))
+          .unwrap()
+          .then(() => {
+            this.dispatch(removeMessage(_id as PlantId));
+          })
+          .catch((rejectedValue: any) => {
+            this.dispatch(setErrorMessage(rejectedValue.message));
+          });
+      }
+    });
   };
 
   checkNewRequests = (
@@ -108,8 +122,7 @@ export class MessageIO {
   ): void => {
     const calculateAmountOfRequests = (messages: Message[]): number => {
       const currentAmountOfRequests = messages.filter(
-        (message: Message): boolean => {
-          const { seller, messageState } = message;
+        ({ seller, messageState }: Message): boolean => {
           return (
             (seller as User)._id === (loggedInUser as User)._id &&
             messageState === true
@@ -142,8 +155,7 @@ export class MessageIO {
   ): void => {
     const calculateAmountOfReplies = (messages: Message[]): number => {
       const currentAmountOfReplies = messages.filter(
-        (message: Message): boolean => {
-          const { buyer, reply } = message;
+        ({ buyer, reply }: Message): boolean => {
           return (
             (buyer as User)._id === (loggedInUser as User)._id && reply !== ""
           );

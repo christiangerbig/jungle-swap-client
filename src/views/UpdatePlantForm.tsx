@@ -4,14 +4,8 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setPlant,
-  setIsUploadingPlantImage,
-  uploadPlantImage,
-  setDestroyImageData,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
-import { Plant, UploadImageData } from "../typeDefinitions";
+import { setPlant, setDestroyImageData } from "../reducer/jungleSwapSlice";
+import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
@@ -82,10 +76,9 @@ const UpdatePlantForm = (): JSX.Element => {
 
   const handlePlantImageChange = (
     { target }: React.ChangeEvent<HTMLInputElement>,
-    plant: Plant
+    { imagePublicId }: Plant
   ): void => {
     const image = (target.files as any)[0];
-    const { imagePublicId } = plant as Plant;
     dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
@@ -101,6 +94,12 @@ const UpdatePlantForm = (): JSX.Element => {
     const plantIO = new PlantIO(dispatch);
     plantIO.update(plant);
     history.goBack();
+  };
+
+  const buttonState = (): boolean => {
+    return isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant
+      ? true
+      : false;
   };
 
   if (!loggedInUser) {
@@ -200,13 +199,7 @@ const UpdatePlantForm = (): JSX.Element => {
             />
             <div className="col-12 text-right pr-0">
               <button
-                disabled={
-                  isUploadingPlantImage ||
-                  isDeletingPlantImage ||
-                  isUpdatingPlant
-                    ? true
-                    : false
-                }
+                disabled={buttonState()}
                 className="btn btn-sm ml-4 form-control is-width-medium mb-2"
                 onClick={handleUpdatePlant}
               >

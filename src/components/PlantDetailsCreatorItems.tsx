@@ -36,6 +36,10 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
     history.goBack();
   };
 
+  const buttonState = (): boolean => {
+    return (isDeletingMessage || isDeletingPlantImage || isDeletingPlant) ? true : false;
+  }
+
   return (
     <div className="p-0">
       <Link to={"/plants/update"} className="is-link">
@@ -44,11 +48,7 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
         </button>
       </Link>
       <button
-        disabled={
-          isDeletingMessage || isDeletingPlantImage || isDeletingPlant
-            ? true
-            : false
-        }
+        disabled={buttonState()}
         className="btn btn-sm ml-2 form-control is-width-medium mb-2"
         onClick={handleDelete}
       >

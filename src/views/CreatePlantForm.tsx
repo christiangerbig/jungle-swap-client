@@ -96,6 +96,10 @@ const CreatePlantForm = (): JSX.Element => {
     }
   };
 
+  const buttonState = (): boolean => {
+    return isUploadingPlantImage || isCreatingPlant ? true : false;
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -172,7 +176,7 @@ const CreatePlantForm = (): JSX.Element => {
           <div className="col-12 text-right pr-0">
             <button
               type="submit"
-              disabled={isUploadingPlantImage || isCreatingPlant ? true : false}
+              disabled={buttonState()}
               className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
             >
               {t("button.create")}

@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { PlantIO } from "../lib/plantIO";
-import {
-  fetchQueryPlants,
-  setErrorMessage,
-  setFilteredPlants,
-  setIsFetchingPlants,
-  setPlants,
-} from "../reducer/jungleSwapSlice";
+import { setFilteredPlants } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { Plant } from "../typeDefinitions";
 
@@ -21,18 +15,10 @@ const SearchPlant = (): JSX.Element => {
 
   useEffect(() => {
     const fetchPlantQueryByName = (query: string): void => {
+      const plantIO = new PlantIO(dispatch);
       if (query) {
-        dispatch(setIsFetchingPlants(true));
-        dispatch(fetchQueryPlants(query))
-          .unwrap()
-          .then((plants: Plant[]) => {
-            dispatch(setPlants(plants));
-          })
-          .catch((rejectedValue: any) => {
-            dispatch(setErrorMessage(rejectedValue.message));
-          });
+        plantIO.search(query);
       } else {
-        const plantIO = new PlantIO(dispatch);
         plantIO.fetchAll();
       }
     };

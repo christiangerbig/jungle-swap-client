@@ -3,16 +3,12 @@ import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setIsCreatingMessage,
-  createMessage,
-  addMessage,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
+import { setErrorMessage } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
+import { MessageIO } from "../lib/messageIO";
 
 const CreateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -41,31 +37,18 @@ const CreateRequestForm = (): JSX.Element => {
 
   const handleCreateMessageForRequest = (
     event: React.FormEvent<HTMLFormElement>,
-    plant: Plant
+    { _id, creator }: Plant
   ): void => {
-    const addMessageAndReturnToPlantDetailsPage = (message: Message): void => {
-      dispatch(addMessage(message));
-      history.goBack();
-    };
-
-    event.preventDefault();
     const { request } = event.target as any;
-    const { _id, creator } = plant;
     const newMessage: Message = {
       seller: (creator as User)._id,
       plant: _id,
       request: request.value,
     };
-    dispatch(setIsCreatingMessage(true));
-    dispatch(createMessage(newMessage))
-      .unwrap()
-      .then((message) => {
-        addMessageAndReturnToPlantDetailsPage(message);
-      })
-      .catch((rejectedValue: any) => {
-        console.log("Create Plant Error: ", rejectedValue.message);
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    event.preventDefault();
+    const messageIO = new MessageIO(dispatch);
+    messageIO.create(newMessage);
+    history.goBack();
   };
 
   const printErrorMessage = (errorMessage: string): string => {
@@ -75,6 +58,10 @@ const CreateRequestForm = (): JSX.Element => {
       default:
         return t("errors.general");
     }
+  };
+
+  const buttonState = (): boolean => {
+    return isCreatingMessage ? true : false;
   };
 
   if (!loggedInUser) {
@@ -108,7 +95,7 @@ const CreateRequestForm = (): JSX.Element => {
           <div className="text-right">
             <button
               type="submit"
-              disabled={isCreatingMessage ? true : false}
+              disabled={buttonState()}
               className="btn btn-sm mx-2 form-control is-width-medium"
             >
               {t("button.send")}

@@ -3,13 +3,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setMessage,
-  setIsUpdatingMessage,
-  updateMessage,
-  setMessageChanges,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
+import { setMessage, setMessageChanges } from "../reducer/jungleSwapSlice";
 import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
@@ -65,6 +59,10 @@ const UpdateRequestForm = (): JSX.Element => {
     }
   };
 
+  const buttonState = (): boolean => {
+    return isUpdatingMessage ? true : false;
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -91,7 +89,7 @@ const UpdateRequestForm = (): JSX.Element => {
             )}
             <div className="row justify-content-end px-3">
               <button
-                disabled={isUpdatingMessage ? true : false}
+                disabled={buttonState()}
                 className="btn btn-sm is-width-medium form-control mr-3 mb-2"
                 onClick={() => {
                   handleUpdateMessage(message);
