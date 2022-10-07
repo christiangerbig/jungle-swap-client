@@ -3,7 +3,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { setMessage, setMessageChanges } from "../reducer/jungleSwapSlice";
+import { setMessage } from "../reducer/jungleSwapSlice";
 import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
@@ -47,7 +47,6 @@ const UpdateRequestForm = (): JSX.Element => {
     const messageIO = new MessageIO(dispatch);
     messageIO.update(updatedMessage._id as MessageId, updatedMessage);
     if (!isUpdatingMessage) {
-      dispatch(setMessageChanges(message));
       history.goBack();
     }
   };

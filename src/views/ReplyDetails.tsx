@@ -3,10 +3,7 @@ import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  decreaseAmountOfReplies,
-  setMessage,
-} from "../reducer/jungleSwapSlice";
+import { decreaseAmountOfReplies } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";

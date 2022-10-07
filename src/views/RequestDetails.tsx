@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setMessage,
   decreaseAmountOfRequests,
-  setMessageChanges,
 } from "../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
@@ -44,25 +43,23 @@ const RequestDetails = (): JSX.Element => {
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
-    const setBuyerMessageInactive = (message: Message): Message => {
+    const setBuyerMessageInactive = (message: Message): void => {
       const clonedMessage: Message = JSON.parse(JSON.stringify(message));
       clonedMessage.messageState = false;
       dispatch(setMessage(clonedMessage));
-      return clonedMessage;
     };
 
     const updateBuyerMessage = (updatedMessage: Message) => {
       const messageIO = new MessageIO(dispatch);
       messageIO.update(updatedMessage._id as MessageId, updatedMessage);
       if (!isUpdatingMessage) {
-        dispatch(setMessageChanges(message));
         dispatch(decreaseAmountOfRequests());
         history.goBack();
       }
     };
 
-    const updatedMessage = setBuyerMessageInactive(message);
-    updateBuyerMessage(updatedMessage);
+    setBuyerMessageInactive(message);
+    updateBuyerMessage(message);
   };
 
   if (!loggedInUser) {
