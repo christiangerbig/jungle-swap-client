@@ -51,11 +51,10 @@ const RequestDetails = (): JSX.Element => {
 
     const updateBuyerMessage = (updatedMessage: Message) => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.update(updatedMessage._id as MessageId, updatedMessage);
-      if (!isUpdatingMessage) {
+      messageIO.update(updatedMessage._id as MessageId, updatedMessage, () => {
         dispatch(decreaseAmountOfRequests());
         history.goBack();
-      }
+      });
     };
 
     setBuyerMessageInactive(message);

@@ -64,23 +64,25 @@ export class MessageIO {
       });
   };
 
-  fetchCheck = (): void => {
+  fetchCheck = (callbackFunction: Function): void => {
     this.dispatch(fetchAllMessages())
       .unwrap()
       .then((messages: Message[]) => {
         this.dispatch(setMessages(messages));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  update = (messageId: MessageId, updatedMessage: Message): void => {
+  update = (messageId: MessageId, updatedMessage: Message, callbackFunction: Function): void => {
     this.dispatch(setIsUpdatingMessage(true));
     this.dispatch(updateMessage({ messageId, updatedMessage }))
       .unwrap()
       .then((message: Message) => {
         this.dispatch(setMessageChanges(message));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));

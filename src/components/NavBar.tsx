@@ -96,11 +96,10 @@ const NavBar = (): JSX.Element => {
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchCheck();
-      if (!isFetchingMessages) {
+      messageIO.fetchCheck(() => {
         messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
         messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
-      }
+      });
     };
 
     if (isUserChange) {
