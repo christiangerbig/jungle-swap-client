@@ -42,17 +42,9 @@ const ReplyDetails = (): JSX.Element => {
     }
   }, []);
 
-  const handleRemoveReply = (messageId: MessageId): void => {
-    const removeReply = (message: Message): Message => {
-      const clonedMessage: Message = JSON.parse(JSON.stringify(message));
-      clonedMessage.reply = "";
-      dispatch(setMessage(clonedMessage));
-      return clonedMessage;
-    };
-
-    const updatedMessage = removeReply(message);
+  const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.update(messageId, updatedMessage);
+    messageIO.delete(messageId);
     dispatch(decreaseAmountOfReplies());
     history.goBack();
   };
@@ -91,7 +83,7 @@ const ReplyDetails = (): JSX.Element => {
             disabled={buttonState()}
             className="btn btn-sm ml-2 is-width-medium form-control mb-1"
             onClick={() => {
-              handleRemoveReply(_id as MessageId);
+              handleDeleteMessage(_id as MessageId);
             }}
           >
             {t("button.delete")}
