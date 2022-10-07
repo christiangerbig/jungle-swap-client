@@ -46,8 +46,10 @@ const UpdateRequestForm = (): JSX.Element => {
   const handleUpdateMessage = (updatedMessage: Message): void => {
     const messageIO = new MessageIO(dispatch);
     messageIO.update(updatedMessage._id as MessageId, updatedMessage);
-    dispatch(setMessageChanges(message));
-    history.goBack();
+    if (!isUpdatingMessage) {
+      dispatch(setMessageChanges(message));
+      history.goBack();
+    }
   };
 
   const printErrorMessage = (errorMessage: string): string => {

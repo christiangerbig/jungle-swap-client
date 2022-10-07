@@ -48,7 +48,7 @@ const CreateRequestForm = (): JSX.Element => {
     event.preventDefault();
     const messageIO = new MessageIO(dispatch);
     messageIO.create(newMessage);
-    history.goBack();
+    !isCreatingMessage && history.goBack();
   };
 
   const printErrorMessage = (errorMessage: string): string => {

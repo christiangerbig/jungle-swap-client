@@ -41,8 +41,10 @@ const RepliesPage = (): JSX.Element => {
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetchAll();
-      isUserChange && dispatch(setStartAmountOfReplies());
-      resetReplyVariableAndScrollToTop();
+      if (!isFetchingMessages) {
+        isUserChange && dispatch(setStartAmountOfReplies());
+        resetReplyVariableAndScrollToTop();
+      }
     }
 
     return () => {

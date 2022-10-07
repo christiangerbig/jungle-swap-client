@@ -38,15 +38,17 @@ const ReplyDetails = (): JSX.Element => {
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetch(messageId);
-      scroll.scrollToTop();
+      !isFetchingMessage && scroll.scrollToTop();
     }
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
     messageIO.delete(messageId);
-    dispatch(decreaseAmountOfReplies());
-    history.goBack();
+    if (!isDeletingMessage) {
+      dispatch(decreaseAmountOfReplies());
+      history.goBack();
+    }
   };
 
   const buttonState = (): boolean => {

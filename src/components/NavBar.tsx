@@ -39,6 +39,9 @@ const NavBar = (): JSX.Element => {
   const isNewReply = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewReply
   );
+  const isFetchingMessages = useAppSelector(
+    (state: RootState) => state.jungleSwap.isFetchingMessages
+  );
   const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
@@ -81,8 +84,10 @@ const NavBar = (): JSX.Element => {
 
       const messageIO = new MessageIO(dispatch);
       messageIO.fetchAll();
-      setInitialMessageVariables();
-      startInterval();
+      if (!isFetchingMessages) {
+        setInitialMessageVariables();
+        startInterval();
+      }
     };
 
     isUserChange && startRequestsRepliesCheck();
@@ -92,8 +97,10 @@ const NavBar = (): JSX.Element => {
     const checkNewRequestsReplies = (): void => {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetchCheck();
-      messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
-      messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
+      if (!isFetchingMessages) {
+        messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
+        messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
+      }
     };
 
     if (isUserChange) {

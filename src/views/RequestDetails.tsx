@@ -23,6 +23,9 @@ const RequestDetails = (): JSX.Element => {
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
+  const isUpdatingMessage = useAppSelector(
+    (state: RootState) => state.jungleSwap.isUpdatingMessage
+  );
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -35,7 +38,7 @@ const RequestDetails = (): JSX.Element => {
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetch(messageId);
-      scroll.scrollToTop();
+      !isFetchingMessage && scroll.scrollToTop();
     }
   }, []);
 
@@ -50,8 +53,10 @@ const RequestDetails = (): JSX.Element => {
     const updateBuyerMessage = (updatedMessage: Message) => {
       const messageIO = new MessageIO(dispatch);
       messageIO.update(updatedMessage._id as MessageId, updatedMessage);
-      dispatch(decreaseAmountOfRequests());
-      history.goBack();
+      if (!isUpdatingMessage) {
+        dispatch(decreaseAmountOfRequests());
+        history.goBack();
+      }
     };
 
     const updatedMessage = setBuyerMessageInactive(message);

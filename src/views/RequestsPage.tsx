@@ -41,8 +41,10 @@ const RequestsPage = (): JSX.Element => {
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetchAll();
-      isUserChange && dispatch(setStartAmountOfRequests());
-      resetRequestVariableAndScrollToTop();
+      if (!isFetchingMessages) {
+        isUserChange && dispatch(setStartAmountOfRequests());
+        resetRequestVariableAndScrollToTop();
+      }
     }
 
     return () => {
