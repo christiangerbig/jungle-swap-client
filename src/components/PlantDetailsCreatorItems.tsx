@@ -31,10 +31,10 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
     messageIO.deleteRemaining(
       messages,
       _id as PlantId,
-      { imagePublicId },
-      ({ imagePublicId }: DestroyImageData): void => {
+      imagePublicId as DestroyImageData,
+      (imagePublicId: DestroyImageData): void => {
         const plantImageIO = new PlantImageIO(dispatch);
-        plantImageIO.delete({ imagePublicId });
+        plantImageIO.delete(imagePublicId);
         const plantIO = new PlantIO(dispatch);
         plantIO.delete(_id as PlantId, () => {
           history.goBack();
