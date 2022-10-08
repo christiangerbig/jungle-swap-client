@@ -21,7 +21,7 @@ import {
   updateMessage,
 } from "../reducer/jungleSwapSlice";
 import {
-  DestroyImageData,
+  ImagePublicId,
   Message,
   MessageId,
   Plant,
@@ -35,13 +35,17 @@ export class MessageIO {
     this.dispatch = dispatch;
   }
 
-  create = (newMessage: Message, callbackFunction: Function): void => {
+  create = (
+    newMessage: Message,
+    history: any,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(setIsCreatingMessage(true));
     this.dispatch(createMessage(newMessage))
       .unwrap()
       .then((message: Message): void => {
         this.dispatch(addMessage(message));
-        callbackFunction();
+        callbackFunction(history);
       })
       .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
@@ -102,6 +106,7 @@ export class MessageIO {
   update = (
     messageId: MessageId,
     updatedMessage: Message,
+    history: any,
     callbackFunction: Function
   ): void => {
     this.dispatch(setIsUpdatingMessage(true));
@@ -109,20 +114,24 @@ export class MessageIO {
       .unwrap()
       .then((message: Message): void => {
         this.dispatch(setMessageChanges(message));
-        callbackFunction();
+        callbackFunction(history);
       })
       .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  delete = (messageId: MessageId, callbackFunction: Function): void => {
+  delete = (
+    messageId: MessageId,
+    history: any,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(setIsDeletingMessage(true));
     this.dispatch(deleteMessage(messageId))
       .unwrap()
       .then(() => {
         this.dispatch(removeMessage(messageId));
-        callbackFunction();
+        callbackFunction(history);
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
@@ -132,7 +141,7 @@ export class MessageIO {
   deleteRemaining = (
     messages: Message[],
     plantId: PlantId,
-    { imagePublicId }: DestroyImageData,
+    imagePublicId: ImagePublicId,
     callbackFunction: Function
   ): void => {
     messages.forEach(({ _id, plant }: Message): void => {
@@ -142,7 +151,7 @@ export class MessageIO {
           .unwrap()
           .then(() => {
             this.dispatch(removeMessage(_id as PlantId));
-            callbackFunction({ imagePublicId });
+            callbackFunction(imagePublicId);
           })
           .catch((rejectedValue: any): void => {
             this.dispatch(setErrorMessage(rejectedValue.message));

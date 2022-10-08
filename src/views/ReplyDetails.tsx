@@ -42,7 +42,7 @@ const ReplyDetails = (): JSX.Element => {
 
   const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.delete(messageId, (): void => {
+    messageIO.delete(messageId, history as any, (history: any): void => {
       dispatch(decreaseAmountOfReplies());
       history.goBack();
     });

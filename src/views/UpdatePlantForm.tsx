@@ -92,8 +92,9 @@ const UpdatePlantForm = (): JSX.Element => {
       plantImageIO.delete(destroyImageData);
     }
     const plantIO = new PlantIO(dispatch);
-    plantIO.update(plant);
-    history.goBack();
+    plantIO.update(plant, history, (history: any): void => {
+      history.goBack();
+    });
   };
 
   const buttonState = (): boolean => {

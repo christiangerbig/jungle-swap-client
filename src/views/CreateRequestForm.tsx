@@ -47,7 +47,7 @@ const CreateRequestForm = (): JSX.Element => {
     };
     event.preventDefault();
     const messageIO = new MessageIO(dispatch);
-    messageIO.create(newMessage, () => {
+    messageIO.create(newMessage, history, (history: any): void => {
       history.goBack();
     });
   };

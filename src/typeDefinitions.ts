@@ -2,7 +2,7 @@
 export type PlantId = string;
 
 // ----- Images -----
-type ImagePublicId = string;
+export type ImagePublicId = string;
 type ImageUrl = string;
 
 // ----- Interval -----

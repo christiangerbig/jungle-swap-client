@@ -40,17 +40,11 @@ const NavBar = (): JSX.Element => {
   const isNewReply = useAppSelector(
     (state: RootState) => state.jungleSwap.isNewReply
   );
-  const isFetchingMessages = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingMessages
-  );
   const amountOfRequests = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const amountOfReplies = useAppSelector(
     (state: RootState) => state.jungleSwap.amountOfReplies
-  );
-  const messages = useAppSelector(
-    (state: RootState) => state.jungleSwap.messages
   );
   const dispatch = useAppDispatch();
   const { t } = useTranslation();

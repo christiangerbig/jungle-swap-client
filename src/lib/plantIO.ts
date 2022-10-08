@@ -73,16 +73,20 @@ export class PlantIO {
       });
   };
 
-  update = ({
-    _id,
-    name,
-    description,
-    size,
-    imageUrl,
-    imagePublicId,
-    location,
-    price,
-  }: Plant): void => {
+  update = (
+    {
+      _id,
+      name,
+      description,
+      size,
+      imageUrl,
+      imagePublicId,
+      location,
+      price,
+    }: Plant,
+    history: any,
+    callbackFunction: Function
+  ): void => {
     const updatedPlant: Plant = {
       name,
       description,
@@ -97,19 +101,24 @@ export class PlantIO {
       .unwrap()
       .then((updatedPlant: Plant) => {
         this.dispatch(setPlantChanges(updatedPlant));
+        callbackFunction(history);
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  delete = (plantId: PlantId, callbackFunction: Function): void => {
+  delete = (
+    plantId: PlantId,
+    history: any,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(setIsDeletingPlant(true));
     this.dispatch(deletePlant(plantId))
       .unwrap()
       .then(() => {
         this.dispatch(removePlant(plantId));
-        callbackFunction();
+        callbackFunction(history);
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));

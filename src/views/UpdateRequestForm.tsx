@@ -48,7 +48,8 @@ const UpdateRequestForm = (): JSX.Element => {
     messageIO.update(
       updatedMessage._id as MessageId,
       updatedMessage,
-      (): void => {
+      history,
+      (history: any): void => {
         history.goBack();
       }
     );

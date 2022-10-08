@@ -23,9 +23,6 @@ const RequestDetails = (): JSX.Element => {
   const message = useAppSelector(
     (state: RootState) => state.jungleSwap.message
   );
-  const isUpdatingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUpdatingMessage
-  );
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -55,7 +52,8 @@ const RequestDetails = (): JSX.Element => {
       messageIO.update(
         updatedMessage._id as MessageId,
         updatedMessage,
-        (): void => {
+        history as any,
+        (history: any): void => {
           dispatch(decreaseAmountOfRequests());
           history.goBack();
         }
