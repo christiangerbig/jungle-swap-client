@@ -30,18 +30,19 @@ const RequestDetails = (): JSX.Element => {
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
-    routing.protect((): void => {
+    //const routing = new Routing(dispatch);
+    //routing.protect((): void => {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetch(messageId, (): void => {
         scroll.scrollToTop();
-      });
+      //});
     });
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
     const setBuyerMessageInactive = (message: Message): Message => {
       const clonedMessage: Message = JSON.parse(JSON.stringify(message));
+      clonedMessage.messageState = false;
       dispatch(setMessage(clonedMessage));
       return clonedMessage;
     };
