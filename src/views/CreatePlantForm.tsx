@@ -35,11 +35,10 @@ const CreatePlantForm = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();
-    }
+    });
   }, []);
 
   const handleUploadPlantImage = (
@@ -50,15 +49,19 @@ const CreatePlantForm = (): JSX.Element => {
       imagePublicId,
     }: UploadImageData): void => {
       const plantIO = new PlantIO(dispatch);
-      plantIO.create(event.target, { imageUrl, imagePublicId });
-      if (errorMessage) {
-        history.push("/");
-        scroll.scrollToTop();
-      } else {
-        dispatch(setNumberOfVisibleEntries(plants.length));
-        history.push("/");
-        scroll.scrollToBottom();
-      }
+      plantIO.create(
+        event.target,
+        { imageUrl, imagePublicId },
+        () => {
+          dispatch(setNumberOfVisibleEntries(plants.length));
+          history.push("/");
+          scroll.scrollToBottom();
+        },
+        () => {
+          history.push("/");
+          scroll.scrollToTop();
+        }
+      );
     };
 
     event.preventDefault();

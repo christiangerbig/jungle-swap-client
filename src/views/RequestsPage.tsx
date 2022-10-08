@@ -37,15 +37,13 @@ const RequestsPage = (): JSX.Element => {
     };
 
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll(isUserChange, (): void => {
+      messageIO.fetchAll((): void => {
         isUserChange && dispatch(setStartAmountOfRequests());
         resetRequestVariableAndScrollToTop();
       });
-    }
-
+    });
     return () => {
       resetRequestVariableAndScrollToTop();
     };

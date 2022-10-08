@@ -37,15 +37,13 @@ const RepliesPage = (): JSX.Element => {
     };
 
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll(isUserChange, (isUserChange: boolean): void => {
+      messageIO.fetchAll((): void => {
         isUserChange && dispatch(setStartAmountOfReplies());
         resetReplyVariableAndScrollToTop();
       });
-    }
-
+    });
     return () => {
       resetReplyVariableAndScrollToTop();
     };

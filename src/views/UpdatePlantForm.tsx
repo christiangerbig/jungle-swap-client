@@ -43,11 +43,10 @@ const UpdatePlantForm = (): JSX.Element => {
     };
 
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       setPlantLocation(plant);
       scroll.scrollToTop();
-    }
+    });
   }, []);
 
   const handlePlantEntryChange = (
@@ -92,7 +91,7 @@ const UpdatePlantForm = (): JSX.Element => {
       plantImageIO.delete(destroyImageData);
     }
     const plantIO = new PlantIO(dispatch);
-    plantIO.update(plant, history, (history: any): void => {
+    plantIO.update(plant, (): void => {
       history.goBack();
     });
   };

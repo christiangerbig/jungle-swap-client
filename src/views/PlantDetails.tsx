@@ -28,12 +28,11 @@ const PlantDetails = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       const plantIO = new PlantIO(dispatch);
       plantIO.fetch(plantId);
       scroll.scrollToTop();
-    }
+    });
   }, []);
 
   if (!loggedInUser) {

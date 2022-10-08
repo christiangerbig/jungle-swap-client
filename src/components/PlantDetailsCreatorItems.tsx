@@ -5,11 +5,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { MessageIO } from "../lib/messageIO";
 import { PlantImageIO } from "../lib/plantImageIO";
 import { PlantIO } from "../lib/plantIO";
-import {
-  ImagePublicId,
-  Plant,
-  PlantId,
-} from "../typeDefinitions";
+import { Plant, PlantId } from "../typeDefinitions";
 
 const PlantDetailsCreatorItems = (): JSX.Element => {
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
@@ -32,19 +28,14 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
 
   const handleDelete = () => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.deleteRemaining(
-      messages,
-      _id as PlantId,
-      imagePublicId as ImagePublicId,
-      (imagePublicId: ImagePublicId): void => {
-        const plantImageIO = new PlantImageIO(dispatch);
-        plantImageIO.delete({ imagePublicId });
-        const plantIO = new PlantIO(dispatch);
-        plantIO.delete(_id as PlantId, history as any, (history: any): void => {
-          history.goBack();
-        });
-      }
-    );
+    messageIO.deleteRemaining(messages, _id as PlantId, (): void => {
+      const plantImageIO = new PlantImageIO(dispatch);
+      plantImageIO.delete({ imagePublicId });
+      const plantIO = new PlantIO(dispatch);
+      plantIO.delete(_id as PlantId, (): void => {
+        history.goBack();
+      });
+    });
   };
 
   const buttonState = (): boolean => {

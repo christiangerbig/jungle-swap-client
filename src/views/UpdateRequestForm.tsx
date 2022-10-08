@@ -30,8 +30,9 @@ const UpdateRequestForm = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    loggedInUser && scroll.scrollToTop();
+    routing.protect((): void => {
+      scroll.scrollToTop();
+    });
   }, []);
 
   const handleCreateReply = (
@@ -48,8 +49,7 @@ const UpdateRequestForm = (): JSX.Element => {
     messageIO.update(
       updatedMessage._id as MessageId,
       updatedMessage,
-      history,
-      (history: any): void => {
+      (): void => {
         history.goBack();
       }
     );

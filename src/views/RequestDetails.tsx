@@ -31,13 +31,12 @@ const RequestDetails = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetch(messageId, (): void => {
         scroll.scrollToTop();
       });
-    }
+    });
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
@@ -52,8 +51,7 @@ const RequestDetails = (): JSX.Element => {
       messageIO.update(
         updatedMessage._id as MessageId,
         updatedMessage,
-        history as any,
-        (history: any): void => {
+        (): void => {
           dispatch(decreaseAmountOfRequests());
           history.goBack();
         }

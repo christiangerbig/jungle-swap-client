@@ -10,11 +10,12 @@ export class Routing {
   constructor(dispatch: any) {
     this.dispatch = dispatch;
   }
-  protect = (): void => {
+  protect = (callbackFunction: Function): void => {
     this.dispatch(checkUserLoggedIn())
       .unwrap()
       .then((user: User) => {
         this.dispatch(setLoggedInUser(user));
+        callbackFunction();
       })
       .catch((rejectedValue: any) => {
         this.dispatch(setErrorMessage(rejectedValue.message));

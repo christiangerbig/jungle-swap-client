@@ -19,7 +19,7 @@ import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import NavLoggedInUserItems from "./NavLoggedInUserItems";
 import NavAuthentificationItems from "./NavAuthentificationItems";
 import { MessageIO } from "../lib/messageIO";
-import { Message, User } from "../typeDefinitions";
+import { Message } from "../typeDefinitions";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(
@@ -78,7 +78,7 @@ const NavBar = (): JSX.Element => {
       };
 
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll(null, () => {
+      messageIO.fetchAll((): void => {
         setInitialMessageVariables();
         startInterval();
       });
@@ -90,20 +90,10 @@ const NavBar = (): JSX.Element => {
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchCheck(
-        loggedInUser,
-        amountOfRequests,
-        amountOfReplies,
-        (
-          loggedInUser: User | null,
-          messages: Message[],
-          amountOfRequests: number,
-          amountOfReplies: number
-        ): void => {
-          messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
-          messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
-        }
-      );
+      messageIO.fetchCheck((messages: Message[]): void => {
+        messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
+        messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
+      });
     };
 
     if (isUserChange) {

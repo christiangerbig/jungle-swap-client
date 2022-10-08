@@ -20,8 +20,9 @@ const CheckoutPage = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    loggedInUser && scroll.scrollToTop();
+    routing.protect((): void => {
+      scroll.scrollToTop();
+    });
   }, []);
 
   if (!loggedInUser) {

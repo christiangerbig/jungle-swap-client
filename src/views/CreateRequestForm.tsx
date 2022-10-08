@@ -28,11 +28,10 @@ const CreateRequestForm = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();
-    }
+    });
   }, []);
 
   const handleCreateMessageForRequest = (
@@ -47,7 +46,7 @@ const CreateRequestForm = (): JSX.Element => {
     };
     event.preventDefault();
     const messageIO = new MessageIO(dispatch);
-    messageIO.create(newMessage, history, (history: any): void => {
+    messageIO.create(newMessage, (): void => {
       history.goBack();
     });
   };

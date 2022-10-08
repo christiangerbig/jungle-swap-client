@@ -19,8 +19,9 @@ const MyPlants = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    loggedInUser && scroll.scrollToTop();
+    routing.protect((): void => {
+      scroll.scrollToTop();
+    });
   }, []);
 
   return (

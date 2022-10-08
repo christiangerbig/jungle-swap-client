@@ -31,18 +31,17 @@ const ReplyDetails = (): JSX.Element => {
 
   useEffect(() => {
     const routing = new Routing(dispatch);
-    routing.protect();
-    if (loggedInUser) {
+    routing.protect((): void => {
       const messageIO = new MessageIO(dispatch);
       messageIO.fetch(messageId, (): void => {
         scroll.scrollToTop();
       });
-    }
+    });
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.delete(messageId, history as any, (history: any): void => {
+    messageIO.delete(messageId, (): void => {
       dispatch(decreaseAmountOfReplies());
       history.goBack();
     });

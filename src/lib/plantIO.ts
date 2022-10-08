@@ -27,7 +27,9 @@ export class PlantIO {
 
   create = (
     { name, description, size, location, price }: any,
-    { imageUrl, imagePublicId }: UploadImageData
+    { imageUrl, imagePublicId }: UploadImageData,
+    callbackFunction: Function,
+    callbackFunctionError: Function,
   ): void => {
     const newPlant: Plant = {
       name: name.value,
@@ -41,11 +43,13 @@ export class PlantIO {
     this.dispatch(setIsCreatingPlant(true));
     this.dispatch(createPlant(newPlant))
       .unwrap()
-      .then((plant: Plant) => {
+      .then((plant: Plant): void => {
         this.dispatch(addPlant(plant));
+        callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
+        callbackFunctionError();
       });
   };
 
@@ -53,10 +57,10 @@ export class PlantIO {
     this.dispatch(setIsFetchingPlant(true));
     this.dispatch(fetchPlant(plantId))
       .unwrap()
-      .then((plant: Plant) => {
+      .then((plant: Plant): void => {
         this.dispatch(setPlant(plant));
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -65,10 +69,10 @@ export class PlantIO {
     this.dispatch(setIsFetchingPlants(true));
     this.dispatch(fetchAllPlants())
       .unwrap()
-      .then((plants: Plant[]) => {
+      .then((plants: Plant[]): void => {
         this.dispatch(setPlants(plants));
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -84,7 +88,6 @@ export class PlantIO {
       location,
       price,
     }: Plant,
-    history: any,
     callbackFunction: Function
   ): void => {
     const updatedPlant: Plant = {
@@ -99,28 +102,24 @@ export class PlantIO {
     this.dispatch(setIsUpdatingPlant(true));
     this.dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
       .unwrap()
-      .then((updatedPlant: Plant) => {
+      .then((updatedPlant: Plant): void => {
         this.dispatch(setPlantChanges(updatedPlant));
-        callbackFunction(history);
+        callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  delete = (
-    plantId: PlantId,
-    history: any,
-    callbackFunction: Function
-  ): void => {
+  delete = (plantId: PlantId, callbackFunction: Function): void => {
     this.dispatch(setIsDeletingPlant(true));
     this.dispatch(deletePlant(plantId))
       .unwrap()
-      .then(() => {
+      .then((): void => {
         this.dispatch(removePlant(plantId));
-        callbackFunction(history);
+        callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -129,10 +128,10 @@ export class PlantIO {
     this.dispatch(setIsFetchingPlants(true));
     this.dispatch(fetchQueryPlants(query))
       .unwrap()
-      .then((plants: Plant[]) => {
+      .then((plants: Plant[]): void => {
         this.dispatch(setPlants(plants));
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
