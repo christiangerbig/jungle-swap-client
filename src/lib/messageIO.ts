@@ -20,7 +20,14 @@ import {
   setMessages,
   updateMessage,
 } from "../reducer/jungleSwapSlice";
-import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
+import {
+  DestroyImageData,
+  Message,
+  MessageId,
+  Plant,
+  PlantId,
+  User,
+} from "../typeDefinitions";
 
 export class MessageIO {
   dispatch: any;
@@ -32,11 +39,11 @@ export class MessageIO {
     this.dispatch(setIsCreatingMessage(true));
     this.dispatch(createMessage(newMessage))
       .unwrap()
-      .then((message: Message) => {
+      .then((message: Message): void => {
         this.dispatch(addMessage(message));
         callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -45,36 +52,49 @@ export class MessageIO {
     this.dispatch(setIsFetchingMessage(true));
     this.dispatch(fetchMessage(messageId))
       .unwrap()
-      .then((message: Message) => {
+      .then((message: Message): void => {
         this.dispatch(setMessage(message));
         callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  fetchAll = (callbackFunction: Function): void => {
+  fetchAll = (
+    isUserChange: boolean | null,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(setIsFetchingMessages(true));
     this.dispatch(fetchAllMessages())
       .unwrap()
-      .then((messages: Message[]) => {
+      .then((messages: Message[]): void => {
         this.dispatch(setMessages(messages));
-        callbackFunction();
+        callbackFunction(isUserChange);
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  fetchCheck = (callbackFunction: Function): void => {
+  fetchCheck = (
+    loggedInUser: User | null,
+    amountOfRequests: number,
+    amountOfReplies: number,
+    callbackFunction: Function
+  ): void => {
     this.dispatch(fetchAllMessages())
       .unwrap()
-      .then((messages: Message[]) => {
+      .then((messages: Message[]): void => {
         this.dispatch(setMessages(messages));
-        callbackFunction();
+        callbackFunction(
+          loggedInUser,
+          messages,
+          amountOfRequests,
+          amountOfReplies
+        );
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -87,11 +107,11 @@ export class MessageIO {
     this.dispatch(setIsUpdatingMessage(true));
     this.dispatch(updateMessage({ messageId, updatedMessage }))
       .unwrap()
-      .then((message: Message) => {
+      .then((message: Message): void => {
         this.dispatch(setMessageChanges(message));
         callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -112,6 +132,7 @@ export class MessageIO {
   deleteRemaining = (
     messages: Message[],
     plantId: PlantId,
+    { imagePublicId }: DestroyImageData,
     callbackFunction: Function
   ): void => {
     messages.forEach(({ _id, plant }: Message): void => {
@@ -121,9 +142,9 @@ export class MessageIO {
           .unwrap()
           .then(() => {
             this.dispatch(removeMessage(_id as PlantId));
-            callbackFunction();
+            callbackFunction({ imagePublicId });
           })
-          .catch((rejectedValue: any) => {
+          .catch((rejectedValue: any): void => {
             this.dispatch(setErrorMessage(rejectedValue.message));
           });
       }

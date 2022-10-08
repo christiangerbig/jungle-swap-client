@@ -40,7 +40,7 @@ const RequestsPage = (): JSX.Element => {
     routing.protect();
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll(() => {
+      messageIO.fetchAll(isUserChange, (): void => {
         isUserChange && dispatch(setStartAmountOfRequests());
         resetRequestVariableAndScrollToTop();
       });

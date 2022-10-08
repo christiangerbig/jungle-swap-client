@@ -37,7 +37,7 @@ const RequestDetails = (): JSX.Element => {
     routing.protect();
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetch(messageId, () => {
+      messageIO.fetch(messageId, (): void => {
         scroll.scrollToTop();
       });
     }
@@ -52,10 +52,14 @@ const RequestDetails = (): JSX.Element => {
 
     const updateBuyerMessage = (updatedMessage: Message) => {
       const messageIO = new MessageIO(dispatch);
-      messageIO.update(updatedMessage._id as MessageId, updatedMessage, () => {
-        dispatch(decreaseAmountOfRequests());
-        history.goBack();
-      });
+      messageIO.update(
+        updatedMessage._id as MessageId,
+        updatedMessage,
+        (): void => {
+          dispatch(decreaseAmountOfRequests());
+          history.goBack();
+        }
+      );
     };
 
     setBuyerMessageInactive(message);

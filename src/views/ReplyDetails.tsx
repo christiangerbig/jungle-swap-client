@@ -34,7 +34,7 @@ const ReplyDetails = (): JSX.Element => {
     routing.protect();
     if (loggedInUser) {
       const messageIO = new MessageIO(dispatch);
-      messageIO.fetch(messageId, () => {
+      messageIO.fetch(messageId, (): void => {
         scroll.scrollToTop();
       });
     }
@@ -42,7 +42,7 @@ const ReplyDetails = (): JSX.Element => {
 
   const handleDeleteMessage = (messageId: MessageId): void => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.delete(messageId, () => {
+    messageIO.delete(messageId, (): void => {
       dispatch(decreaseAmountOfReplies());
       history.goBack();
     });
