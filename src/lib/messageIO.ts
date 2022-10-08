@@ -118,7 +118,6 @@ export class MessageIO {
   deleteRemaining = (
     messages: Message[],
     plantId: PlantId,
-    callbackFunction: Function
   ): void => {
     messages.forEach(({ _id, plant }: Message): void => {
       if ((plant as Plant)._id === plantId) {
@@ -127,7 +126,6 @@ export class MessageIO {
           .unwrap()
           .then(() => {
             this.dispatch(removeMessage(_id as PlantId));
-            callbackFunction();
           })
           .catch((rejectedValue: any): void => {
             this.dispatch(setErrorMessage(rejectedValue.message));

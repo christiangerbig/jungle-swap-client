@@ -28,13 +28,12 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
 
   const handleDelete = () => {
     const messageIO = new MessageIO(dispatch);
-    messageIO.deleteRemaining(messages, _id as PlantId, (): void => {
-      const plantImageIO = new PlantImageIO(dispatch);
-      plantImageIO.delete({ imagePublicId });
-      const plantIO = new PlantIO(dispatch);
-      plantIO.delete(_id as PlantId, (): void => {
-        history.goBack();
-      });
+    messageIO.deleteRemaining(messages, _id as PlantId);
+    const plantImageIO = new PlantImageIO(dispatch);
+    plantImageIO.delete({ imagePublicId });
+    const plantIO = new PlantIO(dispatch);
+    plantIO.delete(_id as PlantId, (): void => {
+      history.goBack();
     });
   };
 
