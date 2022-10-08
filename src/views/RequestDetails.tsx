@@ -30,12 +30,12 @@ const RequestDetails = (): JSX.Element => {
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    //const routing = new Routing(dispatch);
-    //routing.protect((): void => {
-      const messageIO = new MessageIO(dispatch);
-      messageIO.fetch(messageId, (): void => {
-        scroll.scrollToTop();
-      //});
+    const routing = new Routing(dispatch);
+    routing.protect((): void => {
+    const messageIO = new MessageIO(dispatch);
+    messageIO.fetch(messageId, (): void => {
+      scroll.scrollToTop();
+      });
     });
   }, []);
 
