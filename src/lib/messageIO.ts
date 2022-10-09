@@ -100,11 +100,11 @@ export class MessageIO {
     this.dispatch(setIsDeletingMessage(true));
     this.dispatch(deleteMessage(messageId))
       .unwrap()
-      .then(() => {
+      .then((): void => {
         this.dispatch(removeMessage(messageId));
         callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -115,7 +115,7 @@ export class MessageIO {
         this.dispatch(setIsDeletingMessage(true));
         this.dispatch(deleteMessage(_id as PlantId))
           .unwrap()
-          .then(() => {
+          .then((): void => {
             this.dispatch(removeMessage(_id as PlantId));
           })
           .catch((rejectedValue: any): void => {

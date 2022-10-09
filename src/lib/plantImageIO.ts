@@ -3,10 +3,9 @@ import {
   setErrorMessage,
   setIsDeletingPlantImage,
   setIsUploadingPlantImage,
-  setPlant,
   uploadPlantImage,
 } from "../reducer/jungleSwapSlice";
-import { DestroyImageData, Plant, UploadImageData } from "../typeDefinitions";
+import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
 export class PlantImageIO {
   dispatch: any;
@@ -30,7 +29,7 @@ export class PlantImageIO {
     this.dispatch(setIsDeletingPlantImage(true));
     this.dispatch(deletePlantImage(destroyImageData))
       .unwrap()
-      .then(() => {
+      .then((): void => {
         return;
       })
       .catch((rejectedValue: any): void => {

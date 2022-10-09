@@ -58,12 +58,12 @@ const CreatePlantForm = (): JSX.Element => {
         plantIO.create(
           event.target,
           { imageUrl, imagePublicId },
-          () => {
+          (): void => {
             dispatch(setNumberOfVisibleEntries(plants.length));
             history.push("/");
             scroll.scrollToBottom();
           },
-          () => {
+          (): void => {
             history.push("/");
             scroll.scrollToTop();
           }
