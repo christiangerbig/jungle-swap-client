@@ -8,9 +8,6 @@ import WaitSpinner from "../components/WaitSpinner";
 import MyPlantsOverview from "../components/MyPlantsOverview";
 
 const MyPlants = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
   const isFetchingPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
