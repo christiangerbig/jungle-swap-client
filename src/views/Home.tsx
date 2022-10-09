@@ -5,11 +5,11 @@ import {
   setAboutSectionHeight,
   setFilteredPlants,
 } from "../reducer/jungleSwapSlice";
+import { RootState } from "../store";
+import { PlantIO } from "../lib/plantIO";
 import About from "../components/About";
 import AllPlants from "../components/AllPlants";
 import Title from "../components/Title";
-import { RootState } from "../store";
-import { PlantIO } from "../lib/plantIO";
 
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);

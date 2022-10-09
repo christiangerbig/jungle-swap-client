@@ -9,8 +9,8 @@ import { Plant } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
-import WaitSpinner from "../components/WaitSpinner";
 import { PlantIO } from "../lib/plantIO";
+import WaitSpinner from "../components/WaitSpinner";
 
 const UpdatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(

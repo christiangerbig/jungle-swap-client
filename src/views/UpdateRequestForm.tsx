@@ -7,8 +7,8 @@ import { setMessage } from "../reducer/jungleSwapSlice";
 import { Message, MessageId } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
-import ErrorMessageOutput from "../components/ErrorMessageOutput";
 import { MessageIO } from "../lib/messageIO";
+import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const UpdateRequestForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
