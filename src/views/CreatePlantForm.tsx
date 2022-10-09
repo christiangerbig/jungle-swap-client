@@ -14,6 +14,7 @@ import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
 import { PlantIO } from "../lib/plantIO";
+import { PlantImageIO } from "../lib/plantImageIO";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -44,40 +45,31 @@ const CreatePlantForm = (): JSX.Element => {
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
   ): void => {
-    const createPlantAndReturnToHomePage = ({
-      imageUrl,
-      imagePublicId,
-    }: UploadImageData): void => {
-      const plantIO = new PlantIO(dispatch);
-      plantIO.create(
-        event.target,
-        { imageUrl, imagePublicId },
-        () => {
-          dispatch(setNumberOfVisibleEntries(plants.length));
-          history.push("/");
-          scroll.scrollToBottom();
-        },
-        () => {
-          history.push("/");
-          scroll.scrollToTop();
-        }
-      );
-    };
-
-    event.preventDefault();
     const { plantImage } = event.target as any;
     const image = plantImage.files[0];
+    event.preventDefault();
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    dispatch(setIsUploadingPlantImage(true));
-    dispatch(uploadPlantImage(uploadForm))
-      .unwrap()
-      .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        createPlantAndReturnToHomePage({ imageUrl, imagePublicId });
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    const plantImageIO = new PlantImageIO(dispatch);
+    plantImageIO.create(
+      uploadForm,
+      ({ imageUrl, imagePublicId }: UploadImageData): void => {
+        const plantIO = new PlantIO(dispatch);
+        plantIO.create(
+          event.target,
+          { imageUrl, imagePublicId },
+          () => {
+            dispatch(setNumberOfVisibleEntries(plants.length));
+            history.push("/");
+            scroll.scrollToBottom();
+          },
+          () => {
+            history.push("/");
+            scroll.scrollToTop();
+          }
+        );
+      }
+    );
   };
 
   const printErrorMessage = (errorMessage: string): string => {
