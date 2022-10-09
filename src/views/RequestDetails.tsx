@@ -32,9 +32,9 @@ const RequestDetails = (): JSX.Element => {
   useEffect(() => {
     const routing = new Routing(dispatch);
     routing.protect((): void => {
-    const messageIO = new MessageIO(dispatch);
-    messageIO.fetch(messageId, (): void => {
-      scroll.scrollToTop();
+      const messageIO = new MessageIO(dispatch);
+      messageIO.fetch(messageId, (): void => {
+        scroll.scrollToTop();
       });
     });
   }, []);

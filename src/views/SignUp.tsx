@@ -3,14 +3,10 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setIsUserChange,
-  setLoggedInUser,
-  signUp,
-  setErrorMessage,
-} from "../reducer/jungleSwapSlice";
-import { RootState } from "../store";
+import { setIsUserChange, setErrorMessage } from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
+import { RootState } from "../store";
+import { Authentification } from "../lib/authentification";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const SignUp = (): JSX.Element => {
@@ -27,27 +23,18 @@ const SignUp = (): JSX.Element => {
   }, []);
 
   const handleSignUp = (event: React.FormEvent<HTMLFormElement>): void => {
-    const setUserVariablesAndReturnToHomePage = (user: User): void => {
-      dispatch(setLoggedInUser(user));
-      dispatch(setIsUserChange(true));
-      history.push("/");
-    };
-
-    event.preventDefault();
     const { username, email, password } = event.target as any;
     const newUser: User = {
       username: username.value,
       email: email.value.toLowerCase(),
       password: password.value,
     };
-    dispatch(signUp(newUser))
-      .unwrap()
-      .then((user) => {
-        setUserVariablesAndReturnToHomePage(user);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    event.preventDefault();
+    const authentification = new Authentification(dispatch);
+    authentification.signUp(newUser, (): void => {
+      dispatch(setIsUserChange(true));
+      history.push("/");
+    });
   };
 
   const printErrorMessage = (errorMessage: string): string => {

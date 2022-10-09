@@ -20,13 +20,7 @@ import {
   setMessages,
   updateMessage,
 } from "../reducer/jungleSwapSlice";
-import {
-  Message,
-  MessageId,
-  Plant,
-  PlantId,
-  User,
-} from "../typeDefinitions";
+import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
 export class MessageIO {
   dispatch: any;
@@ -115,10 +109,7 @@ export class MessageIO {
       });
   };
 
-  deleteRemaining = (
-    messages: Message[],
-    plantId: PlantId,
-  ): void => {
+  deleteRemaining = (messages: Message[], plantId: PlantId): void => {
     messages.forEach(({ _id, plant }: Message): void => {
       if ((plant as Plant)._id === plantId) {
         this.dispatch(setIsDeletingMessage(true));

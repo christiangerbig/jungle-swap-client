@@ -5,14 +5,13 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   setIsUserChange,
-  setLoggedInUser,
-  signIn,
   setAmountOfRequests,
   setAmountOfReplies,
   setErrorMessage,
 } from "../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 import { RootState } from "../store";
+import { Authentification } from "../lib/authentification";
 import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const SignIn = (): JSX.Element => {
@@ -29,29 +28,20 @@ const SignIn = (): JSX.Element => {
   }, []);
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>): void => {
-    const setUserVariablesAndReturnToHomePage = (user: User): void => {
-      dispatch(setLoggedInUser(user));
-      dispatch(setIsUserChange(true));
-      const { amountOfRequests, amountOfReplies } = user;
-      dispatch(setAmountOfRequests(amountOfRequests as number));
-      dispatch(setAmountOfReplies(amountOfReplies as number));
-      history.push("/");
-    };
-
-    event.preventDefault();
     const { email, password } = event.target as any;
     const user: User = {
       email: email.value,
       password: password.value,
     };
-    dispatch(signIn(user))
-      .unwrap()
-      .then((user) => {
-        setUserVariablesAndReturnToHomePage(user);
-      })
-      .catch((rejectedValue: any) => {
-        dispatch(setErrorMessage(rejectedValue.message));
-      });
+    event.preventDefault();
+    const authentification = new Authentification(dispatch);
+    authentification.signIn(user, (): void => {
+      dispatch(setIsUserChange(true));
+      const { amountOfRequests, amountOfReplies } = user;
+      dispatch(setAmountOfRequests(amountOfRequests as number));
+      dispatch(setAmountOfReplies(amountOfReplies as number));
+      history.push("/");
+    });
   };
 
   const printErrorMessage = (errorMessage: string): string => {
