@@ -5,7 +5,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { setPlant, setDestroyImageData } from "../reducer/jungleSwapSlice";
-import { Plant } from "../typeDefinitions";
+import { Plant, UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
 import { PlantImageIO } from "../lib/plantImageIO";
@@ -82,7 +82,15 @@ const UpdatePlantForm = (): JSX.Element => {
     const uploadForm = new FormData();
     uploadForm.append("image", image);
     const plantImageIO = new PlantImageIO(dispatch);
-    plantImageIO.create(plant, uploadForm);
+    plantImageIO.create(
+      uploadForm,
+      ({ imageUrl, imagePublicId }: UploadImageData): void => {
+        const clonedPlant = JSON.parse(JSON.stringify(plant));
+        clonedPlant.imagePublicId = imagePublicId;
+        clonedPlant.imageUrl = imageUrl;
+        dispatch(setPlant(clonedPlant));
+      }
+    );
   };
 
   const handleUpdatePlant = () => {

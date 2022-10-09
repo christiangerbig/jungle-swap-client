@@ -14,24 +14,14 @@ export class PlantImageIO {
     this.dispatch = dispatch;
   }
 
-  create = (plant: Plant, uploadForm: any) => {
-    const setImageDataForPlant = (
-      plant: Plant,
-      { imageUrl, imagePublicId }: UploadImageData
-    ) => {
-      const clonedPlant = JSON.parse(JSON.stringify(plant));
-      clonedPlant.imagePublicId = imagePublicId;
-      clonedPlant.imageUrl = imageUrl;
-      this.dispatch(setPlant(clonedPlant));
-    };
-
+  create = (uploadForm: any, callbackFunction: Function) => {
     this.dispatch(setIsUploadingPlantImage(true));
     this.dispatch(uploadPlantImage(uploadForm))
       .unwrap()
-      .then(({ imageUrl, imagePublicId }: UploadImageData) => {
-        setImageDataForPlant(plant, { imageUrl, imagePublicId });
+      .then((uploadImageData: UploadImageData): void => {
+        callbackFunction(uploadImageData);
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
@@ -43,7 +33,7 @@ export class PlantImageIO {
       .then(() => {
         return;
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
