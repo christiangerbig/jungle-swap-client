@@ -245,10 +245,14 @@ const en = {
         deletePlantFailed: "Delete plant failed",
       },
       messages: {
-        createMessage: {
+        createRequest: {
           form: {
             requestTextMissing: "Please enter request text",
-            replyTextMissing: "Please enter reply text",
+          },
+          updateRequest: {
+            form: {
+              replyTextMissing: "Please enter reply text",
+            },
           },
         },
         createMessageFailed: "Creating message failed",

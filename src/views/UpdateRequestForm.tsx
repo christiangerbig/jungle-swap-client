@@ -58,7 +58,7 @@ const UpdateRequestForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Reply text missing":
-        return t("errorTexts.messages.form.replyTextMissing");
+        return t("errorTexts.messages.updateRequest.form.replyTextMissing");
       default:
         return t("errorTexts.general");
     }

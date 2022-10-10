@@ -54,7 +54,7 @@ const CreateRequestForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Request text missing":
-        return t("errorTexts.messages.form.requestTextMissing");
+        return t("errorTexts.messages.createRequest.form.requestTextMissing");
       default:
         return t("errorTexts.general");
     }
