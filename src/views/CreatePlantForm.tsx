@@ -7,9 +7,9 @@ import { setErrorMessage } from "../reducer/jungleSwapSlice";
 import { UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
-import ErrorMessageOutput from "../components/ErrorMessageOutput";
 import { PlantIO } from "../lib/plantIO";
 import { PlantImageIO } from "../lib/plantImageIO";
+import ErrorMessageOutput from "../components/ErrorMessageOutput";
 
 const CreatePlantForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
