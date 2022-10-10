@@ -59,17 +59,17 @@ const CreatePlantForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Name missing":
-        return t("errorTexts.plants.form.nameMissing");
+        return t("errorTexts.plants.createPlant.form.nameMissing");
       case "Form: Description missing":
-        return t("errorTexts.plants.form.descriptionMissing");
+        return t("errorTexts.plants.createPlant.form.descriptionMissing");
       case "Form: Size missing":
-        return t("errorTexts.plants.form.sizeMissing");
+        return t("errorTexts.plants.createPlant.form.sizeMissing");
       case "Form: Location missing":
-        return t("errorTexts.plants.form.locationMissing");
+        return t("errorTexts.plants.createPlant.form.locationMissing");
       case "Form: Price missing":
-        return t("errorTexts.plants.form.priceMissing");
+        return t("errorTexts.plants.createPlant.form.priceMissing");
       case "Form: Image missing":
-        return t("errorTexts.plants.form.imageMissing");
+        return t("errorTexts.plants.createPlant.form.imageMissing");
       default:
         return t("errorTexts.general");
     }
