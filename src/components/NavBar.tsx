@@ -103,6 +103,10 @@ const NavBar = (): JSX.Element => {
     loggedInUser && checkNewRequestsReplies();
   }, [delayCounter]);
 
+  const tooltipItemSearch = (): string => {
+    return isNewReply ? t("linkTooltip.search") : "";
+  };
+
   return (
     <div>
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
@@ -132,6 +136,7 @@ const NavBar = (): JSX.Element => {
             )}
             <Link
               to="/"
+              title={tooltipItemSearch()}
               className="p-2 is-link"
               onClick={() => {
                 dispatch(scrollToPlants());

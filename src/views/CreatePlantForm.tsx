@@ -56,8 +56,7 @@ const CreatePlantForm = (): JSX.Element => {
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
         const plantIO = new PlantIO(dispatch);
         plantIO.create(event.target, { imageUrl, imagePublicId }, (): void => {
-          history.push("/");
-          scroll.scrollToTop();
+          history.push("/plants/my-own");
         });
       }
     );

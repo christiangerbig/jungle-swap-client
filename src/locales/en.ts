@@ -14,6 +14,11 @@ const en = {
       signUp: "Sign up",
       details: "Details",
     },
+    linkTooltip: {
+      newRequest: "new request",
+      newReply: "new reply",
+      search: "search plant",
+    },
     button: {
       signIn: "Sign in",
       signUp: "Sign up",

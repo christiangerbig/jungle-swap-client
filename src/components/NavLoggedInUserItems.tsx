@@ -17,7 +17,15 @@ const NavLoggedInUserItems = (): JSX.Element => {
   );
   const { t } = useTranslation();
 
-  const loggedInUserTitle = () => {
+  const tooltipItemRequests = (): string => {
+    return isNewRequest ? t("linkTooltip.newRequest") : "";
+  };
+
+  const tooltipItemReplies = (): string => {
+    return isNewReply ? t("linkTooltip.newReply") : "";
+  };
+
+  const tooltipItemLogOut = () => {
     return loggedInUser ? loggedInUser.username : "";
   };
 
@@ -31,7 +39,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
       </Link>
       <Link
         to="/requests/fetch-all"
-        title={isNewRequest ? "new request" : ""}
+        title={tooltipItemRequests()}
         className="p-2 is-link"
       >
         {isNewRequest && <FontAwesomeIcon icon={faBell} />}
@@ -39,7 +47,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
       </Link>
       <Link
         to="/replies/fetch-all"
-        title={isNewReply ? "new reply" : ""}
+        title={tooltipItemReplies()}
         className="p-2 is-link"
       >
         {isNewReply && <FontAwesomeIcon icon={faBell} />}
@@ -47,7 +55,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
       </Link>
       <Link
         to="/auth/log-out"
-        title={loggedInUserTitle()}
+        title={tooltipItemLogOut()}
         className="p-2 is-link"
       >
         {t("link.logOut")}
