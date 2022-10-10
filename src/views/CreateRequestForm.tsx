@@ -72,10 +72,10 @@ const CreateRequestForm = (): JSX.Element => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-4">
-          {t("texts.requests.createRequestForm.headline")}
+          {t("texts.requests.createRequest.form.headline")}
         </h2>
         <h3 className="mb-4">
-          {t("texts.requests.createRequestForm.subheadline")} {name}
+          {t("texts.requests.createRequest.form.subheadline")} {name}
         </h3>
         <form
           className="pl-0 form-style"

@@ -118,7 +118,7 @@ const UpdatePlantForm = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
         <h2 className="mt-5 mb-4 text-left">
-          {t("texts.plants.updatePlantForm.headline")}
+          {t("texts.plants.updatePlant.form.headline")}
         </h2>
         <div className="card is-card-width-large mb-5">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
@@ -132,7 +132,7 @@ const UpdatePlantForm = (): JSX.Element => {
           )}
           <div className="card-body">
             <label htmlFor="updateName">
-              {t("texts.plants.updatePlantForm.name")}
+              {t("texts.plants.updatePlant.form.name")}
             </label>
             <input
               type="text"
@@ -145,7 +145,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateDescription">
-              {t("texts.plants.updatePlantForm.description")}
+              {t("texts.plants.updatePlant.form.description")}
             </label>
             <input
               type="text"
@@ -158,7 +158,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateSize">
-              {t("texts.plants.updatePlantForm.size")}
+              {t("texts.plants.updatePlant.form.size")}
             </label>
             <input
               type="number"
@@ -172,7 +172,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateLocation">
-              {t("texts.plants.updatePlantForm.location")}
+              {t("texts.plants.updatePlant.form.location")}
             </label>
             <select
               ref={selectElementRef}
@@ -190,7 +190,7 @@ const UpdatePlantForm = (): JSX.Element => {
               </option>
             </select>
             <label htmlFor="updatePrice">
-              {t("texts.plants.updatePlantForm.price")}
+              {t("texts.plants.updatePlant.form.price")}
             </label>
             <input
               type="number"
@@ -204,7 +204,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateImage">
-              {t("texts.plants.updatePlantForm.image")}
+              {t("texts.plants.updatePlant.form.image")}
             </label>
             <input
               type="file"

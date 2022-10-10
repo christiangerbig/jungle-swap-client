@@ -93,24 +93,28 @@ const en = {
         myPlants: {
           headline: "My plants",
         },
-        createPlantForm: {
-          headline: "Create a plant",
-          name: "Name",
-          description: "Description",
-          size: "Size (cm)",
-          location: "Location",
-          price: "Price (EUR)",
-          image: "Image",
-          enterPlaceholder: "Enter",
+        createPlant: {
+          form: {
+            headline: "Create a plant",
+            name: "Name",
+            description: "Description",
+            size: "Size (cm)",
+            location: "Location",
+            price: "Price (EUR)",
+            image: "Image",
+            enterPlaceholder: "Enter",
+          },
         },
-        updatePlantForm: {
-          headline: "Update your plant",
-          name: "Name",
-          description: "Description",
-          size: "Size (cm)",
-          location: "Location",
-          price: "Price (EUR)",
-          image: "Image",
+        updatePlant: {
+          form: {
+            headline: "Update your plant",
+            name: "Name",
+            description: "Description",
+            size: "Size (cm)",
+            location: "Location",
+            price: "Price (EUR)",
+            image: "Image",
+          },
         },
         plantThumbnail: {
           currency: "€",
@@ -125,21 +129,27 @@ const en = {
           price: "Price:",
           currency: "€",
         },
-        checkoutForm: {
-          price: " Price:",
-          currency: "€",
-          payNow: "Pay now",
-          paymentSuccessful: "Payment succeeded.",
+        checkout: {
+          form: {
+            price: " Price:",
+            currency: "€",
+            payNow: "Pay now",
+            paymentSuccessful: "Payment succeeded.",
+          },
         },
       },
       requests: {
-        createRequestForm: {
-          headline: "Your request",
-          subheadline: "for",
+        createRequest: {
+          form: {
+            headline: "Your request",
+            subheadline: "for",
+          },
         },
-        updateRequestForm: {
-          headline: "Reply your request",
-          replyPlaceholder: "Your reply",
+        updateRequest: {
+          form: {
+            headline: "Reply your request",
+            replyPlaceholder: "Your reply",
+          },
         },
         overview: {
           headline: "Requests for your plants",
@@ -217,14 +227,16 @@ const en = {
         },
       },
       plants: {
-        form: {
-          nameMissing: "Please enter name",
-          descriptionMissing: "Please enter description",
-          sizeMissing: "Please enter size",
-          locationMissing: "Please enter location",
-          priceMissing: "Please enter price",
-          imageMissing: "Please choose an image",
-          noImageSelected: "Please choose an image to delete",
+        createPlant: {
+          form: {
+            nameMissing: "Please enter name",
+            descriptionMissing: "Please enter description",
+            sizeMissing: "Please enter size",
+            locationMissing: "Please enter location",
+            priceMissing: "Please enter price",
+            imageMissing: "Please choose an image",
+            noImageSelected: "Please choose an image to delete",
+          },
         },
         createPlantFailed: "Creating the plant failed",
         fetchPlantFailed: "Fetching the plant failed",
@@ -233,9 +245,11 @@ const en = {
         deletePlantFailed: "Delete plant failed",
       },
       messages: {
-        form: {
-          requestTextMissing: "Please enter request text",
-          replyTextMissing: "Please enter reply text",
+        createMessage: {
+          form: {
+            requestTextMissing: "Please enter request text",
+            replyTextMissing: "Please enter reply text",
+          },
         },
         createMessageFailed: "Creating message failed",
         fetchMessageFailed: "Fetching message failed",

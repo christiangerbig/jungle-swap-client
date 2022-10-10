@@ -98,8 +98,8 @@ const CheckoutForm = (): JSX.Element => {
     <div className="container col-md-9 col-sm-12">
       <h2 className="mb-4 is-word-break">{name}</h2>
       <h3 className="mb-4">
-        {t("texts.plants.checkoutForm.price")} {price}{" "}
-        {t("texts.plants.checkoutForm.currency")}
+        {t("texts.plants.checkout.form.price")} {price}{" "}
+        {t("texts.plants.checkout.form.currency")}
       </h3>
       <form
         id="payment-form"
@@ -123,7 +123,7 @@ const CheckoutForm = (): JSX.Element => {
               {isProcessing ? (
                 <div id="spinner" className="spinner is-text-bold" />
               ) : (
-                t("texts.plants.checkoutForm.payNow")
+                t("texts.plants.checkout.form.payNow")
               )}
             </span>
           </button>
@@ -136,7 +136,7 @@ const CheckoutForm = (): JSX.Element => {
         )}
         {/* Show success message upon completion */}
         <p className={successMessageStyle()}>
-          {t("texts.plants.checkoutForm.paymentSuccessful")}
+          {t("texts.plants.checkout.form.paymentSuccessful")}
         </p>
       </form>
       <div className="row justify-content-center">

@@ -41,7 +41,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 | `/auth/log-out`             | n/a                          | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
 |                             |                              |                            | expire session                      |
 | `/auth/unauthorized`        | Unauthorized                 | user only `<AnonRoute>`    | Check profile with stat information |
-| `/plants/create`            | CreatePlantForm              | user only `<PrivateRoute>` | Create a plant                      |
+| `/plants/create`            | createPlant.form              | user only `<PrivateRoute>` | Create a plant                      |
 | `/plants/fetch/:plantId`    | PlantDetails                 | user only `<PrivateRoute>` | Shows plant deails or navigate to   |
 |                             |                              |                            | signup if user is not logged in     |
 | `/plants/update`            | UpdatePlantForm              | user only `<PrivateRoute>` | Update/Edit an plant                |
@@ -87,7 +87,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 ## Views
 
 - CheckoutPage
-- CreatePlantForm
+- createPlant.form
 - CreateRequestForm
 - Home
 - MyPlants

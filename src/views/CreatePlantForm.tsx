@@ -87,7 +87,7 @@ const CreatePlantForm = (): JSX.Element => {
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-12 col-md-6 offset-md-4">
         <h2 className="mb-5 text-left">
-          {t("texts.plants.createPlantForm.headline")}
+          {t("texts.plants.createPlant.form.headline")}
         </h2>
         <form
           className="form-style"
@@ -96,38 +96,38 @@ const CreatePlantForm = (): JSX.Element => {
           }}
         >
           <label htmlFor="enterName">
-            {t("texts.plants.createPlantForm.name")}
+            {t("texts.plants.createPlant.form.name")}
           </label>
           <input
             type="text"
             id="enterName"
             name="name"
-            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             className="mb-4 form-control is-width-full"
           />
           <label htmlFor="enterDescription">
-            {t("texts.plants.createPlantForm.description")}
+            {t("texts.plants.createPlant.form.description")}
           </label>
           <input
             type="text"
             id="enterDescription"
             name="description"
-            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             className="mb-4 form-control is-width-full"
           />
           <label htmlFor="enterSize">
-            {t("texts.plants.createPlantForm.size")}
+            {t("texts.plants.createPlant.form.size")}
           </label>
           <input
             type="number"
             id="enterSize"
             name="size"
-            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             min="1"
             className="mb-4 form-control is-width-full"
           />
           <label htmlFor="enterLocation">
-            {t("texts.plants.createPlantForm.location")}
+            {t("texts.plants.createPlant.form.location")}
           </label>
           <select
             id="enterLocation"
@@ -142,18 +142,18 @@ const CreatePlantForm = (): JSX.Element => {
             </option>
           </select>
           <label htmlFor="enterPrice">
-            {t("texts.plants.createPlantForm.price")}
+            {t("texts.plants.createPlant.form.price")}
           </label>
           <input
             type="number"
             id="enterPrice"
             name="price"
-            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             min="1"
             className="mb-4 form-control is-width-full"
           />
           <label htmlFor="enterImage">
-            {t("texts.plants.createPlantForm.image")}
+            {t("texts.plants.createPlant.form.image")}
           </label>
           <input
             type="file"
