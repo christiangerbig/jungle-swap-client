@@ -249,10 +249,10 @@ const en = {
           form: {
             requestTextMissing: "Please enter request text",
           },
-          updateRequest: {
-            form: {
-              replyTextMissing: "Please enter reply text",
-            },
+        },
+        updateRequest: {
+          form: {
+            replyTextMissing: "Please enter reply text",
           },
         },
         createMessageFailed: "Creating message failed",
