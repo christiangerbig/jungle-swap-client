@@ -76,7 +76,7 @@ const UpdateRequestForm = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mt-5 mb-4">
-          {t("errorTexts.requests.updateRequest.form.headline")}
+          {t("texts.requests.updateRequest.form.headline")}
         </h2>
         <div className="card is-card-width-small mb-5">
           <div className="card-body">
