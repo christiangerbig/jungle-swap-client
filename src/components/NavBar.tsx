@@ -104,7 +104,7 @@ const NavBar = (): JSX.Element => {
   }, [delayCounter]);
 
   const tooltipItemSearch = (): string => {
-    return isNewReply ? t("linkTooltip.search") : "";
+    return t("linkTooltip.search");
   };
 
   return (
