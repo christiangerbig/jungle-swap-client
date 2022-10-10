@@ -10,14 +10,14 @@ const Footer = (): JSX.Element => {
   return (
     <div className="has-background-image">
       <footer>
-        {t("footer.copyright")} {year}{" "}
+        {t("texts.footer.copyright")} {year}{" "}
         <Link
           to={{ pathname: linkedInPath1 }}
           target="_blank"
           rel="noreferrer noopener"
           className="is-link"
         >
-          {t("footer.appAuthor1")}
+          {t("texts.footer.appAuthor1")}
         </Link>{" "}
         &amp;{" "}
         <Link
@@ -26,7 +26,7 @@ const Footer = (): JSX.Element => {
           rel="noreferrer noopener"
           className="is-link"
         >
-          {t("footer.appAuthor2")}
+          {t("texts.footer.appAuthor2")}
         </Link>
       </footer>
     </div>

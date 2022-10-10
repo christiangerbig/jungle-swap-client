@@ -22,11 +22,12 @@ const Home = (): JSX.Element => {
     };
 
     const plantIO = new PlantIO(dispatch);
-    plantIO.fetchAll();
-    const titleSectionHeight = elementHeight(elementRef.current[0]);
-    dispatch(setTitleSectionHeight(titleSectionHeight));
-    const aboutSectionHeight = elementHeight(elementRef.current[1]);
-    dispatch(setAboutSectionHeight(aboutSectionHeight));
+    plantIO.fetchAll((): void => {
+      const titleSectionHeight = elementHeight(elementRef.current[0]);
+      dispatch(setTitleSectionHeight(titleSectionHeight));
+      const aboutSectionHeight = elementHeight(elementRef.current[1]);
+      dispatch(setAboutSectionHeight(aboutSectionHeight));
+    });
   }, []);
 
   useEffect(() => {

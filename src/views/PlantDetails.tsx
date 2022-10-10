@@ -30,8 +30,9 @@ const PlantDetails = (): JSX.Element => {
     const routing = new Routing(dispatch);
     routing.protect((): void => {
       const plantIO = new PlantIO(dispatch);
-      plantIO.fetch(plantId);
-      scroll.scrollToTop();
+      plantIO.fetch(plantId, (): void => {
+        scroll.scrollToTop();
+      });
     });
   }, []);
 
@@ -42,7 +43,7 @@ const PlantDetails = (): JSX.Element => {
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">
       <div className="mt-4 mb-3 pt-4 container">
-        <h2>{t("plantDetails.headline")}</h2>
+        <h2>{t("texts.plants.plantDetails.headline")}</h2>
       </div>
       {isFetchingPlant || !creator ? (
         <WaitSpinner />
@@ -55,25 +56,31 @@ const PlantDetails = (): JSX.Element => {
               className="card-img-top is-image-size-large"
             />
             <div className="ml-2 mt-2">
-              <span className="is-text-bold">{t("plantDetails.name")}</span>{" "}
+              <span className="is-text-bold">
+                {t("texts.plants.plantDetails.name")}
+              </span>{" "}
               {name}
             </div>
             <div className="ml-2 mt-2">
               <span className="is-text-bold">
-                {t("plantDetails.description")}
+                {t("texts.plants.plantDetails.description")}
               </span>{" "}
               {description}
             </div>
             <div className="ml-2 mt-2">
-              <span className="is-text-bold">{t("plantDetails.size")}</span>{" "}
-              {size} {t("plantDetails.sizeUnit")}
+              <span className="is-text-bold">
+                {t("texts.plants.plantDetails.size")}
+              </span>{" "}
+              {size} {t("texts.plants.plantDetails.sizeUnit")}
             </div>
             <div className="ml-2 mt-2">
-              <span>{t("plantDetails.likes")}</span> {location}
+              <span>{t("texts.plants.plantDetails.likes")}</span> {location}
             </div>
             <div className="ml-2 mt-2">
-              <span className="is-text-bold">{t("plantDetails.price")}</span>{" "}
-              {price} {t("plantDetails.currency")}
+              <span className="is-text-bold">
+                {t("texts.plants.plantDetails.price")}
+              </span>{" "}
+              {price} {t("texts.plants.plantDetails.currency")}
             </div>
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">

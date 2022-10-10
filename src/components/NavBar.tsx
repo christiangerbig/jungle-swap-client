@@ -104,7 +104,7 @@ const NavBar = (): JSX.Element => {
   }, [delayCounter]);
 
   const tooltipItemSearch = (): string => {
-    return t("linkTooltip.search");
+    return t("link.tooltipps.search");
   };
 
   return (

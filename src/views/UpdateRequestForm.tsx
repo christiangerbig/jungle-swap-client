@@ -58,9 +58,9 @@ const UpdateRequestForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Reply text missing":
-        return t("errors.message.form.replyTextMissing");
+        return t("errorTexts.messages.form.replyTextMissing");
       default:
-        return t("errors.general");
+        return t("errorTexts.general");
     }
   };
 
@@ -75,13 +75,17 @@ const UpdateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mt-5 mb-4">{t("updateRequestForm.headline")}</h2>
+        <h2 className="mt-5 mb-4">
+          {t("texts,requests.updateRequestForm.headline")}
+        </h2>
         <div className="card is-card-width-small mb-5">
           <div className="card-body">
             <p>{request}</p>
             <textarea
               name="reply"
-              placeholder={t("updateRequestForm.replyPlaceholder")}
+              placeholder={t(
+                "texts,requests.updateRequestForm.replyPlaceholder"
+              )}
               cols={31}
               rows={6}
               className="mb-4 form-control is-width-full"

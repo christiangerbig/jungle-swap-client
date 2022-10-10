@@ -40,11 +40,11 @@ const SearchPlant = (): JSX.Element => {
   return (
     <div className="mb-4">
       <hr className="horizontal-rule" />
-      <h4>{t("searchPlant.headline")}</h4>
+      <h4>{t("texts.home.searchPlant.headline")}</h4>
       <div className="d-flex">
         <input
           type="text"
-          placeholder={t("searchPlant.namePlaceholder")}
+          placeholder={t("texts.home.searchPlant.namePlaceholder")}
           value={query}
           className="is-width-medium form-control"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,11 +58,11 @@ const SearchPlant = (): JSX.Element => {
             setFilter(event.target.value);
           }}
         >
-          <option value="">{t("selectLocation.title")}</option>
-          <option value="sun">{t("selectLocation.sun")}</option>
-          <option value="shade">{t("selectLocation.shade")}</option>
+          <option value="">{t("select.location.title")}</option>
+          <option value="sun">{t("select.location.sun")}</option>
+          <option value="shade">{t("select.location.shade")}</option>
           <option value="sun and shade">
-            {t("selectLocation.sunAndShade")}
+            {t("select.location.sunAndShade")}
           </option>
         </select>
       </div>

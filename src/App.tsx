@@ -15,8 +15,8 @@ import CreatePlantForm from "./views/CreatePlantForm";
 import PlantDetails from "./views/PlantDetails";
 import UpdatePlantForm from "./views/UpdatePlantForm";
 import CheckoutPage from "./views/CheckoutPage";
-import RequestsPage from "./views/RequestsPage";
-import RepliesPage from "./views/RepliesPage";
+import RequestsOverview from "./views/RequestsOverview";
+import RepliesOverview from "./views/RepliesOverview";
 import CreateRequestForm from "./views/CreateRequestForm";
 import RequestDetails from "./views/RequestDetails";
 import ReplyDetails from "./views/ReplyDetails";
@@ -24,7 +24,7 @@ import UpdateRequestForm from "./views/UpdateRequestForm";
 import Unauthorized from "./views/Unauthorized";
 import NotFound from "./views/NotFound";
 import KommunicateChat from "./components/Chat";
-import MyPlants from "./views/MyPlants";
+import MyPlants from "./views/MyPlantsOverview";
 import ErrorModal from "./components/ErrorModal";
 
 const App = (): JSX.Element => {
@@ -77,14 +77,14 @@ const App = (): JSX.Element => {
         </Route>
 
         <Route path="/requests/fetch-all">
-          <RequestsPage />
+          <RequestsOverview />
         </Route>
         <Route path="/requests/fetch/:messageId">
           <RequestDetails />
         </Route>
 
         <Route path="/replies/fetch-all">
-          <RepliesPage />
+          <RepliesOverview />
         </Route>
         <Route path="/replies/fetch/:messageId">
           <ReplyDetails />

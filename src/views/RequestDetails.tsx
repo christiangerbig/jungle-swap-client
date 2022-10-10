@@ -77,15 +77,15 @@ const RequestDetails = (): JSX.Element => {
     <div className="container row mt-5 ">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5">
-          {t("requestDetails.headline")} {name}
+          {t("texts.requests.requestDetails.headline")} {name}
         </h2>
         <h5>
-          {t("requestDetails.subheadline")} {username}
+          {t("texts.requests.requestDetails.subheadline")} {username}
         </h5>
         <p className="text-field p-3 mb-4">{request}</p>
         {reply ? (
           <div>
-            <h5>{t("requestDetails.yourReply")}</h5>
+            <h5>{t("texts.requests.requestDetails.yourReply")}</h5>
             <p className="text-field p-3 mb-4">{reply}</p>
           </div>
         ) : null}

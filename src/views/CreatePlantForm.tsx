@@ -3,12 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import {
-  setErrorMessage,
-  uploadPlantImage,
-  setIsUploadingPlantImage,
-  setNumberOfVisibleEntries,
-} from "../reducer/jungleSwapSlice";
+import { setErrorMessage } from "../reducer/jungleSwapSlice";
 import { UploadImageData } from "../typeDefinitions";
 import { RootState } from "../store";
 import { Routing } from "../lib/routing";
@@ -26,7 +21,6 @@ const CreatePlantForm = (): JSX.Element => {
   const isCreatingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isCreatingPlant
   );
-  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const errorMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.errorMessage
   );
@@ -65,19 +59,19 @@ const CreatePlantForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Name missing":
-        return t("errors.plant.form.nameMissing");
+        return t("errorTexts.plants.form.nameMissing");
       case "Form: Description missing":
-        return t("errors.plant.form.descriptionMissing");
+        return t("errorTexts.plants.form.descriptionMissing");
       case "Form: Size missing":
-        return t("errors.plant.form.sizeMissing");
+        return t("errorTexts.plants.form.sizeMissing");
       case "Form: Location missing":
-        return t("errors.plant.form.locationMissing");
+        return t("errorTexts.plants.form.locationMissing");
       case "Form: Price missing":
-        return t("errors.plant.form.priceMissing");
+        return t("errorTexts.plants.form.priceMissing");
       case "Form: Image missing":
-        return t("errors.plant.form.imageMissing");
+        return t("errorTexts.plants.form.imageMissing");
       default:
-        return t("errors.general");
+        return t("errorTexts.general");
     }
   };
 
@@ -92,63 +86,75 @@ const CreatePlantForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 fullscreen">
       <div className="mt-5 col-12 col-md-6 offset-md-4">
-        <h2 className="mb-5 text-left">{t("createPlantForm.headline")}</h2>
+        <h2 className="mb-5 text-left">
+          {t("texts.plants.createPlantForm.headline")}
+        </h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             handleUploadPlantImage(event);
           }}
         >
-          <label htmlFor="enterName">{t("createPlantForm.name")}</label>
+          <label htmlFor="enterName">
+            {t("texts.plants.createPlantForm.name")}
+          </label>
           <input
             type="text"
             id="enterName"
             name="name"
-            placeholder={t("createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
             className="mb-4 form-control is-width-full"
           />
           <label htmlFor="enterDescription">
-            {t("createPlantForm.description")}
+            {t("texts.plants.createPlantForm.description")}
           </label>
           <input
             type="text"
             id="enterDescription"
             name="description"
-            placeholder={t("createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
             className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterSize">{t("createPlantForm.size")}</label>
+          <label htmlFor="enterSize">
+            {t("texts.plants.createPlantForm.size")}
+          </label>
           <input
             type="number"
             id="enterSize"
             name="size"
-            placeholder={t("createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
             min="1"
             className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterLocation">{t("createPlantForm.location")}</label>
+          <label htmlFor="enterLocation">
+            {t("texts.plants.createPlantForm.location")}
+          </label>
           <select
             id="enterLocation"
             name="location"
             className="mb-4 form-control p-2"
           >
-            <option>{t("selectLocation.title")}</option>
-            <option value="sun">{t("selectLocation.sun")}</option>
-            <option value="shade">{t("selectLocation.shade")}</option>
+            <option>{t("select.location.title")}</option>
+            <option value="sun">{t("select.location.sun")}</option>
+            <option value="shade">{t("select.location.shade")}</option>
             <option value="sun and shade">
-              {t("selectLocation.sunAndShade")}
+              {t("select.location.sunAndShade")}
             </option>
           </select>
-          <label htmlFor="enterPrice">{t("createPlantForm.price")}</label>
+          <label htmlFor="enterPrice">
+            {t("texts.plants.createPlantForm.price")}
+          </label>
           <input
             type="number"
             id="enterPrice"
             name="price"
-            placeholder={t("createPlantForm.enterPlaceholder")}
+            placeholder={t("texts.plants.createPlantForm.enterPlaceholder")}
             min="1"
             className="mb-4 form-control is-width-full"
           />
-          <label htmlFor="enterImage">{t("createPlantForm.image")}</label>
+          <label htmlFor="enterImage">
+            {t("texts.plants.createPlantForm.image")}
+          </label>
           <input
             type="file"
             id="enterImage"

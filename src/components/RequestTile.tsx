@@ -15,7 +15,7 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
   return (
     <div className="card p-3 mt-4">
       <h4>
-        {t("requestTile.subheadline")} {name}
+        {t("texts.requests.requestTile.subheadline")} {name}
       </h4>
       <h5>{username}</h5>
       <div className="text-center">
@@ -24,7 +24,6 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
           className="btn is-width-medium form-control is-link"
         >
           {t("link.details")}
-          
         </Link>
       </div>
     </div>

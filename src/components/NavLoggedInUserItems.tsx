@@ -18,11 +18,11 @@ const NavLoggedInUserItems = (): JSX.Element => {
   const { t } = useTranslation();
 
   const tooltipItemRequests = (): string => {
-    return isNewRequest ? t("linkTooltip.newRequest") : "";
+    return isNewRequest ? t("link.tooltipps.newRequest") : "";
   };
 
   const tooltipItemReplies = (): string => {
-    return isNewReply ? t("linkTooltip.newReply") : "";
+    return isNewReply ? t("link.tooltipps.newReply") : "";
   };
 
   const tooltipItemLogOut = () => {

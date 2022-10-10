@@ -15,16 +15,21 @@ const About = (): JSX.Element => {
         <div className="about col-sm-6 col-md-5 col-lg-6 px-5 is-no-overflow">
           <article>
             <header>
-              <h4>{t("about.headline")}</h4>
-              <h5>{t("about.subheadline")}</h5>
+              <h4>{t("texts.home.about.headline")}</h4>
+              <h5>{t("texts.home.about.subheadline")}</h5>
             </header>
             <p>
-              {t("about.paragraph.line1")}<br />
-              {t("about.paragraph.line2")}<br />
-              {t("about.paragraph.line3")}<br />
-              {t("about.paragraph.line4")}<br />
-              {t("about.paragraph.line5")}<br />
-              {t("about.paragraph.line6")}
+              {t("texts.home.about.paragraph.line1")}
+              <br />
+              {t("texts.home.about.paragraph.line2")}
+              <br />
+              {t("texts.home.about.paragraph.line3")}
+              <br />
+              {t("texts.home.about.paragraph.line4")}
+              <br />
+              {t("texts.home.about.paragraph.line5")}
+              <br />
+              {t("texts.home.about.paragraph.line6")}
             </p>
             <img src={plantPotIcon} alt="plant pot" className="is-icon" />
           </article>

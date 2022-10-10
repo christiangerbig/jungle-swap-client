@@ -40,26 +40,26 @@ const SignUp = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Username missing":
-        return t("errors.signUp.form.usernameMissing");
+        return t("errorTexts.authentification.signUp.form.usernameMissing");
       case "Form: Email missing":
-        return t("errors.signUp.form.emailMissing");
+        return t("errorTexts.authentification.signUp.form.emailMissing");
       case "Form: Password missing":
-        return t("errors.signUp.form.passwordMissing");
+        return t("errorTexts.authentification.signUp.form.passwordMissing");
       case "Form: Email format invalid":
-        return t("errors.signUp.form.emailFormatInvalid");
+        return t("errorTexts.authentification.signUp.form.emailFormatInvalid");
       case "Form: Password invalid":
-        return t("errors.signUp.form.passwordInvalid");
+        return t("errorTexts.authentification.signUp.form.passwordInvalid");
       case "Form: Username or email already exists":
-        return t("errors.signUp.form.userAlreadyExists");
+        return t("errorTexts.authentification.signUp.form.userAlreadyExists");
       default:
-        return t("errors.general");
+        return t("errorTexts.general");
     }
   };
 
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5">{t("signUp.headline")}</h2>
+        <h2 className="mb-5">{t("texts.authentification.signUp.headline")}</h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
@@ -67,32 +67,38 @@ const SignUp = (): JSX.Element => {
           }}
         >
           <div className="form-group">
-            <label htmlFor="InputUsername">{t("signUp.username")}</label>
+            <label htmlFor="InputUsername">
+              {t("texts.authentification.signUp.username")}
+            </label>
             <input
               type="text"
               id="InputUsername"
               name="username"
-              placeholder={t("signUp.enterPlaceholder")}
+              placeholder={t("texts.authentification.signUp.enterPlaceholder")}
               className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputEmail">{t("signUp.email")}</label>
+            <label htmlFor="InputEmail">
+              {t("texts.authentification.signUp.email")}
+            </label>
             <input
               type="email"
               id="InputEmail"
               name="email"
-              placeholder={t("signUp.enterPlaceholder")}
+              placeholder={t("texts.authentification.signUp.enterPlaceholder")}
               className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputPassword">{t("signUp.password")}</label>
+            <label htmlFor="InputPassword">
+              {t("texts.authentification.signUp.password")}
+            </label>
             <input
               type="password"
               id="InputPassword"
               name="password"
-              placeholder={t("signUp.enterPlaceholder")}
+              placeholder={t("texts.authentification.signUp.enterPlaceholder")}
               className="form-control is-width-full"
             />
           </div>
@@ -107,8 +113,7 @@ const SignUp = (): JSX.Element => {
             {t("button.signUp")}
           </button>
           <p className="is-padding-top">
-            {" "}
-            {t("signUp.alreadyAccountCreated")}{" "}
+            {t("texts.authentification.signUp.alreadyAccountCreated")}
           </p>
           <div className="text-right">
             <Link to={"/auth/sign-in"} className="is-link">

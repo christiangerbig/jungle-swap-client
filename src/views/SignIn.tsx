@@ -47,22 +47,22 @@ const SignIn = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Email missing":
-        return t("errors.signIn.form.emailMissing");
+        return t("errorTexts.authentification.signIn.form.emailMissing");
       case "Form: Password missing":
-        return t("errors.signIn.form.passwordMissing");
+        return t("errorTexts.authentification.signIn.form.passwordMissing");
       case "Form: Email format invalid":
-        return t("errors.signIn.form.emailFormatInvalid");
+        return t("errorTexts.authentification.signIn.form.emailFormatInvalid");
       case "Form: Passwords don't match":
-        return t("errors.signIn.form.noMatchPasswords");
+        return t("errorTexts.authentification.signIn.form.noMatchPasswords");
       default:
-        return t("errors.general");
+        return t("errorTexts.general");
     }
   };
 
   return (
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-5">{t("signIn.headline")}</h2>
+        <h2 className="mb-5">{t("texts.authentification.signIn.headline")}</h2>
         <form
           className="form-style"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
@@ -70,22 +70,26 @@ const SignIn = (): JSX.Element => {
           }}
         >
           <div className="form-group">
-            <label htmlFor="InputEmail">{t("signIn.email")}</label>
+            <label htmlFor="InputEmail">
+              {t("texts.authentification.signIn.email")}
+            </label>
             <input
               type="email"
               id="InputEmail"
               name="email"
-              placeholder={t("signIn.enterPlaceholder")}
+              placeholder={t("texts.authentification.signIn.enterPlaceholder")}
               className="form-control is-width-full"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="InputPassword">{t("signIn.password")}</label>
+            <label htmlFor="InputPassword">
+              {t("texts.authentification.signIn.password")}
+            </label>
             <input
               type="password"
               id="InputPassword"
               name="password"
-              placeholder={t("signIn.enterPlaceholder")}
+              placeholder={t("texts.authentification.signIn.enterPlaceholder")}
               className="form-control is-width-full"
             />
           </div>

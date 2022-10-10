@@ -51,24 +51,28 @@ export class PlantIO {
       });
   };
 
-  fetch = (plantId: PlantId): void => {
+  fetch = (plantId: PlantId, callbackFunction: Function): void => {
     this.dispatch(setIsFetchingPlant(true));
     this.dispatch(fetchPlant(plantId))
       .unwrap()
       .then((plant: Plant): void => {
         this.dispatch(setPlant(plant));
+        callbackFunction();
       })
       .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };
 
-  fetchAll = (): void => {
+  fetchAll = (callbackFunction?: Function): void => {
     this.dispatch(setIsFetchingPlants(true));
     this.dispatch(fetchAllPlants())
       .unwrap()
       .then((plants: Plant[]): void => {
         this.dispatch(setPlants(plants));
+        if (typeof callbackFunction !== "undefined") {
+          callbackFunction();
+        }
       })
       .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));

@@ -117,7 +117,9 @@ const UpdatePlantForm = (): JSX.Element => {
   return (
     <div className="container row mt-5 ">
       <div className="mt-2 col-12 col-md-6 offset-md-6">
-        <h2 className="mt-5 mb-4 text-left">{t("updatePlantForm.headline")}</h2>
+        <h2 className="mt-5 mb-4 text-left">
+          {t("texts.plants.updatePlantForm.headline")}
+        </h2>
         <div className="card is-card-width-large mb-5">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
@@ -129,7 +131,9 @@ const UpdatePlantForm = (): JSX.Element => {
             />
           )}
           <div className="card-body">
-            <label htmlFor="updateName">{t("updatePlantForm.name")}</label>
+            <label htmlFor="updateName">
+              {t("texts.plants.updatePlantForm.name")}
+            </label>
             <input
               type="text"
               id="updateName"
@@ -141,7 +145,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateDescription">
-              {t("updatePlantForm.description")}
+              {t("texts.plants.updatePlantForm.description")}
             </label>
             <input
               type="text"
@@ -153,7 +157,9 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateSize">{t("updatePlantForm.size")}</label>
+            <label htmlFor="updateSize">
+              {t("texts.plants.updatePlantForm.size")}
+            </label>
             <input
               type="number"
               id="updateSize"
@@ -166,7 +172,7 @@ const UpdatePlantForm = (): JSX.Element => {
               }}
             />
             <label htmlFor="updateLocation">
-              {t("updatePlantForm.location")}
+              {t("texts.plants.updatePlantForm.location")}
             </label>
             <select
               ref={selectElementRef}
@@ -183,7 +189,9 @@ const UpdatePlantForm = (): JSX.Element => {
                 {t("selectLocation.sunAndShade")}
               </option>
             </select>
-            <label htmlFor="updatePrice">{t("updatePlantForm.price")}</label>
+            <label htmlFor="updatePrice">
+              {t("texts.plants.updatePlantForm.price")}
+            </label>
             <input
               type="number"
               id="updatePrice"
@@ -195,7 +203,9 @@ const UpdatePlantForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             />
-            <label htmlFor="updateImage">{t("updatePlantForm.image")}</label>
+            <label htmlFor="updateImage">
+              {t("texts.plants.updatePlantForm.image")}
+            </label>
             <input
               type="file"
               id="updateImage"

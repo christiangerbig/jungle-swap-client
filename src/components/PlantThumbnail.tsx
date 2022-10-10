@@ -21,7 +21,7 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
         <div className="card-body mb-5">
           <h5>{name}</h5>
           <p>
-            {price} {t("plantThumbnail.currency")}
+            {price} {t("texts.plants.plantThumbnail.currency")}
           </p>
           <Link
             className="btn form-control is-width-medium is-link"

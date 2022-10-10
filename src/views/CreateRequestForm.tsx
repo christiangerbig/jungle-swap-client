@@ -54,9 +54,9 @@ const CreateRequestForm = (): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Request text missing":
-        return t("errors.message.form.requestTextMissing");
+        return t("errorTexts.messages.form.requestTextMissing");
       default:
-        return t("errors.general");
+        return t("errorTexts.general");
     }
   };
 
@@ -71,9 +71,11 @@ const CreateRequestForm = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
-        <h2 className="mb-4">{t("createRequestForm.headline")}</h2>
+        <h2 className="mb-4">
+          {t("texts.requests.createRequestForm.headline")}
+        </h2>
         <h3 className="mb-4">
-          {t("createRequestForm.subheadline")} {name}
+          {t("texts.requests.createRequestForm.subheadline")} {name}
         </h3>
         <form
           className="pl-0 form-style"

@@ -15,10 +15,10 @@ const ReplyThumbnail = ({ message }: ReplyThumbnailProps): JSX.Element => {
   return (
     <div className="card p-3 mt-4 ">
       <h4>
-        {t("replyTile.headline")} {name}
+        {t("texts.replies.replyTile.headline")} {name}
       </h4>
       <h5>
-        {t("replyTile.subheadline")} {username}
+        {t("texts.replies.replyTile.subheadline")} {username}
       </h5>
       <div className="text-center">
         <Link
