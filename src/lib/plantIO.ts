@@ -28,8 +28,7 @@ export class PlantIO {
   create = (
     { name, description, size, location, price }: any,
     { imageUrl, imagePublicId }: UploadImageData,
-    callbackFunction: Function,
-    callbackFunctionError: Function,
+    callbackFunction: Function
   ): void => {
     const newPlant: Plant = {
       name: name.value,
@@ -49,7 +48,6 @@ export class PlantIO {
       })
       .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
-        callbackFunctionError();
       });
   };
 

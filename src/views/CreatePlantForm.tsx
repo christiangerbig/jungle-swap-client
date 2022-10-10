@@ -55,19 +55,10 @@ const CreatePlantForm = (): JSX.Element => {
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
         const plantIO = new PlantIO(dispatch);
-        plantIO.create(
-          event.target,
-          { imageUrl, imagePublicId },
-          (): void => {
-            dispatch(setNumberOfVisibleEntries(plants.length));
-            history.push("/");
-            scroll.scrollToBottom();
-          },
-          (): void => {
-            history.push("/");
-            scroll.scrollToTop();
-          }
-        );
+        plantIO.create(event.target, { imageUrl, imagePublicId }, (): void => {
+          history.push("/");
+          scroll.scrollToTop();
+        });
       }
     );
   };
