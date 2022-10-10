@@ -90,6 +90,12 @@ footer {
   width: 20%;
 }
 
+@media (min-width: 320px) and (max-width: 480px) {
+  .is-width-small {
+    width: 40%;
+  }
+}
+
 .is-width-medium {
   width: 30%;
 }
@@ -295,6 +301,12 @@ footer {
   letter-spacing: 0.25rem;
   text-transform: uppercase;
   margin-bottom: 3rem;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .error-modal-box {
+    width: 80%;
+  }
 }
 
 .try-it-link {
