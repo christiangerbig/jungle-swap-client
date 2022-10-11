@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import "./i18n";
 import "./index.css";
+import { OnlineStatusProvider } from "./components/helpers/useOnlineStatus";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <OnlineStatusProvider>
+        <Router>
+          <App />
+        </Router>
+      </OnlineStatusProvider>
     </Provider>
   </React.StrictMode>,
   document.querySelector("#root")

@@ -196,6 +196,10 @@ const en = {
         headline: "Oh-oh!",
         subheadline: "Something went wrong in the jungle!",
       },
+      offlineModal: {
+        headline: "Oh-oh!",
+        subheadline: "You lost your roots in the jungle!",
+      },
     },
 
     errorTexts: {
@@ -261,6 +265,7 @@ const en = {
         updateMessageFailed: "Updating the message failed",
         deleteMessageFailed: "Delete message failed",
       },
+      offline: "No internet connection",
       general: "An error occured",
     },
   },

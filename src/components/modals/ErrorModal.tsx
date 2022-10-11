@@ -1,28 +1,14 @@
-import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../hooks";
-import { setErrorMessage } from "../../reducer/jungleSwapSlice";
+import ModalBody from "./ModalBody";
 
 type ErrorModalProps = {
   errorMessage: string;
 };
 
 const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
-  const divElementRef = useRef<HTMLDivElement | null>(null);
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const handleCloseModal = (): void => {
-    dispatch(setErrorMessage(null));
-  };
-
-  const handleClickOutside = (event: any): void => {
-    if (divElementRef.current === event.target) {
-      handleCloseModal();
-    }
-  };
-
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       // Authentification
       case "Error while creating user":
@@ -61,24 +47,12 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
   };
 
   return (
-    <div
-      ref={divElementRef}
-      className="error-modal"
-      onClick={(event) => {
-        handleClickOutside(event);
-      }}
-    >
-      <div className="error-modal-box">
-        <h1>{t("texts.errorModal.headline")}</h1>
-        <h2>{t("texts.errorModal.subheadline")}</h2>
-        <h3>{printErrorMessage(errorMessage)}</h3>
-        <button
-          className="btn btn-sm form-control is-width-small mt-4 mb-3"
-          onClick={handleCloseModal}
-        >
-          {t("button.proceed")}
-        </button>
-      </div>
+    <div>
+      <ModalBody
+        headline={t("texts.errorModal.headline")}
+        subheadline={t("texts.errorModal.subheadline")}
+        errorText={convertErrorMessage(errorMessage)}
+      />
     </div>
   );
 };

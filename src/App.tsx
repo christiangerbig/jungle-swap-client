@@ -26,11 +26,14 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import MyPlants from "./views/plants/PlantsCreatedView";
 import ErrorModal from "./components/modals/ErrorModal";
+import { useOnlineStatus } from "./components/helpers/useOnlineStatus";
+import OfflineModal from "./components/modals/OfflineModal";
 
 const App = (): JSX.Element => {
   const errorMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.errorMessage
   );
+  const isOnline = useOnlineStatus();
 
   return (
     <div>
@@ -97,6 +100,7 @@ const App = (): JSX.Element => {
       {errorMessage && !errorMessage.includes("Form") && (
         <ErrorModal errorMessage={errorMessage} />
       )}
+      {!isOnline && <OfflineModal />}
     </div>
   );
 };

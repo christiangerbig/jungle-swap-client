@@ -7,8 +7,8 @@ import { RootState } from "../../store";
 import { Plant } from "../../typeDefinitions";
 
 const PlantSearch = (): JSX.Element => {
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("");
+  const [query, setQuery] = useState<string>("");
+  const [filter, setFilter] = useState<string>("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
