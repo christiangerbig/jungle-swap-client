@@ -26,7 +26,7 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
     switch (errorMessage) {
       // Authentification
       case "Unauthorized user":
-        return t("");
+        return t("errorTexts.authentification.unauthorized");
       case "Error while creating user":
         return t("errorTexts.authentification.signUp.errorWhileCreatingUser");
       case "User does not exist":
