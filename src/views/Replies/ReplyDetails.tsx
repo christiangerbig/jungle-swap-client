@@ -8,7 +8,7 @@ import { User, Plant, Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import WaitSpinnerText from "../../components/Spinners/WaitSpinnerText";
+import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(

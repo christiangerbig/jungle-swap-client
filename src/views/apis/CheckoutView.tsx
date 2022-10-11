@@ -6,13 +6,13 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../../components/APIs/CheckoutForm";
+import CheckoutForm from "../../components/apis/CheckoutForm";
 
 const stripePromise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
 );
 
-const CheckoutPage = (): JSX.Element => {
+const CheckoutView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -40,4 +40,4 @@ const CheckoutPage = (): JSX.Element => {
   );
 };
 
-export default CheckoutPage;
+export default CheckoutView;

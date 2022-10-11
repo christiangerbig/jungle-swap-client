@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
-import WaitSpinner from "../../components/Spinners/WaitSpinner";
-import MyPlantsOverview from "../../components/Plants/MyPlantsOverview";
+import WaitSpinner from "../../components/spinners/WaitSpinner";
+import PlantsCreatedCollection from "../../components/plants/PlantsCreatedCollection";
 
-const MyPlants = (): JSX.Element => {
+const PlantsCreatedView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -38,9 +38,9 @@ const MyPlants = (): JSX.Element => {
       <div className="mt-5 mb-5">
         <h2>{t("texts.plants.myPlants.headline")}</h2>
       </div>
-      {isFetchingPlants ? <WaitSpinner /> : <MyPlantsOverview />}
+      {isFetchingPlants ? <WaitSpinner /> : <PlantsCreatedCollection />}
     </div>
   );
 };
 
-export default MyPlants;
+export default PlantsCreatedView;

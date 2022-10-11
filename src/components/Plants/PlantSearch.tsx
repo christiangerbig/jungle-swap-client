@@ -6,7 +6,7 @@ import { setFilteredPlants } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
 import { Plant } from "../../typeDefinitions";
 
-const SearchPlant = (): JSX.Element => {
+const PlantSearch = (): JSX.Element => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
@@ -70,4 +70,4 @@ const SearchPlant = (): JSX.Element => {
   );
 };
 
-export default SearchPlant;
+export default PlantSearch;

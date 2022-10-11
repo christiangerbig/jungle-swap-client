@@ -8,9 +8,9 @@ import { Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import ErrorMessageOutput from "../../components/Errors/ErrorMessageOutput";
+import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
 
-const UpdateRequestForm = (): JSX.Element => {
+const RequestUpdateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -122,4 +122,4 @@ const UpdateRequestForm = (): JSX.Element => {
   );
 };
 
-export default UpdateRequestForm;
+export default RequestUpdateForm;

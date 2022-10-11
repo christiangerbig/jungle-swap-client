@@ -10,11 +10,11 @@ import {
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import WaitSpinner from "../../components/Spinners/WaitSpinner";
-import RequestsOverview from "../../components/Requests/RequestsOverview";
-import GoBackButton from "../../components/Navigation/GoBackButton";
+import WaitSpinner from "../../components/spinners/WaitSpinner";
+import RequestsCollection from "../../components/requests/RequestsCollection";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
-const RequestsPage = (): JSX.Element => {
+const RequestsView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -59,11 +59,11 @@ const RequestsPage = (): JSX.Element => {
         <h2>{t("texts.requests.overview.headline")}</h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
         <GoBackButton />
-        {isFetchingMessages ? <WaitSpinner /> : <RequestsOverview />}
+        {isFetchingMessages ? <WaitSpinner /> : <RequestsCollection />}
         {amountOfRequests !== 0 ? <GoBackButton /> : null}
       </div>
     </div>
   );
 };
 
-export default RequestsPage;
+export default RequestsView;

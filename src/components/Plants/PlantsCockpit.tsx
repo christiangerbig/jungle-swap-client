@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
-import WaitSpinner from "../Spinners/WaitSpinner";
-import SearchPlant from "./SearchPlant";
-import PlantsOverview from "../Plants/PlantsOverview";
+import WaitSpinner from "../spinners/WaitSpinner";
+import PlantSearch from "./PlantSearch";
+import PlantsCollection from "./PlantsCollection";
 
-const AllPlants = (): JSX.Element => {
+const PlantsCockpit = (): JSX.Element => {
   const isFetchingPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
@@ -16,10 +16,10 @@ const AllPlants = (): JSX.Element => {
       <div className="mt-5 mb-3">
         <h2>{t("texts.home.allPlants.headline")}</h2>
       </div>
-      <SearchPlant />
-      {isFetchingPlants ? <WaitSpinner /> : <PlantsOverview />}
+      <PlantSearch />
+      {isFetchingPlants ? <WaitSpinner /> : <PlantsCollection />}
     </div>
   );
 };
 
-export default AllPlants;
+export default PlantsCockpit;

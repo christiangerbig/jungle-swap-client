@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   setTitleSectionHeight,
   setAboutSectionHeight,
   setFilteredPlants,
-} from "../reducer/jungleSwapSlice";
-import { RootState } from "../store";
-import { PlantIO } from "../lib/plantIO";
-import About from "../components/Home/About";
-import AllPlants from "../components/Home/AllPlants";
-import Title from "../components/Home/Title";
+} from "../../reducer/jungleSwapSlice";
+import { RootState } from "../../store";
+import { PlantIO } from "../../lib/plantIO";
+import HomeAbout from "../../components/home/HomeAbout";
+import PlantsCockpit from "../../components/plants/PlantsCockpit";
+import HomeTitle from "../../components/home/HomeTitle";
 
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
@@ -42,7 +42,7 @@ const Home = (): JSX.Element => {
         }}
         className="text-center pt-5 pb-5 title-header has-fixed-background-image"
       >
-        <Title />
+        <HomeTitle />
       </section>
 
       <section
@@ -50,11 +50,11 @@ const Home = (): JSX.Element => {
           (elementRef.current[1] as HTMLElement | null) = aboutSection;
         }}
       >
-        <About />
+        <HomeAbout />
       </section>
 
       <section>
-        <AllPlants />
+        <PlantsCockpit />
       </section>
     </div>
   );

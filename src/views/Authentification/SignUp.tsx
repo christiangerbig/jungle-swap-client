@@ -7,7 +7,7 @@ import { setIsUserChange, setErrorMessage } from "../../reducer/jungleSwapSlice"
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Authentification } from "../../lib/authentification";
-import ErrorMessageOutput from "../../components/Errors/ErrorMessageOutput";
+import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
 
 const SignUp = (): JSX.Element => {
   const errorMessage = useAppSelector(

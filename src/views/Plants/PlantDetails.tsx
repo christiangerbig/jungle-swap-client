@@ -7,9 +7,9 @@ import { User, Plant, PlantId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
-import WaitSpinner from "../../components/Spinners/WaitSpinner";
-import PlantDetailsCreatorItems from "../../components/Plants/PlantDetailsCreatorItems";
-import PlantDetailsBuyerItems from "../../components/Plants/PlantDetailsBuyerItems";
+import WaitSpinner from "../../components/spinners/WaitSpinner";
+import PlantDetailsCreatorItems from "../../components/plants/PlantDetailsCreatorItems";
+import PlantDetailsBuyerItems from "../../components/plants/PlantDetailsBuyerItems";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(

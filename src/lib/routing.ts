@@ -18,7 +18,9 @@ export class Routing {
         callbackFunction();
       })
       .catch((rejectedValue: any) => {
-        this.dispatch(setErrorMessage(rejectedValue.message));
+        if (rejectedValue.message !== "Unauthorized user") {
+          this.dispatch(setErrorMessage(rejectedValue.message));
+        }
       });
   };
 }

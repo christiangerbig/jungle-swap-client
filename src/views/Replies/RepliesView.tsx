@@ -10,11 +10,11 @@ import {
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import WaitSpinner from "../../components/Spinners/WaitSpinner";
-import RepliesOverview from "../../components/Replies/RepliesOverview";
-import GoBackButton from "../../components/Navigation/GoBackButton";
+import WaitSpinner from "../../components/spinners/WaitSpinner";
+import RepliesCollection from "../../components/replies/RepliesCollection";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
-const RepliesPage = (): JSX.Element => {
+const RepliesView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -59,11 +59,11 @@ const RepliesPage = (): JSX.Element => {
         <h2>{t("texts.replies.overview.headline")}</h2>
         <h3 className="mb-4"> [{amountOfReplies}] </h3>
         <GoBackButton />
-        {isFetchingMessages ? <WaitSpinner /> : <RepliesOverview />}
+        {isFetchingMessages ? <WaitSpinner /> : <RepliesCollection />}
         {amountOfReplies !== 0 ? <GoBackButton /> : null}
       </div>
     </div>
   );
 };
 
-export default RepliesPage;
+export default RepliesView;

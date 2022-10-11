@@ -9,9 +9,9 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
 import { PlantImageIO } from "../../lib/plantImageIO";
-import ErrorMessageOutput from "../../components/Errors/ErrorMessageOutput";
+import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
 
-const CreatePlantForm = (): JSX.Element => {
+const PlantCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -187,4 +187,4 @@ const CreatePlantForm = (): JSX.Element => {
   );
 };
 
-export default CreatePlantForm;
+export default PlantCreateForm;

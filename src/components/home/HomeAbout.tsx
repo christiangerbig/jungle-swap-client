@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import plantsImage from "../../images/JungleSwap_Home.png";
 import plantPotIcon from "../../images/JungleSwap_Icon.png";
 
-const About = (): JSX.Element => {
+const HomeAbout = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -39,4 +39,4 @@ const About = (): JSX.Element => {
   );
 };
 
-export default About;
+export default HomeAbout;

@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../hooks";
 import { scrollToAbout } from "../../reducer/jungleSwapSlice";
 import { useTranslation } from "react-i18next";
 
-const Title = (): JSX.Element => {
+const HomeTitle = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -28,4 +28,4 @@ const Title = (): JSX.Element => {
   );
 };
 
-export default Title;
+export default HomeTitle;

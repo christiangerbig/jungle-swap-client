@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 import { Plant, User } from "../../typeDefinitions";
 import PlantThumbnail from "./PlantThumbnail";
 
-const MyPlantsOverview = (): JSX.Element => {
+const PlantsCreatedCollection = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -23,4 +23,4 @@ const MyPlantsOverview = (): JSX.Element => {
   );
 };
 
-export default MyPlantsOverview;
+export default PlantsCreatedCollection;

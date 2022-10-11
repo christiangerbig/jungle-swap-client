@@ -10,9 +10,9 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantImageIO } from "../../lib/plantImageIO";
 import { PlantIO } from "../../lib/plantIO";
-import WaitSpinner from "../../components/Spinners/WaitSpinner";
+import WaitSpinner from "../../components/spinners/WaitSpinner";
 
-const UpdatePlantForm = (): JSX.Element => {
+const PlantUpdateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -231,4 +231,4 @@ const UpdatePlantForm = (): JSX.Element => {
   );
 };
 
-export default UpdatePlantForm;
+export default PlantUpdateForm;

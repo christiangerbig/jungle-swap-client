@@ -5,7 +5,7 @@ import { RootState } from "../../store";
 import { Plant } from "../../typeDefinitions";
 import PlantThumbnail from "./PlantThumbnail";
 
-const PlantsOverview = (): JSX.Element => {
+const PlantsCollection = (): JSX.Element => {
   const filteredPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.filteredPlants
   );
@@ -46,4 +46,4 @@ const PlantsOverview = (): JSX.Element => {
   );
 };
 
-export default PlantsOverview;
+export default PlantsCollection;

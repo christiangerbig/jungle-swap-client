@@ -1,9 +1,9 @@
 import { useAppSelector } from "../../hooks";
 import { RootState } from "../../store";
 import { Message, User } from "../../typeDefinitions";
-import RequestTile from "./RequestTile";
+import ReplyTile from "./ReplyTile";
 
-const RequestsOverview = (): JSX.Element => {
+const RepliesCollection = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -14,10 +14,10 @@ const RequestsOverview = (): JSX.Element => {
   return (
     <div>
       {messages.map((message: Message): JSX.Element => {
-        const { _id, seller, messageState } = message;
-        return (seller as User)._id === (loggedInUser as User)._id &&
-          messageState === true ? (
-          <RequestTile message={message} key={_id} />
+        const { _id, buyer, reply } = message;
+        return (buyer as User)._id === (loggedInUser as User)._id &&
+          reply !== "" ? (
+          <ReplyTile message={message} key={_id} />
         ) : (
           <></>
         );
@@ -26,4 +26,4 @@ const RequestsOverview = (): JSX.Element => {
   );
 };
 
-export default RequestsOverview;
+export default RepliesCollection;

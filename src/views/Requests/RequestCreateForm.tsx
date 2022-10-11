@@ -8,9 +8,9 @@ import { User, Plant, Message } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import ErrorMessageOutput from "../../components/Errors/ErrorMessageOutput";
+import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
 
-const CreateRequestForm = (): JSX.Element => {
+const RequestCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -117,4 +117,4 @@ const CreateRequestForm = (): JSX.Element => {
   );
 };
 
-export default CreateRequestForm;
+export default RequestCreateForm;

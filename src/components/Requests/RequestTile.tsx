@@ -6,7 +6,7 @@ type RequestThumbnailProps = {
   message: Message;
 };
 
-const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
+const RequestTile = ({ message }: RequestThumbnailProps): JSX.Element => {
   const { _id, buyer, plant } = message;
   const { name } = plant as Plant;
   const { username } = buyer as User;
@@ -30,4 +30,4 @@ const RequestThumbnail = ({ message }: RequestThumbnailProps): JSX.Element => {
   );
 };
 
-export default RequestThumbnail;
+export default RequestTile;

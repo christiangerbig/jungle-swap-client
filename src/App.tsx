@@ -5,27 +5,27 @@ import { RootState } from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
 
-import NavBar from "./components/Navigation/NavBar";
+import NavBar from "./components/navigation/NavBar";
 import Footer from "./components/Footer";
-import Home from "./views/Home";
-import SignUp from "./views/Authentification/SignUp";
-import SignIn from "./views/Authentification/SignIn";
-import LogOut from "./components/Authentification/LogOut";
-import CreatePlantForm from "./views/Plants/CreatePlantForm";
-import PlantDetails from "./views/Plants/PlantDetails";
-import UpdatePlantForm from "./views/Plants/UpdatePlantForm";
-import CheckoutPage from "./views/APIs/CheckoutPage";
-import RequestsOverview from "./views/Requests/RequestsOverview";
-import RepliesOverview from "./views/Replies/RepliesOverview";
-import CreateRequestForm from "./views/Requests/CreateRequestForm";
-import RequestDetails from "./views/Requests/RequestDetails";
-import ReplyDetails from "./views/Replies/ReplyDetails";
-import UpdateRequestForm from "./views/Requests/UpdateRequestForm";
-import Unauthorized from "./views/Authentification/Unauthorized";
-import NotFound from "./views/NotFound";
-import KommunicateChat from "./components/APIs/Chat";
-import MyPlants from "./views/Plants/MyPlantsOverview";
-import ErrorModal from "./components/ErrorModal";
+import Home from "./views/home/Home";
+import SignUp from "./views/authentification/SignUp";
+import SignIn from "./views/authentification/SignIn";
+import LogOut from "./components/authentification/LogOut";
+import CreatePlantForm from "./views/plants/PlantCreateForm";
+import PlantDetails from "./views/plants/PlantDetails";
+import UpdatePlantForm from "./views/plants/PlantUpdateForm";
+import CheckoutPage from "./views/apis/CheckoutView";
+import RequestsOverview from "./views/requests/RequestsView";
+import RepliesOverview from "./views/replies/RepliesView";
+import CreateRequestForm from "./views/requests/RequestCreateForm";
+import RequestDetails from "./views/requests/RequestDetails";
+import ReplyDetails from "./views/replies/ReplyDetails";
+import UpdateRequestForm from "./views/requests/RequestUpdateForm";
+import Unauthorized from "./views/authentification/Unauthorized";
+import NotFound from "./views/errors/NotFound";
+import KommunicateChat from "./components/apis/KommunicateChat";
+import MyPlants from "./views/plants/PlantsCreatedView";
+import ErrorModal from "./components/modals/ErrorModal";
 
 const App = (): JSX.Element => {
   const errorMessage = useAppSelector(

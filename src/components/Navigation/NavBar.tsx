@@ -16,10 +16,10 @@ import { RootState } from "../../store";
 import { IntervalCounter } from "../../lib/IntervalCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import NavLoggedInUserItems from "./NavLoggedInUserItems";
-import NavAuthentificationItems from "./NavAuthentificationItems";
 import { MessageIO } from "../../lib/messageIO";
 import { Message } from "../../typeDefinitions";
+import NavLoggedInUserItems from "./NavLoggedInUserItems";
+import NavAuthentificationItems from "./NavAuthentificationItems";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(
