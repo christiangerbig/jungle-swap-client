@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../hooks";
-import { setErrorMessage } from "../../reducer/jungleSwapSlice";
+import { useAppDispatch } from "../hooks";
+import { setErrorMessage } from "../reducer/jungleSwapSlice";
 
 type ErrorModalProps = {
   errorMessage: string;
@@ -25,6 +25,8 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
   const printErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       // Authentification
+      case "Unauthorized user":
+        return t("");
       case "Error while creating user":
         return t("errorTexts.authentification.signUp.errorWhileCreatingUser");
       case "User does not exist":
