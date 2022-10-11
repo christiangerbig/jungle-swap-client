@@ -7,12 +7,14 @@ type ModalBodyProps = {
   headline: string;
   subheadline: string;
   errorText: string;
+  isExitButton: boolean;
 };
 
 const ModalBody = ({
   headline,
   subheadline,
   errorText,
+  isExitButton,
 }: ModalBodyProps): JSX.Element => {
   const divElementRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useAppDispatch();
@@ -40,12 +42,14 @@ const ModalBody = ({
         <h1>{headline}</h1>
         <h2>{subheadline}</h2>
         <h3>{errorText}</h3>
-        <button
-          className="btn btn-sm form-control is-width-small mt-4 mb-3"
-          onClick={handleCloseModal}
-        >
-          {t("button.proceed")}
-        </button>
+        {isExitButton ? (
+          <button
+            className="btn btn-sm form-control is-width-small mt-4 mb-3"
+            onClick={handleCloseModal}
+          >
+            {t("button.proceed")}
+          </button>
+        ) : null}
       </div>
     </div>
   );
