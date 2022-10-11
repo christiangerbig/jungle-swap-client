@@ -5,27 +5,27 @@ import { RootState } from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
 
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navigation/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/Home";
-import SignUp from "./views/SignUp";
-import SignIn from "./views/SignIn";
-import LogOut from "./components/LogOut";
-import CreatePlantForm from "./views/CreatePlantForm";
-import PlantDetails from "./views/PlantDetails";
-import UpdatePlantForm from "./views/UpdatePlantForm";
-import CheckoutPage from "./views/CheckoutPage";
-import RequestsOverview from "./views/RequestsOverview";
-import RepliesOverview from "./views/RepliesOverview";
-import CreateRequestForm from "./views/CreateRequestForm";
-import RequestDetails from "./views/RequestDetails";
-import ReplyDetails from "./views/ReplyDetails";
-import UpdateRequestForm from "./views/UpdateRequestForm";
-import Unauthorized from "./views/Unauthorized";
+import SignUp from "./views/Authentification/SignUp";
+import SignIn from "./views/Authentification/SignIn";
+import LogOut from "./components/Authentification/LogOut";
+import CreatePlantForm from "./views/Plants/CreatePlantForm";
+import PlantDetails from "./views/Plants/PlantDetails";
+import UpdatePlantForm from "./views/Plants/UpdatePlantForm";
+import CheckoutPage from "./views/APIs/CheckoutPage";
+import RequestsOverview from "./views/Requests/RequestsOverview";
+import RepliesOverview from "./views/Replies/RepliesOverview";
+import CreateRequestForm from "./views/Requests/CreateRequestForm";
+import RequestDetails from "./views/Requests/RequestDetails";
+import ReplyDetails from "./views/Replies/ReplyDetails";
+import UpdateRequestForm from "./views/Requests/UpdateRequestForm";
+import Unauthorized from "./views/Authentification/Unauthorized";
 import NotFound from "./views/NotFound";
-import KommunicateChat from "./components/Chat";
-import MyPlants from "./views/MyPlantsOverview";
-import ErrorModal from "./components/ErrorModal";
+import KommunicateChat from "./components/APIs/Chat";
+import MyPlants from "./views/Plants/MyPlantsOverview";
+import ErrorModal from "./components/Modals/ErrorModal";
 
 const App = (): JSX.Element => {
   const errorMessage = useAppSelector(

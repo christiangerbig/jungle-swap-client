@@ -7,9 +7,9 @@ import {
 } from "../reducer/jungleSwapSlice";
 import { RootState } from "../store";
 import { PlantIO } from "../lib/plantIO";
-import About from "../components/About";
-import AllPlants from "../components/AllPlants";
-import Title from "../components/Title";
+import About from "../components/Home/About";
+import AllPlants from "../components/Home/AllPlants";
+import Title from "../components/Home/Title";
 
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
