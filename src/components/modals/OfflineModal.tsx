@@ -9,7 +9,7 @@ const OfflineModal = (): JSX.Element => {
         headline={t("texts.offlineModal.headline")}
         subheadline={t("texts.offlineModal.subheadline")}
         errorText={t("errorTexts.offline")}
-        isExitButton={false}
+        isAutoExit={true}
       />
     </div>
   );
