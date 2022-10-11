@@ -25,7 +25,7 @@ import Unauthorized from "./views/Authentification/Unauthorized";
 import NotFound from "./views/NotFound";
 import KommunicateChat from "./components/APIs/Chat";
 import MyPlants from "./views/Plants/MyPlantsOverview";
-import ErrorModal from "./components/Modals/ErrorModal";
+import ErrorModal from "./components/ErrorModal";
 
 const App = (): JSX.Element => {
   const errorMessage = useAppSelector(
