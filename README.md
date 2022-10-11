@@ -232,8 +232,8 @@ Message model
 | POST        | `/messages/delete/:id`  | {messageId}                 | 200             | 500          | Create new request              |
 | POST        | `/cloudinary/upload`    |                             | 200             |              | Upload plant picture            |
 | POST        |`/cloudinary/destroy/:id`| {imagePublicId}             | 200             |              | Delete plant picture            |
-| POST        | `/stripe(reate-payment`|                             |                 |              |                                 |
-|             | intent`                 |                             |                 |              |                                 |
+| POST        | `/stripe(reate-payment-intent`|                             |                 |              |                                 |
+|             |                  |                             |                 |              |                                 |
 
 ## Links
 
