@@ -46,12 +46,12 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 |                             |                              |                            | signup if user is not logged in     |
 | `/plants/update`            | UpdatePlantForm              | user only `<PrivateRoute>` | Update/Edit an plant                |
 | `/plants/checkout`          | CheckoutPage                 | user only `<PrivateRoute>` | Purchase a plant using "Stripe API" |
-| `/plants/my-own`            | MyPlants                     | user only `<PrivateRoute>` | Show all my uploaded plants         |
+| `/plants/my-own`            | MyPlantsOverview             | user only `<PrivateRoute>` | Show all my uploaded plants         |
 | `/messages/create`          | CreateRequestForm            | user only `<PrivateRoute>` | Create request to swap              |
 | `/messages/update`          | UpdateRequestForm            | user only `<PrivateRoute>` | reply a request                     |
-| `/requests/fetch-all`       | RequestsPage                 | user only `<PrivateRoute>` | Fetch all requests for the user     |
+| `/requests/fetch-all`       | RequestsOverview             | user only `<PrivateRoute>` | Fetch all requests for the user     |
 | `/requests/fetch/:messageId`| RequestDetails               | user only `<PrivateRoute>` | Shows request deails                |
-| `/replies/fetch-all`        | RepliesPage                  | user only `<PrivateRoute>` | Fetch all replies for the user      |
+| `/replies/fetch-all`        | RepliesOverview              | user only `<PrivateRoute>` | Fetch all replies for the user      |
 | `/replies/fetch/:messageId` | ReplyDetails                 | user only `<PrivateRoute>` | Shows reply deails                  |
 
       
