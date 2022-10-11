@@ -34,7 +34,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 | Path                        | Component                    | Permissions                | Behavior                            |
 | ----------------- | ------------------ | -----------------| -------------------- |
 | `/`                         | Home, NavBar, Footer,        | public    `<AnonRoute>`    | Home page, Shows all plants         |
-|                             | KommunicateChat              |                            |                                     |
+|                             | Chat                    |                            |                                     |
 | `/auth/sign-up`             | SignUp                       | anon only `<AnonRoute>`    | Signup form, link to signin         ||                             |                              |                            | navigate to homepage after signup   |
 | `/auth/sign-in`             | SignIn                       | anon only `<AnonRoute>`    | Login form, link to signup,         |
 |                             |                              |                            | navigate to homepage after signin   |
