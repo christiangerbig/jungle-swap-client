@@ -60,7 +60,7 @@ const RepliesView = (): JSX.Element => {
         <h3 className="mb-4"> [{amountOfReplies}] </h3>
         <GoBackButton />
         {isFetchingMessages ? <WaitSpinner /> : <RepliesCollection />}
-        {amountOfReplies !== 0 ? <GoBackButton /> : null}
+        {amountOfReplies !== 0 && <GoBackButton />}
       </div>
     </div>
   );

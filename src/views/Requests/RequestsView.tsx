@@ -60,7 +60,7 @@ const RequestsView = (): JSX.Element => {
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
         <GoBackButton />
         {isFetchingMessages ? <WaitSpinner /> : <RequestsCollection />}
-        {amountOfRequests !== 0 ? <GoBackButton /> : null}
+        {amountOfRequests !== 0 && <GoBackButton />}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const PlantsCollection = (): JSX.Element => {
   const { t } = useTranslation();
 
   const handleClickButton = (): void => {
-    dispatch(setNumberOfVisibleEntries(numberOfVisibleEntries + 6))
+    dispatch(setNumberOfVisibleEntries(numberOfVisibleEntries + 6));
   };
 
   return (
@@ -31,7 +31,7 @@ const PlantsCollection = (): JSX.Element => {
           );
         })}
       </div>
-      {numberOfVisibleEntries < filteredPlants.length ? (
+      {numberOfVisibleEntries < filteredPlants.length && (
         <div className="is-text-align-center">
           <button
             type="button"
@@ -41,7 +41,7 @@ const PlantsCollection = (): JSX.Element => {
             {t("button.more")}
           </button>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

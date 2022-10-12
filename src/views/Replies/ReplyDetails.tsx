@@ -68,14 +68,14 @@ const ReplyDetails = (): JSX.Element => {
           {t("texts.replies.replyDetails.headline")} {name}
         </h2>
         <p className="text-field p-3 mb-4">{request}</p>
-        {reply ? (
+        {reply && (
           <div>
             <h5>
               {t("texts.replies.replyDetails.replyBy")} {username}
             </h5>
             <p className="text-field p-3 mb-4">{reply}</p>
           </div>
-        ) : null}
+        )}
         <div className="text-right px-3">
           <button
             disabled={buttonState()}
