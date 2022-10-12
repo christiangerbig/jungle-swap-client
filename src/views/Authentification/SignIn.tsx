@@ -44,7 +44,7 @@ const SignIn = (): JSX.Element => {
     });
   };
 
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Email missing":
         return t("errorTexts.authentification.signIn.form.emailMissing");
@@ -94,7 +94,7 @@ const SignIn = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
+            <ErrorMessageOutput outputFunction={convertErrorMessage} />
           )}
           <button
             type="submit"

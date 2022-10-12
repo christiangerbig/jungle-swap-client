@@ -3,7 +3,10 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { setIsUserChange, setErrorMessage } from "../../reducer/jungleSwapSlice";
+import {
+  setIsUserChange,
+  setErrorMessage,
+} from "../../reducer/jungleSwapSlice";
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Authentification } from "../../lib/authentification";
@@ -37,7 +40,7 @@ const SignUp = (): JSX.Element => {
     });
   };
 
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Username missing":
         return t("errorTexts.authentification.signUp.form.usernameMissing");
@@ -103,7 +106,7 @@ const SignUp = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
+            <ErrorMessageOutput outputFunction={convertErrorMessage} />
           )}
           <button
             type="submit"

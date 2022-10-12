@@ -51,7 +51,7 @@ const RequestCreateForm = (): JSX.Element => {
     });
   };
 
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Request text missing":
         return t("errorTexts.messages.createRequest.form.requestTextMissing");
@@ -92,7 +92,7 @@ const RequestCreateForm = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
+            <ErrorMessageOutput outputFunction={convertErrorMessage} />
           )}
           <div className="text-right">
             <button

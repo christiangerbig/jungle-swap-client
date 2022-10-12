@@ -55,7 +55,7 @@ const RequestUpdateForm = (): JSX.Element => {
     );
   };
 
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Reply text missing":
         return t("errorTexts.messages.updateRequest.form.replyTextMissing");
@@ -96,7 +96,7 @@ const RequestUpdateForm = (): JSX.Element => {
               }}
             />
             {errorMessage && errorMessage.includes("Form") && (
-              <ErrorMessageOutput printErrorMessage={printErrorMessage} />
+              <ErrorMessageOutput outputFunction={convertErrorMessage} />
             )}
             <div className="row justify-content-end px-3">
               <button

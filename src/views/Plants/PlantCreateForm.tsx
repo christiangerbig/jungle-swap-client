@@ -56,7 +56,7 @@ const PlantCreateForm = (): JSX.Element => {
     );
   };
 
-  const printErrorMessage = (errorMessage: string): string => {
+  const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Name missing":
         return t("errorTexts.plants.createPlant.form.nameMissing");
@@ -162,7 +162,7 @@ const PlantCreateForm = (): JSX.Element => {
             className="mb-4 form-control is-width-full"
           />
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput printErrorMessage={printErrorMessage} />
+            <ErrorMessageOutput outputFunction={convertErrorMessage} />
           )}
           <div className="col-12 text-right pr-0">
             <button
