@@ -57,41 +57,43 @@ With this app you can upload your indoor plant offshoots to swap for another pla
       
 ## Components
 
-- About
+- HomeAbout
 - AllPlants
-- Chat (Socket.io)
+- KommunicateChat (Socket.io)
 - CheckoutForm (Stripe)
 - ErrorMessage
 - ErrorModal
 - Footer
 - GoBackButton
 - LogOut
-- MyPlantsOverview
+- ModalBody
+- PlantsCreatedCollection
 - NavAuthentificationItems
 - NavBar
 - NavLoggedInUserItems
 - NavAuthentificationItems
+- OfflineModal
 - PlantDetailsBuyerItems
 - PlantDetailsCreatorItems
-- PlantsOverview
+- PlantsCollection
 - PlantThumbnail
-- RepliesOverview
+- RepliesCollection
 - ReplyTile
-- RequestsOverview
+- RequestsCollection
 - RequestTile
-- SearchPlant
-- Title
+- PlantSearch
+- HomeTitle
 - WaitSpinner
 - WaitSpinnerText
 
 
 ## Views
 
-- CheckoutPage
-- CreatePlantForm
-- CreateRequestForm
+- CheckoutView
+- PlantCreateForm
+- RequestCreateForm
 - Home
-- MyPlantsOverview
+- PlantsCreatedView
 - NotFound
 - PlantDetails
 - RepliesOverview
@@ -101,8 +103,8 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - SignIn
 - SignUp
 - Unauthorized
-- UpdatePlantForm
-- UpdateRequestForm
+- PlantUpdateForm
+- RequestUpdateForm
 
 
 ## Services
