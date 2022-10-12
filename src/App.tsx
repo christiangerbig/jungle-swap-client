@@ -26,7 +26,7 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import MyPlants from "./views/plants/PlantsCreatedView";
 import ErrorModal from "./components/modals/ErrorModal";
-import { useOnlineStatus } from "./components/helpers/useOnlineStatus";
+import { useOnlineStatus } from "./lib/connectionCheck";
 import OfflineModal from "./components/modals/OfflineModal";
 
 const App = (): JSX.Element => {

@@ -52,7 +52,7 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
         headline={t("texts.errorModal.headline")}
         subheadline={t("texts.errorModal.subheadline")}
         errorText={convertErrorMessage(errorMessage)}
-        isAutoExit={false}
+        isClose={true}
       />
     </div>
   );

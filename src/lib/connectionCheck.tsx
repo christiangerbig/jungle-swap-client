@@ -12,20 +12,20 @@ export const OnlineStatusProvider = ({
   const [onlineStatus, setOnlineStatus] = useState<boolean>(true);
 
   useEffect(() => {
-    window.addEventListener("offline", () => {
+    const handleOfflineEventCallback = (): void => {
       setOnlineStatus(false);
-    });
-    window.addEventListener("online", () => {
+    };
+
+    const handleOnlineEventCallback = (): void => {
       setOnlineStatus(true);
-    });
+    };
+
+    window.addEventListener("offline", handleOfflineEventCallback);
+    window.addEventListener("online", handleOnlineEventCallback);
 
     return () => {
-      window.removeEventListener("offline", () => {
-        setOnlineStatus(false);
-      });
-      window.removeEventListener("online", () => {
-        setOnlineStatus(true);
-      });
+      window.removeEventListener("offline", handleOfflineEventCallback);
+      window.removeEventListener("online", handleOnlineEventCallback);
     };
   }, []);
 
@@ -37,6 +37,5 @@ export const OnlineStatusProvider = ({
 };
 
 export const useOnlineStatus = () => {
-  const store = useContext(OnlineStatusContext);
-  return store;
+  return useContext(OnlineStatusContext);
 };

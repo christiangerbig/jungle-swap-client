@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import "./i18n";
 import "./index.css";
-import { OnlineStatusProvider } from "./components/helpers/useOnlineStatus";
+import { OnlineStatusProvider } from "./lib/connectionCheck";
 
 ReactDOM.render(
   <React.StrictMode>
