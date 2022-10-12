@@ -9,7 +9,12 @@ const HomeAbout = (): JSX.Element => {
     <div className="about centered container">
       <div className="row">
         <div className="col-sm-6 col-md-5 col-lg-6">
-          <img src={plantsImage} alt="plants" className="is-background-image" />
+          <img
+            src={plantsImage}
+            loading="lazy"
+            alt="plants"
+            className="is-background-image"
+          />
         </div>
         <br />
         <div className="about col-sm-6 col-md-5 col-lg-6 px-5 is-no-overflow">
@@ -31,7 +36,12 @@ const HomeAbout = (): JSX.Element => {
               <br />
               {t("texts.home.about.paragraph.line6")}
             </p>
-            <img src={plantPotIcon} alt="plant pot" className="is-icon" />
+            <img
+              src={plantPotIcon}
+              loading="lazy"
+              alt="plant pot"
+              className="is-icon"
+            />
           </article>
         </div>
       </div>

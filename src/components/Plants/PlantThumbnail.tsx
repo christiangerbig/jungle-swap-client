@@ -15,6 +15,7 @@ const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
       <div className="card card-medium-width text-center h-100">
         <img
           src={imageUrl}
+          loading="lazy"
           alt={name}
           className="card-img-top is-image-size-large"
         />

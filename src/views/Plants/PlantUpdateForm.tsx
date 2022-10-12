@@ -126,6 +126,7 @@ const PlantUpdateForm = (): JSX.Element => {
           ) : (
             <img
               src={imageUrl}
+              loading="lazy"
               alt={name}
               className="mb-2 is-image-size-medium"
             />

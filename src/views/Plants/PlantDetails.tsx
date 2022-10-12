@@ -52,6 +52,7 @@ const PlantDetails = (): JSX.Element => {
           <div className="card is-card-width-large">
             <img
               src={imageUrl}
+              loading="lazy"
               alt={name}
               className="card-img-top is-image-size-large"
             />
