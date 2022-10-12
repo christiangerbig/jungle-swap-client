@@ -59,7 +59,7 @@ const CheckoutForm = (): JSX.Element => {
   useEffect(() => {
     const paymentIO = new PaymentIO(dispatch);
     paymentIO.initialize(plant);
-    return () => {
+    return (): void => {
       history.push("/");
       dispatch(scrollToPlants());
     };
@@ -143,7 +143,7 @@ const CheckoutForm = (): JSX.Element => {
         {isSucceeded ? (
           <Link
             to={"/"}
-            onClick={() => {
+            onClick={(): void => {
               dispatch(scrollToPlants());
             }}
             className="is-link"

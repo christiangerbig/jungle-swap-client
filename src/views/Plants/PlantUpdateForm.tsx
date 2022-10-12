@@ -140,7 +140,7 @@ const PlantUpdateForm = (): JSX.Element => {
               name="name"
               value={name}
               className="mb-4 form-control"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -153,7 +153,7 @@ const PlantUpdateForm = (): JSX.Element => {
               name="description"
               value={description}
               className="mb-4 form-control"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -167,7 +167,7 @@ const PlantUpdateForm = (): JSX.Element => {
               value={size}
               min="1"
               className="mb-4 form-control"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -179,7 +179,7 @@ const PlantUpdateForm = (): JSX.Element => {
               id="updateLocation"
               name="location"
               className="mb-4 form-control px-2"
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
             >
@@ -199,7 +199,7 @@ const PlantUpdateForm = (): JSX.Element => {
               value={price}
               min="1"
               className="mb-4 form-control"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
             />
@@ -211,7 +211,7 @@ const PlantUpdateForm = (): JSX.Element => {
               id="updateImage"
               name="plantImage"
               className="mb-4 form-control"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantImageChange(event, plant);
               }}
             />

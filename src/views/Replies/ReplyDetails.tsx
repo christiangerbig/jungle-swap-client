@@ -80,7 +80,7 @@ const ReplyDetails = (): JSX.Element => {
           <button
             disabled={buttonState()}
             className="btn btn-sm ml-2 is-width-medium form-control mb-1"
-            onClick={() => {
+            onClick={(): void => {
               handleDeleteMessage(_id as MessageId);
             }}
           >

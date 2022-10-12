@@ -2,11 +2,11 @@ import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 import { MainPageScrolling } from "../../lib/MainPageScrolling";
 
-const GoBackButton = () => {
+const GoBackButton = (): JSX.Element => {
   const history = useHistory();
   const { t } = useTranslation();
 
-  const handleGoBack = () => {
+  const handleGoBack = (): void => {
     const pageScrolling = new MainPageScrolling(history);
     pageScrolling.toTop();
   };

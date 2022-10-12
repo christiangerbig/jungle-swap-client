@@ -47,14 +47,14 @@ const PlantSearch = (): JSX.Element => {
           placeholder={t("texts.home.searchPlant.namePlaceholder")}
           value={query}
           className="is-width-medium form-control"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
             setQuery(event.target.value);
           }}
         />
         <select
           name="location"
           className="location-filter form-control ml-4"
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
             setFilter(event.target.value);
           }}
         >

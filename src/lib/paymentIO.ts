@@ -14,10 +14,10 @@ export class PaymentIO {
   initialize = (plant: Plant): void => {
     this.dispatch(createPayment(plant))
       .unwrap()
-      .then((payment: any) => {
+      .then((payment: any): void => {
         this.dispatch(setClientSecret(payment.clientSecret));
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         this.dispatch(setErrorMessage(rejectedValue.message));
       });
   };

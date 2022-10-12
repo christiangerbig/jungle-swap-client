@@ -89,7 +89,7 @@ const RequestUpdateForm = (): JSX.Element => {
               cols={31}
               rows={6}
               className="mb-4 form-control is-width-full"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => {
                 handleCreateReply(event, message);
               }}
             />
@@ -100,7 +100,7 @@ const RequestUpdateForm = (): JSX.Element => {
               <button
                 disabled={buttonState()}
                 className="btn btn-sm is-width-medium form-control mr-3 mb-2"
-                onClick={() => {
+                onClick={(): void => {
                   handleUpdateMessage(message);
                 }}
               >
@@ -108,7 +108,7 @@ const RequestUpdateForm = (): JSX.Element => {
               </button>
               <button
                 className="btn btn-sm is-width-medium form-control mb-2"
-                onClick={() => {
+                onClick={(): void => {
                   history.goBack();
                 }}
               >

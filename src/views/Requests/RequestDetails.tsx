@@ -99,7 +99,7 @@ const RequestDetails = (): JSX.Element => {
           )}
           <button
             className="btn btn-sm ml-2 is-width-medium form-control mb-1"
-            onClick={() => {
+            onClick={(): void => {
               handleChangeMessageState(message);
             }}
           >

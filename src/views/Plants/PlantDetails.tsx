@@ -92,7 +92,7 @@ const PlantDetails = (): JSX.Element => {
                   )}
                   <button
                     className="btn btn-sm ml-2 form-control is-width-medium mb-3"
-                    onClick={() => {
+                    onClick={(): void => {
                       history.goBack();
                     }}
                   >

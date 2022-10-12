@@ -16,7 +16,7 @@ const HomeTitle = (): JSX.Element => {
           <Link
             to={"/"}
             className="try-it-link is-link"
-            onClick={() => {
+            onClick={(): void => {
               dispatch(scrollToAbout());
             }}
           >

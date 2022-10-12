@@ -13,7 +13,7 @@ export class PlantImageIO {
     this.dispatch = dispatch;
   }
 
-  create = (uploadForm: any, callbackFunction: Function) => {
+  create = (uploadForm: any, callbackFunction: Function): void => {
     this.dispatch(setIsUploadingPlantImage(true));
     this.dispatch(uploadPlantImage(uploadForm))
       .unwrap()

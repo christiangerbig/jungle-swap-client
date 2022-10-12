@@ -13,11 +13,11 @@ export class Routing {
   protect = (callbackFunction: Function): void => {
     this.dispatch(checkUserLoggedIn())
       .unwrap()
-      .then((user: User) => {
+      .then((user: User): void => {
         this.dispatch(setLoggedInUser(user));
         callbackFunction();
       })
-      .catch((rejectedValue: any) => {
+      .catch((rejectedValue: any): void => {
         if (rejectedValue.message !== "Unauthorized user") {
           this.dispatch(setErrorMessage(rejectedValue.message));
         }

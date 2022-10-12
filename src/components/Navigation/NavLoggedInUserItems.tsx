@@ -25,7 +25,7 @@ const NavLoggedInUserItems = (): JSX.Element => {
     return isNewReply ? t("link.tooltipps.newReply") : "";
   };
 
-  const tooltipItemLogOut = () => {
+  const tooltipItemLogOut = (): any => {
     return loggedInUser ? loggedInUser.username : "";
   };
 

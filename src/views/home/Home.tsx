@@ -37,7 +37,7 @@ const Home = (): JSX.Element => {
   return (
     <div>
       <section
-        ref={(titleSection) => {
+        ref={(titleSection: HTMLElement): void => {
           (elementRef.current[0] as HTMLElement | null) = titleSection;
         }}
         className="text-center pt-5 pb-5 title-header has-fixed-background-image"
@@ -46,7 +46,7 @@ const Home = (): JSX.Element => {
       </section>
 
       <section
-        ref={(aboutSection) => {
+        ref={(aboutSection: HTMLElement): void => {
           (elementRef.current[1] as HTMLElement | null) = aboutSection;
         }}
       >

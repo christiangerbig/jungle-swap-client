@@ -91,7 +91,7 @@ const PlantCreateForm = (): JSX.Element => {
         </h2>
         <form
           className="form-style"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleUploadPlantImage(event);
           }}
         >
@@ -174,7 +174,7 @@ const PlantCreateForm = (): JSX.Element => {
             </button>
             <button
               className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
-              onClick={() => {
+              onClick={(): void => {
                 history.goBack();
               }}
             >

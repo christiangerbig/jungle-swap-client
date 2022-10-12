@@ -26,7 +26,7 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
   const { t } = useTranslation();
   const { _id, imagePublicId } = plant as Plant;
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     const messageIO = new MessageIO(dispatch);
     messageIO.deleteRemaining(messages, _id as PlantId);
     const plantImageIO = new PlantImageIO(dispatch);

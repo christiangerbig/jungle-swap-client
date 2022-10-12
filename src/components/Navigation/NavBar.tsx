@@ -68,7 +68,7 @@ const NavBar = (): JSX.Element => {
 
       const startInterval = (): void => {
         const intervalId = setInterval(
-          () => {
+          (): void => {
             dispatch(increaseDelayCounter());
           },
           1000 // every second
@@ -123,7 +123,7 @@ const NavBar = (): JSX.Element => {
             <Link
               to="/"
               className="p-2 is-link"
-              onClick={() => {
+              onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
             >
@@ -138,7 +138,7 @@ const NavBar = (): JSX.Element => {
               to="/"
               title={tooltipItemSearch()}
               className="p-2 is-link"
-              onClick={() => {
+              onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
             >

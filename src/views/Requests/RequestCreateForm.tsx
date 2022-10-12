@@ -79,7 +79,7 @@ const RequestCreateForm = (): JSX.Element => {
         </h3>
         <form
           className="pl-0 form-style"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleCreateMessageForRequest(event, plant);
           }}
         >
@@ -104,7 +104,7 @@ const RequestCreateForm = (): JSX.Element => {
             </button>
             <button
               className="btn btn-sm mx-2 form-control is-width-medium"
-              onClick={() => {
+              onClick={(): void => {
                 history.goBack();
               }}
             >

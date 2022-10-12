@@ -36,6 +36,6 @@ export const OnlineStatusProvider = ({
   );
 };
 
-export const useOnlineStatus = () => {
+export const useOnlineStatus = (): boolean => {
   return useContext(OnlineStatusContext);
 };
