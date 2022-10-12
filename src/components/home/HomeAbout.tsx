@@ -11,7 +11,7 @@ const HomeAbout = (): JSX.Element => {
         <div className="col-sm-6 col-md-5 col-lg-6">
           <img
             src={plantsImage}
-            loading="lazy"
+            loading="eager"
             alt="plants"
             className="is-background-image"
           />
