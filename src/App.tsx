@@ -1,6 +1,7 @@
 import { Route, Switch, withRouter } from "react-router-dom";
 import { useAppSelector } from "./hooks";
 import { RootState } from "./store";
+import { useOnlineStatus } from "./lib/connectionCheck";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
@@ -26,7 +27,6 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import MyPlants from "./views/plants/PlantsCreatedView";
 import ErrorModal from "./components/modals/ErrorModal";
-import { useOnlineStatus } from "./lib/connectionCheck";
 import OfflineModal from "./components/modals/OfflineModal";
 
 const App = (): JSX.Element => {
