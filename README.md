@@ -61,7 +61,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - AllPlants
 - Chat (Socket.io)
 - CheckoutForm (Stripe)
-- ErrorMessageOutput
+- ErrorMessage
 - ErrorModal
 - Footer
 - GoBackButton

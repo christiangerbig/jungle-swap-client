@@ -8,7 +8,7 @@ import { User, Plant, Message } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
+import ErrorMessage from "../../components/errors/ErrorMessage";
 
 const RequestCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -92,7 +92,7 @@ const RequestCreateForm = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput outputFunction={convertErrorMessage} />
+            <ErrorMessage outputFunction={convertErrorMessage} />
           )}
           <div className="text-right">
             <button

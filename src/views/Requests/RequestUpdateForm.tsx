@@ -8,7 +8,7 @@ import { Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
+import ErrorMessage from "../../components/errors/ErrorMessage";
 
 const RequestUpdateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -96,7 +96,7 @@ const RequestUpdateForm = (): JSX.Element => {
               }}
             />
             {errorMessage && errorMessage.includes("Form") && (
-              <ErrorMessageOutput outputFunction={convertErrorMessage} />
+              <ErrorMessage outputFunction={convertErrorMessage} />
             )}
             <div className="row justify-content-end px-3">
               <button

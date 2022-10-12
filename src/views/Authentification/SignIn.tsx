@@ -12,7 +12,7 @@ import {
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Authentification } from "../../lib/authentification";
-import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
+import ErrorMessage from "../../components/errors/ErrorMessage";
 
 const SignIn = (): JSX.Element => {
   const errorMessage = useAppSelector(
@@ -94,7 +94,7 @@ const SignIn = (): JSX.Element => {
             />
           </div>
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput outputFunction={convertErrorMessage} />
+            <ErrorMessage outputFunction={convertErrorMessage} />
           )}
           <button
             type="submit"

@@ -9,7 +9,7 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
 import { PlantImageIO } from "../../lib/plantImageIO";
-import ErrorMessageOutput from "../../components/errors/ErrorMessageOutput";
+import ErrorMessage from "../../components/errors/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -162,7 +162,7 @@ const PlantCreateForm = (): JSX.Element => {
             className="mb-4 form-control is-width-full"
           />
           {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessageOutput outputFunction={convertErrorMessage} />
+            <ErrorMessage outputFunction={convertErrorMessage} />
           )}
           <div className="col-12 text-right pr-0">
             <button
