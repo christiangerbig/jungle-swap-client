@@ -90,7 +90,7 @@ const CheckoutForm = (): JSX.Element => {
     }
   };
 
-  const successMessageStyle = (): string => {
+  const messageVisibility = (): string => {
     return isSucceeded ? "result-message text-center" : "is-hidden";
   };
 
@@ -135,7 +135,7 @@ const CheckoutForm = (): JSX.Element => {
           </div>
         )}
         {/* Show success message upon completion */}
-        <p className={successMessageStyle()}>
+        <p className={messageVisibility()}>
           {t("texts.plants.checkout.form.paymentSuccessful")}
         </p>
       </form>
