@@ -183,10 +183,10 @@ const PlantUpdateForm = (): JSX.Element => {
                 handlePlantEntryChange(event, plant);
               }}
             >
-              <option value="sun">{t("selectLocation.sun")}</option>
-              <option value="shade">{t("selectLocation.shade")}</option>
+              <option value="sun">{t("select.location.sun")}</option>
+              <option value="shade">{t("select.location.shade")}</option>
               <option value="sun and shade">
-                {t("selectLocation.sunAndShade")}
+                {t("select.location.sunAndShade")}
               </option>
             </select>
             <label htmlFor="updatePrice">

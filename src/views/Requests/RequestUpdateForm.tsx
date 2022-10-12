@@ -89,7 +89,9 @@ const RequestUpdateForm = (): JSX.Element => {
               cols={31}
               rows={6}
               className="mb-4 form-control is-width-full"
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+              onChange={(
+                event: React.ChangeEvent<HTMLTextAreaElement>
+              ): void => {
                 handleCreateReply(event, message);
               }}
             />
