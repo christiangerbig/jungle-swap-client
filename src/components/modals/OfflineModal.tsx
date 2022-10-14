@@ -7,6 +7,7 @@ type OfflineModalProps = {
 
 const OfflineModal = ({ isOnline }: OfflineModalProps): JSX.Element | null => {
   const { t } = useTranslation();
+  
   if (isOnline) {
     return null;
   }
