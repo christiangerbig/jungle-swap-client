@@ -97,10 +97,8 @@ const App = (): JSX.Element => {
       </Switch>
       <KommunicateChat />
       <Footer />
-      {errorMessage && !errorMessage.includes("Form") && (
-        <ErrorModal errorMessage={errorMessage} />
-      )}
-      {!isOnline && <OfflineModal />}
+      <ErrorModal message={errorMessage} />
+      <OfflineModal isOnline={isOnline} />
     </div>
   );
 };

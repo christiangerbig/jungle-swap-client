@@ -1,17 +1,23 @@
 import { useTranslation } from "react-i18next";
 import ModalBody from "./ModalBody";
 
-const OfflineModal = (): JSX.Element => {
+type OfflineModalProps = {
+  isOnline: boolean;
+};
+
+const OfflineModal = ({ isOnline }: OfflineModalProps): JSX.Element | null => {
   const { t } = useTranslation();
+  if (isOnline) {
+    return null;
+  }
+
   return (
-    <div>
-      <ModalBody
-        headline={t("texts.offlineModal.headline")}
-        subheadline={t("texts.offlineModal.subheadline")}
-        errorText={t("errorTexts.offline")}
-        isClose={false}
-      />
-    </div>
+    <ModalBody
+      headline={t("texts.offlineModal.headline")}
+      subheadline={t("texts.offlineModal.subheadline")}
+      text={t("errorTexts.offline")}
+      isClose={false}
+    />
   );
 };
 

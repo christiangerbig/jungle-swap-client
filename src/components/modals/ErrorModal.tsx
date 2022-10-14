@@ -2,14 +2,14 @@ import { useTranslation } from "react-i18next";
 import ModalBody from "./ModalBody";
 
 type ErrorModalProps = {
-  errorMessage: string;
+  message: string | null;
 };
 
-const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
+const ErrorModal = ({ message }: ErrorModalProps): JSX.Element | null => {
   const { t } = useTranslation();
 
-  const convertErrorMessage = (errorMessage: string): string => {
-    switch (errorMessage) {
+  const convertErrorMessage = (message: string): string => {
+    switch (message) {
       // Authentification
       case "Error while creating user":
         return t("errorTexts.authentification.signUp.errorWhileCreatingUser");
@@ -46,12 +46,16 @@ const ErrorModal = ({ errorMessage }: ErrorModalProps): JSX.Element => {
     }
   };
 
+  if (!message || message.includes("Form")) {
+    return null;
+  }
+
   return (
     <div>
       <ModalBody
         headline={t("texts.errorModal.headline")}
         subheadline={t("texts.errorModal.subheadline")}
-        errorText={convertErrorMessage(errorMessage)}
+        text={convertErrorMessage(message)}
         isClose={true}
       />
     </div>

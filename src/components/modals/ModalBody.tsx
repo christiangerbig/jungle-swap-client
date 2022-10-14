@@ -6,14 +6,14 @@ import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 type ModalBodyProps = {
   headline: string;
   subheadline: string;
-  errorText: string;
+  text: string;
   isClose: boolean;
 };
 
 const ModalBody = ({
   headline,
   subheadline,
-  errorText,
+  text,
   isClose,
 }: ModalBodyProps): JSX.Element => {
   const divElementRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +41,7 @@ const ModalBody = ({
       <div className="error-modal-box">
         <h1>{headline}</h1>
         <h2>{subheadline}</h2>
-        <h3>{errorText}</h3>
+        <h3>{text}</h3>
         {isClose && (
           <button
             className="error-modal-button mt-4 mb-3"
