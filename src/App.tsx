@@ -1,8 +1,4 @@
 import { Route, Switch, withRouter } from "react-router-dom";
-import { useAppSelector } from "./hooks";
-import { RootState } from "./store";
-import { useOnlineStatus } from "./lib/connectionCheck";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
 
@@ -26,15 +22,9 @@ import Unauthorized from "./views/authentification/Unauthorized";
 import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import MyPlants from "./views/plants/PlantsCreatedView";
-import ErrorModal from "./components/modals/ErrorModal";
-import OfflineModal from "./components/modals/OfflineModal";
+import Modals from "./components/modals/Modals";
 
 const App = (): JSX.Element => {
-  const errorMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.errorMessage
-  );
-  const isOnline = useOnlineStatus();
-
   return (
     <div>
       <NavBar />
@@ -97,8 +87,7 @@ const App = (): JSX.Element => {
       </Switch>
       <KommunicateChat />
       <Footer />
-      <ErrorModal message={errorMessage} />
-      <OfflineModal isOnline={isOnline} />
+      <Modals />
     </div>
   );
 };
