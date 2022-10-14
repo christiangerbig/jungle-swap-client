@@ -12,6 +12,7 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
+import Reply from "../replies/Reply";
 
 const RequestDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -83,12 +84,10 @@ const RequestDetails = (): JSX.Element => {
           {t("texts.requests.requestDetails.subheadline")} {username}
         </h5>
         <p className="text-field p-3 mb-4">{request}</p>
-        {reply && (
-          <div>
-            <h5>{t("texts.requests.requestDetails.yourReply")}</h5>
-            <p className="text-field p-3 mb-4">{reply}</p>
-          </div>
-        )}
+        <Reply
+          headline={t("texts.requests.requestDetails.yourReply")}
+          text={reply}
+        />
         <div className="text-right px-3">
           {!reply && (
             <Link to={`/messages/update/${_id}`} className="is-link">
