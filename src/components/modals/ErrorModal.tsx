@@ -51,14 +51,12 @@ const ErrorModal = ({ message }: ErrorModalProps): JSX.Element | null => {
   }
 
   return (
-    <div>
-      <ModalBody
-        headline={t("texts.errorModal.headline")}
-        subheadline={t("texts.errorModal.subheadline")}
-        text={convertErrorMessage(message)}
-        isClose={true}
-      />
-    </div>
+    <ModalBody
+      headline={t("texts.errorModal.headline")}
+      subheadline={t("texts.errorModal.subheadline")}
+      text={convertErrorMessage(message)}
+      isClose={true}
+    />
   );
 };
 
