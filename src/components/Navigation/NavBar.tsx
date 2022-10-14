@@ -20,6 +20,7 @@ import { MessageIO } from "../../lib/messageIO";
 import { Message } from "../../typeDefinitions";
 import NavLoggedInUserItems from "./NavLoggedInUserItems";
 import NavAuthentificationItems from "./NavAuthentificationItems";
+import NavAdditionalItems from "./NavAdditionalItems";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(
@@ -129,11 +130,7 @@ const NavBar = (): JSX.Element => {
             >
               {t("link.allPlants")}
             </Link>
-            {loggedInUser ? (
-              <NavLoggedInUserItems />
-            ) : (
-              <NavAuthentificationItems />
-            )}
+            <NavAdditionalItems user={loggedInUser} />
             <Link
               to="/"
               title={tooltipItemSearch()}

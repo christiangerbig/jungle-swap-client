@@ -8,8 +8,7 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
-import PlantDetailsCreatorItems from "../../components/plants/PlantDetailsCreatorItems";
-import PlantDetailsBuyerItems from "../../components/plants/PlantDetailsBuyerItems";
+import PlantDetailsUserItems from "./PlantDetailsUserItems";
 
 const PlantDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -25,6 +24,7 @@ const PlantDetails = (): JSX.Element => {
   const { t } = useTranslation();
   const { name, description, size, imageUrl, location, price, creator } =
     plant as Plant;
+  const { _id } = creator as User;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
@@ -86,11 +86,7 @@ const PlantDetails = (): JSX.Element => {
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">
                 <div className="card-body text-right pt-0">
-                  {loggedInUser._id === (creator as User)._id ? (
-                    <PlantDetailsCreatorItems />
-                  ) : (
-                    <PlantDetailsBuyerItems />
-                  )}
+                  <PlantDetailsUserItems isCreator={loggedInUser._id === _id} />
                   <button
                     className="btn btn-sm ml-2 form-control is-width-medium mb-3"
                     onClick={(): void => {

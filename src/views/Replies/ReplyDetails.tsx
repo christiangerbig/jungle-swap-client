@@ -9,7 +9,7 @@ import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
-import Reply from "./Reply";
+import Reply from "../../components/replies/Reply";
 
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(

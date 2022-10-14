@@ -22,14 +22,14 @@ const PlantsCollection = (): JSX.Element => {
   return (
     <div>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3">
-        {filteredPlants.map((plant: Plant, index: number): JSX.Element => {
-          const { _id } = plant;
-          return index < numberOfVisibleEntries ? (
-            <PlantThumbnail plant={plant} key={_id} />
-          ) : (
-            <></>
-          );
-        })}
+        {filteredPlants.map(
+          (plant: Plant, index: number): JSX.Element | null => {
+            const { _id } = plant;
+            return index < numberOfVisibleEntries ? (
+              <PlantThumbnail plant={plant} key={_id} />
+            ) : null;
+          }
+        )}
       </div>
       {numberOfVisibleEntries < filteredPlants.length && (
         <div className="is-text-align-center">

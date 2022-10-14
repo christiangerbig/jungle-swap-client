@@ -13,14 +13,12 @@ const RequestsCollection = (): JSX.Element => {
 
   return (
     <div>
-      {messages.map((message: Message): JSX.Element => {
+      {messages.map((message: Message): JSX.Element | null => {
         const { _id, seller, messageState } = message;
         return (seller as User)._id === (loggedInUser as User)._id &&
           messageState === true ? (
           <RequestTile message={message} key={_id} />
-        ) : (
-          <></>
-        );
+        ) : null;
       })}
     </div>
   );

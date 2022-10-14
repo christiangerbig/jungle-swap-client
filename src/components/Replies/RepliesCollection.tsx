@@ -13,14 +13,12 @@ const RepliesCollection = (): JSX.Element => {
 
   return (
     <div>
-      {messages.map((message: Message): JSX.Element => {
+      {messages.map((message: Message): JSX.Element | null => {
         const { _id, buyer, reply } = message;
         return (buyer as User)._id === (loggedInUser as User)._id &&
           reply !== "" ? (
           <ReplyTile message={message} key={_id} />
-        ) : (
-          <></>
-        );
+        ) : null;
       })}
     </div>
   );
