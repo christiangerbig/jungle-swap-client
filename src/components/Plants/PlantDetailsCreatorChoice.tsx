@@ -7,7 +7,7 @@ import { PlantImageIO } from "../../lib/plantImageIO";
 import { PlantIO } from "../../lib/plantIO";
 import { Plant, PlantId } from "../../typeDefinitions";
 
-const PlantDetailsCreatorItems = (): JSX.Element => {
+const PlantDetailsCreatorChoice = (): JSX.Element => {
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const isDeletingPlant = useAppSelector(
     (state: RootState) => state.jungleSwap.isDeletingPlant
@@ -61,4 +61,4 @@ const PlantDetailsCreatorItems = (): JSX.Element => {
   );
 };
 
-export default PlantDetailsCreatorItems;
+export default PlantDetailsCreatorChoice;

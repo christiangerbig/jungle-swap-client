@@ -7,10 +7,10 @@ type RequestThumbnailProps = {
 };
 
 const RequestTile = ({ message }: RequestThumbnailProps): JSX.Element => {
+  const { t } = useTranslation();
   const { _id, buyer, plant } = message;
   const { name } = plant as Plant;
   const { username } = buyer as User;
-  const { t } = useTranslation();
 
   return (
     <div className="card p-3 mt-4">

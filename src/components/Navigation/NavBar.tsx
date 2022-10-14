@@ -18,8 +18,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MessageIO } from "../../lib/messageIO";
 import { Message } from "../../typeDefinitions";
-import NavLoggedInUserItems from "./NavLoggedInUserItems";
-import NavAuthentificationItems from "./NavAuthentificationItems";
 import NavAdditionalItems from "./NavAdditionalItems";
 
 const NavBar = (): JSX.Element => {

@@ -5,7 +5,7 @@ import { RootState } from "../../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
-const NavLoggedInUserItems = (): JSX.Element => {
+const NavUserItems = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
@@ -64,4 +64,4 @@ const NavLoggedInUserItems = (): JSX.Element => {
   );
 };
 
-export default NavLoggedInUserItems;
+export default NavUserItems;

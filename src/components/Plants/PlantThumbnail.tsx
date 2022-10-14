@@ -7,8 +7,8 @@ type PlantThumbnailProps = {
 };
 
 const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
-  const { _id, name, imageUrl, price } = plant;
   const { t } = useTranslation();
+  const { _id, name, imageUrl, price } = plant;
 
   return (
     <div className="col mb-5">

@@ -1,6 +1,6 @@
 import { User } from "../../typeDefinitions";
 import NavAuthentificationItems from "./NavAuthentificationItems";
-import NavLoggedInUserItems from "./NavLoggedInUserItems";
+import NavUserItems from "./NavUserItems";
 
 type NavAdditionalItemsProps = {
   user: User | null;
@@ -8,7 +8,7 @@ type NavAdditionalItemsProps = {
 
 const NavAdditionalItems = ({ user }: NavAdditionalItemsProps): JSX.Element => {
   if (user) {
-    return <NavLoggedInUserItems />;
+    return <NavUserItems />;
   }
   return <NavAuthentificationItems />;
 };
