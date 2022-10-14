@@ -85,7 +85,9 @@ const PlantDetails = (): JSX.Element => {
             <div className="ml-2 mt-2 col justify-content-center">
               <div className="row-2 justify-content-center">
                 <div className="card-body text-right pt-0">
-                  <PlantDetailsUserItems isCreator={loggedInUser._id === (creator as User)._id} />
+                  <PlantDetailsUserItems
+                    isCreator={loggedInUser._id === (creator as User)._id}
+                  />
                   <button
                     className="btn btn-sm ml-2 form-control is-width-medium mb-3"
                     onClick={(): void => {

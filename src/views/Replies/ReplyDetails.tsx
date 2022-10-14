@@ -70,7 +70,7 @@ const ReplyDetails = (): JSX.Element => {
         </h2>
         <p className="text-field p-3 mb-4">{request}</p>
         <Reply
-          headline={`t("texts.replies.replyDetails.replyBy") ${username}`}
+          headline={`${t("texts.replies.replyDetails.replyBy")} ${username}`}
           text={reply}
         />
         <div className="text-right px-3">
