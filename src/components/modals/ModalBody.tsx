@@ -44,7 +44,7 @@ const ModalBody = ({
         <h3>{text}</h3>
         {isClose && (
           <button
-            className="error-modal-button mt-4 mb-3"
+            className="btn form-control is-width-small mt-4 mb-3"
             onClick={handleCloseModal}
           >
             {t("button.proceed")}

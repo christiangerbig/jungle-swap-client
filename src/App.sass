@@ -84,19 +84,22 @@ footer
   width: 22rem
 
 .is-width-small 
-  width: 20%
-
+  width: 18%
+@media (max-width: 1024px)
+  .is-width-small 
+    width: 21%
+@media only screen and (max-width: 768px)
+  .is-width-small 
+    width: 35%
 @media (min-width: 320px) and (max-width: 480px)
   .is-width-small 
     width: 40%
 
 .is-width-medium 
   width: 30%
-
 @media (max-width: 1024px) 
   .is-width-medium 
     width: 35%
-
 @media (max-width: 768px) 
   .is-width-medium 
     width: 50%
@@ -111,7 +114,6 @@ footer
 .is-background-image 
   width: 30rem
   object-fit: cover
-
 @media only screen and (max-width: 768px) 
   .is-background-image 
     width: 21rem
@@ -182,12 +184,10 @@ footer
     letter-spacing: 0.25rem
     text-transform: uppercase
     color: $floral-white
-
 @media only screen and (max-width: 768px) 
   .title-header
     h2 
       font-size: 2.5rem
-
 @media (max-width: 480px) 
   .title-header
     h2
@@ -201,7 +201,6 @@ footer
 
 .location-filter
   width: 25%
-
 @media (max-width: 768px)
   .location-filter
     width: 45%
@@ -260,7 +259,6 @@ footer
     letter-spacing: 0.25rem
     text-transform: uppercase
     margin-bottom: 3rem
-
 @media (min-width: 320px) and (max-width: 480px)
   .error-modal-box
     width: 80%
@@ -274,7 +272,6 @@ footer
   letter-spacing: 0.1rem
   background-color: $floral-white
   padding: 0.5rem 2.6rem
-
 @media only screen and (max-width: 768px) 
   .try-it-link 
     font-size: 0.9375rem
