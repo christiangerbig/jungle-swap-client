@@ -10,7 +10,7 @@ import {
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Authentification } from "../../lib/authentification";
-import ErrorMessage from "../../components/errors/ErrorMessage";
+import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const SignUp = (): JSX.Element => {
   const errorMessage = useAppSelector(
@@ -105,9 +105,10 @@ const SignUp = (): JSX.Element => {
               className="form-control is-width-full"
             />
           </div>
-          {errorMessage && errorMessage.includes("Form") && (
-            <ErrorMessage outputFunction={convertErrorMessage} />
-          )}
+          <ErrorMessage
+            message={errorMessage}
+            outputFunction={convertErrorMessage}
+          />
           <button
             type="submit"
             formNoValidate

@@ -8,7 +8,7 @@ import { Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { MessageIO } from "../../lib/messageIO";
-import ErrorMessage from "../../components/errors/ErrorMessage";
+import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestUpdateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -95,9 +95,10 @@ const RequestUpdateForm = (): JSX.Element => {
                 handleCreateReply(event, message);
               }}
             />
-            {errorMessage && errorMessage.includes("Form") && (
-              <ErrorMessage outputFunction={convertErrorMessage} />
-            )}
+            <ErrorMessage
+              message={errorMessage}
+              outputFunction={convertErrorMessage}
+            />
             <div className="row justify-content-end px-3">
               <button
                 disabled={buttonState()}
