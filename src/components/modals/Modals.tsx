@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import { useOnlineStatus } from "../../lib/connectionCheck";
+import { useOnlineStatus } from "../../custom-hooks/useOnlineStatus";
 import { RootState } from "../../store";
 import ErrorModal from "./ErrorModal";
 import OfflineModal from "./OfflineModal";
