@@ -3,13 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAuthentification } from "../../custom-hooks/useAuthentification";
 import {
   setIsUserChange,
   setErrorMessage,
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Authentification } from "../../lib/authentification";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const SignUp = (): JSX.Element => {
@@ -18,6 +18,7 @@ const SignUp = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const authentification = useAuthentification();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -33,7 +34,6 @@ const SignUp = (): JSX.Element => {
       password: password.value,
     };
     event.preventDefault();
-    const authentification = new Authentification(dispatch);
     authentification.signUp(newUser, (): void => {
       dispatch(setIsUserChange(true));
       history.push("/");

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAuthentification } from "../../custom-hooks/useAuthentification";
 import {
   setLoggedInUser,
   setIsNewRequest,
@@ -11,7 +12,6 @@ import {
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { IntervalCounter } from "../../lib/IntervalCounter";
-import { Authentification } from "../../lib/authentification";
 
 const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -28,6 +28,7 @@ const LogOut = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const authentification = useAuthentification();
 
   useEffect(() => {
     const logOutUser = (): void => {
@@ -40,7 +41,6 @@ const LogOut = (): JSX.Element => {
       };
 
       const updateUserData = (loggedInUser: User): void => {
-        const authentification = new Authentification(dispatch);
         authentification.logOut(loggedInUser, (): void => {
           const intervalCounter = new IntervalCounter(dispatch);
           intervalCounter.stop(intervalId as NodeJS.Timeout);
