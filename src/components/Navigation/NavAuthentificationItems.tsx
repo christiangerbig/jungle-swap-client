@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 const NavAuthentificationItems = (): JSX.Element => {
   const { t } = useTranslation();
-  console.log("Test", useTranslation());
 
   return (
     <>
