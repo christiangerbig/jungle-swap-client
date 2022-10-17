@@ -3,12 +3,12 @@ import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 import { UploadImageData } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
 import { PlantIO } from "../../lib/plantIO";
-import { PlantImageIO } from "../../lib/plantImageIO";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {
@@ -26,6 +26,7 @@ const PlantCreateForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const handlePlantImage = useHandlePlantImage();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -44,8 +45,7 @@ const PlantCreateForm = (): JSX.Element => {
     event.preventDefault();
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    const plantImageIO = new PlantImageIO(dispatch);
-    plantImageIO.create(
+    handlePlantImage.create(
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
         const plantIO = new PlantIO(dispatch);
