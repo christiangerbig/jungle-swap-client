@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import { useIntervalCounter } from "../../custom-hooks/useIntervalCounter";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
@@ -16,7 +17,6 @@ import {
 import { RootState } from "../../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { MessageIO } from "../../lib/messageIO";
 import { Message } from "../../typeDefinitions";
 import NavAdditionalItems from "./NavAdditionalItems";
 
@@ -46,6 +46,7 @@ const NavBar = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const handleMessage = useHandleMessage();
   const intervalCounter = useIntervalCounter();
   const { t } = useTranslation();
 
@@ -76,8 +77,7 @@ const NavBar = (): JSX.Element => {
         dispatch(increaseDelayCounter());
       };
 
-      const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll((): void => {
+      handleMessage.fetchAll((): void => {
         setInitialMessageVariables();
         startInterval();
       });
@@ -88,10 +88,13 @@ const NavBar = (): JSX.Element => {
 
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
-      const messageIO = new MessageIO(dispatch);
-      messageIO.fetchCheck((messages: Message[]): void => {
-        messageIO.checkNewRequests(loggedInUser, messages, amountOfRequests);
-        messageIO.checkNewReplies(loggedInUser, messages, amountOfReplies);
+      handleMessage.fetchCheck((messages: Message[]): void => {
+        handleMessage.checkNewRequests(
+          loggedInUser,
+          messages,
+          amountOfRequests
+        );
+        handleMessage.checkNewReplies(loggedInUser, messages, amountOfReplies);
       });
     };
 

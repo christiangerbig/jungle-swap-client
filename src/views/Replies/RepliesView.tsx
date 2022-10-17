@@ -9,10 +9,11 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { MessageIO } from "../../lib/messageIO";
+
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import RepliesCollection from "../../components/replies/RepliesCollection";
 import GoBackButton from "../../components/helpers/GoBackButton";
+import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 
 const RepliesView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -28,6 +29,7 @@ const RepliesView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const handleMessage = useHandleMessage();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -38,8 +40,7 @@ const RepliesView = (): JSX.Element => {
 
     const routing = new Routing(dispatch);
     routing.protect((): void => {
-      const messageIO = new MessageIO(dispatch);
-      messageIO.fetchAll((): void => {
+      handleMessage.fetchAll((): void => {
         isUserChange && dispatch(setStartAmountOfReplies());
         resetReplyVariableAndScrollToTop();
       });

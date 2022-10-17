@@ -3,11 +3,11 @@ import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { MessageIO } from "../../lib/messageIO";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestCreateForm = (): JSX.Element => {
@@ -23,6 +23,7 @@ const RequestCreateForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const handleMessage = useHandleMessage();
   const { t } = useTranslation();
   const { name } = plant as Plant;
 
@@ -45,8 +46,7 @@ const RequestCreateForm = (): JSX.Element => {
       request: request.value,
     };
     event.preventDefault();
-    const messageIO = new MessageIO(dispatch);
-    messageIO.create(newMessage, (): void => {
+    handleMessage.create(newMessage, (): void => {
       history.goBack();
     });
   };

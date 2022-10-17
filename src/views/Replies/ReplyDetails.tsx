@@ -3,11 +3,11 @@ import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import { decreaseAmountOfReplies } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { MessageIO } from "../../lib/messageIO";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
 
@@ -27,22 +27,21 @@ const ReplyDetails = (): JSX.Element => {
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const handleMessage = useHandleMessage();
   const { t } = useTranslation();
   const { _id, seller, plant, request, reply } = message as Message;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
     routing.protect((): void => {
-      const messageIO = new MessageIO(dispatch);
-      messageIO.fetch(messageId, (): void => {
+      handleMessage.fetch(messageId, (): void => {
         scroll.scrollToTop();
       });
     });
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
-    const messageIO = new MessageIO(dispatch);
-    messageIO.delete(messageId, (): void => {
+    handleMessage.delete(messageId, (): void => {
       dispatch(decreaseAmountOfReplies());
       history.goBack();
     });
