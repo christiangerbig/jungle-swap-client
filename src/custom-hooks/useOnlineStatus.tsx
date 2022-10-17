@@ -1,23 +1,15 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect } from "react";
 
-type OnlineStatusProviderProps = {
-  children: any;
-};
-
-const OnlineStatusContext = createContext(true);
-
-export const OnlineStatusProvider = ({
-  children,
-}: OnlineStatusProviderProps): JSX.Element => {
-  const [onlineStatus, setOnlineStatus] = useState<boolean>(true);
+export const useOnlineStatus = (): boolean => {
+  const [isOnline, setIsOnline] = useState<boolean>(true);
 
   useEffect(() => {
     const handleOfflineEventCallback = (): void => {
-      setOnlineStatus(false);
+      setIsOnline(false);
     };
 
     const handleOnlineEventCallback = (): void => {
-      setOnlineStatus(true);
+      setIsOnline(true);
     };
 
     window.addEventListener("offline", handleOfflineEventCallback);
@@ -29,13 +21,5 @@ export const OnlineStatusProvider = ({
     };
   }, []);
 
-  return (
-    <OnlineStatusContext.Provider value={onlineStatus}>
-      {children}
-    </OnlineStatusContext.Provider>
-  );
-};
-
-export const useOnlineStatus = (): boolean => {
-  return useContext(OnlineStatusContext);
+  return isOnline;
 };
