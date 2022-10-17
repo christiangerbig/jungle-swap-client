@@ -19,15 +19,16 @@ const PlantDetails = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.isFetchingPlant
   );
   const { plantId } = useParams<{ plantId: PlantId }>();
-  const routing = useRouting();
-  const handlePlant = useHandlePlant();
+  const { protectRoute } = useRouting();
+  const { fetchPlant } = useHandlePlant();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { creator } = plant as Plant;
 
   useEffect(() => {
-    routing.protect((): void => {
-      handlePlant.fetch(plantId, (): void => {
-        scroll.scrollToTop();
+    protectRoute((): void => {
+      fetchPlant(plantId, (): void => {
+        scrollToTop();
       });
     });
   }, []);

@@ -26,16 +26,17 @@ const RequestDetails = (): JSX.Element => {
   );
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { fetchMessage, updateMessage } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    routing.protect((): void => {
-      handleMessage.fetch(messageId, (): void => {
-        scroll.scrollToTop();
+    protectRoute((): void => {
+      fetchMessage(messageId, (): void => {
+        scrollToTop();
       });
     });
   }, []);
@@ -49,12 +50,12 @@ const RequestDetails = (): JSX.Element => {
     };
 
     const updateBuyerMessage = (updatedMessage: Message) => {
-      handleMessage.update(
+      updateMessage(
         updatedMessage._id as MessageId,
         updatedMessage,
         (): void => {
           dispatch(decreaseAmountOfRequests());
-          history.goBack();
+          goBack();
         }
       );
     };
@@ -108,7 +109,7 @@ const RequestDetails = (): JSX.Element => {
           <Link
             to={"/requests/fetch-all"}
             className="is-link"
-            onClick={scroll.scrollToTop}
+            onClick={scrollToTop}
           >
             <button className="btn btn-sm mt-4 is-width-medium form-control">
               {t("button.goBack")}

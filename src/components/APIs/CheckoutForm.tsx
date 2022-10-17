@@ -35,10 +35,10 @@ const CheckoutForm = (): JSX.Element => {
   );
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
   const dispatch = useAppDispatch();
-  const history = useHistory();
+  const { push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
-  const handlePayment = useHandlePayment();
+  const { initializePayment } = useHandlePayment();
   const { t } = useTranslation();
   const { _id, name, price } = plant as Plant;
   const cardStyle: CardStyle = {
@@ -58,9 +58,9 @@ const CheckoutForm = (): JSX.Element => {
   };
 
   useEffect(() => {
-    handlePayment.initialize(plant);
+    initializePayment(plant);
     return (): void => {
-      history.push("/");
+      push("/");
       dispatch(scrollToPlants());
     };
   }, []);

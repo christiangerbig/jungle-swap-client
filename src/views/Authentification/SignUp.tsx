@@ -17,13 +17,14 @@ const SignUp = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.errorMessage
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const authentification = useAuthentification();
+  const { push } = useHistory();
+  const { signUp } = useAuthentification();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     dispatch(setErrorMessage(null));
-    scroll.scrollToTop();
+    scrollToTop();
   }, []);
 
   const handleSignUp = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -34,9 +35,9 @@ const SignUp = (): JSX.Element => {
       password: password.value,
     };
     event.preventDefault();
-    authentification.signUp(newUser, (): void => {
+    signUp(newUser, (): void => {
       dispatch(setIsUserChange(true));
-      history.push("/");
+      push("/");
     });
   };
 

@@ -16,14 +16,15 @@ const PlantsCreatedView = (): JSX.Element => {
   const isFetchingPlants = useAppSelector(
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
-  const routing = useRouting();
-  const handlePlant = useHandlePlant();
+  const { protectRoute } = useRouting();
+  const { fetchPlants } = useHandlePlant();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
-    routing.protect((): void => {
-      handlePlant.fetchAll((): void => {
-        scroll.scrollToTop();
+    protectRoute((): void => {
+      fetchPlants((): void => {
+        scrollToTop();
       });
     });
   }, []);

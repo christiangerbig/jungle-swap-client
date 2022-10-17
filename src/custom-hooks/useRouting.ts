@@ -7,13 +7,13 @@ import {
 import { User } from "../typeDefinitions";
 
 type Routing = {
-  protect: Function;
+  protectRoute: Function;
 };
 
 export const useRouting = (): Routing => {
   const dispatch = useAppDispatch();
   const routing = {
-    protect(callbackFunction: Function): void {
+    protectRoute(callbackFunction: Function): void {
       dispatch(checkUserLoggedIn())
         .unwrap()
         .then((user: User): void => {

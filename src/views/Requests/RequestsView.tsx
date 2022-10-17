@@ -28,18 +28,19 @@ const RequestsView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useAppDispatch();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { protectRoute } = useRouting();
+  const { fetchMessages } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     const resetRequestVariableAndScrollToTop = (): void => {
       dispatch(setIsNewRequest(false));
-      scroll.scrollToTop();
+      scrollToTop();
     };
 
-    routing.protect((): void => {
-      handleMessage.fetchAll((): void => {
+    protectRoute((): void => {
+      fetchMessages((): void => {
         isUserChange && dispatch(setStartAmountOfRequests());
         resetRequestVariableAndScrollToTop();
       });

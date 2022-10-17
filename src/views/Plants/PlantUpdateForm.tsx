@@ -30,12 +30,13 @@ const PlantUpdateForm = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.isUpdatingPlant
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handlePlantImage = useHandlePlantImage();
-  const handlePlant = useHandlePlant();
+  const { goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { createImage } = useHandlePlantImage();
+  const { updatePlant, deletePlant } = useHandlePlant();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { name, description, size, imageUrl, price } = plant as Plant;
 
   useEffect(() => {
@@ -45,9 +46,9 @@ const PlantUpdateForm = (): JSX.Element => {
       }
     };
 
-    routing.protect((): void => {
+    protectRoute((): void => {
       setPlantLocation(plant);
-      scroll.scrollToTop();
+      scrollToTop();
     });
   }, []);
 
@@ -83,7 +84,7 @@ const PlantUpdateForm = (): JSX.Element => {
     dispatch(setDestroyImageData({ imagePublicId }));
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    handlePlantImage.create(
+    createImage(
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
         const clonedPlant = JSON.parse(JSON.stringify(plant));
@@ -96,10 +97,10 @@ const PlantUpdateForm = (): JSX.Element => {
 
   const handleUpdatePlant = () => {
     if (destroyImageData) {
-      handlePlantImage.delete(destroyImageData);
+      deletePlant(destroyImageData);
     }
-    handlePlant.update(plant, (): void => {
-      history.goBack();
+    updatePlant(plant, (): void => {
+      goBack();
     });
   };
 

@@ -27,9 +27,10 @@ const LogOut = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const authentification = useAuthentification();
-  const intervalCounter = useIntervalCounter();
+  const { push } = useHistory();
+  const { logOut } = useAuthentification();
+  const { stopCounter } = useIntervalCounter();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     const logOutUser = (): void => {
@@ -42,13 +43,13 @@ const LogOut = (): JSX.Element => {
       };
 
       const updateUserData = (loggedInUser: User): void => {
-        authentification.logOut(loggedInUser, (): void => {
-          intervalCounter.stop(intervalId as NodeJS.Timeout);
+        logOut(loggedInUser, (): void => {
+          stopCounter(intervalId as NodeJS.Timeout);
           dispatch(setIsNewRequest(false));
           dispatch(setAmountOfRequests(0));
           dispatch(setAmountOfReplies(0));
-          history.push("/");
-          scroll.scrollToTop();
+          push("/");
+          scrollToTop();
         });
       };
 

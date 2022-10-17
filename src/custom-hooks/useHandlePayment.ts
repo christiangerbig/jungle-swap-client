@@ -7,13 +7,13 @@ import {
 import { Plant } from "../typeDefinitions";
 
 type HandlePayment = {
-  initialize: Function;
+  initializePayment: Function;
 };
 
 export const useHandlePayment = (): HandlePayment => {
   const dispatch = useAppDispatch();
   const handlePayment = {
-    initialize(plant: Plant): void {
+    initializePayment(plant: Plant): void {
       dispatch(createPayment(plant))
         .unwrap()
         .then((payment: any): void => {

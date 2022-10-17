@@ -24,15 +24,16 @@ const RequestUpdateForm = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.errorMessage
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { updateMessage } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { request } = message as Message;
 
   useEffect(() => {
-    routing.protect((): void => {
-      scroll.scrollToTop();
+    protectRoute((): void => {
+      scrollToTop();
     });
   }, []);
 
@@ -46,13 +47,9 @@ const RequestUpdateForm = (): JSX.Element => {
   };
 
   const handleUpdateMessage = (updatedMessage: Message): void => {
-    handleMessage.update(
-      updatedMessage._id as MessageId,
-      updatedMessage,
-      (): void => {
-        history.goBack();
-      }
-    );
+    updateMessage(updatedMessage._id as MessageId, updatedMessage, (): void => {
+      goBack();
+    });
   };
 
   const convertErrorMessage = (errorMessage: string): string => {
@@ -112,7 +109,7 @@ const RequestUpdateForm = (): JSX.Element => {
               <button
                 className="btn btn-sm is-width-medium form-control mb-2"
                 onClick={(): void => {
-                  history.goBack();
+                  goBack();
                 }}
               >
                 {t("button.goBack")}

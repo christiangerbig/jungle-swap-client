@@ -6,11 +6,13 @@ type Navigation = {
 };
 
 export const useNavigation = (): Navigation => {
-  const history = useHistory();
+  const { push } = useHistory();
+  const { scrollToTop } = scroll;
+
   const navigation = {
     goToHome(): void {
-      history.push("/");
-      scroll.scrollToTop();
+      push("/");
+      scrollToTop();
     },
   };
   return navigation;

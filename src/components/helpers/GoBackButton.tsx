@@ -2,7 +2,7 @@ import { useNavigation } from "../../custom-hooks/useNavigation";
 import { useTranslation } from "react-i18next";
 
 const GoBackButton = (): JSX.Element => {
-  const navigation = useNavigation();
+  const { goToHome } = useNavigation();
   const { t } = useTranslation();
 
   return (
@@ -10,7 +10,7 @@ const GoBackButton = (): JSX.Element => {
       <button
         className="btn btn-sm mt-4 is-width-medium form-control"
         onClick={(): void => {
-          navigation.goToHome();
+          goToHome();
         }}
       >
         {t("button.goBack")}

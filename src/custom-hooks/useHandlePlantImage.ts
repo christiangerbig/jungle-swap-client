@@ -9,14 +9,14 @@ import {
 import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
 type HandlePlantImage = {
-  create: Function;
-  delete: Function;
+  createImage: Function;
+  deleteImage: Function;
 };
 
 export const useHandlePlantImage = (): HandlePlantImage => {
   const dispatch = useAppDispatch();
   const handlePlantImage = {
-    create(uploadForm: any, callbackFunction: Function): void {
+    createImage(uploadForm: any, callbackFunction: Function): void {
       dispatch(setIsUploadingPlantImage(true));
       dispatch(uploadPlantImage(uploadForm))
         .unwrap()
@@ -28,7 +28,7 @@ export const useHandlePlantImage = (): HandlePlantImage => {
         });
     },
 
-    delete(destroyImageData: DestroyImageData): void {
+    deleteImage(destroyImageData: DestroyImageData): void {
       dispatch(setIsDeletingPlantImage(true));
       dispatch(deletePlantImage(destroyImageData))
         .unwrap()

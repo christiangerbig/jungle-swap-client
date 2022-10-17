@@ -16,11 +16,12 @@ const CheckoutView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const routing = useRouting();
+  const { protectRoute } = useRouting();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
-    routing.protect((): void => {
-      scroll.scrollToTop();
+    protectRoute((): void => {
+      scrollToTop();
     });
   }, []);
 

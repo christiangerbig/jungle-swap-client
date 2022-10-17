@@ -19,13 +19,14 @@ const SignIn = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.errorMessage
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const authentification = useAuthentification();
+  const { push } = useHistory();
+  const { signIn } = useAuthentification();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     dispatch(setErrorMessage(null));
-    scroll.scrollToTop();
+    scrollToTop();
   }, []);
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -35,12 +36,12 @@ const SignIn = (): JSX.Element => {
       password: password.value,
     };
     event.preventDefault();
-    authentification.signIn(user, (): void => {
+    signIn(user, (): void => {
       dispatch(setIsUserChange(true));
       const { amountOfRequests, amountOfReplies } = user;
       dispatch(setAmountOfRequests(amountOfRequests as number));
       dispatch(setAmountOfReplies(amountOfReplies as number));
-      history.push("/");
+      push("/");
     });
   };
 

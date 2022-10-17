@@ -22,16 +22,17 @@ const RequestCreateForm = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.errorMessage
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { createMessage } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { name } = plant as Plant;
 
   useEffect(() => {
-    routing.protect((): void => {
+    protectRoute((): void => {
       dispatch(setErrorMessage(null));
-      scroll.scrollToTop();
+      scrollToTop();
     });
   }, []);
 
@@ -46,8 +47,8 @@ const RequestCreateForm = (): JSX.Element => {
       request: request.value,
     };
     event.preventDefault();
-    handleMessage.create(newMessage, (): void => {
-      history.goBack();
+    createMessage(newMessage, (): void => {
+      goBack();
     });
   };
 
@@ -106,7 +107,7 @@ const RequestCreateForm = (): JSX.Element => {
             <button
               className="btn btn-sm mx-2 form-control is-width-medium"
               onClick={(): void => {
-                history.goBack();
+                goBack();
               }}
             >
               {t("button.goBack")}

@@ -24,13 +24,13 @@ import {
 import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
 type HandleMessage = {
-  create: Function;
-  fetch: Function;
-  fetchAll: Function;
+  createMessage: Function;
+  fetchMessage: Function;
+  fetchMessages: Function;
   fetchCheck: Function;
-  update: Function;
-  delete: Function;
-  deleteRemaining: Function;
+  updateMessage: Function;
+  deleteMessage: Function;
+  deleteRemainingMessages: Function;
   checkNewRequests: Function;
   checkNewReplies: Function;
 };
@@ -38,7 +38,7 @@ type HandleMessage = {
 export const useHandleMessage = (): HandleMessage => {
   const dispatch = useAppDispatch();
   const handleMessage = {
-    create(newMessage: Message, callbackFunction: Function): void {
+    createMessage(newMessage: Message, callbackFunction: Function): void {
       dispatch(setIsCreatingMessage(true));
       dispatch(createMessage(newMessage))
         .unwrap()
@@ -51,7 +51,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    fetch(messageId: MessageId, callbackFunction: Function): void {
+    fetchMessage(messageId: MessageId, callbackFunction: Function): void {
       dispatch(setIsFetchingMessage(true));
       dispatch(fetchMessage(messageId))
         .unwrap()
@@ -64,7 +64,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    fetchAll(callbackFunction: Function): void {
+    fetchMessages(callbackFunction: Function): void {
       dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
@@ -89,7 +89,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    update(
+    updateMessage(
       messageId: MessageId,
       updatedMessage: Message,
       callbackFunction: Function
@@ -106,7 +106,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    delete(messageId: MessageId, callbackFunction: Function): void {
+    deleteMessage(messageId: MessageId, callbackFunction: Function): void {
       dispatch(setIsDeletingMessage(true));
       dispatch(deleteMessage(messageId))
         .unwrap()
@@ -119,7 +119,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    deleteRemaining(messages: Message[], plantId: PlantId): void {
+    deleteRemainingMessages(messages: Message[], plantId: PlantId): void {
       messages.forEach(({ _id, plant }: Message): void => {
         if ((plant as Plant)._id === plantId) {
           dispatch(setIsDeletingMessage(true));

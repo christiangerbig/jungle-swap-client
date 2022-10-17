@@ -26,24 +26,25 @@ const ReplyDetails = (): JSX.Element => {
   );
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { fetchMessage, deleteMessage } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
   const { _id, seller, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    routing.protect((): void => {
-      handleMessage.fetch(messageId, (): void => {
-        scroll.scrollToTop();
+    protectRoute((): void => {
+      fetchMessage(messageId, (): void => {
+        scrollToTop();
       });
     });
   }, []);
 
   const handleDeleteMessage = (messageId: MessageId): void => {
-    handleMessage.delete(messageId, (): void => {
+    deleteMessage(messageId, (): void => {
       dispatch(decreaseAmountOfReplies());
-      history.goBack();
+      goBack();
     });
   };
 
@@ -87,7 +88,7 @@ const ReplyDetails = (): JSX.Element => {
           <Link
             to={"/replies/fetch-all"}
             className="is-link"
-            onClick={scroll.scrollToTop}
+            onClick={scrollToTop}
           >
             <button className="btn btn-sm mt-4 is-width-medium form-control">
               {t("button.goBack")}

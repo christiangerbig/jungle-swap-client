@@ -21,18 +21,18 @@ import {
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 
 type HandlePlant = {
-  create: Function;
-  fetch: Function;
-  fetchAll: Function;
-  update: Function;
-  delete: Function;
-  search: Function;
+  createPlant: Function;
+  fetchPlant: Function;
+  fetchPlants: Function;
+  updatePlant: Function;
+  deletePlant: Function;
+  searchPlant: Function;
 };
 
 export const useHandlePlant = (): HandlePlant => {
   const dispatch = useAppDispatch();
   const handlePlant = {
-    create(
+    createPlant(
       { name, description, size, location, price }: any,
       { imageUrl, imagePublicId }: UploadImageData,
       callbackFunction: Function
@@ -58,7 +58,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    fetch(plantId: PlantId, callbackFunction: Function): void {
+    fetchPlant(plantId: PlantId, callbackFunction: Function): void {
       dispatch(setIsFetchingPlant(true));
       dispatch(fetchPlant(plantId))
         .unwrap()
@@ -71,7 +71,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    fetchAll(callbackFunction?: Function): void {
+    fetchPlants(callbackFunction?: Function): void {
       dispatch(setIsFetchingPlants(true));
       dispatch(fetchAllPlants())
         .unwrap()
@@ -86,7 +86,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    update(
+    updatePlant(
       {
         _id,
         name,
@@ -120,7 +120,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    delete(plantId: PlantId, callbackFunction: Function): void {
+    deletePlant(plantId: PlantId, callbackFunction: Function): void {
       dispatch(setIsDeletingPlant(true));
       dispatch(deletePlant(plantId))
         .unwrap()
@@ -133,7 +133,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    search(query: string): void {
+    searchPlant(query: string): void {
       dispatch(setIsFetchingPlants(true));
       dispatch(fetchQueryPlants(query))
         .unwrap()

@@ -1,7 +1,4 @@
 import { Route, Switch, withRouter } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.min.css";
-
 import NavBar from "./components/navigation/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/home/Home";
@@ -23,6 +20,9 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import MyPlants from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.min.css";
 
 const App = (): JSX.Element => {
   return (
@@ -86,8 +86,8 @@ const App = (): JSX.Element => {
         <Route component={NotFound} />
       </Switch>
       <KommunicateChat />
-      <Footer />
       <Modals />
+      <Footer />
     </div>
   );
 };

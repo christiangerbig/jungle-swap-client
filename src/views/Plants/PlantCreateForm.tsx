@@ -25,16 +25,17 @@ const PlantCreateForm = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.errorMessage
   );
   const dispatch = useAppDispatch();
-  const history = useHistory();
-  const routing = useRouting();
-  const handlePlantImage = useHandlePlantImage();
-  const handlePlant = useHandlePlant();
+  const { push, goBack } = useHistory();
+  const { protectRoute } = useRouting();
+  const { createImage } = useHandlePlantImage();
+  const { createPlant } = useHandlePlant();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
-    routing.protect((): void => {
+    protectRoute((): void => {
       dispatch(setErrorMessage(null));
-      scroll.scrollToTop();
+      scrollToTop();
     });
   }, []);
 
@@ -46,16 +47,12 @@ const PlantCreateForm = (): JSX.Element => {
     event.preventDefault();
     const uploadForm = new FormData();
     uploadForm.append("image", image);
-    handlePlantImage.create(
+    createImage(
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
-        handlePlant.create(
-          event.target,
-          { imageUrl, imagePublicId },
-          (): void => {
-            history.push("/plants/my-own");
-          }
-        );
+        createPlant(event.target, { imageUrl, imagePublicId }, (): void => {
+          push("/plants/my-own");
+        });
       }
     );
   };
@@ -180,7 +177,7 @@ const PlantCreateForm = (): JSX.Element => {
             <button
               className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
               onClick={(): void => {
-                history.goBack();
+                goBack();
               }}
             >
               {t("button.goBack")}

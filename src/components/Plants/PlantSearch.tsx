@@ -11,15 +11,15 @@ const PlantSearch = (): JSX.Element => {
   const [filter, setFilter] = useState<string>("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
-  const handlePlant = useHandlePlant();
+  const { searchPlant, fetchPlants } = useHandlePlant();
   const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPlantQueryByName = (query: string): void => {
       if (query) {
-        handlePlant.search(query);
+        searchPlant(query);
       } else {
-        handlePlant.fetchAll();
+        fetchPlants();
       }
     };
 

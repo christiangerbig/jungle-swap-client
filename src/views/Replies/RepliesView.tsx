@@ -28,18 +28,19 @@ const RepliesView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
-  const routing = useRouting();
-  const handleMessage = useHandleMessage();
+  const { protectRoute } = useRouting();
+  const { fetchMessages } = useHandleMessage();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     const resetReplyVariableAndScrollToTop = (): void => {
       dispatch(setIsNewReply(false));
-      scroll.scrollToTop();
+      scrollToTop();
     };
 
-    routing.protect((): void => {
-      handleMessage.fetchAll((): void => {
+    protectRoute((): void => {
+      fetchMessages((): void => {
         isUserChange && dispatch(setStartAmountOfReplies());
         resetReplyVariableAndScrollToTop();
       });

@@ -46,14 +46,16 @@ const NavBar = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
-  const handleMessage = useHandleMessage();
-  const intervalCounter = useIntervalCounter();
+  const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
+    useHandleMessage();
+  const { stopCounter } = useIntervalCounter();
   const { t } = useTranslation();
+  const { scrollToTop } = scroll;
 
   useEffect(() => {
     return () => {
       if (intervalId) {
-        intervalCounter.stop(intervalId);
+        stopCounter(intervalId);
       }
     };
   }, []);
@@ -77,7 +79,7 @@ const NavBar = (): JSX.Element => {
         dispatch(increaseDelayCounter());
       };
 
-      handleMessage.fetchAll((): void => {
+      fetchMessages((): void => {
         setInitialMessageVariables();
         startInterval();
       });
@@ -88,13 +90,9 @@ const NavBar = (): JSX.Element => {
 
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
-      handleMessage.fetchCheck((messages: Message[]): void => {
-        handleMessage.checkNewRequests(
-          loggedInUser,
-          messages,
-          amountOfRequests
-        );
-        handleMessage.checkNewReplies(loggedInUser, messages, amountOfReplies);
+      fetchCheck((messages: Message[]): void => {
+        checkNewRequests(loggedInUser, messages, amountOfRequests);
+        checkNewReplies(loggedInUser, messages, amountOfReplies);
       });
     };
 
@@ -113,7 +111,7 @@ const NavBar = (): JSX.Element => {
     <div>
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
         <Navbar.Brand>
-          <Link to="/" className="is-link" onClick={scroll.scrollToTop}>
+          <Link to="/" className="is-link" onClick={scrollToTop}>
             {t("link.jungleSwap")}
           </Link>
         </Navbar.Brand>

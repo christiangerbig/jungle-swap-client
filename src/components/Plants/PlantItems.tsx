@@ -13,7 +13,7 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const history = useHistory();
+  const { goBack } = useHistory();
   const { t } = useTranslation();
   const { name, description, size, imageUrl, location, price, creator } = plant;
   const { _id } = creator as User;
@@ -63,7 +63,7 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
               <button
                 className="btn btn-sm ml-2 form-control is-width-medium mb-3"
                 onClick={(): void => {
-                  history.goBack();
+                  goBack();
                 }}
               >
                 {t("button.goBack")}

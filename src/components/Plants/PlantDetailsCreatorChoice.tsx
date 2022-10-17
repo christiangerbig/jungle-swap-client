@@ -21,18 +21,18 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   const isDeletingMessage = useAppSelector(
     (state: RootState) => state.jungleSwap.isDeletingMessage
   );
-  const history = useHistory();
-  const handleMessage = useHandleMessage();
-  const handlePlantImage = useHandlePlantImage();
-  const handlePlant = useHandlePlant();
+  const { goBack } = useHistory();
+  const { deleteRemainingMessages } = useHandleMessage();
+  const { deleteImage } = useHandlePlantImage();
+  const { deletePlant } = useHandlePlant();
   const { t } = useTranslation();
   const { _id, imagePublicId } = plant as Plant;
 
   const handleDelete = (): void => {
-    handleMessage.deleteRemaining(messages, _id as PlantId);
-    handlePlantImage.delete({ imagePublicId });
-    handlePlant.delete(_id as PlantId, (): void => {
-      history.goBack();
+    deleteRemainingMessages(messages, _id as PlantId);
+    deleteImage({ imagePublicId });
+    deletePlant(_id as PlantId, (): void => {
+      goBack();
     });
   };
 
