@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useAuthentification } from "../../custom-hooks/useAuthentification";
+import { useIntervalCounter } from "../../custom-hooks/useIntervalCounter";
 import {
   setLoggedInUser,
   setIsNewRequest,
@@ -11,7 +12,6 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { IntervalCounter } from "../../lib/IntervalCounter";
 
 const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
@@ -29,6 +29,7 @@ const LogOut = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const authentification = useAuthentification();
+  const intervalCounter = useIntervalCounter();
 
   useEffect(() => {
     const logOutUser = (): void => {
@@ -42,7 +43,6 @@ const LogOut = (): JSX.Element => {
 
       const updateUserData = (loggedInUser: User): void => {
         authentification.logOut(loggedInUser, (): void => {
-          const intervalCounter = new IntervalCounter(dispatch);
           intervalCounter.stop(intervalId as NodeJS.Timeout);
           dispatch(setIsNewRequest(false));
           dispatch(setAmountOfRequests(0));

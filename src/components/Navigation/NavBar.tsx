@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useIntervalCounter } from "../../custom-hooks/useIntervalCounter";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
@@ -13,7 +14,6 @@ import {
   scrollToPlants,
 } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
-import { IntervalCounter } from "../../lib/IntervalCounter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MessageIO } from "../../lib/messageIO";
@@ -46,12 +46,12 @@ const NavBar = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const intervalCounter = useIntervalCounter();
   const { t } = useTranslation();
 
   useEffect(() => {
     return () => {
       if (intervalId) {
-        const intervalCounter = new IntervalCounter(dispatch);
         intervalCounter.stop(intervalId);
       }
     };
