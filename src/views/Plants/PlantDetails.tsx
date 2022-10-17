@@ -3,10 +3,10 @@ import { Redirect, useParams } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { Plant, PlantId } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { PlantIO } from "../../lib/plantIO";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantItems from "../../components/plants/PlantItems";
 
@@ -20,14 +20,14 @@ const PlantDetails = (): JSX.Element => {
   );
   const { plantId } = useParams<{ plantId: PlantId }>();
   const dispatch = useAppDispatch();
+  const handlePlant = useHandlePlant();
   const { t } = useTranslation();
   const { creator } = plant as Plant;
 
   useEffect(() => {
     const routing = new Routing(dispatch);
     routing.protect((): void => {
-      const plantIO = new PlantIO(dispatch);
-      plantIO.fetch(plantId, (): void => {
+      handlePlant.fetch(plantId, (): void => {
         scroll.scrollToTop();
       });
     });

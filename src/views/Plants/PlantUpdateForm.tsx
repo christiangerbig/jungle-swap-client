@@ -5,11 +5,11 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { setPlant, setDestroyImageData } from "../../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { PlantIO } from "../../lib/plantIO";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 
 const PlantUpdateForm = (): JSX.Element => {
@@ -32,6 +32,7 @@ const PlantUpdateForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const handlePlantImage = useHandlePlantImage();
+  const handlePlant = useHandlePlant();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { t } = useTranslation();
   const { name, description, size, imageUrl, price } = plant as Plant;
@@ -97,8 +98,7 @@ const PlantUpdateForm = (): JSX.Element => {
     if (destroyImageData) {
       handlePlantImage.delete(destroyImageData);
     }
-    const plantIO = new PlantIO(dispatch);
-    plantIO.update(plant, (): void => {
+    handlePlant.update(plant, (): void => {
       history.goBack();
     });
   };

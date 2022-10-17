@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { PlantIO } from "../../lib/plantIO";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantsCreatedCollection from "../../components/plants/PlantsCreatedCollection";
 
@@ -17,13 +17,13 @@ const PlantsCreatedView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.isFetchingPlants
   );
   const dispatch = useAppDispatch();
+  const handlePlant = useHandlePlant();
   const { t } = useTranslation();
 
   useEffect(() => {
     const routing = new Routing(dispatch);
     routing.protect((): void => {
-      const plantIO = new PlantIO(dispatch);
-      plantIO.fetchAll((): void => {
+      handlePlant.fetchAll((): void => {
         scroll.scrollToTop();
       });
     });

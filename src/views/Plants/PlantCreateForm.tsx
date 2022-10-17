@@ -4,11 +4,11 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 import { UploadImageData } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Routing } from "../../lib/routing";
-import { PlantIO } from "../../lib/plantIO";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {
@@ -27,6 +27,7 @@ const PlantCreateForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const handlePlantImage = useHandlePlantImage();
+  const handlePlant = useHandlePlant();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -48,10 +49,13 @@ const PlantCreateForm = (): JSX.Element => {
     handlePlantImage.create(
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
-        const plantIO = new PlantIO(dispatch);
-        plantIO.create(event.target, { imageUrl, imagePublicId }, (): void => {
-          history.push("/plants/my-own");
-        });
+        handlePlant.create(
+          event.target,
+          { imageUrl, imagePublicId },
+          (): void => {
+            history.push("/plants/my-own");
+          }
+        );
       }
     );
   };

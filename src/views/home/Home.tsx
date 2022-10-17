@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import {
   setTitleSectionHeight,
   setAboutSectionHeight,
   setFilteredPlants,
 } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
-import { PlantIO } from "../../lib/plantIO";
 import HomeAbout from "../../components/home/HomeAbout";
 import PlantsCockpit from "../../components/plants/PlantsCockpit";
 import HomeTitle from "../../components/home/HomeTitle";
@@ -14,6 +14,7 @@ import HomeTitle from "../../components/home/HomeTitle";
 const Home = (): JSX.Element => {
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
+  const handlePlant = useHandlePlant();
   const elementRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
@@ -21,8 +22,7 @@ const Home = (): JSX.Element => {
       return Math.round(elementRef.getBoundingClientRect().height);
     };
 
-    const plantIO = new PlantIO(dispatch);
-    plantIO.fetchAll((): void => {
+    handlePlant.fetchAll((): void => {
       const titleSectionHeight = elementHeight(elementRef.current[0]);
       dispatch(setTitleSectionHeight(titleSectionHeight));
       const aboutSectionHeight = elementHeight(elementRef.current[1]);

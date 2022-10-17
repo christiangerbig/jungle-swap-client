@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { PlantIO } from "../../lib/plantIO";
+import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { setFilteredPlants } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
 import { Plant } from "../../typeDefinitions";
@@ -11,15 +11,15 @@ const PlantSearch = (): JSX.Element => {
   const [filter, setFilter] = useState<string>("");
   const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
   const dispatch = useAppDispatch();
+  const handlePlant = useHandlePlant();
   const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPlantQueryByName = (query: string): void => {
-      const plantIO = new PlantIO(dispatch);
       if (query) {
-        plantIO.search(query);
+        handlePlant.search(query);
       } else {
-        plantIO.fetchAll();
+        handlePlant.fetchAll();
       }
     };
 
