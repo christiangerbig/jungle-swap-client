@@ -3,6 +3,7 @@ import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import {
   setMessage,
@@ -10,7 +11,6 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
 
@@ -27,12 +27,12 @@ const RequestDetails = (): JSX.Element => {
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const routing = useRouting();
   const handleMessage = useHandleMessage();
   const { t } = useTranslation();
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       handleMessage.fetch(messageId, (): void => {
         scroll.scrollToTop();

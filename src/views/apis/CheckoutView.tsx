@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../components/apis/CheckoutForm";
@@ -16,10 +16,9 @@ const CheckoutView = (): JSX.Element => {
   const loggedInUser = useAppSelector(
     (state: RootState) => state.jungleSwap.loggedInUser
   );
-  const dispatch = useAppDispatch();
+  const routing = useRouting();
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       scroll.scrollToTop();
     });

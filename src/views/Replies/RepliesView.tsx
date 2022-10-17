@@ -3,13 +3,12 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import {
   setIsNewReply,
   setStartAmountOfReplies,
 } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
-
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import RepliesCollection from "../../components/replies/RepliesCollection";
 import GoBackButton from "../../components/helpers/GoBackButton";
@@ -29,6 +28,7 @@ const RepliesView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfReplies
   );
   const dispatch = useAppDispatch();
+  const routing = useRouting();
   const handleMessage = useHandleMessage();
   const { t } = useTranslation();
 
@@ -38,7 +38,6 @@ const RepliesView = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       handleMessage.fetchAll((): void => {
         isUserChange && dispatch(setStartAmountOfReplies());

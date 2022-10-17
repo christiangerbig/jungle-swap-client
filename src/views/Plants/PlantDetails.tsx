@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { Plant, PlantId } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantItems from "../../components/plants/PlantItems";
 
@@ -19,13 +19,12 @@ const PlantDetails = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.isFetchingPlant
   );
   const { plantId } = useParams<{ plantId: PlantId }>();
-  const dispatch = useAppDispatch();
+  const routing = useRouting();
   const handlePlant = useHandlePlant();
   const { t } = useTranslation();
   const { creator } = plant as Plant;
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       handlePlant.fetch(plantId, (): void => {
         scroll.scrollToTop();

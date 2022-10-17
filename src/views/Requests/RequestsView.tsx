@@ -3,13 +3,13 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import {
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../../reducer/jungleSwapSlice";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import RequestsCollection from "../../components/requests/RequestsCollection";
 import GoBackButton from "../../components/helpers/GoBackButton";
@@ -28,6 +28,7 @@ const RequestsView = (): JSX.Element => {
     (state: RootState) => state.jungleSwap.amountOfRequests
   );
   const dispatch = useAppDispatch();
+  const routing = useRouting();
   const handleMessage = useHandleMessage();
   const { t } = useTranslation();
 
@@ -37,7 +38,6 @@ const RequestsView = (): JSX.Element => {
       scroll.scrollToTop();
     };
 
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       handleMessage.fetchAll((): void => {
         isUserChange && dispatch(setStartAmountOfRequests());

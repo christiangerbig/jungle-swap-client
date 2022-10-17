@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
 import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { setPlant, setDestroyImageData } from "../../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 
 const PlantUpdateForm = (): JSX.Element => {
@@ -31,6 +31,7 @@ const PlantUpdateForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const routing = useRouting();
   const handlePlantImage = useHandlePlantImage();
   const handlePlant = useHandlePlant();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
@@ -44,7 +45,6 @@ const PlantUpdateForm = (): JSX.Element => {
       }
     };
 
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       setPlantLocation(plant);
       scroll.scrollToTop();

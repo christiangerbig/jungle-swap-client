@@ -3,12 +3,12 @@ import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
 import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 import { UploadImageData } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {
@@ -26,12 +26,12 @@ const PlantCreateForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const routing = useRouting();
   const handlePlantImage = useHandlePlantImage();
   const handlePlant = useHandlePlant();
   const { t } = useTranslation();
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();

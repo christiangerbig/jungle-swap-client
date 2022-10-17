@@ -3,11 +3,11 @@ import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useRouting } from "../../custom-hooks/useRouting";
 import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../../typeDefinitions";
 import { RootState } from "../../store";
-import { Routing } from "../../lib/routing";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestCreateForm = (): JSX.Element => {
@@ -23,12 +23,12 @@ const RequestCreateForm = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const routing = useRouting();
   const handleMessage = useHandleMessage();
   const { t } = useTranslation();
   const { name } = plant as Plant;
 
   useEffect(() => {
-    const routing = new Routing(dispatch);
     routing.protect((): void => {
       dispatch(setErrorMessage(null));
       scroll.scrollToTop();
