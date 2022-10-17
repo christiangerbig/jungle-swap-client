@@ -32,8 +32,8 @@ const PlantUpdateForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();
-  const { createImage } = useHandlePlantImage();
-  const { updatePlant, deletePlant } = useHandlePlant();
+  const { createImage, deleteImage } = useHandlePlantImage();
+  const { updatePlant } = useHandlePlant();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { t } = useTranslation();
   const { scrollToTop } = scroll;
@@ -97,7 +97,7 @@ const PlantUpdateForm = (): JSX.Element => {
 
   const handleUpdatePlant = () => {
     if (destroyImageData) {
-      deletePlant(destroyImageData);
+      deleteImage(destroyImageData);
     }
     updatePlant(plant, (): void => {
       goBack();
