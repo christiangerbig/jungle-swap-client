@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useHandlePayment } from "../../custom-hooks/useHandlePayment";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { scrollToPlants } from "../../reducer/jungleSwapSlice";
 import { Plant } from "../../typeDefinitions";
 import { RootState } from "../../store";
 import { Stripe } from "@stripe/stripe-js";
-import { PaymentIO } from "../../lib/paymentIO";
 
 type CardStyle = {
   style: {
@@ -38,6 +38,7 @@ const CheckoutForm = (): JSX.Element => {
   const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
+  const handlePayment = useHandlePayment();
   const { t } = useTranslation();
   const { _id, name, price } = plant as Plant;
   const cardStyle: CardStyle = {
@@ -57,8 +58,7 @@ const CheckoutForm = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const paymentIO = new PaymentIO(dispatch);
-    paymentIO.initialize(plant);
+    handlePayment.initialize(plant);
     return (): void => {
       history.push("/");
       dispatch(scrollToPlants());
