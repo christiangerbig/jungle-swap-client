@@ -18,8 +18,9 @@ const PlantSearch = (): JSX.Element => {
     const fetchPlantQueryByName = (query: string): void => {
       if (query) {
         searchPlant(query);
+      } else {
+        fetchPlants();
       }
-      fetchPlants();
     };
 
     fetchPlantQueryByName(query);
