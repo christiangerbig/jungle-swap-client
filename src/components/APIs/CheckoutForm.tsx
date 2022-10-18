@@ -83,10 +83,11 @@ const CheckoutForm = (): JSX.Element => {
     if (payload.error) {
       setPaymentError(`Payment failed ${payload.error.message}`);
       setIsProcessing(false);
+    } else {
+      setPaymentError("");
+      setIsProcessing(false);
+      setIsSucceeded(true);
     }
-    setPaymentError("");
-    setIsProcessing(false);
-    setIsSucceeded(true);
   };
 
   const messageVisibility = (): string => {
