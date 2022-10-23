@@ -1,11 +1,11 @@
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { RootState } from "../../store";
-import { useAppSelector } from "../../hooks";
-import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
-import { Plant, PlantId } from "../../typeDefinitions";
-import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
-import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
+import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
+import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
+import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { Plant, PlantId } from "../../app/typeDefinitions";
 
 const PlantDetailsCreatorChoice = (): JSX.Element => {
   const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);

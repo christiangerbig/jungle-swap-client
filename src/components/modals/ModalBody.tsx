@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../app/hooks";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
 
 type ModalBodyProps = {
@@ -24,8 +24,8 @@ const ModalBody = ({
     dispatch(setErrorMessage(null));
   };
 
-  const handleClickOutside = (event: any): void => {
-    if (divElementRef.current === event.target) {
+  const handleClickOutside = ({ target }: any): void => {
+    if (divElementRef.current === target) {
       handleCloseModal();
     }
   };

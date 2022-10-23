@@ -1,4 +1,4 @@
-import { User } from "../../typeDefinitions";
+import { User } from "../../app/typeDefinitions";
 import NavAuthentificationItems from "./NavAuthentificationItems";
 import NavUserItems from "./NavUserItems";
 

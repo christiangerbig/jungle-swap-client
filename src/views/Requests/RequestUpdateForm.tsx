@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useRouting } from "../../custom-hooks/useRouting";
-import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useRouting } from "../../app/custom-hooks/useRouting";
+import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
 import { setMessage } from "../../reducer/jungleSwapSlice";
-import { Message, MessageId } from "../../typeDefinitions";
-import { RootState } from "../../store";
+import { Message, MessageId } from "../../app/typeDefinitions";
+import { RootState } from "../../app/store";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestUpdateForm = (): JSX.Element => {

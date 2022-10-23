@@ -5,7 +5,7 @@ import {
   setIsDeletingPlantImage,
   setIsUploadingPlantImage,
   uploadPlantImage,
-} from "../reducer/jungleSwapSlice";
+} from "../../reducer/jungleSwapSlice";
 import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
 type HandlePlantImage = {

@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useRouting } from "../../custom-hooks/useRouting";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useRouting } from "../../app/custom-hooks/useRouting";
+import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
 import {
   setIsNewReply,
   setStartAmountOfReplies,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../store";
+import { RootState } from "../../app/store";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import RepliesCollection from "../../components/replies/RepliesCollection";
 import GoBackButton from "../../components/helpers/GoBackButton";
-import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
 
 const RepliesView = (): JSX.Element => {
   const loggedInUser = useAppSelector(

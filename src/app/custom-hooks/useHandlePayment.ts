@@ -3,7 +3,7 @@ import {
   createPayment,
   setClientSecret,
   setErrorMessage,
-} from "../reducer/jungleSwapSlice";
+} from "../../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 
 type HandlePayment = {

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Plant } from "../../typeDefinitions";
+import { Plant } from "../../app/typeDefinitions";
 
 type PlantThumbnailProps = {
   plant: Plant;

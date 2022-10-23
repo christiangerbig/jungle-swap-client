@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../hooks";
-import { useRouting } from "../../custom-hooks/useRouting";
-import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
-import { RootState } from "../../store";
+import { useAppSelector } from "../../app/hooks";
+import { useRouting } from "../../app/custom-hooks/useRouting";
+import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { RootState } from "../../app/store";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantsCreatedCollection from "../../components/plants/PlantsCreatedCollection";
 

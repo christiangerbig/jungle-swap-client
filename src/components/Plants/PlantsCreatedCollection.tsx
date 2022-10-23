@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
-import { Plant, User } from "../../typeDefinitions";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
+import { Plant, User } from "../../app/typeDefinitions";
 import PlantThumbnail from "./PlantThumbnail";
 
 const PlantsCreatedCollection = (): JSX.Element => {

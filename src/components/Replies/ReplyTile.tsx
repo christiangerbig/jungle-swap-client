@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { User, Plant, Message } from "../../typeDefinitions";
+import { User, Plant, Message } from "../../app/typeDefinitions";
 
 type ReplyThumbnailProps = {
   message: Message;

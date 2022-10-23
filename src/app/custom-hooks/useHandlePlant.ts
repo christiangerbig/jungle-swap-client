@@ -17,7 +17,7 @@ import {
   setPlantChanges,
   setPlants,
   updatePlant,
-} from "../reducer/jungleSwapSlice";
+} from "../../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 
 type HandlePlant = {

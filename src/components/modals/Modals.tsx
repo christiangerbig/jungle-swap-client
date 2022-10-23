@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../hooks";
-import { useOnlineStatus } from "../../custom-hooks/useOnlineStatus";
-import { RootState } from "../../store";
+import { useAppSelector } from "../../app/hooks";
+import { useOnlineStatus } from "../../app/custom-hooks/useOnlineStatus";
+import { RootState } from "../../app/store";
 import ErrorModal from "./ErrorModal";
 import OfflineModal from "./OfflineModal";
 

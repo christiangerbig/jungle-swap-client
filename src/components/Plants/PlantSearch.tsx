@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
 import { setFilteredPlants } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../store";
-import { Plant } from "../../typeDefinitions";
+import { RootState } from "../../app/store";
+import { Plant } from "../../app/typeDefinitions";
 
 const PlantSearch = (): JSX.Element => {
   const [query, setQuery] = useState<string>("");

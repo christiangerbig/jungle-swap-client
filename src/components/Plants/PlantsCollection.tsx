@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setNumberOfVisibleEntries } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../store";
-import { Plant } from "../../typeDefinitions";
+import { RootState } from "../../app/store";
+import { Plant } from "../../app/typeDefinitions";
 import PlantThumbnail from "./PlantThumbnail";
 
 const PlantsCollection = (): JSX.Element => {

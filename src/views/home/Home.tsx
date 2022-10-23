@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
 import {
   setTitleSectionHeight,
   setAboutSectionHeight,
   setFilteredPlants,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../store";
+import { RootState } from "../../app/store";
 import HomeAbout from "../../components/home/HomeAbout";
 import PlantsCockpit from "../../components/plants/PlantsCockpit";
 import HomeTitle from "../../components/home/HomeTitle";

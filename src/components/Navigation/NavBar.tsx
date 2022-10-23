@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useHandleMessage } from "../../custom-hooks/useHandleMessage";
-import { useIntervalCounter } from "../../custom-hooks/useIntervalCounter";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { useIntervalCounter } from "../../app/custom-hooks/useIntervalCounter";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
 import {
@@ -14,10 +14,10 @@ import {
   setStartAmountOfReplies,
   scrollToPlants,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../store";
+import { RootState } from "../../app/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Message } from "../../typeDefinitions";
+import { Message } from "../../app/typeDefinitions";
 import NavAdditionalItems from "./NavAdditionalItems";
 
 const NavBar = (): JSX.Element => {

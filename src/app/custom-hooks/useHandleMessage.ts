@@ -20,7 +20,7 @@ import {
   setMessageChanges,
   setMessages,
   updateMessage,
-} from "../reducer/jungleSwapSlice";
+} from "../../reducer/jungleSwapSlice";
 import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
 type HandleMessage = {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import config from "../config";
+import config from "../app/config";
 import axios from "axios";
 import { animateScroll as scroll } from "react-scroll";
 import {
@@ -10,7 +10,7 @@ import {
   MessageId,
   DestroyImageData,
   IntervalId,
-} from "../typeDefinitions";
+} from "../app/typeDefinitions";
 
 type ErrorMessage = string | null;
 
@@ -392,42 +392,42 @@ export const jungleSwapSlice = createSlice({
 
   reducers: {
     // ----- User authentication ------
-    setIsUserChange: (state, action: PayloadAction<boolean>) => {
-      state.isUserChange = action.payload;
+    setIsUserChange: (state, { payload }: PayloadAction<boolean>) => {
+      state.isUserChange = payload;
     },
-    setLoggedInUser: (state, action: PayloadAction<User | null>) => {
-      state.loggedInUser = action.payload;
+    setLoggedInUser: (state, { payload }: PayloadAction<User | null>) => {
+      state.loggedInUser = payload;
     },
 
     // ----- Plants ------
-    setIsCreatingPlant: (state, action: PayloadAction<boolean>) => {
-      state.isCreatingPlant = action.payload;
+    setIsCreatingPlant: (state, { payload }: PayloadAction<boolean>) => {
+      state.isCreatingPlant = payload;
     },
-    setIsFetchingPlants: (state, action: PayloadAction<boolean>) => {
-      state.isFetchingPlants = action.payload;
+    setIsFetchingPlants: (state, { payload }: PayloadAction<boolean>) => {
+      state.isFetchingPlants = payload;
     },
-    setIsFetchingPlant: (state, action: PayloadAction<boolean>) => {
-      state.isFetchingPlant = action.payload;
+    setIsFetchingPlant: (state, { payload }: PayloadAction<boolean>) => {
+      state.isFetchingPlant = payload;
     },
-    setIsUpdatingPlant: (state, action: PayloadAction<boolean>) => {
-      state.isUpdatingPlant = action.payload;
+    setIsUpdatingPlant: (state, { payload }: PayloadAction<boolean>) => {
+      state.isUpdatingPlant = payload;
     },
-    setIsDeletingPlant: (state, action: PayloadAction<boolean>) => {
-      state.isDeletingPlant = action.payload;
+    setIsDeletingPlant: (state, { payload }: PayloadAction<boolean>) => {
+      state.isDeletingPlant = payload;
     },
-    addPlant: (state, action: PayloadAction<Plant>) => {
-      state.plants.push(action.payload);
+    addPlant: (state, { payload }: PayloadAction<Plant>) => {
+      state.plants.push(payload);
     },
-    setPlant: (state, action: PayloadAction<Plant>) => {
-      state.plant = action.payload;
+    setPlant: (state, { payload }: PayloadAction<Plant>) => {
+      state.plant = payload;
     },
-    setPlants: (state, action: PayloadAction<Plant[]>) => {
-      state.plants = action.payload;
+    setPlants: (state, { payload }: PayloadAction<Plant[]>) => {
+      state.plants = payload;
     },
-    setFilteredPlants: (state, action: PayloadAction<Plant[]>) => {
-      state.filteredPlants = action.payload;
+    setFilteredPlants: (state, { payload }: PayloadAction<Plant[]>) => {
+      state.filteredPlants = payload;
     },
-    setPlantChanges: (state, action: PayloadAction<Plant>) => {
+    setPlantChanges: (state, { payload }: PayloadAction<Plant>) => {
       const {
         _id,
         name,
@@ -437,7 +437,7 @@ export const jungleSwapSlice = createSlice({
         imagePublicId,
         location,
         price,
-      } = action.payload;
+      } = payload;
       state.plants = state.plants.map((singlePlant: Plant): Plant => {
         if (singlePlant._id === _id) {
           singlePlant.name = name;
@@ -451,62 +451,62 @@ export const jungleSwapSlice = createSlice({
         return singlePlant;
       });
     },
-    removePlant: (state, action: PayloadAction<PlantId>) => {
+    removePlant: (state, { payload }: PayloadAction<PlantId>) => {
       state.plants = state.plants.filter(
-        (plant: Plant): boolean => plant._id !== action.payload
+        (plant: Plant): boolean => plant._id !== payload
       );
     },
-    setNumberOfVisibleEntries: (state, action: PayloadAction<number>) => {
-      state.numberOfVisibleEntries = action.payload;
+    setNumberOfVisibleEntries: (state, { payload }: PayloadAction<number>) => {
+      state.numberOfVisibleEntries = payload;
     },
 
     // ----- Images -----
-    setIsUploadingPlantImage: (state, action: PayloadAction<boolean>) => {
-      state.isUploadingPlantImage = action.payload;
+    setIsUploadingPlantImage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isUploadingPlantImage = payload;
     },
-    setIsDeletingPlantImage: (state, action: PayloadAction<boolean>) => {
-      state.isDeletingPlantImage = action.payload;
+    setIsDeletingPlantImage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isDeletingPlantImage = payload;
     },
     setDestroyImageData: (
       state,
-      action: PayloadAction<DestroyImageData | null>
+      { payload }: PayloadAction<DestroyImageData | null>
     ) => {
-      state.destroyImageData = action.payload;
+      state.destroyImageData = payload;
     },
 
     // ----- Payment -----
-    setClientSecret: (state, action: PayloadAction<string>) => {
-      state.clientSecret = action.payload;
+    setClientSecret: (state, { payload }: PayloadAction<string>) => {
+      state.clientSecret = payload;
     },
 
     // ----- Messages -----
-    setIsCreatingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isCreatingMessage = action.payload;
+    setIsCreatingMessage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isCreatingMessage = payload;
     },
-    setIsFetchingMessages: (state, action: PayloadAction<boolean>) => {
-      state.isFetchingMessages = action.payload;
+    setIsFetchingMessages: (state, { payload }: PayloadAction<boolean>) => {
+      state.isFetchingMessages = payload;
     },
-    setIsFetchingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isFetchingMessage = action.payload;
+    setIsFetchingMessage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isFetchingMessage = payload;
     },
-    setIsUpdatingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isUpdatingMessage = action.payload;
+    setIsUpdatingMessage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isUpdatingMessage = payload;
     },
-    setIsDeletingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isDeletingMessage = action.payload;
+    setIsDeletingMessage: (state, { payload }: PayloadAction<boolean>) => {
+      state.isDeletingMessage = payload;
     },
-    addMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.push(action.payload);
+    addMessage: (state, { payload }: PayloadAction<Message>) => {
+      state.messages.push(payload);
     },
-    setMessages: (state, action: PayloadAction<Message[]>) => {
-      state.messages = action.payload;
+    setMessages: (state, { payload }: PayloadAction<Message[]>) => {
+      state.messages = payload;
     },
-    setMessage: (state, action: PayloadAction<Message>) => {
-      state.message = action.payload;
+    setMessage: (state, { payload }: PayloadAction<Message>) => {
+      state.message = payload;
     },
-    setMessageChanges: (state, action: PayloadAction<Message>) => {
+    setMessageChanges: (state, { payload }: PayloadAction<Message>) => {
       const { _id, buyer, seller, plant, request, reply, messageState } =
-        action.payload;
+        payload;
       state.messages = state.messages.map((singleMessage) => {
         if (singleMessage._id === _id) {
           singleMessage.buyer = buyer;
@@ -519,18 +519,18 @@ export const jungleSwapSlice = createSlice({
         return singleMessage;
       });
     },
-    removeMessage: (state, action: PayloadAction<MessageId>) => {
+    removeMessage: (state, { payload }: PayloadAction<MessageId>) => {
       state.messages = state.messages.filter((message: Message): boolean => {
-        return message._id !== action.payload;
+        return message._id !== payload;
       });
     },
 
     // ----- Requests/Replies check ------
-    setIsNewRequest: (state, action: PayloadAction<boolean>) => {
-      state.isNewRequest = action.payload;
+    setIsNewRequest: (state, { payload }: PayloadAction<boolean>) => {
+      state.isNewRequest = payload;
     },
-    setIsNewReply: (state, action: PayloadAction<boolean>) => {
-      state.isNewReply = action.payload;
+    setIsNewReply: (state, { payload }: PayloadAction<boolean>) => {
+      state.isNewReply = payload;
     },
     setStartAmountOfRequests: (state) => {
       state.amountOfRequests = (state.loggedInUser as any).amountOfRequests;
@@ -538,11 +538,11 @@ export const jungleSwapSlice = createSlice({
     setStartAmountOfReplies: (state) => {
       state.amountOfReplies = (state.loggedInUser as any).amountOfReplies;
     },
-    setAmountOfRequests: (state, action: PayloadAction<number>) => {
-      state.amountOfRequests = action.payload;
+    setAmountOfRequests: (state, { payload }: PayloadAction<number>) => {
+      state.amountOfRequests = payload;
     },
-    setAmountOfReplies: (state, action: PayloadAction<number>) => {
-      state.amountOfReplies = action.payload;
+    setAmountOfReplies: (state, { payload }: PayloadAction<number>) => {
+      state.amountOfReplies = payload;
     },
     decreaseAmountOfRequests: (state) => {
       state.amountOfRequests -= 1;
@@ -552,22 +552,22 @@ export const jungleSwapSlice = createSlice({
     },
 
     // ----- Interval counter -----
-    setIntervalId: (state, action: PayloadAction<IntervalId>) => {
-      state.intervalId = action.payload;
+    setIntervalId: (state, { payload }: PayloadAction<IntervalId>) => {
+      state.intervalId = payload;
     },
-    setDelayCounter: (state, action: PayloadAction<number>) => {
-      state.delayCounter = action.payload;
+    setDelayCounter: (state, { payload }: PayloadAction<number>) => {
+      state.delayCounter = payload;
     },
     increaseDelayCounter: (state) => {
       state.delayCounter += 1;
     },
 
     // ----- Pages handling -----
-    setTitleSectionHeight: (state, action: PayloadAction<number>) => {
-      state.titleSectionHeight = action.payload;
+    setTitleSectionHeight: (state, { payload }: PayloadAction<number>) => {
+      state.titleSectionHeight = payload;
     },
-    setAboutSectionHeight: (state, action: PayloadAction<number>) => {
-      state.aboutSectionHeight = action.payload;
+    setAboutSectionHeight: (state, { payload }: PayloadAction<number>) => {
+      state.aboutSectionHeight = payload;
     },
     scrollToAbout: (state) => {
       scroll.scrollTo(state.titleSectionHeight);
@@ -577,8 +577,8 @@ export const jungleSwapSlice = createSlice({
     },
 
     // ----- Error handling -----
-    setErrorMessage: (state, action: PayloadAction<ErrorMessage>) => {
-      state.errorMessage = action.payload;
+    setErrorMessage: (state, { payload }: PayloadAction<ErrorMessage>) => {
+      state.errorMessage = payload;
     },
   },
 

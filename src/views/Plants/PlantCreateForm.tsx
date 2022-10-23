@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useRouting } from "../../custom-hooks/useRouting";
-import { useHandlePlantImage } from "../../custom-hooks/useHandlePlantImage";
-import { useHandlePlant } from "../../custom-hooks/useHandlePlant";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useRouting } from "../../app/custom-hooks/useRouting";
+import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
+import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
 import { setErrorMessage } from "../../reducer/jungleSwapSlice";
-import { UploadImageData } from "../../typeDefinitions";
-import { RootState } from "../../store";
+import { UploadImageData } from "../../app/typeDefinitions";
+import { RootState } from "../../app/store";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {

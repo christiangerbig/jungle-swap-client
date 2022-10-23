@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useHandlePayment } from "../../custom-hooks/useHandlePayment";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useHandlePayment } from "../../app/custom-hooks/useHandlePayment";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { scrollToPlants } from "../../reducer/jungleSwapSlice";
-import { Plant } from "../../typeDefinitions";
-import { RootState } from "../../store";
+import { Plant } from "../../app/typeDefinitions";
+import { RootState } from "../../app/store";
 import { Stripe } from "@stripe/stripe-js";
 
 type CardStyle = {

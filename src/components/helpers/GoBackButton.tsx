@@ -1,4 +1,4 @@
-import { useNavigation } from "../../custom-hooks/useNavigation";
+import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import { useTranslation } from "react-i18next";
 
 const GoBackButton = (): JSX.Element => {

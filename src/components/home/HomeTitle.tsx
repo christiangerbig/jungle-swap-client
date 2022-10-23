@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../app/hooks";
 import { scrollToAbout } from "../../reducer/jungleSwapSlice";
 import { useTranslation } from "react-i18next";
 

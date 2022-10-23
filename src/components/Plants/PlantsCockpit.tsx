@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
 import WaitSpinner from "../spinners/WaitSpinner";
 import PlantSearch from "./PlantSearch";
 import PlantsCollection from "./PlantsCollection";

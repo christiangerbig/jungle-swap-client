@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
-import { Message, User } from "../../typeDefinitions";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
+import { Message, User } from "../../app/typeDefinitions";
 import ReplyTile from "./ReplyTile";
 
 const RepliesCollection = (): JSX.Element => {

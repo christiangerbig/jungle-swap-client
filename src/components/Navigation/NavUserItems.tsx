@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 

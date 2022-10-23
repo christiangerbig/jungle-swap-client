@@ -3,8 +3,8 @@ import {
   checkUserLoggedIn,
   setErrorMessage,
   setLoggedInUser,
-} from "../reducer/jungleSwapSlice";
-import { User } from "../typeDefinitions";
+} from "../../reducer/jungleSwapSlice";
+import { User } from "../../app/typeDefinitions";
 
 type Routing = {
   protectRoute: Function;

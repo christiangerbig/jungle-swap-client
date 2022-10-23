@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import { useAppSelector } from "../../hooks";
-import { useRouting } from "../../custom-hooks/useRouting";
-import { RootState } from "../../store";
+import { useAppSelector } from "../../app/hooks";
+import { useRouting } from "../../app/custom-hooks/useRouting";
+import { RootState } from "../../app/store";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../components/apis/CheckoutForm";

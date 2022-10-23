@@ -1,8 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../hooks";
-import { RootState } from "../../store";
-import { Plant, User } from "../../typeDefinitions";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
+import { Plant, User } from "../../app/typeDefinitions";
 import PlantDetailsUserChoice from "./PlantDetailsUserChoice";
 
 type PlantItemsProps = {

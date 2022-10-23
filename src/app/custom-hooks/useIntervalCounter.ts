@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../hooks";
-import { setDelayCounter, setIntervalId } from "../reducer/jungleSwapSlice";
+import { setDelayCounter, setIntervalId } from "../../reducer/jungleSwapSlice";
 
 type IntervalCounter = {
   stopCounter: Function;

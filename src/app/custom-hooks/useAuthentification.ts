@@ -5,7 +5,7 @@ import {
   signIn,
   signUp,
   logOut,
-} from "../reducer/jungleSwapSlice";
+} from "../../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 
 type Authentification = {

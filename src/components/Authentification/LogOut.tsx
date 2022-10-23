@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useAuthentification } from "../../custom-hooks/useAuthentification";
-import { useIntervalCounter } from "../../custom-hooks/useIntervalCounter";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAuthentification } from "../../app/custom-hooks/useAuthentification";
+import { useIntervalCounter } from "../../app/custom-hooks/useIntervalCounter";
 import {
   setLoggedInUser,
   setIsNewRequest,
   setAmountOfRequests,
   setAmountOfReplies,
 } from "../../reducer/jungleSwapSlice";
-import { User } from "../../typeDefinitions";
-import { RootState } from "../../store";
+import { User } from "../../app/typeDefinitions";
+import { RootState } from "../../app/store";
 
 const LogOut = (): JSX.Element => {
   const loggedInUser = useAppSelector(
