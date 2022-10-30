@@ -44,7 +44,10 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
           {size} {t("texts.plants.plantDetails.sizeUnit")}
         </div>
         <div className="ml-2 mt-2">
-          <span>{t("texts.plants.plantDetails.likes")}</span> {location}
+          <span className="is-text-bold">
+            {t("texts.plants.plantDetails.likes")}
+          </span>{" "}
+          {location}
         </div>
         <div className="ml-2 mt-2">
           <span className="is-text-bold">
