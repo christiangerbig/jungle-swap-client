@@ -31,12 +31,13 @@ type HandlePlant = {
 
 export const useHandlePlant = (): HandlePlant => {
   const dispatch = useAppDispatch();
+
   const handlePlant = {
-    createPlant(
+    createPlant: (
       { name, description, size, location, price }: any,
       { imageUrl, imagePublicId }: UploadImageData,
       callbackFunction: Function
-    ): void {
+    ): void => {
       const newPlant: Plant = {
         name: name.value,
         description: description.value,
@@ -58,7 +59,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    fetchPlant(plantId: PlantId, callbackFunction: Function): void {
+    fetchPlant: (plantId: PlantId, callbackFunction: Function): void => {
       dispatch(setIsFetchingPlant(true));
       dispatch(fetchPlant(plantId))
         .unwrap()
@@ -71,7 +72,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    fetchPlants(callbackFunction?: Function): void {
+    fetchPlants: (callbackFunction?: Function): void => {
       dispatch(setIsFetchingPlants(true));
       dispatch(fetchAllPlants())
         .unwrap()
@@ -86,7 +87,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    updatePlant(
+    updatePlant: (
       {
         _id,
         name,
@@ -98,7 +99,7 @@ export const useHandlePlant = (): HandlePlant => {
         price,
       }: Plant,
       callbackFunction: Function
-    ): void {
+    ): void => {
       const updatedPlant: Plant = {
         name,
         description,
@@ -120,7 +121,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    deletePlant(plantId: PlantId, callbackFunction: Function): void {
+    deletePlant: (plantId: PlantId, callbackFunction: Function): void => {
       dispatch(setIsDeletingPlant(true));
       dispatch(deletePlant(plantId))
         .unwrap()
@@ -133,7 +134,7 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
 
-    searchPlant(query: string): void {
+    searchPlant: (query: string): void => {
       dispatch(setIsFetchingPlants(true));
       dispatch(fetchQueryPlants(query))
         .unwrap()

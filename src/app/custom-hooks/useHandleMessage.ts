@@ -37,8 +37,9 @@ type HandleMessage = {
 
 export const useHandleMessage = (): HandleMessage => {
   const dispatch = useAppDispatch();
+
   const handleMessage = {
-    createMessage(newMessage: Message, callbackFunction: Function): void {
+    createMessage: (newMessage: Message, callbackFunction: Function): void => {
       dispatch(setIsCreatingMessage(true));
       dispatch(createMessage(newMessage))
         .unwrap()
@@ -51,7 +52,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    fetchMessage(messageId: MessageId, callbackFunction: Function): void {
+    fetchMessage: (messageId: MessageId, callbackFunction: Function): void => {
       dispatch(setIsFetchingMessage(true));
       dispatch(fetchMessage(messageId))
         .unwrap()
@@ -64,7 +65,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    fetchMessages(callbackFunction: Function): void {
+    fetchMessages: (callbackFunction: Function): void => {
       dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
@@ -77,7 +78,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    fetchCheck(callbackFunction: Function): void {
+    fetchCheck: (callbackFunction: Function): void => {
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages: Message[]): void => {
@@ -89,11 +90,11 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    updateMessage(
+    updateMessage: (
       messageId: MessageId,
       updatedMessage: Message,
       callbackFunction: Function
-    ): void {
+    ): void => {
       dispatch(setIsUpdatingMessage(true));
       dispatch(updateMessage({ messageId, updatedMessage }))
         .unwrap()
@@ -106,7 +107,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    deleteMessage(messageId: MessageId, callbackFunction: Function): void {
+    deleteMessage: (messageId: MessageId, callbackFunction: Function): void => {
       dispatch(setIsDeletingMessage(true));
       dispatch(deleteMessage(messageId))
         .unwrap()
@@ -119,7 +120,7 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    deleteRemainingMessages(messages: Message[], plantId: PlantId): void {
+    deleteRemainingMessages: (messages: Message[], plantId: PlantId): void => {
       messages.forEach(({ _id, plant }: Message): void => {
         if ((plant as Plant)._id === plantId) {
           dispatch(setIsDeletingMessage(true));
@@ -135,11 +136,11 @@ export const useHandleMessage = (): HandleMessage => {
       });
     },
 
-    checkNewRequests(
+    checkNewRequests: (
       loggedInUser: User | null,
       messages: Message[],
       amountOfRequests: number
-    ): void {
+    ): void => {
       const calculateAmountOfRequests = (messages: Message[]): number => {
         const currentAmountOfRequests = messages.filter(
           ({ seller, messageState }: Message): boolean => {
@@ -168,11 +169,11 @@ export const useHandleMessage = (): HandleMessage => {
       checkAmountOfRequests(currentAmountOfRequests, amountOfRequests);
     },
 
-    checkNewReplies(
+    checkNewReplies: (
       loggedInUser: User | null,
       messages: Message[],
       amountOfReplies: number
-    ): void {
+    ): void => {
       const calculateAmountOfReplies = (messages: Message[]): number => {
         const currentAmountOfReplies = messages.filter(
           ({ buyer, reply }: Message): boolean => {

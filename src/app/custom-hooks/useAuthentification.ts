@@ -16,8 +16,9 @@ type Authentification = {
 
 export const useAuthentification = (): Authentification => {
   const dispatch = useAppDispatch();
+
   const authentification = {
-    signIn(user: User, callbackFunction: Function): void {
+    signIn: (user: User, callbackFunction: Function): void => {
       dispatch(signIn(user))
         .unwrap()
         .then((user: User): void => {
@@ -29,7 +30,7 @@ export const useAuthentification = (): Authentification => {
         });
     },
 
-    signUp(newUser: User, callbackFunction: Function): void {
+    signUp: (newUser: User, callbackFunction: Function): void => {
       dispatch(signUp(newUser))
         .unwrap()
         .then((user: User): void => {
@@ -41,7 +42,7 @@ export const useAuthentification = (): Authentification => {
         });
     },
 
-    logOut(loggedInUser: User, callbackFunction: Function): void {
+    logOut: (loggedInUser: User, callbackFunction: Function): void => {
       dispatch(logOut(loggedInUser))
         .unwrap()
         .then((): void => {

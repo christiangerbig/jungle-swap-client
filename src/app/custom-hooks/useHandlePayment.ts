@@ -12,8 +12,9 @@ type HandlePayment = {
 
 export const useHandlePayment = (): HandlePayment => {
   const dispatch = useAppDispatch();
+
   const handlePayment = {
-    initializePayment(plant: Plant): void {
+    initializePayment: (plant: Plant): void => {
       dispatch(createPayment(plant))
         .unwrap()
         .then((payment: any): void => {

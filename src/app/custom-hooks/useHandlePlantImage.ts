@@ -15,8 +15,9 @@ type HandlePlantImage = {
 
 export const useHandlePlantImage = (): HandlePlantImage => {
   const dispatch = useAppDispatch();
+
   const handlePlantImage = {
-    createImage(uploadForm: any, callbackFunction: Function): void {
+    createImage: (uploadForm: any, callbackFunction: Function): void => {
       dispatch(setIsUploadingPlantImage(true));
       dispatch(uploadPlantImage(uploadForm))
         .unwrap()
@@ -28,7 +29,7 @@ export const useHandlePlantImage = (): HandlePlantImage => {
         });
     },
 
-    deleteImage(destroyImageData: DestroyImageData): void {
+    deleteImage: (destroyImageData: DestroyImageData): void => {
       dispatch(setIsDeletingPlantImage(true));
       dispatch(deletePlantImage(destroyImageData))
         .unwrap()

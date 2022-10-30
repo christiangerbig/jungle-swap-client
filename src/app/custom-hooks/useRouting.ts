@@ -12,8 +12,9 @@ type Routing = {
 
 export const useRouting = (): Routing => {
   const dispatch = useAppDispatch();
+
   const routing = {
-    protectRoute(callbackFunction: Function): void {
+    protectRoute: (callbackFunction: Function): void => {
       dispatch(checkUserLoggedIn())
         .unwrap()
         .then((user: User): void => {

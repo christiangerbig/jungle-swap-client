@@ -7,8 +7,9 @@ type IntervalCounter = {
 
 export const useIntervalCounter = (): IntervalCounter => {
   const dispatch = useAppDispatch();
+
   const intervalCounter = {
-    stopCounter(intervalId: NodeJS.Timeout): void {
+    stopCounter: (intervalId: NodeJS.Timeout): void => {
       clearInterval(intervalId);
       dispatch(setIntervalId(null));
       dispatch(setDelayCounter(0));

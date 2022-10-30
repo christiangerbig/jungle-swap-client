@@ -10,7 +10,7 @@ export const useNavigation = (): Navigation => {
   const { scrollToTop } = scroll;
 
   const navigation = {
-    goToHome(): void {
+    goToHome: (): void => {
       push("/");
       scrollToTop();
     },
