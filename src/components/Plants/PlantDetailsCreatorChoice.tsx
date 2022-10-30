@@ -1,26 +1,24 @@
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { RootState } from "../../app/store";
 import { useAppSelector } from "../../app/hooks";
 import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
 import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
 import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import {
+  selectIsDeletingMessage,
+  selectIsDeletingPlant,
+  selectIsDeletingPlantImage,
+  selectMessages,
+  selectPlant,
+} from "../../reducer/jungleSwapSlice";
 import { Plant, PlantId } from "../../app/typeDefinitions";
 
 const PlantDetailsCreatorChoice = (): JSX.Element => {
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
-  const isDeletingPlant = useAppSelector(
-    (state: RootState) => state.jungleSwap.isDeletingPlant
-  );
-  const isDeletingPlantImage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isDeletingPlantImage
-  );
-  const messages = useAppSelector(
-    (state: RootState) => state.jungleSwap.messages
-  );
-  const isDeletingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isDeletingMessage
-  );
+  const plant = useAppSelector(selectPlant);
+  const isDeletingPlant = useAppSelector(selectIsDeletingPlant);
+  const isDeletingPlantImage = useAppSelector(selectIsDeletingPlantImage);
+  const messages = useAppSelector(selectMessages);
+  const isDeletingMessage = useAppSelector(selectIsDeletingMessage);
   const { goBack } = useHistory();
   const { deleteRemainingMessages } = useHandleMessage();
   const { deleteImage } = useHandlePlantImage();

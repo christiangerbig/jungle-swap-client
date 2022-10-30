@@ -5,17 +5,16 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
-import { RootState } from "../../app/store";
+import {
+  selectIsFetchingPlants,
+  selectLoggedInUser,
+} from "../../reducer/jungleSwapSlice";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantsCreatedCollection from "../../components/plants/PlantsCreatedCollection";
 
 const PlantsCreatedView = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isFetchingPlants = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingPlants
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isFetchingPlants = useAppSelector(selectIsFetchingPlants);
   const { protectRoute } = useRouting();
   const { fetchPlants } = useHandlePlant();
   const { t } = useTranslation();

@@ -5,14 +5,14 @@ import {
   setTitleSectionHeight,
   setAboutSectionHeight,
   setFilteredPlants,
+  selectPlants,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../app/store";
 import HomeAbout from "../../components/home/HomeAbout";
 import PlantsCockpit from "../../components/plants/PlantsCockpit";
 import HomeTitle from "../../components/home/HomeTitle";
 
 const Home = (): JSX.Element => {
-  const plants = useAppSelector((state: RootState) => state.jungleSwap.plants);
+  const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
   const { fetchPlants } = useHandlePlant();
   const elementRef = useRef<HTMLElement[]>([]);

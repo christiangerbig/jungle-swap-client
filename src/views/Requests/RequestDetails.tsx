@@ -8,22 +8,18 @@ import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
 import {
   setMessage,
   decreaseAmountOfRequests,
+  selectLoggedInUser,
+  selectIsFetchingMessage,
+  selectMessage,
 } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
 
 const RequestDetails = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isFetchingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingMessage
-  );
-  const message = useAppSelector(
-    (state: RootState) => state.jungleSwap.message
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isFetchingMessage = useAppSelector(selectIsFetchingMessage);
+  const message = useAppSelector(selectMessage);
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();

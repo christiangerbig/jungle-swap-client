@@ -1,17 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setNumberOfVisibleEntries } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../app/store";
+import {
+  selectfFilteredPlants,
+  selectNumberOfVisibleEntries,
+  setNumberOfVisibleEntries,
+} from "../../reducer/jungleSwapSlice";
 import { Plant } from "../../app/typeDefinitions";
 import PlantThumbnail from "./PlantThumbnail";
 
 const PlantsCollection = (): JSX.Element => {
-  const filteredPlants = useAppSelector(
-    (state: RootState) => state.jungleSwap.filteredPlants
-  );
-  const numberOfVisibleEntries = useAppSelector(
-    (state: RootState) => state.jungleSwap.numberOfVisibleEntries
-  );
+  const filteredPlants = useAppSelector(selectfFilteredPlants);
+  const numberOfVisibleEntries = useAppSelector(selectNumberOfVisibleEntries);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 

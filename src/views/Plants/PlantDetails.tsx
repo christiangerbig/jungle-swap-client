@@ -5,19 +5,19 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import {
+  selectIsFetchingPlant,
+  selectLoggedInUser,
+  selectPlant,
+} from "../../reducer/jungleSwapSlice";
 import { Plant, PlantId } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import PlantItems from "../../components/plants/PlantItems";
 
 const PlantDetails = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
-  const isFetchingPlant = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingPlant
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const plant = useAppSelector(selectPlant);
+  const isFetchingPlant = useAppSelector(selectIsFetchingPlant);
   const { plantId } = useParams<{ plantId: PlantId }>();
   const { protectRoute } = useRouting();
   const { fetchPlant } = useHandlePlant();

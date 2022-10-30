@@ -11,6 +11,7 @@ import {
   DestroyImageData,
   IntervalId,
 } from "../app/typeDefinitions";
+import { RootState } from "../app/store";
 
 type ErrorMessage = string | null;
 
@@ -669,6 +670,76 @@ export const jungleSwapSlice = createSlice({
   },
 });
 
+const selectors = {
+  // ----- User authentication -----
+  selectIsUserChange: ({ jungleSwap }: RootState) => jungleSwap.isUserChange,
+  selectLoggedInUser: ({ jungleSwap }: RootState) => jungleSwap.loggedInUser,
+
+  // ----- Plants -----
+  selectIsCreatingPlant: ({ jungleSwap }: RootState) =>
+    jungleSwap.isCreatingPlant,
+  selectIsFetchingPlants: ({ jungleSwap }: RootState) =>
+    jungleSwap.isFetchingPlants,
+  selectIsFetchingPlant: ({ jungleSwap }: RootState) =>
+    jungleSwap.isFetchingPlant,
+  selectIsUpdatingPlant: ({ jungleSwap }: RootState) =>
+    jungleSwap.isUpdatingPlant,
+  selectIsDeletingPlant: ({ jungleSwap }: RootState) =>
+    jungleSwap.isDeletingPlant,
+  selectPlant: ({ jungleSwap }: RootState) => jungleSwap.plant,
+  selectPlants: ({ jungleSwap }: RootState) => jungleSwap.plants,
+  selectfFilteredPlants: ({ jungleSwap }: RootState) =>
+    jungleSwap.filteredPlants,
+  selectNumberOfVisibleEntries: ({ jungleSwap }: RootState) =>
+    jungleSwap.numberOfVisibleEntries,
+
+  // ----- Images -----
+  selectIsUploadingPlantImage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isUploadingPlantImage,
+  selectIsDeletingPlantImage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isDeletingPlantImage,
+  selectDestroyImageData: ({ jungleSwap }: RootState) =>
+    jungleSwap.destroyImageData,
+
+  // ----- Payment -----
+  selectClientSecret: ({ jungleSwap }: RootState) => jungleSwap.clientSecret,
+
+  // ----- Messages -----
+  selectIsCreatingMessage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isCreatingMessage,
+  selectiIsFetchingMessages: ({ jungleSwap }: RootState) =>
+    jungleSwap.isFetchingMessages,
+  selectIsFetchingMessage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isFetchingMessage,
+  selectIsUpdatingMessage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isUpdatingMessage,
+  selectIsDeletingMessage: ({ jungleSwap }: RootState) =>
+    jungleSwap.isDeletingMessage,
+  selectMessages: ({ jungleSwap }: RootState) => jungleSwap.messages,
+  selectMessage: ({ jungleSwap }: RootState) => jungleSwap.message,
+
+  // ----- Requests/Replies check -----
+  selectIsNewRequest: ({ jungleSwap }: RootState) => jungleSwap.isNewRequest,
+  selectIsNewReply: ({ jungleSwap }: RootState) => jungleSwap.isNewReply,
+  selectAmountOfRequests: ({ jungleSwap }: RootState) =>
+    jungleSwap.amountOfRequests,
+  selectAmountOfReplies: ({ jungleSwap }: RootState) =>
+    jungleSwap.amountOfReplies,
+
+  // ----- Interval counter -----
+  selectIntervalId: ({ jungleSwap }: RootState) => jungleSwap.intervalId,
+  selectDelayCounter: ({ jungleSwap }: RootState) => jungleSwap.delayCounter,
+
+  // ----- Pages handling -----
+  selectTitleSectionHeight: ({ jungleSwap }: RootState) =>
+    jungleSwap.titleSectionHeight,
+  selectAboutSectionHeight: ({ jungleSwap }: RootState) =>
+    jungleSwap.aboutSectionHeight,
+
+  // ----- Error handling -----
+  selectErrorMessage: ({ jungleSwap }: RootState) => jungleSwap.errorMessage,
+};
+
 // ----- Slice actions -----
 export const {
   // ----- User authentification -----
@@ -733,5 +804,57 @@ export const {
   // ----- Error handling -----
   setErrorMessage,
 } = jungleSwapSlice.actions;
+
+// ----- Slice selectors -----
+export const {
+  // ----- User authentication -----
+  selectIsUserChange,
+  selectLoggedInUser,
+
+  // ----- Plants -----
+  selectIsCreatingPlant,
+  selectIsFetchingPlants,
+  selectIsFetchingPlant,
+  selectIsUpdatingPlant,
+  selectIsDeletingPlant,
+  selectPlant,
+  selectPlants,
+  selectfFilteredPlants,
+  selectNumberOfVisibleEntries,
+
+  // ----- Images -----
+  selectIsUploadingPlantImage,
+  selectIsDeletingPlantImage,
+  selectDestroyImageData,
+
+  // ----- Payment -----
+  selectClientSecret,
+
+  // ----- Messages -----
+  selectIsCreatingMessage,
+  selectiIsFetchingMessages,
+  selectIsFetchingMessage,
+  selectIsUpdatingMessage,
+  selectIsDeletingMessage,
+  selectMessages,
+  selectMessage,
+
+  // ----- Requests/Replies check -----
+  selectIsNewRequest,
+  selectIsNewReply,
+  selectAmountOfRequests,
+  selectAmountOfReplies,
+
+  // ----- Interval counter -----
+  selectIntervalId,
+  selectDelayCounter,
+
+  // ----- Pages handling -----
+  selectTitleSectionHeight,
+  selectAboutSectionHeight,
+
+  // ----- Error handling -----
+  selectErrorMessage,
+} = selectors;
 
 export default jungleSwapSlice.reducer;

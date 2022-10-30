@@ -1,15 +1,14 @@
 import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
+import {
+  selectLoggedInUser,
+  selectMessages,
+} from "../../reducer/jungleSwapSlice";
 import { Message, User } from "../../app/typeDefinitions";
 import RequestTile from "./RequestTile";
 
 const RequestsCollection = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const messages = useAppSelector(
-    (state: RootState) => state.jungleSwap.messages
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const messages = useAppSelector(selectMessages);
 
   return (
     <div>

@@ -7,28 +7,26 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
 import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
-import { setPlant, setDestroyImageData } from "../../reducer/jungleSwapSlice";
+import {
+  setPlant,
+  setDestroyImageData,
+  selectLoggedInUser,
+  selectIsUploadingPlantImage,
+  selectIsDeletingPlantImage,
+  selectDestroyImageData,
+  selectPlant,
+  selectIsUpdatingPlant,
+} from "../../reducer/jungleSwapSlice";
 import { Plant, UploadImageData } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 
 const PlantUpdateForm = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isUploadingPlantImage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUploadingPlantImage
-  );
-  const isDeletingPlantImage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isDeletingPlantImage
-  );
-  const destroyImageData = useAppSelector(
-    (state: RootState) => state.jungleSwap.destroyImageData
-  );
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
-  const isUpdatingPlant = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUpdatingPlant
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isUploadingPlantImage = useAppSelector(selectIsUploadingPlantImage);
+  const isDeletingPlantImage = useAppSelector(selectIsDeletingPlantImage);
+  const destroyImageData = useAppSelector(selectDestroyImageData);
+  const plant = useAppSelector(selectPlant);
+  const isUpdatingPlant = useAppSelector(selectIsUpdatingPlant);
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();

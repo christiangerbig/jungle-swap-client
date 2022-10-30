@@ -5,25 +5,22 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
-import { decreaseAmountOfReplies } from "../../reducer/jungleSwapSlice";
+import {
+  decreaseAmountOfReplies,
+  selectIsDeletingMessage,
+  selectIsFetchingMessage,
+  selectLoggedInUser,
+  selectMessage,
+} from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message, MessageId } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
 
 const ReplyDetails = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const message = useAppSelector(
-    (state: RootState) => state.jungleSwap.message
-  );
-  const isFetchingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingMessage
-  );
-  const isDeletingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isDeletingMessage
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const message = useAppSelector(selectMessage);
+  const isFetchingMessage = useAppSelector(selectIsFetchingMessage);
+  const isDeletingMessage = useAppSelector(selectIsDeletingMessage);
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();

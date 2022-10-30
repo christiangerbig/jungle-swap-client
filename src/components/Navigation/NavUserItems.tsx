@@ -1,20 +1,18 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
+import {
+  selectIsNewReply,
+  selectIsNewRequest,
+  selectLoggedInUser,
+} from "../../reducer/jungleSwapSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 const NavUserItems = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isNewRequest = useAppSelector(
-    (state: RootState) => state.jungleSwap.isNewRequest
-  );
-  const isNewReply = useAppSelector(
-    (state: RootState) => state.jungleSwap.isNewReply
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isNewRequest = useAppSelector(selectIsNewRequest);
+  const isNewReply = useAppSelector(selectIsNewReply);
   const { t } = useTranslation();
 
   const tooltipItemRequests = (): string => {

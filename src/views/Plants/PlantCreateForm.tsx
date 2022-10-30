@@ -6,24 +6,21 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
 import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
-import { setErrorMessage } from "../../reducer/jungleSwapSlice";
+import {
+  selectErrorMessage,
+  selectIsCreatingPlant,
+  selectIsUploadingPlantImage,
+  selectLoggedInUser,
+  setErrorMessage,
+} from "../../reducer/jungleSwapSlice";
 import { UploadImageData } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const PlantCreateForm = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isUploadingPlantImage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUploadingPlantImage
-  );
-  const isCreatingPlant = useAppSelector(
-    (state: RootState) => state.jungleSwap.isCreatingPlant
-  );
-  const errorMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.errorMessage
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isUploadingPlantImage = useAppSelector(selectIsUploadingPlantImage);
+  const isCreatingPlant = useAppSelector(selectIsCreatingPlant);
+  const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { push, goBack } = useHistory();
   const { protectRoute } = useRouting();

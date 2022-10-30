@@ -6,27 +6,22 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
 import {
+  selectAmountOfRequests,
+  selectiIsFetchingMessages,
+  selectIsUserChange,
+  selectLoggedInUser,
   setIsNewRequest,
   setStartAmountOfRequests,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../app/store";
 import WaitSpinner from "../../components/spinners/WaitSpinner";
 import RequestsCollection from "../../components/requests/RequestsCollection";
 import GoBackButton from "../../components/helpers/GoBackButton";
 
 const RequestsView = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const isUserChange = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUserChange
-  );
-  const isFetchingMessages = useAppSelector(
-    (state: RootState) => state.jungleSwap.isFetchingMessages
-  );
-  const amountOfRequests = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfRequests
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const isUserChange = useAppSelector(selectIsUserChange);
+  const isFetchingMessages = useAppSelector(selectiIsFetchingMessages);
+  const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const dispatch = useAppDispatch();
   const { protectRoute } = useRouting();
   const { fetchMessages } = useHandleMessage();

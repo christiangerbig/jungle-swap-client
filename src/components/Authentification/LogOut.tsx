@@ -9,23 +9,18 @@ import {
   setIsNewRequest,
   setAmountOfRequests,
   setAmountOfReplies,
+  selectLoggedInUser,
+  selectIntervalId,
+  selectAmountOfRequests,
+  selectAmountOfReplies,
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 
 const LogOut = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const intervalId = useAppSelector(
-    (state: RootState) => state.jungleSwap.intervalId
-  );
-  const amountOfRequests = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfRequests
-  );
-  const amountOfReplies = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfReplies
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const intervalId = useAppSelector(selectIntervalId);
+  const amountOfRequests = useAppSelector(selectAmountOfRequests);
+  const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
   const { push } = useHistory();
   const { logOut } = useAuthentification();

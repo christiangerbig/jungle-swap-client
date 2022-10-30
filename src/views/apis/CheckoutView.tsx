@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { RootState } from "../../app/store";
+import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../components/apis/CheckoutForm";
@@ -13,9 +13,7 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutView = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
   const { protectRoute } = useRouting();
   const { scrollToTop } = scroll;
 

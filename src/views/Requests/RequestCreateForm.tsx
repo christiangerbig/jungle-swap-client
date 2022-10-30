@@ -5,22 +5,21 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
-import { setErrorMessage } from "../../reducer/jungleSwapSlice";
+import {
+  selectErrorMessage,
+  selectIsCreatingMessage,
+  selectLoggedInUser,
+  selectPlant,
+  setErrorMessage,
+} from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestCreateForm = (): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
-  const isCreatingMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.isCreatingMessage
-  );
-  const errorMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.errorMessage
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const plant = useAppSelector(selectPlant);
+  const isCreatingMessage = useAppSelector(selectIsCreatingMessage);
+  const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();

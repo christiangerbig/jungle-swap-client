@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
+import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { Plant, User } from "../../app/typeDefinitions";
 import PlantDetailsUserChoice from "./PlantDetailsUserChoice";
 
@@ -10,9 +10,7 @@ type PlantItemsProps = {
 };
 
 const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
+  const loggedInUser = useAppSelector(selectLoggedInUser);
   const { goBack } = useHistory();
   const { t } = useTranslation();
   const { name, description, size, imageUrl, location, price, creator } = plant;

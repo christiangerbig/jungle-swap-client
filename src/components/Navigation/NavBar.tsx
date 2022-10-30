@@ -13,38 +13,29 @@ import {
   setStartAmountOfRequests,
   setStartAmountOfReplies,
   scrollToPlants,
+  selectIsUserChange,
+  selectLoggedInUser,
+  selectIntervalId,
+  selectDelayCounter,
+  selectIsNewRequest,
+  selectIsNewReply,
+  selectAmountOfRequests,
+  selectAmountOfReplies,
 } from "../../reducer/jungleSwapSlice";
-import { RootState } from "../../app/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "../../app/typeDefinitions";
 import NavAdditionalItems from "./NavAdditionalItems";
 
 const NavBar = (): JSX.Element => {
-  const isUserChange = useAppSelector(
-    (state: RootState) => state.jungleSwap.isUserChange
-  );
-  const loggedInUser = useAppSelector(
-    (state: RootState) => state.jungleSwap.loggedInUser
-  );
-  const intervalId = useAppSelector(
-    (state: RootState) => state.jungleSwap.intervalId
-  );
-  const delayCounter = useAppSelector(
-    (state: RootState) => state.jungleSwap.delayCounter
-  );
-  const isNewRequest = useAppSelector(
-    (state: RootState) => state.jungleSwap.isNewRequest
-  );
-  const isNewReply = useAppSelector(
-    (state: RootState) => state.jungleSwap.isNewReply
-  );
-  const amountOfRequests = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfRequests
-  );
-  const amountOfReplies = useAppSelector(
-    (state: RootState) => state.jungleSwap.amountOfReplies
-  );
+  const isUserChange = useAppSelector(selectIsUserChange);
+  const loggedInUser = useAppSelector(selectLoggedInUser);
+  const intervalId = useAppSelector(selectIntervalId);
+  const delayCounter = useAppSelector(selectDelayCounter);
+  const isNewRequest = useAppSelector(selectIsNewRequest);
+  const isNewReply = useAppSelector(selectIsNewReply);
+  const amountOfRequests = useAppSelector(selectAmountOfRequests);
+  const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
     useHandleMessage();

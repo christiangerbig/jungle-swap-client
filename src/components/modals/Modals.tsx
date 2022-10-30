@@ -1,13 +1,11 @@
 import { useAppSelector } from "../../app/hooks";
 import { useOnlineStatus } from "../../app/custom-hooks/useOnlineStatus";
-import { RootState } from "../../app/store";
 import ErrorModal from "./ErrorModal";
 import OfflineModal from "./OfflineModal";
+import { selectErrorMessage } from "../../reducer/jungleSwapSlice";
 
 const Modals = (): JSX.Element => {
-  const errorMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.errorMessage
-  );
+  const errorMessage = useAppSelector(selectErrorMessage);
   const isOnline = useOnlineStatus();
 
   if (isOnline) {

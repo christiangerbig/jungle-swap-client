@@ -9,15 +9,13 @@ import {
   setAmountOfRequests,
   setAmountOfReplies,
   setErrorMessage,
+  selectErrorMessage,
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const SignIn = (): JSX.Element => {
-  const errorMessage = useAppSelector(
-    (state: RootState) => state.jungleSwap.errorMessage
-  );
+  const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { push } = useHistory();
   const { signIn } = useAuthentification();

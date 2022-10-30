@@ -4,9 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useHandlePayment } from "../../app/custom-hooks/useHandlePayment";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { scrollToPlants } from "../../reducer/jungleSwapSlice";
+import {
+  scrollToPlants,
+  selectClientSecret,
+  selectPlant,
+} from "../../reducer/jungleSwapSlice";
 import { Plant } from "../../app/typeDefinitions";
-import { RootState } from "../../app/store";
 import { Stripe } from "@stripe/stripe-js";
 
 type CardStyle = {
@@ -30,10 +33,8 @@ const CheckoutForm = (): JSX.Element => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [paymentError, setPaymentError] = useState("");
-  const clientSecret = useAppSelector(
-    (state: RootState) => state.jungleSwap.clientSecret
-  );
-  const plant = useAppSelector((state: RootState) => state.jungleSwap.plant);
+  const clientSecret = useAppSelector(selectClientSecret);
+  const plant = useAppSelector(selectPlant);
   const dispatch = useAppDispatch();
   const { push } = useHistory();
   const stripe = useStripe();
