@@ -130,7 +130,25 @@ footer {
 
 .is-icon {
   height: 18.75rem;
-  margin-left: 5rem;
+  margin-left: 3.5rem;
+}
+
+@media (max-width: 1024px) {
+  .is-icon {
+    margin-left: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .is-icon {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .is-icon {
+    margin-left: 2rem;
+  }
 }
 
 .is-background-image {
