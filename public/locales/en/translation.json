@@ -43,6 +43,10 @@
       "sun": "sun",
       "shade": "shade",
       "sunAndShade": "sun and shade"
+    },
+    "language": {
+      "english": "English",
+      "german": "German"
     }
   },
 

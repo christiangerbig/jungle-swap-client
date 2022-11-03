@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -37,13 +37,17 @@ const NavBar = (): JSX.Element => {
   const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
+  const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
     useHandleMessage();
   const { stopCounter } = useIntervalCounter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {
+    const currentLanguage = i18n.resolvedLanguage as string;
+    (selectElementRef.current as HTMLSelectElement).value = currentLanguage;
+
     return () => {
       if (intervalId) {
         stopCounter(intervalId);
@@ -98,6 +102,10 @@ const NavBar = (): JSX.Element => {
     return t("link.tooltipps.search");
   };
 
+  const handleSelectLanguage = ({ target: { value } }: any): void => {
+    i18n.changeLanguage(value);
+  };
+
   return (
     <div>
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
@@ -132,6 +140,16 @@ const NavBar = (): JSX.Element => {
               <FontAwesomeIcon icon={faSearch} />
             </Link>
           </Nav>
+          <select
+            ref={selectElementRef}
+            className="form-select select-language"
+            onChange={(event) => {
+              handleSelectLanguage(event);
+            }}
+          >
+            <option value="de">{t("select.language.german")}</option>
+            <option value="en">{t("select.language.english")}</option>
+          </select>
         </Navbar.Collapse>
       </Navbar>
     </div>

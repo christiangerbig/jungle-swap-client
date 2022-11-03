@@ -185,6 +185,21 @@ footer {
   background-attachment: fixed;
 }
 
+.select-language {
+  color: #415dff;
+  background-color: transparent;
+  border: none;
+}
+
+.select-language:hover {
+  color: #204d2c;
+}
+
+.select-language option {
+  color: #415dff;
+  background-color: #fbf8ef;
+}
+
 .form-style {
   background-color: #fbf8ef;
   padding: 0.9375rem;

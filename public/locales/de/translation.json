@@ -1,0 +1,273 @@
+{
+  "link": {
+    "jungleSwap": "JungleSwap",
+    "allPlants": "Alle Pflanzen",
+    "myPlants": "Meine Pfplanzen",
+    "createPlant": "Pflanze erstellen",
+    "requests": "Anfragen",
+    "replies": "Antworten",
+    "logOut": "Abmelden",
+    "tryIt": "Probier es!",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "details": "Details",
+    "tooltipps": {
+      "newRequest": "neue Anfrage",
+      "newReply": "neue Antwort",
+      "search": "Pflanze suchen"
+    }
+  },
+
+  "button": {
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "create": "Erstellen",
+    "update": "Ändern",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "send": "Senden",
+    "submit": "Absenden",
+    "buy": "Kaufen",
+    "swap": "Tauschen",
+    "reply": "Antworten",
+    "done": "Erledigt",
+    "goBack": "Zurück",
+    "more": "Mehr",
+    "proceed": "Weiter",
+    "takeMeHome": "Nimm mich nach Hause"
+  },
+
+  "select": {
+    "location": {
+      "title": "Ort auswählen",
+      "sun": "Sonne",
+      "shade": "Schatten",
+      "sunAndShade": "Sonne und Schatten"
+    },
+    "language": {
+      "english": "Englisch",
+      "german": "Deutsch"
+    }
+  },
+
+  "texts": {
+    "home": {
+      "title": {
+        "headline": "JungleSwap",
+        "subheadline": "Teile dein grünes Herz"
+      },
+      "about": {
+        "headline": "Willkommen zu JungleSwap!",
+        "subheadline": "Bringe Grün in dein Zuhause",
+        "paragraph": {
+          "line1": "Es ist kinderleicht.",
+          "line2": "Teile deine Pflanzenableger.",
+          "line3": "Verdiene damit Geld!",
+          "line4": "Oder tausche sie gegen eine andere Pflanze aus.",
+          "line5": "Du hast keine Babypflanzen?",
+          "line6": "Du kannst einfach einkaufen und einer Pflanzen ein neues Zuhause geben."
+        }
+      },
+      "allPlants": {
+        "headline": "Pflanzen"
+      },
+      "searchPlant": {
+        "headline": "Suche nach einer Pflanze",
+        "namePlaceholder": "Gib einen Namen ein"
+      }
+    },
+    "authentification": {
+      "signIn": {
+        "headline": "Anmelden",
+        "email": "Email-Adresse",
+        "password": "Passwort",
+        "enterPlaceholder": "Eingabe"
+      },
+      "signUp": {
+        "headline": "Registrieren",
+        "username": "Benutzername",
+        "email": "Email-Adresse",
+        "password": "Passwort",
+        "enterPlaceholder": "Eingabe",
+        "alreadyAccountCreated": "Du hast schon ein Benutzerkonto?"
+      }
+    },
+    "plants": {
+      "myPlants": {
+        "headline": "Meine Pflanzen"
+      },
+      "createPlant": {
+        "form": {
+          "headline": "Pflanze erstellen",
+          "name": "Name",
+          "description": "Beschreibung",
+          "size": "Größe (cm)",
+          "location": "Ort",
+          "price": "Preis (EUR)",
+          "image": "Bild",
+          "enterPlaceholder": "Eingabe"
+        }
+      },
+      "updatePlant": {
+        "form": {
+          "headline": "Pflanze ändern",
+          "name": "Name",
+          "description": "Beschreibung",
+          "size": "Größe (cm)",
+          "location": "Ort",
+          "price": "Preis (EUR)",
+          "image": "Bild"
+        }
+      },
+      "plantThumbnail": {
+        "currency": "€"
+      },
+      "plantDetails": {
+        "headline": "Pflanzendetails",
+        "name": "Name:",
+        "description": "Beschreibung:",
+        "size": "Größe:",
+        "sizeUnit": "cm",
+        "likes": "Mag:",
+        "price": "Preis:",
+        "currency": "€"
+      },
+      "checkout": {
+        "form": {
+          "price": " Preis:",
+          "currency": "€",
+          "payNow": "Jetzt bezahlen",
+          "paymentSuccessful": "Zahlung erfolgreich."
+        }
+      }
+    },
+    "requests": {
+      "createRequest": {
+        "form": {
+          "headline": "Deine Anfrage",
+          "subheadline": "für"
+        }
+      },
+      "updateRequest": {
+        "form": {
+          "headline": "Beantworte deine Anfrage",
+          "replyPlaceholder": "Deine Antwort"
+        }
+      },
+      "overview": {
+        "headline": "Anfragen für deine Pflanzen"
+      },
+      "requestDetails": {
+        "headline": "Anfrage für",
+        "subheadline": "von",
+        "yourReply": "Deine Antwort"
+      },
+      "requestTile": {
+        "headline": "Anfrage für",
+        "subheadline": "von"
+      }
+    },
+    "replies": {
+      "overview": {
+        "headline": "Antworten auf deine Anfragen"
+      },
+      "replyDetails": {
+        "headline": "Deine Anfrage für",
+        "replyBy": "Antwort von"
+      },
+      "replyTile": {
+        "headline": "Antwort für",
+        "subheadline": "von"
+      }
+    },
+    "notFound": {
+      "headline": "Oh-oh!",
+      "subheadline1": "Wir glauben du hast dich im Dschungel verirrt!",
+      "subheadline2": "404 Nicht gefunden"
+    },
+    "unauthorized": {
+      "headline": "Oh-oh!",
+      "subheadline1": "Wir glauben du hast den verbotenen Teil des Dschungels erreicht!",
+      "subheadline2": "401 Unbefugt"
+    },
+    "footer": {
+      "copyright": "©",
+      "appAuthor1": "Christian Gerbig",
+      "appAuthor2": "Lisa Montebaur"
+    },
+    "errorModal": {
+      "headline": "Oh-oh!",
+      "subheadline": "Im Dschungel ist etwas schief gelaufen!"
+    },
+    "offlineModal": {
+      "headline": "Oh-oh!",
+      "subheadline": "Du hast deine Wurzeln im Dschungel verloren!"
+    }
+  },
+
+  "errorTexts": {
+    "authentification": {
+      "unauthorized": "Unerlaubter Benutzer",
+      "signUp": {
+        "form": {
+          "usernameMissing": "Bitte gib einen Benutzernamen an",
+          "emailMissing": "Bitte gib eine E-Mail an",
+          "passwordMissing": "Bitte gib dein Passwort an",
+          "emailFormatInvalid": "Das E-Mail-Format ist ungültig",
+          "passwordInvalid": "Das Passwort muss aus 8 Zeichen, einer Zahl, einem Sonderzeichen und einem Großbuchstaben bestehen",
+          "userAlreadyExists": "Benutzername oder E-Mail existiert bereits"
+        },
+        "errorWhileCreatingUser": "Während der Erstellung des Benutzers trat ein Fehler auf"
+      },
+      "signIn": {
+        "form": {
+          "emailMissing": "Bitte gib eine E-Mail an",
+          "passwordMissing": "Bitte gib dein Passwort an",
+          "emailFormatInvalid": "Das E-Mail-Format ist ungültig",
+          "noMatchPasswords": "Passwörter stimmen nicht überein"
+        },
+        "userUnknown": "Der Benutzer existiert nicht"
+      },
+      "logOut": {
+        "noUserUpdate": "Konnte nicht den Benutzer aktualisieren"
+      }
+    },
+    "plants": {
+      "createPlant": {
+        "form": {
+          "nameMissing": "Bitte gib einen Namen an",
+          "descriptionMissing": "Bitte gib eine Beschreibung an",
+          "sizeMissing": "Bitte gib eine Größe an",
+          "locationMissing": "Bitte gib einen Ort an",
+          "priceMissing": "Bitte gib einen Preis an",
+          "imageMissing": "Bitte wähle ein Bild aus",
+          "noImageSelected": "Bitte wähle ein Bild zum Löschen aus"
+        }
+      },
+      "createPlantFailed": "Beim Erstellen der Pflanze trat ein Fehler auf",
+      "fetchPlantFailed": "Das Abrufen der Pflanze ist fehlgeschlagen",
+      "fetchAllPlantsFailed": "Das Abrufen aller Pflanzen schlug fehl",
+      "updatePlantFailed": "Die Aktualisierung der Anlage ist fehlgeschlagen",
+      "deletePlantFailed": "Das Löschen der Pflanze ist fehlgeschlagen"
+    },
+    "messages": {
+      "createRequest": {
+        "form": {
+          "requestTextMissing": "Bitte gib einen Anfragetext an"
+        }
+      },
+      "updateRequest": {
+        "form": {
+          "replyTextMissing": "Bitte gib einen Antworttext an"
+        }
+      },
+      "createMessageFailed": "Das Erstellen der Nachricht ist fehlgeschlagen",
+      "fetchMessageFailed": "Das Abrufen der Nachricht ist fehlgeschlagen",
+      "fetchAllMessagesFailed": "Das Abrufen aller Nachrichten ist fehlgeschlagen",
+      "updateMessageFailed": "Das Aktualisieren der Nachricht ist fehlgeschlagen",
+      "deleteMessageFailed": "Das Löschen der Nachricht ist fehlgeschlagen"
+    },
+    "offline": "Keine UInternetverbindung",
+    "general": "Ein Fehler ist aufgetreten"
+  }
+}
