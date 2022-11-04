@@ -22,9 +22,9 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **Reply request:** As a user I can reply a request for my plant.
 - **Replies overview** As a user I can see all the replied requests for plants.
 - **Delete request:** As a user I can delete a request.
-- **401:** As an anom I can see a 401 page if I try to accsess a special page
 - **Language selection:** As a user/anon I can select the language of all texts in the app. German or English
 - **No internet connection:** As a user/anon I will be informed by a modal if there is no internet connection
+- **401:** As an anom I can see a 401 page if I try to accsess a special page
 - **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
 
 ## Backlog
@@ -137,11 +137,24 @@ With this app you can upload your indoor plant offshoots to swap for another pla
   - replies.create()
   - replies.details(id)
 
-- External API
-  - API Stripe for purchase
-  - API Kommunicate for chat
-  - API Cloudinary for image upload
-  - API I18n for language detection/selection
+## Custom hooks
+
+- useAuthentification()
+- useHandleMessage()
+- useHandlePayment()
+- useHandlePlant()
+- useHandlePlantImage()
+- useIntervalCounter()
+- useNavigation()
+- useOnlineStatus()
+- useRouting()
+
+## External API
+
+- API Stripe for purchase
+- API Kommunicate for chat
+- API Cloudinary for image upload
+- API I18n for language detection/selection
 
 # Server / Backend
 
@@ -210,18 +223,6 @@ Message model
   messageState: Boolean,
 }
 ```
-
-## Custom hooks
-
-- useAuthentification()
-- useHandleMessage()
-- useHandlePayment()
-- useHandlePlant()
-- useHandlePlantImage()
-- useIntervalCounter()
-- useNavigation()
-- useOnlineStatus()
-- useRouting()
 
 ## API Endpoints (backend routes)
 
