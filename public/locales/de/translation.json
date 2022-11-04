@@ -2,7 +2,7 @@
   "link": {
     "jungleSwap": "JungleSwap",
     "allPlants": "Alle Pflanzen",
-    "myPlants": "Meine Pfplanzen",
+    "myPlants": "Meine Pflanzen",
     "createPlant": "Pflanze erstellen",
     "requests": "Anfragen",
     "replies": "Antworten",
@@ -34,7 +34,7 @@
     "goBack": "Zurück",
     "more": "Mehr",
     "proceed": "Weiter",
-    "takeMeHome": "Nimm mich nach Hause"
+    "takeMeHome": "Bring mich nach Hause"
   },
 
   "select": {
@@ -211,19 +211,19 @@
       "signUp": {
         "form": {
           "usernameMissing": "Bitte gib einen Benutzernamen an",
-          "emailMissing": "Bitte gib eine E-Mail an",
+          "emailMissing": "Bitte gib eine Email an",
           "passwordMissing": "Bitte gib dein Passwort an",
-          "emailFormatInvalid": "Das E-Mail-Format ist ungültig",
+          "emailFormatInvalid": "Das Email-Format ist ungültig",
           "passwordInvalid": "Das Passwort muss aus 8 Zeichen, einer Zahl, einem Sonderzeichen und einem Großbuchstaben bestehen",
-          "userAlreadyExists": "Benutzername oder E-Mail existiert bereits"
+          "userAlreadyExists": "Benutzername oder Email existiert bereits"
         },
         "errorWhileCreatingUser": "Während der Erstellung des Benutzers trat ein Fehler auf"
       },
       "signIn": {
         "form": {
-          "emailMissing": "Bitte gib eine E-Mail an",
+          "emailMissing": "Bitte gib eine Email an",
           "passwordMissing": "Bitte gib dein Passwort an",
-          "emailFormatInvalid": "Das E-Mail-Format ist ungültig",
+          "emailFormatInvalid": "Das Email-Format ist ungültig",
           "noMatchPasswords": "Passwörter stimmen nicht überein"
         },
         "userUnknown": "Der Benutzer existiert nicht"
@@ -267,7 +267,7 @@
       "updateMessageFailed": "Das Aktualisieren der Nachricht ist fehlgeschlagen",
       "deleteMessageFailed": "Das Löschen der Nachricht ist fehlgeschlagen"
     },
-    "offline": "Keine UInternetverbindung",
+    "offline": "Keine Internetverbindung",
     "general": "Ein Fehler ist aufgetreten"
   }
 }
