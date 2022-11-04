@@ -36,11 +36,11 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 ## React Router Routes (React App)
 
 | Path                         | Component             | Permissions                | Behavior                            |
-| ---------------------------- | --------------------- | -------------------------- | ----------------------------------- | --- | --- | --- | --- | --------------------------------- |
+| ---------------------------- | --------------------- | -------------------------- | ----------------------------------- |
 | `/`                          | Home, NavBar, Footer, | public `<AnonRoute>`       | Home page, Shows all plants         |
 |                              | Chat                  |                            |                                     |
-| `/auth/sign-up`              | SignUp                | anon only `<AnonRoute>`    | Signup form, link to signin         |     |     |     |     | navigate to homepage after signup |
-| `/auth/sign-in`              | SignIn                | anon only `<AnonRoute>`    | Login form, link to signup,         |
+| `/auth/sign-up`              | SignUp                | anon only `<AnonRoute>`    | Signup form, link to signin         |
+| `/auth/sign-in`              | SignIn                | anon only `<AnonRoute>`    | Login form, link to signup          |
 |                              |                       |                            | navigate to homepage after signin   |
 | `/auth/log-out`              | n/a                   | user only `<PrivateRoute>` | Navigate to homepage after logout,  |
 |                              |                       |                            | expire session                      |
