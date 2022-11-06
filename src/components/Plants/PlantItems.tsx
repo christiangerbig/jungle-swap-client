@@ -14,7 +14,7 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
   const { goBack } = useHistory();
   const { t } = useTranslation();
   const { name, description, size, imageUrl, location, price, creator } = plant;
-  const { _id } = creator as User;
+  const { _id } = loggedInUser as User;
 
   return (
     <div className="col">
@@ -59,7 +59,7 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
           <div className="row-2 justify-content-center">
             <div className="card-body text-right pt-0">
               <PlantDetailsUserChoice
-                isCreator={(loggedInUser as User)._id === _id}
+                isCreator={(creator as User)._id === _id}
               />
               <button
                 className="btn btn-sm ml-2 form-control is-width-medium mb-3"

@@ -46,14 +46,10 @@ const RequestDetails = (): JSX.Element => {
     };
 
     const updateBuyerMessage = (updatedMessage: Message) => {
-      updateMessage(
-        updatedMessage._id as MessageId,
-        updatedMessage,
-        (): void => {
-          dispatch(decreaseAmountOfRequests());
-          goBack();
-        }
-      );
+      updateMessage(updatedMessage, (): void => {
+        dispatch(decreaseAmountOfRequests());
+        goBack();
+      });
     };
 
     const updatedMessage = setBuyerMessageInactive(message);

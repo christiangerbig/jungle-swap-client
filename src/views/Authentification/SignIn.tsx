@@ -28,7 +28,9 @@ const SignIn = (): JSX.Element => {
   }, []);
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>): void => {
-    const { email, password } = event.target as any;
+    const {
+      target: { email, password },
+    } = event as any;
     const user: User = {
       email: email.value,
       password: password.value,
@@ -62,12 +64,7 @@ const SignIn = (): JSX.Element => {
     <div className="container row mt-5 custom fullscreen">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5">{t("texts.authentification.signIn.headline")}</h2>
-        <form
-          className="form-style"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
-            handleSignIn(event);
-          }}
-        >
+        <form className="form-style" onSubmit={handleSignIn}>
           <div className="form-group">
             <label htmlFor="InputEmail">
               {t("texts.authentification.signIn.email")}

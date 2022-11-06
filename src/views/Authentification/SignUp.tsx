@@ -26,7 +26,9 @@ const SignUp = (): JSX.Element => {
   }, []);
 
   const handleSignUp = (event: React.FormEvent<HTMLFormElement>): void => {
-    const { username, email, password } = event.target as any;
+    const {
+      target: { username, email, password },
+    } = event as any;
     const newUser: User = {
       username: username.value,
       email: email.value.toLowerCase(),
@@ -62,12 +64,7 @@ const SignUp = (): JSX.Element => {
     <div className="container row mt-5">
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2 className="mb-5">{t("texts.authentification.signUp.headline")}</h2>
-        <form
-          className="form-style"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
-            handleSignUp(event);
-          }}
-        >
+        <form className="form-style" onSubmit={handleSignUp}>
           <div className="form-group">
             <label htmlFor="InputUsername">
               {t("texts.authentification.signUp.username")}

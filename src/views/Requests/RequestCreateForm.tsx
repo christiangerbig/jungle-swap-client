@@ -39,11 +39,15 @@ const RequestCreateForm = (): JSX.Element => {
     event: React.FormEvent<HTMLFormElement>,
     { _id, creator }: Plant
   ): void => {
-    const { request } = event.target as any;
+    const {
+      target: {
+        request: { value },
+      },
+    } = event as any;
     const newMessage: Message = {
       seller: (creator as User)._id,
       plant: _id,
-      request: request.value,
+      request: value,
     };
     event.preventDefault();
     createMessage(newMessage, (): void => {

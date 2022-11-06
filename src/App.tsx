@@ -8,7 +8,7 @@ import LogOut from "./components/authentification/LogOut";
 import CreatePlantForm from "./views/plants/PlantCreateForm";
 import PlantDetails from "./views/plants/PlantDetails";
 import UpdatePlantForm from "./views/plants/PlantUpdateForm";
-import CheckoutPage from "./views/apis/CheckoutView";
+import CheckoutPage from "./views/apis/PaymentCheckoutView";
 import RequestsOverview from "./views/requests/RequestsView";
 import RepliesOverview from "./views/replies/RepliesView";
 import CreateRequestForm from "./views/requests/RequestCreateForm";

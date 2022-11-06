@@ -91,12 +91,12 @@ export const useHandleMessage = (): HandleMessage => {
     },
 
     updateMessage: (
-      messageId: MessageId,
       updatedMessage: Message,
       callbackFunction: Function
     ): void => {
+      const { _id } = updatedMessage;
       dispatch(setIsUpdatingMessage(true));
-      dispatch(updateMessage({ messageId, updatedMessage }))
+      dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
         .unwrap()
         .then((message: Message): void => {
           dispatch(setMessageChanges(message));
@@ -121,8 +121,8 @@ export const useHandleMessage = (): HandleMessage => {
     },
 
     deleteRemainingMessages: (messages: Message[], plantId: PlantId): void => {
-      messages.forEach(({ _id, plant }: Message): void => {
-        if ((plant as Plant)._id === plantId) {
+      messages.forEach(({ _id }: Message): void => {
+        if (_id === plantId) {
           dispatch(setIsDeletingMessage(true));
           dispatch(deleteMessage(_id as PlantId))
             .unwrap()
@@ -137,17 +137,14 @@ export const useHandleMessage = (): HandleMessage => {
     },
 
     checkNewRequests: (
-      loggedInUser: User | null,
+      { _id }: { _id: string },
       messages: Message[],
       amountOfRequests: number
     ): void => {
       const calculateAmountOfRequests = (messages: Message[]): number => {
         const currentAmountOfRequests = messages.filter(
           ({ seller, messageState }: Message): boolean => {
-            return (
-              (seller as User)._id === (loggedInUser as User)._id &&
-              messageState === true
-            );
+            return (seller as User)._id === _id && messageState === true;
           }
         ).length;
         return currentAmountOfRequests;
@@ -170,16 +167,14 @@ export const useHandleMessage = (): HandleMessage => {
     },
 
     checkNewReplies: (
-      loggedInUser: User | null,
+      { _id }: { _id: string },
       messages: Message[],
       amountOfReplies: number
     ): void => {
       const calculateAmountOfReplies = (messages: Message[]): number => {
         const currentAmountOfReplies = messages.filter(
           ({ buyer, reply }: Message): boolean => {
-            return (
-              (buyer as User)._id === (loggedInUser as User)._id && reply !== ""
-            );
+            return (buyer as User)._id === _id && reply !== "";
           }
         ).length;
         return currentAmountOfReplies;

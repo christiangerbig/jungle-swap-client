@@ -6,8 +6,9 @@ type ReplyThumbnailProps = {
   message: Message;
 };
 
-const ReplyThumbnail = ({ message }: ReplyThumbnailProps): JSX.Element => {
-  const { _id, seller, plant } = message;
+const ReplyThumbnail = ({
+  message: { _id, seller, plant },
+}: ReplyThumbnailProps): JSX.Element => {
   const { name } = plant as Plant;
   const { username } = seller as User;
   const { t } = useTranslation();

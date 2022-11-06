@@ -143,9 +143,7 @@ const NavBar = (): JSX.Element => {
           <select
             ref={selectElementRef}
             className="form-select select-language"
-            onChange={(event) => {
-              handleSelectLanguage(event);
-            }}
+            onChange={handleSelectLanguage}
           >
             <option value="de">{t("select.language.german")}</option>
             <option value="en">{t("select.language.english")}</option>

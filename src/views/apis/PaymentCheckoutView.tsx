@@ -6,13 +6,13 @@ import { useRouting } from "../../app/custom-hooks/useRouting";
 import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../../components/apis/CheckoutForm";
+import CheckoutForm from "../../components/apis/PaymentCheckoutForm";
 
 const stripePromise = loadStripe(
   "pk_test_51IQBsPA6EAM4YnfDyrjHWnLHzZ5KkI9tsERzYhBGVoctZBrFUb4Sda035HvcQKpp7thFiqW6QmO8ytPbOAMTg33z00cHvcbojv"
 );
 
-const CheckoutView = (): JSX.Element => {
+const PaymentCheckoutView = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
   const { protectRoute } = useRouting();
   const { scrollToTop } = scroll;
@@ -38,4 +38,4 @@ const CheckoutView = (): JSX.Element => {
   );
 };
 
-export default CheckoutView;
+export default PaymentCheckoutView;

@@ -51,25 +51,27 @@ const PlantUpdateForm = (): JSX.Element => {
   }, []);
 
   const handlePlantEntryChange = (
-    { target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    {
+      target: { name, value },
+    }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     plant: Plant
   ): void => {
     const clonedPlant: Plant = JSON.parse(JSON.stringify(plant));
-    switch (target.name) {
+    switch (name) {
       case "name":
-        clonedPlant.name = target.value;
+        clonedPlant.name = value;
         break;
       case "description":
-        clonedPlant.description = target.value;
+        clonedPlant.description = value;
         break;
       case "size":
-        clonedPlant.size = target.value as unknown as number;
+        clonedPlant.size = Number(value);
         break;
       case "location":
-        clonedPlant.location = target.value;
+        clonedPlant.location = value;
         break;
       case "price":
-        clonedPlant.price = target.value as unknown as number;
+        clonedPlant.price = Number(value);
     }
     dispatch(setPlant(clonedPlant));
   };

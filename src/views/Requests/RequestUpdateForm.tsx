@@ -12,7 +12,7 @@ import {
   selectMessage,
   setMessage,
 } from "../../reducer/jungleSwapSlice";
-import { Message, MessageId } from "../../app/typeDefinitions";
+import { Message } from "../../app/typeDefinitions";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
 
 const RequestUpdateForm = (): JSX.Element => {
@@ -35,16 +35,16 @@ const RequestUpdateForm = (): JSX.Element => {
   }, []);
 
   const handleCreateReply = (
-    { target }: React.ChangeEvent<HTMLTextAreaElement>,
+    { target: { value } }: React.ChangeEvent<HTMLTextAreaElement>,
     message: Message
   ): void => {
     const clonedMessage: Message = JSON.parse(JSON.stringify(message));
-    clonedMessage.reply = target.value;
+    clonedMessage.reply = value;
     dispatch(setMessage(clonedMessage));
   };
 
   const handleUpdateMessage = (updatedMessage: Message): void => {
-    updateMessage(updatedMessage._id as MessageId, updatedMessage, (): void => {
+    updateMessage(updatedMessage, (): void => {
       goBack();
     });
   };

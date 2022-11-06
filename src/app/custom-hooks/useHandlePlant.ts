@@ -112,7 +112,7 @@ export const useHandlePlant = (): HandlePlant => {
       dispatch(setIsUpdatingPlant(true));
       dispatch(updatePlant({ plantId: _id as PlantId, updatedPlant }))
         .unwrap()
-        .then((updatedPlant: Plant): void => {
+        .then((updatedPlant): void => {
           dispatch(setPlantChanges(updatedPlant));
           callbackFunction();
         })

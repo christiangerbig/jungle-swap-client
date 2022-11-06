@@ -39,7 +39,8 @@ const PlantCreateForm = (): JSX.Element => {
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
   ): void => {
-    const { plantImage } = event.target as any;
+    const { target } = event as any;
+    const { plantImage } = target as any;
     const image = plantImage.files[0];
     event.preventDefault();
     const uploadForm = new FormData();
@@ -47,7 +48,7 @@ const PlantCreateForm = (): JSX.Element => {
     createImage(
       uploadForm,
       ({ imageUrl, imagePublicId }: UploadImageData): void => {
-        createPlant(event.target, { imageUrl, imagePublicId }, (): void => {
+        createPlant(target, { imageUrl, imagePublicId }, (): void => {
           push("/plants/my-own");
         });
       }
@@ -87,12 +88,7 @@ const PlantCreateForm = (): JSX.Element => {
         <h2 className="mb-5 text-left">
           {t("texts.plants.createPlant.form.headline")}
         </h2>
-        <form
-          className="form-style"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
-            handleUploadPlantImage(event);
-          }}
-        >
+        <form className="form-style" onSubmit={handleUploadPlantImage}>
           <label htmlFor="enterName">
             {t("texts.plants.createPlant.form.name")}
           </label>
