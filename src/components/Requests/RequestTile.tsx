@@ -16,9 +16,11 @@ const RequestTile = ({
   return (
     <div className="card p-3 mt-4">
       <h4>
-        {t("texts.requests.requestTile.subheadline")} {name}
+        {t("texts.requests.requestTile.headline")} {name}
       </h4>
-      <h5>{username}</h5>
+      <h5>
+        {t("texts.requests.requestTile.subheadline")} {username}
+      </h5>
       <div className="text-center">
         <Link
           to={`/requests/fetch/${_id}`}

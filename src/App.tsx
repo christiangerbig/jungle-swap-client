@@ -5,20 +5,20 @@ import Home from "./views/home/Home";
 import SignUp from "./views/authentification/SignUp";
 import SignIn from "./views/authentification/SignIn";
 import LogOut from "./components/authentification/LogOut";
-import CreatePlantForm from "./views/plants/PlantCreateForm";
+import PlantCreateForm from "./views/plants/PlantCreateForm";
 import PlantDetails from "./views/plants/PlantDetails";
-import UpdatePlantForm from "./views/plants/PlantUpdateForm";
-import CheckoutPage from "./views/apis/PaymentCheckoutView";
-import RequestsOverview from "./views/requests/RequestsView";
-import RepliesOverview from "./views/replies/RepliesView";
-import CreateRequestForm from "./views/requests/RequestCreateForm";
+import PlantUpdateForm from "./views/plants/PlantUpdateForm";
+import PaymentCheckoutView from "./views/apis/PaymentCheckoutView";
+import RequestsView from "./views/requests/RequestsView";
+import RepliesView from "./views/replies/RepliesView";
+import RequestCreateForm from "./views/requests/RequestCreateForm";
 import RequestDetails from "./views/requests/RequestDetails";
 import ReplyDetails from "./views/replies/ReplyDetails";
-import UpdateRequestForm from "./views/requests/RequestUpdateForm";
+import RequestUpdateForm from "./views/requests/RequestUpdateForm";
 import Unauthorized from "./views/authentification/Unauthorized";
 import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
-import MyPlants from "./views/plants/PlantsCreatedView";
+import PlantsCreatedView from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,37 +47,37 @@ const App = (): JSX.Element => {
         </Route>
 
         <Route path="/plants/create">
-          <CreatePlantForm />
+          <PlantCreateForm />
         </Route>
         <Route path="/plants/fetch/:plantId">
           <PlantDetails />
         </Route>
         <Route path="/plants/update">
-          <UpdatePlantForm />
+          <PlantUpdateForm />
         </Route>
         <Route path="/plants/checkout">
-          <CheckoutPage />
+          <PaymentCheckoutView />
         </Route>
         <Route path="/plants/my-own">
-          <MyPlants />
+          <PlantsCreatedView />
         </Route>
 
         <Route path="/messages/create">
-          <CreateRequestForm />
+          <RequestCreateForm />
         </Route>
         <Route path="/messages/update">
-          <UpdateRequestForm />
+          <RequestUpdateForm />
         </Route>
 
         <Route path="/requests/fetch-all">
-          <RequestsOverview />
+          <RequestsView />
         </Route>
         <Route path="/requests/fetch/:messageId">
           <RequestDetails />
         </Route>
 
         <Route path="/replies/fetch-all">
-          <RepliesOverview />
+          <RepliesView />
         </Route>
         <Route path="/replies/fetch/:messageId">
           <ReplyDetails />
