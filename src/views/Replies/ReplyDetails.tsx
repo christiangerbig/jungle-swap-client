@@ -73,7 +73,7 @@ const ReplyDetails = (): JSX.Element => {
         <div className="text-right px-3">
           <button
             disabled={buttonState()}
-            className="btn btn-sm ml-2 is-width-medium form-control mb-1"
+            className="btn btn-sm mx-2 is-width-medium form-control mb-1"
             onClick={(): void => {
               handleDeleteMessage(_id as MessageId);
             }}
@@ -87,7 +87,7 @@ const ReplyDetails = (): JSX.Element => {
             className="is-link"
             onClick={scrollToTop}
           >
-            <button className="btn btn-sm mt-4 is-width-medium form-control">
+            <button className="btn btn-sm mx-2 mt-4 is-width-medium form-control">
               {t("button.goBack")}
             </button>
           </Link>

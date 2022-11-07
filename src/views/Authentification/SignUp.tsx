@@ -108,7 +108,7 @@ const SignUp = (): JSX.Element => {
           <button
             type="submit"
             formNoValidate
-            className="btn btn-sm mt-4 is-width-medium form-control"
+            className="btn btn-sm mx-2 mt-4 is-width-medium form-control"
           >
             {t("button.signUp")}
           </button>
@@ -117,7 +117,7 @@ const SignUp = (): JSX.Element => {
           </p>
           <div className="text-right">
             <Link to={"/auth/sign-in"} className="is-link">
-              <button className="btn btn-sm ml-4 is-width-medium form-control mt-0 mb-2">
+              <button className="btn btn-sm mx-2 is-width-medium form-control mt-0 mb-2">
                 {t("button.signIn")}
               </button>
             </Link>

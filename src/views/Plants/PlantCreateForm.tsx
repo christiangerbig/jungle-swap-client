@@ -163,12 +163,12 @@ const PlantCreateForm = (): JSX.Element => {
             <button
               type="submit"
               disabled={buttonState()}
-              className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
+              className="mx-2 mb-2 btn btn-sm form-control is-width-medium"
             >
               {t("button.create")}
             </button>
             <button
-              className="ml-4 mb-2 btn btn-sm form-control is-width-medium"
+              className="mx-2 mb-2 btn btn-sm form-control is-width-medium"
               onClick={(): void => {
                 goBack();
               }}

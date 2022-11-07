@@ -62,7 +62,7 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
                 isCreator={(creator as User)._id === _id}
               />
               <button
-                className="btn btn-sm ml-2 form-control is-width-medium mb-3"
+                className="btn btn-sm mx-2 form-control is-width-medium mb-3"
                 onClick={(): void => {
                   goBack();
                 }}

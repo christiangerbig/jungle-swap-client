@@ -72,7 +72,7 @@ const RequestUpdateForm = (): JSX.Element => {
         <h2 className="mt-5 mb-4">
           {t("texts.requests.updateRequest.form.headline")}
         </h2>
-        <div className="card is-card-width-small mb-5">
+        <div className="card is-card-width-medium mb-5">
           <div className="card-body">
             <p>{request}</p>
             <textarea
@@ -96,7 +96,7 @@ const RequestUpdateForm = (): JSX.Element => {
             <div className="row justify-content-end px-3">
               <button
                 disabled={buttonState()}
-                className="btn btn-sm is-width-medium form-control mr-3 mb-2"
+                className="btn btn-sm is-width-medium form-control mx-2 mb-2"
                 onClick={(): void => {
                   handleUpdateMessage(message);
                 }}
@@ -104,7 +104,7 @@ const RequestUpdateForm = (): JSX.Element => {
                 {t("button.submit")}
               </button>
               <button
-                className="btn btn-sm is-width-medium form-control mb-2"
+                className="btn btn-sm is-width-medium form-control mx-2 mb-2"
                 onClick={(): void => {
                   goBack();
                 }}

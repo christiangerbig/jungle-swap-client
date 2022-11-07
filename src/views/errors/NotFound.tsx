@@ -11,7 +11,7 @@ const NotFound = (): JSX.Element => {
         <h2>{t("texts.notFound.subheadline1")}</h2>
         <h3>{t("texts.notFound.subheadline2")}</h3>
         <Link to={"/"} className="is-link">
-          <button className="ml-2 btn btn-sm is-width-medium form-control">
+          <button className="mx-2 btn btn-sm is-width-medium form-control">
             {t("button.takeMeHome")}
           </button>
         </Link>

@@ -30,11 +30,11 @@ const RequestDetails = (): JSX.Element => {
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    protectRoute((): void => {
-      fetchMessage(messageId, (): void => {
-        scrollToTop();
-      });
+    //protectRoute((): void => {
+    fetchMessage(messageId, (): void => {
+      scrollToTop();
     });
+    //});
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
@@ -83,13 +83,13 @@ const RequestDetails = (): JSX.Element => {
         <div className="text-right px-3">
           {!reply && (
             <Link to={`/messages/update/${_id}`} className="is-link">
-              <button className="btn btn-sm ml-2 is-width-medium form-control mb-1">
+              <button className="btn btn-sm mx-2 is-width-medium form-control mb-1">
                 {t("button.reply")}
               </button>
             </Link>
           )}
           <button
-            className="btn btn-sm ml-2 is-width-medium form-control mb-1"
+            className="btn btn-sm mx-2 is-width-medium form-control mb-1"
             onClick={(): void => {
               handleChangeMessageState(message);
             }}
@@ -103,7 +103,7 @@ const RequestDetails = (): JSX.Element => {
             className="is-link"
             onClick={scrollToTop}
           >
-            <button className="btn btn-sm mt-4 is-width-medium form-control">
+            <button className="btn btn-sm mt-4 mx-2 is-width-medium form-control">
               {t("button.goBack")}
             </button>
           </Link>
