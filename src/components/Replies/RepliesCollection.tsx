@@ -6,7 +6,7 @@ import {
 import { Message, User } from "../../app/typeDefinitions";
 import ReplyTile from "./ReplyTile";
 
-const RepliesCollection = (): JSX.Element => {
+const RepliesCollection = (): JSX.Element | null => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
   const messages = useAppSelector(selectMessages);
 

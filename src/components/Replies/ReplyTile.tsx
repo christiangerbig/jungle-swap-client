@@ -9,7 +9,7 @@ type ReplyThumbnailProps = {
 const ReplyThumbnail = ({
   message: { _id, seller, plant },
 }: ReplyThumbnailProps): JSX.Element => {
-  const { name } = plant as Plant;
+  const { name } = (plant as Plant) || {};
   const { username } = seller as User;
   const { t } = useTranslation();
 
