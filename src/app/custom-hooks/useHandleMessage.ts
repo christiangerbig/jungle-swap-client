@@ -120,14 +120,14 @@ export const useHandleMessage = (): HandleMessage => {
         });
     },
 
-    deleteRemainingMessages: (messages: Message[], plantId: PlantId): void => {
-      messages.forEach(({ _id }: Message): void => {
-        if (_id === plantId) {
+    deleteRemainingMessages(messages: Message[], plantId: PlantId): void {
+      messages.forEach(({ _id, plant }: Message): void => {
+        if ((plant as Plant)._id === plantId) {
           dispatch(setIsDeletingMessage(true));
-          dispatch(deleteMessage(_id as PlantId))
+          dispatch(deleteMessage(_id as MessageId))
             .unwrap()
             .then((): void => {
-              dispatch(removeMessage(_id as PlantId));
+              dispatch(removeMessage(_id as MessageId));
             })
             .catch((rejectedValue: any): void => {
               dispatch(setErrorMessage(rejectedValue.message));
