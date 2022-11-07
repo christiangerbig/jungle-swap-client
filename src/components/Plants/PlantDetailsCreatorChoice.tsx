@@ -27,9 +27,9 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   const { _id, imagePublicId } = plant as Plant;
 
   const handleDelete = (): void => {
-    deleteRemainingMessages(messages, _id as PlantId);
+    deleteRemainingMessages(messages, _id);
     deleteImage({ imagePublicId });
-    deletePlant(_id as PlantId, (): void => {
+    deletePlant(_id, (): void => {
       goBack();
     });
   };

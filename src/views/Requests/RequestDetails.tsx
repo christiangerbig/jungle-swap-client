@@ -30,11 +30,11 @@ const RequestDetails = (): JSX.Element => {
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    //protectRoute((): void => {
-    fetchMessage(messageId, (): void => {
-      scrollToTop();
+    protectRoute((): void => {
+      fetchMessage(messageId, (): void => {
+        scrollToTop();
+      });
     });
-    //});
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
