@@ -10,17 +10,17 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - **Signup:** As an anon I can sign up in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Login:** As a user I can sign in in the platform so that I can start creating my uploads and purchase/swap plants.
 - **Logout:** As a user I can logout from the platform so no one else can modify my information.
-- **My plants overview** As a user I can see all the plants I have uploaded.
+- **Plants created view** As a user I can see all the plants I have uploaded.
 - **Create plant:** As a user I can upload my plants.
 - **Plant detail page:** As a user I can click on a certain plant to go to the detail page.
 - **Checkout page:** As a user I can pay for a plant with my credit card
 - **Update plant:** As a user I can update/edit my uploaded plants.
 - **Delete plant:** As a user I can delete my uploaded plants including the pictures at cloudinary and all requests that belong to the plants.
-- **Requests overview** As a user I can see all my requests for plants
+- **Requests view** As a user I can see all my requests for plants
 - **Create request:** As a user I can create a request to swap a plant.
 - **Request detail page:** As a user I can click on a certain request to go to the detail page.
 - **Reply request:** As a user I can reply a request for my plant.
-- **Replies overview** As a user I can see all the replied requests for plants.
+- **Replies view** As a user I can see all the replied requests for plants.
 - **Delete request:** As a user I can delete a request.
 - **Language selection:** As a user/anon I can select the language of all texts in the app. German or English
 - **No internet connection:** As a user/anon I will be informed by a modal if there is no internet connection
