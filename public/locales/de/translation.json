@@ -45,6 +45,7 @@
       "sunAndShade": "Sonne und Schatten"
     },
     "language": {
+      "placeholder": "Sprache",
       "english": "Englisch",
       "german": "Deutsch"
     }

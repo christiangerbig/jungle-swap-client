@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -37,7 +37,6 @@ const NavBar = (): JSX.Element => {
   const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
-  const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
     useHandleMessage();
   const { stopCounter } = useIntervalCounter();
@@ -45,9 +44,6 @@ const NavBar = (): JSX.Element => {
   const { scrollToTop } = scroll;
 
   useEffect(() => {
-    const currentLanguage = i18n.resolvedLanguage as string;
-    (selectElementRef.current as HTMLSelectElement).value = currentLanguage;
-
     return () => {
       if (intervalId) {
         stopCounter(intervalId);
@@ -141,10 +137,12 @@ const NavBar = (): JSX.Element => {
             </Link>
           </Nav>
           <select
-            ref={selectElementRef}
             className="form-select select-language"
             onChange={handleSelectLanguage}
           >
+            <option disabled selected value="">
+              {t("select.language.placeholder")}
+            </option>
             <option value="de">{t("select.language.german")}</option>
             <option value="en">{t("select.language.english")}</option>
           </select>

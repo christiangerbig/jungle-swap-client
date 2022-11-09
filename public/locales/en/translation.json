@@ -45,6 +45,7 @@
       "sunAndShade": "sun and shade"
     },
     "language": {
+      "placeholder": "Language",
       "english": "English",
       "german": "German"
     }
