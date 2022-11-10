@@ -9,6 +9,10 @@ $gold: rgb(255,207,96)
 $dark-green: rgb(32,77,44)
 $tomato: rgb(255,71,74)
 
+$background-image-path1: "./images/JungleSwap_Header.png"
+$background-image-path2: "./images/JungleSwap_Lost.jpg"
+$fixed-background-image-path: "./images/JungleSwap_Header.png"
+
 
 html, 
 body 
@@ -132,19 +136,19 @@ footer
 
 .has-background-image 
   background:
-    image: url("./images/JungleSwap_Header.png")
+    image: url($background-image-path1)
     size: cover
     repeat: no-repeat
 
 .has-background-image2
   background:
-    image: url("./images/JungleSwap_Lost.jpg")
+    image: url($background-image-path2)
     size: cover
     repeat: no-repeat
 
 .has-fixed-background-image
   background:
-    image: url("./images/JungleSwap_Header.png")
+    image: url($fixed-background-image-path)
     size: cover
     repeat: no-repeat
     attachment: fixed
