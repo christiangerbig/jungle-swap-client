@@ -187,12 +187,8 @@ footer {
 
 .select-language {
   background-color: transparent;
-  color: #415dff;
+  color: inherit;
   border: none;
-}
-
-.select-language:hover {
-  color: #204d2c;
 }
 
 .select-language option {
