@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Message } from "../../app/typeDefinitions";
 import NavAdditionalItems from "./NavAdditionalItems";
+import SelectLanguage from "../helpers/SelectLanguage";
 
 const NavBar = (): JSX.Element => {
   const isUserChange = useAppSelector(selectIsUserChange);
@@ -40,7 +41,7 @@ const NavBar = (): JSX.Element => {
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
     useHandleMessage();
   const { stopCounter } = useIntervalCounter();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {
@@ -98,10 +99,6 @@ const NavBar = (): JSX.Element => {
     return t("link.tooltipps.search");
   };
 
-  const handleSelectLanguage = ({ target: { value } }: any): void => {
-    i18n.changeLanguage(value);
-  };
-
   return (
     <div>
       <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
@@ -136,16 +133,7 @@ const NavBar = (): JSX.Element => {
               <FontAwesomeIcon icon={faSearch} />
             </Link>
           </Nav>
-          <select
-            className="form-select select-language"
-            onChange={handleSelectLanguage}
-          >
-            <option disabled selected value="">
-              {t("select.language.placeholder")}
-            </option>
-            <option value="de">{t("select.language.german")}</option>
-            <option value="en">{t("select.language.english")}</option>
-          </select>
+          <SelectLanguage />
         </Navbar.Collapse>
       </Navbar>
     </div>

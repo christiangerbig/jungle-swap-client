@@ -95,6 +95,7 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - WaitSpinner
 - WaitSpinnerText
 - Modals
+- SelectLanguage
 
 ## Views
 
