@@ -4,6 +4,7 @@ import { useAppSelector } from "../../app/hooks";
 import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { Plant, User } from "../../app/typeDefinitions";
 import PlantDetailsUserChoice from "./PlantDetailsUserChoice";
+import PlantItem from "./PlantItem";
 
 interface PlantItemsProps {
   plant: Plant;
@@ -25,36 +26,29 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
           alt={name}
           className="card-img-top is-image-size-large"
         />
+        <PlantItem
+          keyword={t("texts.plants.plantDetails.name")}
+          description={name}
+        />
+        <PlantItem
+          keyword={t("texts.plants.plantDetails.description")}
+          description={description}
+        />
+        <PlantItem
+          keyword={t("texts.plants.plantDetails.size")}
+          description={`${size} ${t("texts.plants.plantDetails.sizeUnit")}`}
+        />
+        <PlantItem
+          keyword={t("texts.plants.plantDetails.likes")}
+          description={location}
+        />
         <div className="ml-2 mt-2">
-          <span className="is-text-bold">
-            {t("texts.plants.plantDetails.name")}
-          </span>{" "}
-          {name}
+          <span className="is-text-bold"></span>{" "}
         </div>
-        <div className="ml-2 mt-2">
-          <span className="is-text-bold">
-            {t("texts.plants.plantDetails.description")}
-          </span>{" "}
-          {description}
-        </div>
-        <div className="ml-2 mt-2">
-          <span className="is-text-bold">
-            {t("texts.plants.plantDetails.size")}
-          </span>{" "}
-          {size} {t("texts.plants.plantDetails.sizeUnit")}
-        </div>
-        <div className="ml-2 mt-2">
-          <span className="is-text-bold">
-            {t("texts.plants.plantDetails.likes")}
-          </span>{" "}
-          {location}
-        </div>
-        <div className="ml-2 mt-2">
-          <span className="is-text-bold">
-            {t("texts.plants.plantDetails.price")}
-          </span>{" "}
-          {price} {t("texts.plants.plantDetails.currency")}
-        </div>
+        <PlantItem
+          keyword={t("texts.plants.plantDetails.price")}
+          description={`${price} ${t("texts.plants.plantDetails.currency")}`}
+        />
         <div className="ml-2 mt-2 col justify-content-center">
           <div className="row-2 justify-content-center">
             <div className="card-body text-right pt-0">
