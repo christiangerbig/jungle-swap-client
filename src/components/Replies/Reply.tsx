@@ -1,7 +1,7 @@
-type ReplyProps = {
+interface ReplyProps {
   headline: string;
   text: string | undefined;
-};
+}
 
 const Reply = ({ headline, text }: ReplyProps): JSX.Element | null => {
   if (!text) {

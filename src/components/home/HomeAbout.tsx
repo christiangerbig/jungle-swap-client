@@ -17,7 +17,16 @@ const HomeAbout = (): JSX.Element => {
           />
         </div>
         <br />
-        <div className="about col-sm-6 col-md-5 col-lg-6 px-5 is-no-overflow">
+        <div
+          className={`
+            about
+            col-sm-6
+            col-md-5
+            col-lg-6
+            px-5
+            is-no-overflow
+          `}
+        >
           <article>
             <header>
               <h4>{t("texts.home.about.headline")}</h4>

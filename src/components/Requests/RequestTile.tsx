@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { User, Message, Plant } from "../../app/typeDefinitions";
 
-type RequestThumbnailProps = {
+interface RequestThumbnailProps {
   message: Message;
-};
+}
 
 const RequestTile = ({
   message: { _id, buyer, plant },

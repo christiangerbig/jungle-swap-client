@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Plant } from "../../app/typeDefinitions";
 
-type PlantThumbnailProps = {
+interface PlantThumbnailProps {
   plant: Plant;
-};
+}
 
 const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
   const { t } = useTranslation();

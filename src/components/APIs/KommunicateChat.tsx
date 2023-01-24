@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-type KommunicateSettings = {
+interface KommunicateSettings {
   appId: string;
   popupWidget: boolean;
   automaticChatOpenOnNavigation: boolean;
-};
+}
 
 const KommunicateChat = (): JSX.Element => {
   useEffect(() => {

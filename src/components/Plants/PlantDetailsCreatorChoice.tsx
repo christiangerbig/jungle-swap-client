@@ -11,7 +11,7 @@ import {
   selectMessages,
   selectPlant,
 } from "../../reducer/jungleSwapSlice";
-import { Plant, PlantId } from "../../app/typeDefinitions";
+import { Plant } from "../../app/typeDefinitions";
 
 const PlantDetailsCreatorChoice = (): JSX.Element => {
   const plant = useAppSelector(selectPlant);
@@ -43,13 +43,29 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   return (
     <div className="p-0">
       <Link to={"/plants/update"} className="is-link">
-        <button className="btn btn-sm mx-2 form-control is-width-medium mb-2">
+        <button
+          className={`
+            btn
+            btn-sm
+            form-control
+            is-width-medium
+            mx-2
+            mb-2
+          `}
+        >
           {t("button.update")}
         </button>
       </Link>
       <button
         disabled={buttonState()}
-        className="btn btn-sm mx-2 form-control is-width-medium mb-2"
+        className={`
+          btn
+          btn-sm
+          form-control
+          is-width-medium
+          mx-2
+          mb-2
+        `}
         onClick={handleDelete}
       >
         {t("button.delete")}

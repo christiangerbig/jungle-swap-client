@@ -20,14 +20,14 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 
-type HandlePlant = {
+interface HandlePlant {
   createPlant: Function;
   fetchPlant: Function;
   fetchPlants: Function;
   updatePlant: Function;
   deletePlant: Function;
   searchPlant: Function;
-};
+}
 
 export const useHandlePlant = (): HandlePlant => {
   const dispatch = useAppDispatch();

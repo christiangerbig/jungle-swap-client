@@ -138,10 +138,14 @@ export const signUp = createAsyncThunk(
   "jungleSwap/signUp",
   async (newUser: User): Promise<User | any> => {
     try {
-      const response = await axios.post(`${apiPath}/auth/sign-up`, newUser);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      const { data } = await axios.post(`${apiPath}/auth/sign-up`, newUser);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -150,12 +154,16 @@ export const signIn = createAsyncThunk(
   "jungleSwap/signIn",
   async (user: User): Promise<User | any> => {
     try {
-      const response = await axios.post(`${apiPath}/auth/sign-in`, user, {
+      const { data } = await axios.post(`${apiPath}/auth/sign-in`, user, {
         withCredentials: true,
       });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -167,8 +175,12 @@ export const logOut = createAsyncThunk(
       await axios.post(`${apiPath}/auth/log-out`, user, {
         withCredentials: true,
       });
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -177,12 +189,16 @@ export const checkUserLoggedIn = createAsyncThunk(
   "jungleSwap/checkUserLoggedIn",
   async (): Promise<User | any> => {
     try {
-      const response = await axios.get(`${apiPath}/auth/check-user`, {
+      const { data } = await axios.get(`${apiPath}/auth/check-user`, {
         withCredentials: true,
       });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -192,12 +208,16 @@ export const createPlant = createAsyncThunk(
   "jungleSwap/createPlant",
   async (newPlant: Plant): Promise<Plant | any> => {
     try {
-      const response = await axios.post(`${apiPath}/plants/create`, newPlant, {
+      const { data } = await axios.post(`${apiPath}/plants/create`, newPlant, {
         withCredentials: true,
       });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -206,10 +226,14 @@ export const fetchAllPlants = createAsyncThunk(
   "jungleSwap/fetchAllPlants",
   async (): Promise<Plant[] | any> => {
     try {
-      const response = await axios.get(`${apiPath}/plants/fetch-all`);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      const { data } = await axios.get(`${apiPath}/plants/fetch-all`);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -218,10 +242,14 @@ export const fetchQueryPlants = createAsyncThunk(
   "jungleSwap/fetchQueryPlants",
   async (query: string): Promise<Plant[] | any> => {
     try {
-      const response = await axios.get(`${apiPath}/plants/search?q=${query}`);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      const { data } = await axios.get(`${apiPath}/plants/search?q=${query}`);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -230,12 +258,16 @@ export const fetchPlant = createAsyncThunk(
   "jungleSwap/fetchPlant",
   async (plantId: PlantId): Promise<Plant | any> => {
     try {
-      const response = await axios.get(`${apiPath}/plants/fetch/${plantId}`, {
+      const { data } = await axios.get(`${apiPath}/plants/fetch/${plantId}`, {
         withCredentials: true,
       });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -247,13 +279,17 @@ export const updatePlant = createAsyncThunk(
     updatedPlant,
   }: UpdatePlantParameters): Promise<Plant | any> => {
     try {
-      const response = await axios.patch(
+      const { data } = await axios.patch(
         `${apiPath}/plants/update/${plantId}`,
         updatedPlant
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -263,8 +299,12 @@ export const deletePlant = createAsyncThunk(
   async (plantId: PlantId): Promise<void | any> => {
     try {
       await axios.delete(`${apiPath}/plants/delete/${plantId}`);
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -274,13 +314,17 @@ export const uploadPlantImage = createAsyncThunk(
   "jungleSwap/uploadPlantImage",
   async (uploadForm: FormData): Promise<any> => {
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${apiPath}/cloudinary/upload`,
         uploadForm
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -290,8 +334,12 @@ export const deletePlantImage = createAsyncThunk(
   async (destroyImageData: DestroyImageData): Promise<void | any> => {
     try {
       await axios.post(`${apiPath}/cloudinary/destroy`, destroyImageData);
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -301,15 +349,19 @@ export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
   async (plant: Plant): Promise<any> => {
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${apiPath}/stripe/create-payment-intent`,
         {
           price: plant.price,
         }
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -319,14 +371,18 @@ export const createMessage = createAsyncThunk(
   "jungleSwap/createMessage",
   async (newMessage: Message): Promise<Message | any> => {
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${apiPath}/messages/create`,
         newMessage,
         { withCredentials: true }
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -335,10 +391,14 @@ export const fetchAllMessages = createAsyncThunk(
   "jungleSwap/fetchAllMessages",
   async (): Promise<Message[] | any> => {
     try {
-      const response = await axios.get(`${apiPath}/messages/fetch-all`);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      const { data } = await axios.get(`${apiPath}/messages/fetch-all`);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -347,13 +407,17 @@ export const fetchMessage = createAsyncThunk(
   "jungleSwap/fetchMessage",
   async (messageId: MessageId): Promise<Message | any> => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${apiPath}/messages/fetch/${messageId}`,
         { withCredentials: true }
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -365,13 +429,17 @@ export const updateMessage = createAsyncThunk(
     updatedMessage,
   }: UpdateMessageParameters): Promise<Message | any> => {
     try {
-      const response = await axios.patch(
+      const { data } = await axios.patch(
         `${apiPath}/messages/update/${messageId}`,
         updatedMessage
       );
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+      return data;
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -381,8 +449,12 @@ export const deleteMessage = createAsyncThunk(
   async (messageId: MessageId): Promise<void | any> => {
     try {
       await axios.delete(`${apiPath}/messages/delete/${messageId}`);
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.error);
+    } catch ({
+      response: {
+        data: { error },
+      },
+    }: any) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -672,72 +744,84 @@ export const jungleSwapSlice = createSlice({
 
 const selectors = {
   // ----- User authentication -----
-  selectIsUserChange: ({ jungleSwap }: RootState) => jungleSwap.isUserChange,
-  selectLoggedInUser: ({ jungleSwap }: RootState) => jungleSwap.loggedInUser,
+  selectIsUserChange: ({ jungleSwap: { isUserChange } }: RootState) =>
+    isUserChange,
+  selectLoggedInUser: ({ jungleSwap: { loggedInUser } }: RootState) =>
+    loggedInUser,
 
   // ----- Plants -----
-  selectIsCreatingPlant: ({ jungleSwap }: RootState) =>
-    jungleSwap.isCreatingPlant,
-  selectIsFetchingPlants: ({ jungleSwap }: RootState) =>
-    jungleSwap.isFetchingPlants,
-  selectIsFetchingPlant: ({ jungleSwap }: RootState) =>
-    jungleSwap.isFetchingPlant,
-  selectIsUpdatingPlant: ({ jungleSwap }: RootState) =>
-    jungleSwap.isUpdatingPlant,
-  selectIsDeletingPlant: ({ jungleSwap }: RootState) =>
-    jungleSwap.isDeletingPlant,
-  selectPlant: ({ jungleSwap }: RootState) => jungleSwap.plant,
-  selectPlants: ({ jungleSwap }: RootState) => jungleSwap.plants,
-  selectfFilteredPlants: ({ jungleSwap }: RootState) =>
-    jungleSwap.filteredPlants,
-  selectNumberOfVisibleEntries: ({ jungleSwap }: RootState) =>
-    jungleSwap.numberOfVisibleEntries,
+  selectIsCreatingPlant: ({ jungleSwap: { isCreatingPlant } }: RootState) =>
+    isCreatingPlant,
+  selectIsFetchingPlants: ({ jungleSwap: { isFetchingPlants } }: RootState) =>
+    isFetchingPlants,
+  selectIsFetchingPlant: ({ jungleSwap: { isFetchingPlant } }: RootState) =>
+    isFetchingPlant,
+  selectIsUpdatingPlant: ({ jungleSwap: { isUpdatingPlant } }: RootState) =>
+    isUpdatingPlant,
+  selectIsDeletingPlant: ({ jungleSwap: { isDeletingPlant } }: RootState) =>
+    isDeletingPlant,
+  selectPlant: ({ jungleSwap: { plant } }: RootState) => plant,
+  selectPlants: ({ jungleSwap: { plants } }: RootState) => plants,
+  selectfFilteredPlants: ({ jungleSwap: { filteredPlants } }: RootState) =>
+    filteredPlants,
+  selectNumberOfVisibleEntries: ({
+    jungleSwap: { numberOfVisibleEntries },
+  }: RootState) => numberOfVisibleEntries,
 
   // ----- Images -----
-  selectIsUploadingPlantImage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isUploadingPlantImage,
-  selectIsDeletingPlantImage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isDeletingPlantImage,
-  selectDestroyImageData: ({ jungleSwap }: RootState) =>
-    jungleSwap.destroyImageData,
+  selectIsUploadingPlantImage: ({
+    jungleSwap: { isUploadingPlantImage },
+  }: RootState) => isUploadingPlantImage,
+  selectIsDeletingPlantImage: ({
+    jungleSwap: { isDeletingPlantImage },
+  }: RootState) => isDeletingPlantImage,
+  selectDestroyImageData: ({ jungleSwap: { destroyImageData } }: RootState) =>
+    destroyImageData,
 
   // ----- Payment -----
-  selectClientSecret: ({ jungleSwap }: RootState) => jungleSwap.clientSecret,
+  selectClientSecret: ({ jungleSwap: { clientSecret } }: RootState) =>
+    clientSecret,
 
   // ----- Messages -----
-  selectIsCreatingMessage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isCreatingMessage,
-  selectiIsFetchingMessages: ({ jungleSwap }: RootState) =>
-    jungleSwap.isFetchingMessages,
-  selectIsFetchingMessage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isFetchingMessage,
-  selectIsUpdatingMessage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isUpdatingMessage,
-  selectIsDeletingMessage: ({ jungleSwap }: RootState) =>
-    jungleSwap.isDeletingMessage,
-  selectMessages: ({ jungleSwap }: RootState) => jungleSwap.messages,
-  selectMessage: ({ jungleSwap }: RootState) => jungleSwap.message,
+  selectIsCreatingMessage: ({ jungleSwap: { isCreatingMessage } }: RootState) =>
+    isCreatingMessage,
+  selectiIsFetchingMessages: ({
+    jungleSwap: { isFetchingMessages },
+  }: RootState) => isFetchingMessages,
+  selectIsFetchingMessage: ({ jungleSwap: { isFetchingMessage } }: RootState) =>
+    isFetchingMessage,
+  selectIsUpdatingMessage: ({ jungleSwap: { isUpdatingMessage } }: RootState) =>
+    isUpdatingMessage,
+  selectIsDeletingMessage: ({ jungleSwap: { isDeletingMessage } }: RootState) =>
+    isDeletingMessage,
+  selectMessage: ({ jungleSwap: { message } }: RootState) => message,
+  selectMessages: ({ jungleSwap: { messages } }: RootState) => messages,
 
   // ----- Requests/Replies check -----
-  selectIsNewRequest: ({ jungleSwap }: RootState) => jungleSwap.isNewRequest,
-  selectIsNewReply: ({ jungleSwap }: RootState) => jungleSwap.isNewReply,
-  selectAmountOfRequests: ({ jungleSwap }: RootState) =>
-    jungleSwap.amountOfRequests,
-  selectAmountOfReplies: ({ jungleSwap }: RootState) =>
-    jungleSwap.amountOfReplies,
+  selectIsNewRequest: ({ jungleSwap: { isNewRequest } }: RootState) =>
+    isNewRequest,
+  selectIsNewReply: ({ jungleSwap: { isNewReply } }: RootState) => isNewReply,
+  selectAmountOfRequests: ({ jungleSwap: { amountOfRequests } }: RootState) =>
+    amountOfRequests,
+  selectAmountOfReplies: ({ jungleSwap: { amountOfReplies } }: RootState) =>
+    amountOfReplies,
 
   // ----- Interval counter -----
-  selectIntervalId: ({ jungleSwap }: RootState) => jungleSwap.intervalId,
-  selectDelayCounter: ({ jungleSwap }: RootState) => jungleSwap.delayCounter,
+  selectIntervalId: ({ jungleSwap: { intervalId } }: RootState) => intervalId,
+  selectDelayCounter: ({ jungleSwap: { delayCounter } }: RootState) =>
+    delayCounter,
 
   // ----- Pages handling -----
-  selectTitleSectionHeight: ({ jungleSwap }: RootState) =>
-    jungleSwap.titleSectionHeight,
-  selectAboutSectionHeight: ({ jungleSwap }: RootState) =>
-    jungleSwap.aboutSectionHeight,
+  selectTitleSectionHeight: ({
+    jungleSwap: { titleSectionHeight },
+  }: RootState) => titleSectionHeight,
+  selectAboutSectionHeight: ({
+    jungleSwap: { aboutSectionHeight },
+  }: RootState) => aboutSectionHeight,
 
   // ----- Error handling -----
-  selectErrorMessage: ({ jungleSwap }: RootState) => jungleSwap.errorMessage,
+  selectErrorMessage: ({ jungleSwap: { errorMessage } }: RootState) =>
+    errorMessage,
 };
 
 // ----- Slice actions -----

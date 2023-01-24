@@ -1,9 +1,9 @@
 import PlantDetailsBuyerChoice from "./PlantDetailsBuyerChoice";
 import PlantDetailsCreatorChoice from "./PlantDetailsCreatorChoice";
 
-type PlantDetailsUserChoiceProps = {
+interface PlantDetailsUserChoiceProps {
   isCreator: boolean;
-};
+}
 
 const PlantDetailsUserChoice = ({
   isCreator,

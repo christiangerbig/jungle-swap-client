@@ -1,7 +1,7 @@
-type ErrorMessageProps = {
+interface ErrorMessageProps {
   message: string | null;
   outputFunction: Function;
-};
+}
 
 const ErrorMessage = ({
   message,

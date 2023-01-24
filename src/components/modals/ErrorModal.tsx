@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import ModalBody from "./ModalBody";
 
-type ErrorModalProps = {
+interface ErrorModalProps {
   message: string | null;
-};
+}
 
 const ErrorModal = ({ message }: ErrorModalProps): JSX.Element | null => {
   const { t } = useTranslation();

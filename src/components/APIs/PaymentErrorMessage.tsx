@@ -1,6 +1,6 @@
-type PaymentErrorMessageProps = {
+interface PaymentErrorMessageProps {
   errorMessage: string;
-};
+}
 
 const PaymentErrorMessage = ({
   errorMessage,

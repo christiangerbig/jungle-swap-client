@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import ModalBody from "./ModalBody";
 
-type OfflineModalProps = {
+interface OfflineModalProps {
   isOnline: boolean;
-};
+}
 
 const OfflineModal = ({ isOnline }: OfflineModalProps): JSX.Element | null => {
   const { t } = useTranslation();

@@ -20,7 +20,6 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import PlantsCreatedView from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.min.css";
 

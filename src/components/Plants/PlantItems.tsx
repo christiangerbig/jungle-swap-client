@@ -5,9 +5,9 @@ import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { Plant, User } from "../../app/typeDefinitions";
 import PlantDetailsUserChoice from "./PlantDetailsUserChoice";
 
-type PlantItemsProps = {
+interface PlantItemsProps {
   plant: Plant;
-};
+}
 
 const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -62,7 +62,14 @@ const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
                 isCreator={(creator as User)._id === _id}
               />
               <button
-                className="btn btn-sm mx-2 form-control is-width-medium mb-3"
+                className={`
+                  btn
+                  btn-sm
+                  form-control
+                  is-width-medium
+                  mx-2
+                  mb-3
+                `}
                 onClick={(): void => {
                   goBack();
                 }}

@@ -6,9 +6,9 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 
-type HandlePayment = {
+interface HandlePayment {
   initializePayment: Function;
-};
+}
 
 export const useHandlePayment = (): HandlePayment => {
   const dispatch = useAppDispatch();

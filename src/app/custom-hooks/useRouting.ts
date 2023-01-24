@@ -6,9 +6,9 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../app/typeDefinitions";
 
-type Routing = {
+interface Routing {
   protectRoute: Function;
-};
+}
 
 export const useRouting = (): Routing => {
   const dispatch = useAppDispatch();

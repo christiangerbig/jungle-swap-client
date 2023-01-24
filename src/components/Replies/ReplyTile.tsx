@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { User, Plant, Message } from "../../app/typeDefinitions";
 
-type ReplyThumbnailProps = {
+interface ReplyThumbnailProps {
   message: Message;
-};
+}
 
 const ReplyThumbnail = ({
   message: { _id, seller, plant },

@@ -13,7 +13,7 @@ import { Plant } from "../../app/typeDefinitions";
 import { Stripe } from "@stripe/stripe-js";
 import PaymentErrorMessage from "./PaymentErrorMessage";
 
-type CardStyle = {
+interface CardStyle {
   style: {
     base: {
       color: string;
@@ -27,7 +27,7 @@ type CardStyle = {
       iconColor: string;
     };
   };
-};
+}
 
 const PaymentCheckoutForm = (): JSX.Element => {
   const [isSucceeded, setIsSucceeded] = useState(false);

@@ -1,8 +1,8 @@
 import WaitSpinner from "./WaitSpinner";
 
-type WaitSpinnerTextProps = {
+interface WaitSpinnerTextProps {
   text: string;
-};
+}
 
 const WaitSpinnerText = ({ text }: WaitSpinnerTextProps): JSX.Element => {
   return (

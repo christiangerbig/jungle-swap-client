@@ -8,10 +8,10 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
-type HandlePlantImage = {
+interface HandlePlantImage {
   createImage: Function;
   deleteImage: Function;
-};
+}
 
 export const useHandlePlantImage = (): HandlePlantImage => {
   const dispatch = useAppDispatch();

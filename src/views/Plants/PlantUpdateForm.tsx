@@ -219,7 +219,14 @@ const PlantUpdateForm = (): JSX.Element => {
             <div className="col-12 text-right pr-0">
               <button
                 disabled={buttonState()}
-                className="btn btn-sm mx-2 form-control is-width-medium mb-2"
+                className={`
+                  btn
+                  btn-sm
+                  form-control
+                  is-width-medium
+                  mx-2
+                  mb-2
+                `}
                 onClick={handleUpdatePlant}
               >
                 {t("button.save")}
