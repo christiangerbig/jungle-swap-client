@@ -6,9 +6,10 @@ interface PlantThumbnailProps {
   plant: Plant;
 }
 
-const PlantThumbnail = ({ plant }: PlantThumbnailProps): JSX.Element => {
+const PlantThumbnail = ({
+  plant: { _id, name, imageUrl, price },
+}: PlantThumbnailProps): JSX.Element => {
   const { t } = useTranslation();
-  const { _id, name, imageUrl, price } = plant;
 
   return (
     <div className="col mb-5">

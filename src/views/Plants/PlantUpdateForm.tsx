@@ -104,11 +104,10 @@ const PlantUpdateForm = (): JSX.Element => {
     });
   };
 
-  const buttonState = (): boolean => {
-    return isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant
+  const buttonState = (): boolean =>
+    isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant
       ? true
       : false;
-  };
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;

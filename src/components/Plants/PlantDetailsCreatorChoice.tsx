@@ -34,11 +34,8 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
     });
   };
 
-  const buttonState = (): boolean => {
-    return isDeletingMessage || isDeletingPlantImage || isDeletingPlant
-      ? true
-      : false;
-  };
+  const buttonState = (): boolean =>
+    isDeletingMessage || isDeletingPlantImage || isDeletingPlant ? true : false;
 
   return (
     <div className="p-0">

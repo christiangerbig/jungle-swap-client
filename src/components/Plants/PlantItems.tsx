@@ -10,11 +10,12 @@ interface PlantItemsProps {
   plant: Plant;
 }
 
-const PlantItems = ({ plant }: PlantItemsProps): JSX.Element => {
+const PlantItems = ({
+  plant: { name, description, size, imageUrl, location, price, creator },
+}: PlantItemsProps): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
   const { goBack } = useHistory();
   const { t } = useTranslation();
-  const { name, description, size, imageUrl, location, price, creator } = plant;
   const { _id } = loggedInUser as User;
 
   return (

@@ -32,7 +32,7 @@ interface HandlePlant {
 export const useHandlePlant = (): HandlePlant => {
   const dispatch = useAppDispatch();
 
-  const handlePlant = {
+  return {
     createPlant: (
       { name, description, size, location, price }: any,
       { imageUrl, imagePublicId }: UploadImageData,
@@ -146,5 +146,4 @@ export const useHandlePlant = (): HandlePlant => {
         });
     },
   };
-  return handlePlant;
 };

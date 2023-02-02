@@ -15,17 +15,14 @@ const NavUserItems = (): JSX.Element => {
   const isNewReply = useAppSelector(selectIsNewReply);
   const { t } = useTranslation();
 
-  const tooltipItemRequests = (): string => {
-    return isNewRequest ? t("link.tooltipps.newRequest") : "";
-  };
+  const tooltipItemRequests = (): string =>
+    isNewRequest ? t("link.tooltipps.newRequest") : "";
 
-  const tooltipItemReplies = (): string => {
-    return isNewReply ? t("link.tooltipps.newReply") : "";
-  };
+  const tooltipItemReplies = (): string =>
+    isNewReply ? t("link.tooltipps.newReply") : "";
 
-  const tooltipItemLogOut = (): any => {
-    return loggedInUser ? loggedInUser.username : "";
-  };
+  const tooltipItemLogOut = (): string | undefined =>
+    loggedInUser ? loggedInUser.username : "";
 
   return (
     <>

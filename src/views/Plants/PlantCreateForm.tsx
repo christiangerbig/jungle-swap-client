@@ -74,9 +74,8 @@ const PlantCreateForm = (): JSX.Element => {
     }
   };
 
-  const buttonState = (): boolean => {
-    return isUploadingPlantImage || isCreatingPlant ? true : false;
-  };
+  const buttonState = (): boolean =>
+    isUploadingPlantImage || isCreatingPlant ? true : false;
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;

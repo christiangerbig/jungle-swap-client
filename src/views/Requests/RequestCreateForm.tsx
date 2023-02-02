@@ -64,9 +64,7 @@ const RequestCreateForm = (): JSX.Element => {
     }
   };
 
-  const buttonState = (): boolean => {
-    return isCreatingMessage ? true : false;
-  };
+  const buttonState = (): boolean => (isCreatingMessage ? true : false);
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;

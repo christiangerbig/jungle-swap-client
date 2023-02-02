@@ -8,12 +8,11 @@ interface IntervalCounter {
 export const useIntervalCounter = (): IntervalCounter => {
   const dispatch = useAppDispatch();
 
-  const intervalCounter = {
+  return {
     stopCounter: (intervalId: NodeJS.Timeout): void => {
       clearInterval(intervalId);
       dispatch(setIntervalId(null));
       dispatch(setDelayCounter(0));
     },
   };
-  return intervalCounter;
 };

@@ -17,7 +17,7 @@ interface Authentification {
 export const useAuthentification = (): Authentification => {
   const dispatch = useAppDispatch();
 
-  const authentification = {
+  return {
     signIn: (user: User, callbackFunction: Function): void => {
       dispatch(signIn(user))
         .unwrap()
@@ -54,5 +54,4 @@ export const useAuthentification = (): Authentification => {
         });
     },
   };
-  return authentification;
 };

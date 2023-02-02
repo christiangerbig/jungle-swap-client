@@ -9,11 +9,10 @@ export const useNavigation = (): Navigation => {
   const { push } = useHistory();
   const { scrollToTop } = scroll;
 
-  const navigation = {
+  return {
     goToHome: (): void => {
       push("/");
       scrollToTop();
     },
   };
-  return navigation;
 };

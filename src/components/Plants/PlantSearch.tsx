@@ -27,9 +27,9 @@ const PlantSearch = (): JSX.Element => {
 
   useEffect(() => {
     const filterPlantsByLocation = (filter: string, plants: Plant[]): void => {
-      const filteredPlants = plants.filter(({ location }: Plant): boolean => {
-        return filter === location || filter === "";
-      });
+      const filteredPlants = plants.filter(
+        ({ location }: Plant): boolean => filter === location || filter === ""
+      );
       dispatch(setFilteredPlants(filteredPlants));
     };
 

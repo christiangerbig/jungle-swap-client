@@ -93,17 +93,15 @@ const PaymentCheckoutForm = (): JSX.Element => {
     setPaymentError(error ? error.message : "");
   };
 
-  const processingState = (): JSX.Element | string => {
-    return isProcessing ? (
+  const processingState = (): JSX.Element | string =>
+    isProcessing ? (
       <div id="spinner" className="spinner is-text-bold" />
     ) : (
       t("texts.plants.checkout.form.payNow")
     );
-  };
 
-  const messageVisibility = (): string => {
-    return isSucceeded ? "result-message text-center" : "is-hidden";
-  };
+  const messageVisibility = (): string =>
+    isSucceeded ? "result-message text-center" : "is-hidden";
 
   return (
     <div className="container col-md-9 col-sm-12">

@@ -347,12 +347,12 @@ export const deletePlantImage = createAsyncThunk(
 // ----- Payment -----
 export const createPayment = createAsyncThunk(
   "jungleSwap/createPayment",
-  async (plant: Plant): Promise<any> => {
+  async ({ price }: Plant): Promise<any> => {
     try {
       const { data } = await axios.post(
         `${apiPath}/stripe/create-payment-intent`,
         {
-          price: plant.price,
+          price,
         }
       );
       return data;
@@ -500,17 +500,21 @@ export const jungleSwapSlice = createSlice({
     setFilteredPlants: (state, { payload }: PayloadAction<Plant[]>) => {
       state.filteredPlants = payload;
     },
-    setPlantChanges: (state, { payload }: PayloadAction<Plant>) => {
-      const {
-        _id,
-        name,
-        description,
-        size,
-        imageUrl,
-        imagePublicId,
-        location,
-        price,
-      } = payload;
+    setPlantChanges: (
+      state,
+      {
+        payload: {
+          _id,
+          name,
+          description,
+          size,
+          imageUrl,
+          imagePublicId,
+          location,
+          price,
+        },
+      }: PayloadAction<Plant>
+    ) => {
       state.plants = state.plants.map((singlePlant: Plant): Plant => {
         if (singlePlant._id === _id) {
           singlePlant.name = name;
@@ -577,9 +581,12 @@ export const jungleSwapSlice = createSlice({
     setMessage: (state, { payload }: PayloadAction<Message>) => {
       state.message = payload;
     },
-    setMessageChanges: (state, { payload }: PayloadAction<Message>) => {
-      const { _id, buyer, seller, plant, request, reply, messageState } =
-        payload;
+    setMessageChanges: (
+      state,
+      {
+        payload: { _id, buyer, seller, plant, request, reply, messageState },
+      }: PayloadAction<Message>
+    ) => {
       state.messages = state.messages.map((singleMessage) => {
         if (singleMessage._id === _id) {
           singleMessage.buyer = buyer;
@@ -593,9 +600,9 @@ export const jungleSwapSlice = createSlice({
       });
     },
     removeMessage: (state, { payload }: PayloadAction<MessageId>) => {
-      state.messages = state.messages.filter((message: Message): boolean => {
-        return message._id !== payload;
-      });
+      state.messages = state.messages.filter(
+        (message: Message): boolean => message._id !== payload
+      );
     },
 
     // ----- Requests/Replies check ------

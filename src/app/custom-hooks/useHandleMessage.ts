@@ -38,7 +38,7 @@ interface HandleMessage {
 export const useHandleMessage = (): HandleMessage => {
   const dispatch = useAppDispatch();
 
-  const handleMessage = {
+  return {
     createMessage: (newMessage: Message, callbackFunction: Function): void => {
       dispatch(setIsCreatingMessage(true));
       dispatch(createMessage(newMessage))
@@ -196,5 +196,4 @@ export const useHandleMessage = (): HandleMessage => {
       checkAmountOfReplies(currentAmountOfReplies, amountOfReplies);
     },
   };
-  return handleMessage;
 };

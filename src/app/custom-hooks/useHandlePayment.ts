@@ -13,7 +13,7 @@ interface HandlePayment {
 export const useHandlePayment = (): HandlePayment => {
   const dispatch = useAppDispatch();
 
-  const handlePayment = {
+  return {
     initializePayment: (plant: Plant): void => {
       dispatch(createPayment(plant))
         .unwrap()
@@ -25,5 +25,4 @@ export const useHandlePayment = (): HandlePayment => {
         });
     },
   };
-  return handlePayment;
 };

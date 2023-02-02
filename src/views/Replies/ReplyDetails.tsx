@@ -45,9 +45,7 @@ const ReplyDetails = (): JSX.Element => {
     });
   };
 
-  const buttonState = (): boolean => {
-    return isDeletingMessage ? true : false;
-  };
+  const buttonState = (): boolean => (isDeletingMessage ? true : false);
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;

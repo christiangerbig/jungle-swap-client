@@ -95,9 +95,7 @@ const NavBar = (): JSX.Element => {
     loggedInUser && checkNewRequestsReplies();
   }, [delayCounter]);
 
-  const tooltipItemSearch = (): string => {
-    return t("link.tooltipps.search");
-  };
+  const tooltipItemSearch = (): string => t("link.tooltipps.search");
 
   return (
     <div>

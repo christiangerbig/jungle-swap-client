@@ -13,7 +13,7 @@ interface Routing {
 export const useRouting = (): Routing => {
   const dispatch = useAppDispatch();
 
-  const routing = {
+  return {
     protectRoute: (callbackFunction: Function): void => {
       dispatch(checkUserLoggedIn())
         .unwrap()
@@ -28,5 +28,4 @@ export const useRouting = (): Routing => {
         });
     },
   };
-  return routing;
 };

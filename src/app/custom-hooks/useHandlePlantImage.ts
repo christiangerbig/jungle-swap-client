@@ -16,7 +16,7 @@ interface HandlePlantImage {
 export const useHandlePlantImage = (): HandlePlantImage => {
   const dispatch = useAppDispatch();
 
-  const handlePlantImage = {
+  return {
     createImage: (uploadForm: any, callbackFunction: Function): void => {
       dispatch(setIsUploadingPlantImage(true));
       dispatch(uploadPlantImage(uploadForm))
@@ -41,5 +41,4 @@ export const useHandlePlantImage = (): HandlePlantImage => {
         });
     },
   };
-  return handlePlantImage;
 };
