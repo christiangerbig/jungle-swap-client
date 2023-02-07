@@ -5,8 +5,8 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { usePlantImage } from "../../app/custom-hooks/usePlantImage";
+import { usePlant } from "../../app/custom-hooks/usePlant";
 import {
   setPlant,
   setDestroyImageData,
@@ -30,8 +30,8 @@ const PlantUpdateForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();
-  const { createImage, deleteImage } = useHandlePlantImage();
-  const { updatePlant } = useHandlePlant();
+  const { createImage, deleteImage } = usePlantImage();
+  const { updatePlant } = usePlant();
   const selectElementRef = useRef<HTMLSelectElement | null>(null);
   const { t } = useTranslation();
   const { scrollToTop } = scroll;

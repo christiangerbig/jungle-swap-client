@@ -4,7 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { useMessage } from "../../app/custom-hooks/useMessage";
 import {
   decreaseAmountOfReplies,
   selectIsDeletingMessage,
@@ -25,7 +25,7 @@ const ReplyDetails = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();
-  const { fetchMessage, deleteMessage } = useHandleMessage();
+  const { fetchMessage, deleteMessage } = useMessage();
   const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { _id, seller, plant, request, reply } = message as Message;

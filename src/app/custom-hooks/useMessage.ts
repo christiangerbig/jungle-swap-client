@@ -35,7 +35,7 @@ interface HandleMessage {
   checkNewReplies: Function;
 }
 
-export const useHandleMessage = (): HandleMessage => {
+export const useMessage = (): HandleMessage => {
   const dispatch = useAppDispatch();
 
   return {
@@ -143,9 +143,8 @@ export const useHandleMessage = (): HandleMessage => {
     ): void => {
       const calculateAmountOfRequests = (messages: Message[]): number => {
         const currentAmountOfRequests = messages.filter(
-          ({ seller, messageState }: Message): boolean => {
-            return (seller as User)._id === _id && messageState === true;
-          }
+          ({ seller, messageState }: Message): boolean =>
+            (seller as User)._id === _id && messageState === true
         ).length;
         return currentAmountOfRequests;
       };
@@ -173,9 +172,8 @@ export const useHandleMessage = (): HandleMessage => {
     ): void => {
       const calculateAmountOfReplies = (messages: Message[]): number => {
         const currentAmountOfReplies = messages.filter(
-          ({ buyer, reply }: Message): boolean => {
-            return (buyer as User)._id === _id && reply !== "";
-          }
+          ({ buyer, reply }: Message): boolean =>
+            (buyer as User)._id === _id && reply !== ""
         ).length;
         return currentAmountOfReplies;
       };

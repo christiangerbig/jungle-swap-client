@@ -4,8 +4,8 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { usePlantImage } from "../../app/custom-hooks/usePlantImage";
+import { usePlant } from "../../app/custom-hooks/usePlant";
 import {
   selectErrorMessage,
   selectIsCreatingPlant,
@@ -24,8 +24,8 @@ const PlantCreateForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { push, goBack } = useHistory();
   const { protectRoute } = useRouting();
-  const { createImage } = useHandlePlantImage();
-  const { createPlant } = useHandlePlant();
+  const { createImage } = usePlantImage();
+  const { createPlant } = usePlant();
   const { t } = useTranslation();
   const { scrollToTop } = scroll;
 

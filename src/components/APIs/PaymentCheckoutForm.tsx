@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useHandlePayment } from "../../app/custom-hooks/useHandlePayment";
+import { usePayment } from "../../app/custom-hooks/usePayment";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
   scrollToPlants,
@@ -40,7 +40,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
   const { push } = useHistory();
   const stripe = useStripe();
   const elements = useElements();
-  const { initializePayment } = useHandlePayment();
+  const { initializePayment } = usePayment();
   const { t } = useTranslation();
   const { _id, name, price } = plant as Plant;
   const cardStyle: CardStyle = {

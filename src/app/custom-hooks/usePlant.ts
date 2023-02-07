@@ -29,7 +29,7 @@ interface HandlePlant {
   searchPlant: Function;
 }
 
-export const useHandlePlant = (): HandlePlant => {
+export const usePlant = (): HandlePlant => {
   const dispatch = useAppDispatch();
 
   return {

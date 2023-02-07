@@ -4,7 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { usePlant } from "../../app/custom-hooks/usePlant";
 import {
   selectIsFetchingPlants,
   selectLoggedInUser,
@@ -16,7 +16,7 @@ const PlantsCreatedView = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
   const isFetchingPlants = useAppSelector(selectIsFetchingPlants);
   const { protectRoute } = useRouting();
-  const { fetchPlants } = useHandlePlant();
+  const { fetchPlants } = usePlant();
   const { t } = useTranslation();
   const { scrollToTop } = scroll;
 

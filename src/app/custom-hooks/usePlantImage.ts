@@ -13,7 +13,7 @@ interface HandlePlantImage {
   deleteImage: Function;
 }
 
-export const useHandlePlantImage = (): HandlePlantImage => {
+export const usePlantImage = (): HandlePlantImage => {
   const dispatch = useAppDispatch();
 
   return {

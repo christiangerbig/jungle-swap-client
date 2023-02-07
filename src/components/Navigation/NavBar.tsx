@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { useMessage } from "../../app/custom-hooks/useMessage";
 import { useIntervalCounter } from "../../app/custom-hooks/useIntervalCounter";
 import { animateScroll as scroll } from "react-scroll";
 import { Navbar, Nav } from "react-bootstrap";
@@ -39,7 +39,7 @@ const NavBar = (): JSX.Element => {
   const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
-    useHandleMessage();
+    useMessage();
   const { stopCounter } = useIntervalCounter();
   const { t } = useTranslation();
   const { scrollToTop } = scroll;

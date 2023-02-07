@@ -1,9 +1,9 @@
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
-import { useHandlePlantImage } from "../../app/custom-hooks/useHandlePlantImage";
-import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { usePlant } from "../../app/custom-hooks/usePlant";
+import { usePlantImage } from "../../app/custom-hooks/usePlantImage";
+import { useMessage } from "../../app/custom-hooks/useMessage";
 import {
   selectIsDeletingMessage,
   selectIsDeletingPlant,
@@ -20,9 +20,9 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   const messages = useAppSelector(selectMessages);
   const isDeletingMessage = useAppSelector(selectIsDeletingMessage);
   const { goBack } = useHistory();
-  const { deleteRemainingMessages } = useHandleMessage();
-  const { deleteImage } = useHandlePlantImage();
-  const { deletePlant } = useHandlePlant();
+  const { deleteRemainingMessages } = useMessage();
+  const { deleteImage } = usePlantImage();
+  const { deletePlant } = usePlant();
   const { t } = useTranslation();
   const { _id, imagePublicId } = plant as Plant;
 

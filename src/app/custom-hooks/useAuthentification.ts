@@ -12,6 +12,7 @@ interface Authentification {
   signIn: Function;
   signUp: Function;
   logOut: Function;
+  updateUserRequestsReplies: Function;
 }
 
 export const useAuthentification = (): Authentification => {
@@ -52,6 +53,18 @@ export const useAuthentification = (): Authentification => {
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
+    },
+
+    updateUserRequestsReplies: (
+      loggedInUser: User,
+      amountOfRequests: number,
+      amountOfReplies: number
+    ): User => {
+      const clonedUser: User = JSON.parse(JSON.stringify(loggedInUser));
+      clonedUser.amountOfRequests = amountOfRequests;
+      clonedUser.amountOfReplies = amountOfReplies;
+      dispatch(setLoggedInUser(clonedUser));
+      return clonedUser;
     },
   };
 };

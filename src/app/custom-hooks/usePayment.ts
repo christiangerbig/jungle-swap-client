@@ -10,7 +10,7 @@ interface HandlePayment {
   initializePayment: Function;
 }
 
-export const useHandlePayment = (): HandlePayment => {
+export const usePayment = (): HandlePayment => {
   const dispatch = useAppDispatch();
 
   return {

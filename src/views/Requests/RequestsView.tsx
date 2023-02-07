@@ -4,7 +4,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
-import { useHandleMessage } from "../../app/custom-hooks/useHandleMessage";
+import { useMessage } from "../../app/custom-hooks/useMessage";
 import {
   selectAmountOfRequests,
   selectiIsFetchingMessages,
@@ -24,7 +24,7 @@ const RequestsView = (): JSX.Element => {
   const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const dispatch = useAppDispatch();
   const { protectRoute } = useRouting();
-  const { fetchMessages } = useHandleMessage();
+  const { fetchMessages } = useMessage();
   const { t } = useTranslation();
   const { scrollToTop } = scroll;
 

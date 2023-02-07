@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { usePlant } from "../../app/custom-hooks/usePlant";
 import { selectPlants, setFilteredPlants } from "../../reducer/jungleSwapSlice";
 import { Plant } from "../../app/typeDefinitions";
 
@@ -10,7 +10,7 @@ const PlantSearch = (): JSX.Element => {
   const [filter, setFilter] = useState<string>("");
   const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
-  const { searchPlant, fetchPlants } = useHandlePlant();
+  const { searchPlant, fetchPlants } = usePlant();
   const { t } = useTranslation();
 
   useEffect(() => {

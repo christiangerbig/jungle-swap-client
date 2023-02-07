@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useHandlePlant } from "../../app/custom-hooks/useHandlePlant";
+import { usePlant } from "../../app/custom-hooks/usePlant";
 import {
   setTitleSectionHeight,
   setAboutSectionHeight,
@@ -14,7 +14,7 @@ import HomeTitle from "../../components/home/HomeTitle";
 const Home = (): JSX.Element => {
   const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
-  const { fetchPlants } = useHandlePlant();
+  const { fetchPlants } = usePlant();
   const elementRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
