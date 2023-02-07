@@ -6,11 +6,11 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Plant } from "../typeDefinitions";
 
-interface HandlePayment {
+interface PaymentMethods {
   initializePayment: Function;
 }
 
-export const usePayment = (): HandlePayment => {
+export const usePayment = (): PaymentMethods => {
   const dispatch = useAppDispatch();
 
   return {

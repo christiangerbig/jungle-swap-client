@@ -1,11 +1,11 @@
 import { useAppDispatch } from "../hooks";
 import { setDelayCounter, setIntervalId } from "../../reducer/jungleSwapSlice";
 
-interface IntervalCounter {
+interface IntervalCounterMethods {
   stopCounter: Function;
 }
 
-export const useIntervalCounter = (): IntervalCounter => {
+export const useIntervalCounter = (): IntervalCounterMethods => {
   const dispatch = useAppDispatch();
 
   return {

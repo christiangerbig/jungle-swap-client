@@ -6,11 +6,11 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../../app/typeDefinitions";
 
-interface Routing {
+interface RoutingMethods {
   protectRoute: Function;
 }
 
-export const useRouting = (): Routing => {
+export const useRouting = (): RoutingMethods => {
   const dispatch = useAppDispatch();
 
   return {

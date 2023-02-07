@@ -32,6 +32,7 @@ const App = (): JSX.Element => {
           <Home />
         </Route>
 
+        {/* Authentification */}
         <Route path="/auth/sign-up">
           <SignUp />
         </Route>
@@ -45,6 +46,7 @@ const App = (): JSX.Element => {
           <Unauthorized />
         </Route>
 
+        {/* Plants */}
         <Route path="/plants/create">
           <PlantCreateForm />
         </Route>
@@ -61,6 +63,7 @@ const App = (): JSX.Element => {
           <PlantsCreatedView />
         </Route>
 
+        {/* Messages */}
         <Route path="/messages/create">
           <RequestCreateForm />
         </Route>
@@ -68,6 +71,7 @@ const App = (): JSX.Element => {
           <RequestUpdateForm />
         </Route>
 
+        {/* Requests */}
         <Route path="/requests/fetch-all">
           <RequestsView />
         </Route>
@@ -75,6 +79,7 @@ const App = (): JSX.Element => {
           <RequestDetails />
         </Route>
 
+        {/* Replies */}
         <Route path="/replies/fetch-all">
           <RepliesView />
         </Route>

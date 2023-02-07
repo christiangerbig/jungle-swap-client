@@ -14,8 +14,8 @@ import HomeTitle from "../../components/home/HomeTitle";
 const Home = (): JSX.Element => {
   const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
-  const { fetchPlants } = usePlant();
   const elementRef = useRef<HTMLElement[]>([]);
+  const { fetchPlants } = usePlant();
 
   useEffect(() => {
     const elementHeight = (elementRef: HTMLElement): number => {

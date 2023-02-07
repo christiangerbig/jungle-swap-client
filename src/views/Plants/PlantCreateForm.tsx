@@ -23,10 +23,10 @@ const PlantCreateForm = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { push, goBack } = useHistory();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { createImage } = usePlantImage();
   const { createPlant } = usePlant();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

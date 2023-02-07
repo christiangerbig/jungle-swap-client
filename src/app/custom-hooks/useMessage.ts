@@ -23,7 +23,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
-interface HandleMessage {
+interface MessageMethods {
   createMessage: Function;
   fetchMessage: Function;
   fetchMessages: Function;
@@ -35,7 +35,7 @@ interface HandleMessage {
   checkNewReplies: Function;
 }
 
-export const useMessage = (): HandleMessage => {
+export const useMessage = (): MessageMethods => {
   const dispatch = useAppDispatch();
 
   return {

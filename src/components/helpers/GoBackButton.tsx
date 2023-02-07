@@ -2,8 +2,8 @@ import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import { useTranslation } from "react-i18next";
 
 const GoBackButton = (): JSX.Element => {
-  const { goToHome } = useNavigation();
   const { t } = useTranslation();
+  const { goToHome } = useNavigation();
 
   return (
     <div className="text-right pr-2">

@@ -23,9 +23,9 @@ const RequestDetails = (): JSX.Element => {
   const { messageId } = useParams<{ messageId: MessageId }>();
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessage, updateMessage } = useMessage();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { _id, buyer, plant, request, reply } = message as Message;
 

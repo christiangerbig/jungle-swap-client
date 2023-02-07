@@ -23,9 +23,9 @@ const RepliesView = (): JSX.Element => {
   const isFetchingMessages = useAppSelector(selectiIsFetchingMessages);
   const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessages } = useMessage();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

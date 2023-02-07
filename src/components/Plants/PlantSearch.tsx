@@ -10,8 +10,8 @@ const PlantSearch = (): JSX.Element => {
   const [filter, setFilter] = useState<string>("");
   const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
-  const { searchPlant, fetchPlants } = usePlant();
   const { t } = useTranslation();
+  const { searchPlant, fetchPlants } = usePlant();
 
   useEffect(() => {
     const fetchPlantQueryByName = (query: string): void => {

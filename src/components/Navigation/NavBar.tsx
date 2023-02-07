@@ -38,10 +38,10 @@ const NavBar = (): JSX.Element => {
   const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const amountOfReplies = useAppSelector(selectAmountOfReplies);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { fetchMessages, fetchCheck, checkNewRequests, checkNewReplies } =
     useMessage();
   const { stopCounter } = useIntervalCounter();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

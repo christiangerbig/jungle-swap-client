@@ -23,9 +23,9 @@ const RequestsView = (): JSX.Element => {
   const isFetchingMessages = useAppSelector(selectiIsFetchingMessages);
   const amountOfRequests = useAppSelector(selectAmountOfRequests);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessages } = useMessage();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

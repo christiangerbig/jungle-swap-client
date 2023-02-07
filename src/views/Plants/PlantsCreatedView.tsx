@@ -15,9 +15,9 @@ import PlantsCreatedCollection from "../../components/plants/PlantsCreatedCollec
 const PlantsCreatedView = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
   const isFetchingPlants = useAppSelector(selectIsFetchingPlants);
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchPlants } = usePlant();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

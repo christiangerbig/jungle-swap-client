@@ -28,12 +28,12 @@ const PlantUpdateForm = (): JSX.Element => {
   const plant = useAppSelector(selectPlant);
   const isUpdatingPlant = useAppSelector(selectIsUpdatingPlant);
   const dispatch = useAppDispatch();
+  const selectElementRef = useRef<HTMLSelectElement | null>(null);
+  const { t } = useTranslation();
   const { goBack } = useHistory();
   const { protectRoute } = useRouting();
   const { createImage, deleteImage } = usePlantImage();
   const { updatePlant } = usePlant();
-  const selectElementRef = useRef<HTMLSelectElement | null>(null);
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { name, description, size, imageUrl, price } = plant as Plant;
 

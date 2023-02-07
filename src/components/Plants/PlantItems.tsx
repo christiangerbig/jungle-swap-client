@@ -14,8 +14,8 @@ const PlantItems = ({
   plant: { name, description, size, imageUrl, location, price, creator },
 }: PlantItemsProps): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
-  const { goBack } = useHistory();
   const { t } = useTranslation();
+  const { goBack } = useHistory();
   const { _id } = loggedInUser as User;
 
   return (

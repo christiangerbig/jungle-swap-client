@@ -22,9 +22,9 @@ const RequestUpdateForm = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { updateMessage } = useMessage();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { request } = message as Message;
 

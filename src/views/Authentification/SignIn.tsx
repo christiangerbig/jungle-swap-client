@@ -18,8 +18,8 @@ const SignIn = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { push } = useHistory();
-  const { signIn } = useAuthentification();
   const { t } = useTranslation();
+  const { signIn } = useAuthentification();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

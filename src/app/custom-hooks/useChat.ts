@@ -1,10 +1,14 @@
+interface ChatMethods {
+  createLauncherIcon: Function;
+}
+
 interface KommunicateSettings {
   appId: string;
   popupWidget: boolean;
   automaticChatOpenOnNavigation: boolean;
 }
 
-export const useChat = () => {
+export const useChat = (): ChatMethods => {
   return {
     createLauncherIcon: (htmlDocument: Document, method: any): void => {
       const kommunicateSettings: KommunicateSettings = {

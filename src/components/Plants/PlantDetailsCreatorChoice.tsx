@@ -20,13 +20,13 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   const messages = useAppSelector(selectMessages);
   const isDeletingMessage = useAppSelector(selectIsDeletingMessage);
   const { goBack } = useHistory();
+  const { t } = useTranslation();
   const { deleteRemainingMessages } = useMessage();
   const { deleteImage } = usePlantImage();
   const { deletePlant } = usePlant();
-  const { t } = useTranslation();
   const { _id, imagePublicId } = plant as Plant;
 
-  const handleDelete = (): void => {
+  const handleDeletePlant = (): void => {
     deleteRemainingMessages(messages, _id);
     deleteImage({ imagePublicId });
     deletePlant(_id, (): void => {
@@ -63,7 +63,7 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
           mx-2
           mb-2
         `}
-        onClick={handleDelete}
+        onClick={handleDeletePlant}
       >
         {t("button.delete")}
       </button>

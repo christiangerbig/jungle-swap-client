@@ -22,9 +22,9 @@ const RequestCreateForm = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { goBack } = useHistory();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { createMessage } = useMessage();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { name } = plant as Plant;
 

@@ -8,12 +8,12 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
-interface HandlePlantImage {
+interface PlantImageMethods {
   createImage: Function;
   deleteImage: Function;
 }
 
-export const usePlantImage = (): HandlePlantImage => {
+export const usePlantImage = (): PlantImageMethods => {
   const dispatch = useAppDispatch();
 
   return {

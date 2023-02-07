@@ -16,8 +16,8 @@ const SignUp = (): JSX.Element => {
   const errorMessage = useAppSelector(selectErrorMessage);
   const dispatch = useAppDispatch();
   const { push } = useHistory();
-  const { signUp } = useAuthentification();
   const { t } = useTranslation();
+  const { signUp } = useAuthentification();
   const { scrollToTop } = scroll;
 
   useEffect(() => {

@@ -19,9 +19,9 @@ const PlantDetails = (): JSX.Element => {
   const plant = useAppSelector(selectPlant);
   const isFetchingPlant = useAppSelector(selectIsFetchingPlant);
   const { plantId } = useParams<{ plantId: PlantId }>();
+  const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchPlant } = usePlant();
-  const { t } = useTranslation();
   const { scrollToTop } = scroll;
   const { creator } = plant as Plant;
 

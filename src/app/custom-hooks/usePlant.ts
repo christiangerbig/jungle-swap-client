@@ -20,7 +20,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 
-interface HandlePlant {
+interface PlantMethods {
   createPlant: Function;
   fetchPlant: Function;
   fetchPlants: Function;
@@ -29,7 +29,7 @@ interface HandlePlant {
   searchPlant: Function;
 }
 
-export const usePlant = (): HandlePlant => {
+export const usePlant = (): PlantMethods => {
   const dispatch = useAppDispatch();
 
   return {

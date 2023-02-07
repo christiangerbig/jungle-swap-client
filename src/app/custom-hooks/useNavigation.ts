@@ -1,11 +1,11 @@
 import { useHistory } from "react-router";
 import { animateScroll as scroll } from "react-scroll";
 
-interface Navigation {
+interface NavigationMethods {
   goToHome: Function;
 }
 
-export const useNavigation = (): Navigation => {
+export const useNavigation = (): NavigationMethods => {
   const { push } = useHistory();
   const { scrollToTop } = scroll;
 
