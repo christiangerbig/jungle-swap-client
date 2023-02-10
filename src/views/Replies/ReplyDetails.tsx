@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
@@ -38,14 +38,17 @@ const ReplyDetails = (): JSX.Element => {
     });
   }, []);
 
+  const buttonState = useMemo(
+    (): boolean => (isDeletingMessage ? true : false),
+    [isDeletingMessage]
+  );
+
   const handleDeleteMessage = (messageId: MessageId): void => {
     deleteMessage(messageId, (): void => {
       dispatch(decreaseAmountOfReplies());
       goBack();
     });
   };
-
-  const buttonState = (): boolean => (isDeletingMessage ? true : false);
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
@@ -70,7 +73,7 @@ const ReplyDetails = (): JSX.Element => {
         />
         <div className="text-right px-3">
           <button
-            disabled={buttonState()}
+            disabled={buttonState}
             className={`
               btn
               btn-sm

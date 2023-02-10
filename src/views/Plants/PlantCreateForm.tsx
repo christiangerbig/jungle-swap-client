@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
@@ -35,6 +35,11 @@ const PlantCreateForm = (): JSX.Element => {
       scrollToTop();
     });
   }, []);
+
+  const buttonState = useMemo(
+    (): boolean => (isUploadingPlantImage || isCreatingPlant ? true : false),
+    [isUploadingPlantImage, isCreatingPlant]
+  );
 
   const handleUploadPlantImage = (
     event: React.FormEvent<HTMLFormElement>
@@ -73,9 +78,6 @@ const PlantCreateForm = (): JSX.Element => {
         return t("errorTexts.general");
     }
   };
-
-  const buttonState = (): boolean =>
-    isUploadingPlantImage || isCreatingPlant ? true : false;
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
@@ -161,7 +163,7 @@ const PlantCreateForm = (): JSX.Element => {
           <div className="col-12 text-right pr-0">
             <button
               type="submit"
-              disabled={buttonState()}
+              disabled={buttonState}
               className={`
                 btn
                 btn-sm

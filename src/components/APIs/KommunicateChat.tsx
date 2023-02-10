@@ -5,7 +5,7 @@ const KommunicateChat = (): JSX.Element => {
   const { createLauncherIcon } = useChat();
 
   useEffect(() => {
-    createLauncherIcon(document, (window as any).kommunicate || {});
+    createLauncherIcon(document, (window as any).kommunicate ?? {});
   }, []);
 
   return <div />;

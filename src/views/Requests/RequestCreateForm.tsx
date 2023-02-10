@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
@@ -35,6 +35,11 @@ const RequestCreateForm = (): JSX.Element => {
     });
   }, []);
 
+  const buttonState = useMemo(
+    (): boolean => (isCreatingMessage ? true : false),
+    [isCreatingMessage]
+  );
+
   const handleCreateMessageForRequest = (
     event: React.FormEvent<HTMLFormElement>,
     { _id, creator }: Plant
@@ -63,8 +68,6 @@ const RequestCreateForm = (): JSX.Element => {
         return t("errorTexts.general");
     }
   };
-
-  const buttonState = (): boolean => (isCreatingMessage ? true : false);
 
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
@@ -100,7 +103,7 @@ const RequestCreateForm = (): JSX.Element => {
           <div className="text-right">
             <button
               type="submit"
-              disabled={buttonState()}
+              disabled={buttonState}
               className="btn btn-sm mx-2 form-control is-width-medium"
             >
               {t("button.send")}

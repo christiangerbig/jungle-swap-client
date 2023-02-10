@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../app/hooks";
@@ -26,6 +27,14 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   const { deletePlant } = usePlant();
   const { _id, imagePublicId } = plant as Plant;
 
+  const buttonState = useMemo(
+    (): boolean =>
+      isDeletingMessage || isDeletingPlantImage || isDeletingPlant
+        ? true
+        : false,
+    [isDeletingMessage, isDeletingPlantImage, isDeletingPlant]
+  );
+
   const handleDeletePlant = (): void => {
     deleteRemainingMessages(messages, _id);
     deleteImage({ imagePublicId });
@@ -33,9 +42,6 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
       goBack();
     });
   };
-
-  const buttonState = (): boolean =>
-    isDeletingMessage || isDeletingPlantImage || isDeletingPlant ? true : false;
 
   return (
     <div className="p-0">
@@ -54,7 +60,7 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
         </button>
       </Link>
       <button
-        disabled={buttonState()}
+        disabled={buttonState}
         className={`
           btn
           btn-sm

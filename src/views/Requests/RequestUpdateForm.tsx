@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
@@ -34,6 +34,11 @@ const RequestUpdateForm = (): JSX.Element => {
     });
   }, []);
 
+  const buttonState = useMemo(
+    (): boolean => (isUpdatingMessage ? true : false),
+    [isUpdatingMessage]
+  );
+
   const handleCreateReply = (
     { target: { value } }: React.ChangeEvent<HTMLTextAreaElement>,
     message: Message
@@ -56,10 +61,6 @@ const RequestUpdateForm = (): JSX.Element => {
       default:
         return t("errorTexts.general");
     }
-  };
-
-  const buttonState = (): boolean => {
-    return isUpdatingMessage ? true : false;
   };
 
   if (!loggedInUser) {
@@ -95,7 +96,7 @@ const RequestUpdateForm = (): JSX.Element => {
             />
             <div className="row justify-content-end px-3">
               <button
-                disabled={buttonState()}
+                disabled={buttonState}
                 className="btn btn-sm is-width-medium form-control mx-2 mb-2"
                 onClick={(): void => {
                   handleUpdateMessage(message);
