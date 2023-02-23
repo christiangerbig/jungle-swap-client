@@ -282,7 +282,7 @@ footer {
 }
 
 .search-field {
-  width: 12rem;
+  width: 14rem;
 }
 
 @media (max-width: 480px) {
@@ -292,7 +292,7 @@ footer {
 }
 
 .location-filter {
-  width: 12rem;
+  width: 14rem;
   margin-left: 2rem;
 }
 
