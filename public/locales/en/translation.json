@@ -37,13 +37,27 @@
     "takeMeHome": "Take me home"
   },
 
-  "select": {
+  "multiSelect": {
     "location": {
       "title": "Select location",
       "sun": "sun",
       "shade": "shade",
       "sunAndShade": "sun and shade"
     },
+    "localization": {
+      "allItemsAreSelected": "All places are selected",
+      "clearSearch": "Clear search",
+      "clearSelected": "Clear selected places",
+      "noOptions": "No options",
+      "search": "Search for a place",
+      "selectAll": "Select all places",
+      "selectAllFiltered": "Select all (filtered) places",
+      "selectSomeItems": "Select a place...",
+      "create": "Create"
+    }
+  },
+
+  "select": {
     "language": {
       "placeholder": "Language",
       "english": "English",

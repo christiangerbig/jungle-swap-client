@@ -270,13 +270,41 @@ footer {
   padding: 0.1rem;
 }
 
+.search-container {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    flex-direction: column;
+  }
+}
+
+.search-field {
+  width: 12rem;
+}
+
+@media (max-width: 480px) {
+  .search-field {
+    width: auto;
+  }
+}
+
 .location-filter {
-  width: 25%;
+  width: 12rem;
+  margin-left: 2rem;
 }
 
 @media (max-width: 768px) {
   .location-filter {
-    width: 45%;
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-filter {
+    margin-left: 0;
   }
 }
 

@@ -4,10 +4,17 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { usePlant } from "../../app/custom-hooks/usePlant";
 import { selectPlants, setFilteredPlants } from "../../reducer/jungleSwapSlice";
 import { Plant } from "../../app/typeDefinitions";
+import { MultiSelect } from "react-multi-select-component";
+
+interface DropdownOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
 
 const PlantSearch = (): JSX.Element => {
   const [query, setQuery] = useState<string>("");
-  const [filter, setFilter] = useState<string>("");
+  const [selectedOptions, setSelectedOptions] = useState<DropdownOption[]>([]);
   const plants = useAppSelector(selectPlants);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -26,48 +33,78 @@ const PlantSearch = (): JSX.Element => {
   }, [query]);
 
   useEffect(() => {
-    const filterPlantsByLocation = (filter: string, plants: Plant[]): void => {
-      const filteredPlants = plants.filter(
-        ({ location }: Plant): boolean => filter === location || filter === ""
+    const filterPlantsByLocation = (
+      selectedOptions: DropdownOption[],
+      plants: Plant[]
+    ): void => {
+      const selectedLocations = selectedOptions.map(
+        (option: DropdownOption): string => option.value
       );
+      const filteredPlants = plants.filter(({ location }: Plant): boolean => {
+        const matchedLocation = selectedLocations.filter(
+          (selectedLocation: string): boolean => selectedLocation === location
+        );
+        return matchedLocation.length !== 0 ? true : false;
+      });
       dispatch(setFilteredPlants(filteredPlants));
     };
 
-    filterPlantsByLocation(filter, plants);
-  }, [filter]);
+    filterPlantsByLocation(selectedOptions, plants);
+  }, [selectedOptions]);
+
+  const optionsChoice: DropdownOption[] = [
+    {
+      label: t("multiSelect.location.sun"),
+      value: "sun",
+    },
+    {
+      label: t("multiSelect.location.shade"),
+      value: "shade",
+    },
+    {
+      label: t("multiSelect.location.sunAndShade"),
+      value: "sun and shade",
+    },
+  ];
+
+  const localizationTexts: any = {
+    allItemsAreSelected: `${t("multiSelect.localization.allItemsAreSelected")}`,
+    clearSearch: t("multiSelect.localization.clearSearch"),
+    noOptions: t("multiSelect.localization.noOptions"),
+    search: t("multiSelect.localization.search"),
+    selectAll: t("multiSelect.localization.selectAll"),
+    selectAllFiltered: t("multiSelect.localization.selectAllFiltered"),
+    selectSomeItems: t("multiSelect.localization.selectSomeItems"),
+    create: t("multiSelect.localization.create"),
+  };
 
   return (
     <div className="mb-4">
       <hr className="horizontal-rule" />
       <h4>{t("texts.home.searchPlant.headline")}</h4>
-      <div className="d-flex">
+      <div className="search-container">
         <input
           type="text"
           placeholder={t("texts.home.searchPlant.namePlaceholder")}
           value={query}
-          className="is-width-medium form-control"
+          className="search-field form-control"
           onChange={({
             target: { value },
           }: React.ChangeEvent<HTMLInputElement>): void => {
             setQuery(value);
           }}
         />
-        <select
-          name="location"
-          className="location-filter form-control ml-4"
-          onChange={({
-            target: { value },
-          }: React.ChangeEvent<HTMLSelectElement>): void => {
-            setFilter(value);
+        <MultiSelect
+          labelledBy="location-select"
+          options={optionsChoice}
+          value={selectedOptions}
+          overrideStrings={localizationTexts}
+          onChange={(options: DropdownOption[]): void => {
+            setSelectedOptions(options);
           }}
-        >
-          <option value="">{t("select.location.title")}</option>
-          <option value="sun">{t("select.location.sun")}</option>
-          <option value="shade">{t("select.location.shade")}</option>
-          <option value="sun and shade">
-            {t("select.location.sunAndShade")}
-          </option>
-        </select>
+          disableSearch={true}
+          className="location-filter form-control p-0"
+        />
       </div>
     </div>
   );
