@@ -103,7 +103,7 @@ const PlantSearch = (): JSX.Element => {
             setSelectedOptions(options);
           }}
           disableSearch={true}
-          className="location-filter form-control p-0"
+          className="location-filter form-control p-0 is-no-border"
         />
       </div>
     </div>
