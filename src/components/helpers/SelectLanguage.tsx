@@ -10,15 +10,21 @@ const SelectLanguage = (): JSX.Element => {
   };
 
   return (
-    <div className="is-link">
+    <div className="select-language">
       <FontAwesomeIcon icon={faLanguage} />
       <select
-        className="form-select select-language"
+        className="form-select select-language__select"
         onChange={handleSelectLanguage}
       >
-        <option value="">{t("select.language.placeholder")}</option>
-        <option value="de">{t("select.language.german")}</option>
-        <option value="en">{t("select.language.english")}</option>
+        <option value="" className="select-language__select__option">
+          {t("select.language.placeholder")}
+        </option>
+        <option value="de" className="select-language__select__option">
+          {t("select.language.german")}
+        </option>
+        <option value="en" className="select-language__select__option">
+          {t("select.language.english")}
+        </option>
       </select>
     </div>
   );

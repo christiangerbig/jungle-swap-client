@@ -35,7 +35,9 @@ const PlantsCreatedView = (): JSX.Element => {
   return (
     <div className="container mt-5">
       <div className="mt-5 mb-5">
-        <h2>{t("texts.plants.myPlants.headline")}</h2>
+        <h2 className="plants-created-view__headline">
+          {t("texts.plants.myPlants.headline")}
+        </h2>
       </div>
       {isFetchingPlants ? <WaitSpinner /> : <PlantsCreatedCollection />}
     </div>

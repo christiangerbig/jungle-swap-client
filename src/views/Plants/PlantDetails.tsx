@@ -26,16 +26,16 @@ const PlantDetails = (): JSX.Element => {
   const { creator } = plant as Plant;
 
   useEffect(() => {
-    protectRoute((): void => {
-      fetchPlant(plantId, (): void => {
-        scrollToTop();
-      });
+    // protectRoute((): void => {
+    fetchPlant(plantId, (): void => {
+      scrollToTop();
     });
+    // });
   }, []);
 
-  if (!loggedInUser) {
-    return <Redirect to={"/auth/sign-up"} />;
-  }
+  // if (!loggedInUser) {
+  //   return <Redirect to={"/auth/sign-up"} />;
+  // }
 
   return (
     <div className="container mt-5 row row-md-10 offset-md-4">

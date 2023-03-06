@@ -23,6 +23,37 @@ footer {
 }
 
 /* Custom classes */
+.plants-created-view__headline {
+  font-family: "Noto Serif", serif;
+  font-size: 3.75rem;
+  letter-spacing: -0.0625rem;
+  color: #204d2c;
+}
+
+.button-go-back--width-medium {
+  width: 30%;
+}
+
+.select-language {
+  color: #415dff;
+}
+
+.select-language:hover {
+  text-decoration: none;
+  color: #204d2c;
+}
+
+.select-language__select {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+}
+
+.select-language__select__option {
+  color: #415dff;
+  background-color: #fbf8ef;
+}
+
 .is-warning {
   color: #ffcf60;
 }
@@ -189,17 +220,6 @@ footer {
   background-attachment: fixed;
 }
 
-.select-language {
-  background-color: transparent;
-  color: inherit;
-  border: none;
-}
-
-.select-language option {
-  color: #415dff;
-  background-color: #fbf8ef;
-}
-
 .form-style {
   background-color: #fbf8ef;
   padding: 0.9375rem;
@@ -320,17 +340,14 @@ footer {
   margin-top: 9.375rem;
 }
 
-.container {
-  margin-bottom: 5rem;
-}
-
-.container h2 {
-  font-family: "Noto Serif", serif;
-  font-size: 3.75rem;
-  letter-spacing: -0.0625rem;
-  color: #204d2c;
-}
-
+/*.container
+  margin-bottom: 5rem
+  h2
+    font:
+      family: "Noto Serif", serif
+      size: 3.75rem
+    letter-spacing: -0.0625rem
+    color: $dark-green*/
 .error-modal {
   position: fixed;
   top: 0;

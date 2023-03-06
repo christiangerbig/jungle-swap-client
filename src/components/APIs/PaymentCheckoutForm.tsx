@@ -105,14 +105,14 @@ const PaymentCheckoutForm = (): JSX.Element => {
 
   return (
     <div className="container col-md-9 col-sm-12">
-      <h2 className="mb-4 is-word-break">{name}</h2>
+      <h2 className="mb-4 text-break">{name}</h2>
       <h3 className="mb-4">
         {t("texts.plants.checkout.form.price")} {price}{" "}
         {t("texts.plants.checkout.form.currency")}
       </h3>
       <form
         id="payment-form"
-        className="checkoutForm form-style mt-5"
+        className="form-style mt-5"
         onSubmit={handleSubmitPayment}
       >
         <CardElement
