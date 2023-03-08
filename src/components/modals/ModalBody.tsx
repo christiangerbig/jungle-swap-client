@@ -33,16 +33,16 @@ const ModalBody = ({
   return (
     <div
       ref={divElementRef}
-      className="error-modal fade-error-modal-in"
+      className="modal-body"
       onClick={handleClickOutside}
     >
-      <div className="error-modal-box">
-        <h1>{headline}</h1>
-        <h2>{subheadline}</h2>
-        <h3>{text}</h3>
+      <div className="modal-body__box">
+        <h1 className="modal-body__box__headline">{headline}</h1>
+        <h2 className="modal-body__box__subheadline">{subheadline}</h2>
+        <h3 className="modal-body__box__text">{text}</h3>
         {isClose && (
           <button
-            className="btn form-control is-width-small mt-4 mb-3"
+            className="[ button--width-small ] [ btn form-control mt-4 mb-3 ]"
             onClick={handleCloseModal}
           >
             {t("button.proceed")}
