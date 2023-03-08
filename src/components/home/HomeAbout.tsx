@@ -18,7 +18,7 @@ const HomeAbout = (): JSX.Element => {
         </div>
         <br />
         <div className="col-sm-6 col-md-6 col-lg-6 px-5">
-          <article>
+          <article className="mt-4">
             <header>
               <h4 className="home-about__headline">
                 {t("texts.home.about.headline")}

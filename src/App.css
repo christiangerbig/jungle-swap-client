@@ -111,6 +111,62 @@ footer {
   background-color: #fbf8ef;
 }
 
+.home-title {
+  height: 50rem;
+}
+
+.home-title__headline {
+  font-family: "Noto Serif", serif;
+  font-size: 3.75rem;
+  letter-spacing: 0.0625rem;
+  text-align: center;
+  color: #fbf8ef;
+  padding: 0.9375rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-title__headline {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title__headline {
+    margin-left: -2.8125rem;
+  }
+}
+
+.home-title__subheadline {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: #fbf8ef;
+}
+
+.home-title__link {
+  background-color: #fbf8ef;
+  color: #415dff;
+  font-family: "Noto Serif", serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  font-weight: bold 700;
+  letter-spacing: 0.1rem;
+  padding: 0.5rem 2.6rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-title__link {
+    font-size: 0.9375rem;
+    padding: 0.5rem;
+  }
+}
+
+.home-title__link:hover {
+  color: #204d2c;
+  text-decoration: none;
+}
+
 .home-about {
   background-color: #ffcf60;
   color: #204d2c;
