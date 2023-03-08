@@ -62,7 +62,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <div className="container row mt-5">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
         <h2 className="mb-5">{t("texts.authentification.signUp.headline")}</h2>
         <form className="form-style" onSubmit={handleSignUp}>
           <div className="form-group">
@@ -74,7 +74,7 @@ const SignUp = (): JSX.Element => {
               id="InputUsername"
               name="username"
               placeholder={t("texts.authentification.signUp.enterPlaceholder")}
-              className="form-control is-width-full"
+              className="form-control w-100"
             />
           </div>
           <div className="form-group">
@@ -86,7 +86,7 @@ const SignUp = (): JSX.Element => {
               id="InputEmail"
               name="email"
               placeholder={t("texts.authentification.signUp.enterPlaceholder")}
-              className="form-control is-width-full"
+              className="form-control w-100"
             />
           </div>
           <div className="form-group">
@@ -98,7 +98,7 @@ const SignUp = (): JSX.Element => {
               id="InputPassword"
               name="password"
               placeholder={t("texts.authentification.signUp.enterPlaceholder")}
-              className="form-control is-width-full"
+              className="form-control w-100"
             />
           </div>
           <ErrorMessage
@@ -109,12 +109,17 @@ const SignUp = (): JSX.Element => {
             type="submit"
             formNoValidate
             className={`
-              btn
-              btn-sm
-              mx-2
-              mt-4
-              is-width-medium
-              form-control
+              [
+                button--width-medium
+              ]
+              [
+                btn
+                btn-sm
+                form-control
+                px-4
+                mx-2
+                mt-4
+              ]
             `}
           >
             {t("button.signUp")}
@@ -123,16 +128,20 @@ const SignUp = (): JSX.Element => {
             {t("texts.authentification.signUp.alreadyAccountCreated")}
           </p>
           <div className="text-right">
-            <Link to={"/auth/sign-in"} className="is-link">
+            <Link to={"/auth/sign-in"} className="navigation-link">
               <button
                 className={`
+                [
+                  button--width-medium
+                ]
+                [
                   btn
                   btn-sm
-                  is-width-medium
                   form-control
-                  mx-2
+                  px-4
                   mt-0
-                  mb-2
+                  mx-2
+                ]
                 `}
               >
                 {t("button.signIn")}

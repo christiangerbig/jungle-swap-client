@@ -365,6 +365,33 @@ body {
   padding: 0.9375rem 0;
 }
 
+.unauthorized-container {
+  background-image: url("./images/JungleSwap_Lost.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fbf8ef;
+  text-shadow: 5px black;
+  height: 100vh;
+}
+
+.unauthorized-container__headline {
+  font-family: "Noto Serif", serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.0625rem;
+}
+
+.unauthorized-container__subheadline1 {
+  font-family: "Noto Serif", serif;
+  font-size: 2rem;
+  letter-spacing: 0.0625rem;
+}
+
+.unauthorized-container_subheadline2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.25rem;
+}
+
 .is-warning {
   color: #ffcf60;
 }

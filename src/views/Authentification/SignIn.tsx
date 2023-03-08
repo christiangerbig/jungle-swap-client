@@ -61,8 +61,8 @@ const SignIn = (): JSX.Element => {
   };
 
   return (
-    <div className="container row mt-5 custom fullscreen">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
+    <div className="container row mt-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
         <h2 className="mb-5">{t("texts.authentification.signIn.headline")}</h2>
         <form className="form-style" onSubmit={handleSignIn}>
           <div className="form-group">
@@ -74,7 +74,7 @@ const SignIn = (): JSX.Element => {
               id="InputEmail"
               name="email"
               placeholder={t("texts.authentification.signIn.enterPlaceholder")}
-              className="form-control is-width-full"
+              className="form-control w-100"
             />
           </div>
           <div className="form-group">
@@ -86,7 +86,7 @@ const SignIn = (): JSX.Element => {
               id="InputPassword"
               name="password"
               placeholder={t("texts.authentification.signIn.enterPlaceholder")}
-              className="form-control is-width-full"
+              className="form-control w-100"
             />
           </div>
           <ErrorMessage
@@ -96,7 +96,7 @@ const SignIn = (): JSX.Element => {
           <button
             type="submit"
             formNoValidate
-            className="btn btn-sm mt-4 is-width-medium form-control"
+            className="[ button--width-medium ] [ btn btn-sm form-control px-4 mt-4 ]"
           >
             {t("button.signIn")}
           </button>
