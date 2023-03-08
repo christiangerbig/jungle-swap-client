@@ -14,6 +14,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { Message } from "../../app/typeDefinitions";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
 const RequestUpdateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -52,6 +53,10 @@ const RequestUpdateForm = (): JSX.Element => {
     updateMessage(updatedMessage, (): void => {
       goBack();
     });
+  };
+
+  const handleGoBack = () => {
+    goBack();
   };
 
   const convertErrorMessage = (errorMessage: string): string => {
@@ -104,14 +109,7 @@ const RequestUpdateForm = (): JSX.Element => {
               >
                 {t("button.submit")}
               </button>
-              <button
-                className="btn btn-sm is-width-medium form-control mx-2 mb-2"
-                onClick={(): void => {
-                  goBack();
-                }}
-              >
-                {t("button.goBack")}
-              </button>
+              <GoBackButton clickHandler={handleGoBack} />
             </div>
           </div>
         </div>

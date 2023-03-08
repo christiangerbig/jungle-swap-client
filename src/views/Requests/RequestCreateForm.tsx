@@ -14,6 +14,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User, Plant, Message } from "../../app/typeDefinitions";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
 const RequestCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -69,6 +70,10 @@ const RequestCreateForm = (): JSX.Element => {
     }
   };
 
+  const handleGoBack = (): void => {
+    goBack();
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -108,14 +113,7 @@ const RequestCreateForm = (): JSX.Element => {
             >
               {t("button.send")}
             </button>
-            <button
-              className="btn btn-sm mx-2 form-control is-width-medium"
-              onClick={(): void => {
-                goBack();
-              }}
-            >
-              {t("button.goBack")}
-            </button>
+            <GoBackButton clickHandler={handleGoBack} />
           </div>
         </form>
       </div>

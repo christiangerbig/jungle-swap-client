@@ -1,10 +1,11 @@
 import { useEffect, useMemo } from "react";
-import { Link, useParams, useHistory, Redirect } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useMessage } from "../../app/custom-hooks/useMessage";
+import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import {
   decreaseAmountOfReplies,
   selectIsDeletingMessage,
@@ -15,6 +16,7 @@ import {
 import { User, Plant, Message, MessageId } from "../../app/typeDefinitions";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
 const ReplyDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -27,6 +29,7 @@ const ReplyDetails = (): JSX.Element => {
   const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessage, deleteMessage } = useMessage();
+  const { goToReplies } = useNavigation();
   const { scrollToTop } = scroll;
   const { _id, seller, plant, request, reply } = message as Message;
 
@@ -48,6 +51,10 @@ const ReplyDetails = (): JSX.Element => {
       dispatch(decreaseAmountOfReplies());
       goBack();
     });
+  };
+
+  const handleGoBack = (): void => {
+    goToReplies();
   };
 
   if (!loggedInUser) {
@@ -90,24 +97,7 @@ const ReplyDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link
-            to={"/replies/fetch-all"}
-            className="is-link"
-            onClick={scrollToTop}
-          >
-            <button
-              className={`
-                btn
-                btn-sm
-                is-width-medium
-                form-control
-                mx-2
-                mt-4
-              `}
-            >
-              {t("button.goBack")}
-            </button>
-          </Link>
+          <GoBackButton clickHandler={handleGoBack} />
         </div>
       </div>
     </div>

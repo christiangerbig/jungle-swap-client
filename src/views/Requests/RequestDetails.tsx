@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useMessage } from "../../app/custom-hooks/useMessage";
+import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import {
   setMessage,
   decreaseAmountOfRequests,
@@ -15,6 +16,7 @@ import {
 import { User, Plant, Message, MessageId } from "../../app/typeDefinitions";
 import WaitSpinnerText from "../../components/spinners/WaitSpinnerText";
 import Reply from "../../components/replies/Reply";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
 const RequestDetails = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -26,15 +28,16 @@ const RequestDetails = (): JSX.Element => {
   const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessage, updateMessage } = useMessage();
+  const { goToRequests } = useNavigation();
   const { scrollToTop } = scroll;
   const { _id, buyer, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    protectRoute((): void => {
-      fetchMessage(messageId, (): void => {
-        scrollToTop();
-      });
+    // protectRoute((): void => {
+    fetchMessage(messageId, (): void => {
+      scrollToTop();
     });
+    // });
   }, []);
 
   const handleChangeMessageState = (message: Message): void => {
@@ -54,6 +57,10 @@ const RequestDetails = (): JSX.Element => {
 
     const updatedMessage = setBuyerMessageInactive(message);
     updateBuyerMessage(updatedMessage);
+  };
+
+  const handleGoBack = (): void => {
+    goToRequests();
   };
 
   if (!loggedInUser) {
@@ -98,15 +105,7 @@ const RequestDetails = (): JSX.Element => {
           </button>
         </div>
         <div className="text-right px-3">
-          <Link
-            to={"/requests/fetch-all"}
-            className="is-link"
-            onClick={scrollToTop}
-          >
-            <button className="btn btn-sm mt-4 mx-2 is-width-medium form-control">
-              {t("button.goBack")}
-            </button>
-          </Link>
+          <GoBackButton clickHandler={handleGoBack} />
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { UploadImageData } from "../../app/typeDefinitions";
 import ErrorMessage from "../../components/helpers/ErrorMessage";
+import GoBackButton from "../../components/helpers/GoBackButton";
 
 const PlantCreateForm = (): JSX.Element => {
   const loggedInUser = useAppSelector(selectLoggedInUser);
@@ -77,6 +78,10 @@ const PlantCreateForm = (): JSX.Element => {
       default:
         return t("errorTexts.general");
     }
+  };
+
+  const handleGoBack = (): void => {
+    goBack();
   };
 
   if (!loggedInUser) {
@@ -175,21 +180,7 @@ const PlantCreateForm = (): JSX.Element => {
             >
               {t("button.create")}
             </button>
-            <button
-              className={`
-                btn
-                btn-sm
-                form-control
-                is-width-medium
-                mx-2
-                mb-2
-              `}
-              onClick={(): void => {
-                goBack();
-              }}
-            >
-              {t("button.goBack")}
-            </button>
+            <GoBackButton clickHandler={handleGoBack} />
           </div>
         </form>
       </div>

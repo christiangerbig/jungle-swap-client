@@ -76,7 +76,7 @@ footer {
 }
 
 .button--width-medium {
-  width: 30%;
+  width: auto;
 }
 
 @media (max-width: 1024px) {

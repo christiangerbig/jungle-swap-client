@@ -5,6 +5,7 @@ import { selectLoggedInUser } from "../../reducer/jungleSwapSlice";
 import { Plant, User } from "../../app/typeDefinitions";
 import PlantDetailsUserChoice from "./PlantDetailsUserChoice";
 import PlantItem from "./PlantItem";
+import GoBackButton from "../helpers/GoBackButton";
 
 interface PlantItemsProps {
   plant: Plant;
@@ -17,6 +18,10 @@ const PlantItems = ({
   const { t } = useTranslation();
   const { goBack } = useHistory();
   const { _id } = loggedInUser as User;
+
+  const handleGoBack = (): void => {
+    goBack();
+  };
 
   return (
     <div className="col">
@@ -56,21 +61,7 @@ const PlantItems = ({
               <PlantDetailsUserChoice
                 isCreator={(creator as User)._id === _id}
               />
-              <button
-                className={`
-                  btn
-                  btn-sm
-                  form-control
-                  is-width-medium
-                  mx-2
-                  mb-3
-                `}
-                onClick={(): void => {
-                  goBack();
-                }}
-              >
-                {t("button.goBack")}
-              </button>
+              <GoBackButton clickHandler={handleGoBack} />
             </div>
           </div>
         </div>

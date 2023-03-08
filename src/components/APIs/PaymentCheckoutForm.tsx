@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { usePayment } from "../../app/custom-hooks/usePayment";
+import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import {
   scrollToPlants,
@@ -12,6 +13,7 @@ import {
 import { Plant } from "../../app/typeDefinitions";
 import { Stripe } from "@stripe/stripe-js";
 import PaymentErrorMessage from "./PaymentErrorMessage";
+import GoBackButton from "../helpers/GoBackButton";
 
 interface CardStyle {
   style: {
@@ -42,6 +44,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
   const elements = useElements();
   const { initializePayment } = usePayment();
   const { t } = useTranslation();
+  const { goToHome } = useNavigation();
   const { _id, name, price } = plant as Plant;
   const cardStyle: CardStyle = {
     style: {
@@ -103,6 +106,10 @@ const PaymentCheckoutForm = (): JSX.Element => {
   const messageVisibility = (): string =>
     isSucceeded ? "result-message text-center" : "result-message--hidden";
 
+  const handleGoBack = (): void => {
+    goToHome();
+  };
+
   return (
     <div className="container col-md-9 col-sm-12">
       <h2 className="[ payment-checkout-form__headline ] [ text-break mb-4 ]">
@@ -141,25 +148,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
         </p>
       </form>
       <div className="row justify-content-center">
-        {isSucceeded ? (
-          <Link
-            to={"/"}
-            onClick={(): void => {
-              dispatch(scrollToPlants());
-            }}
-            className="navigation-link"
-          >
-            <button className="btn btn-sm form-control">
-              {t("button.goBack")}
-            </button>
-          </Link>
-        ) : (
-          <Link to={`/plants/fetch/${_id}`} className="navigation-link">
-            <button className="btn btn-sm form-control pl-3 pr-3">
-              {t("button.goBack")}
-            </button>
-          </Link>
-        )}
+        <GoBackButton clickHandler={handleGoBack} />
       </div>
     </div>
   );

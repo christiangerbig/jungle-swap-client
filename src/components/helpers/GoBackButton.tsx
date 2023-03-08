@@ -1,17 +1,18 @@
-import { useNavigation } from "../../app/custom-hooks/useNavigation";
+import { MouseEventHandler } from "react";
 import { useTranslation } from "react-i18next";
 
-const GoBackButton = (): JSX.Element => {
+interface GoBackButtonProps {
+  clickHandler: MouseEventHandler;
+}
+
+const GoBackButton = ({ clickHandler }: GoBackButtonProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goToHome } = useNavigation();
 
   return (
     <div className="text-right pr-2">
       <button
-        className="[ button--width-medium ] [ btn btn-sm mt-4 form-control ]"
-        onClick={(): void => {
-          goToHome();
-        }}
+        className="[ button--width-medium ] [ btn btn-sm px-4 mt-4 form-control ]"
+        onClick={clickHandler}
       >
         {t("button.goBack")}
       </button>

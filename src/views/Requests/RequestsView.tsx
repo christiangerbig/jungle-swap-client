@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useRouting } from "../../app/custom-hooks/useRouting";
 import { useMessage } from "../../app/custom-hooks/useMessage";
+import { useNavigation } from "../../app/custom-hooks/useNavigation";
 import {
   selectAmountOfRequests,
   selectiIsFetchingMessages,
@@ -26,6 +27,7 @@ const RequestsView = (): JSX.Element => {
   const { t } = useTranslation();
   const { protectRoute } = useRouting();
   const { fetchMessages } = useMessage();
+  const { goToHome } = useNavigation();
   const { scrollToTop } = scroll;
 
   useEffect(() => {
@@ -45,6 +47,10 @@ const RequestsView = (): JSX.Element => {
     };
   }, []);
 
+  const handleGoBack = (): void => {
+    goToHome();
+  };
+
   if (!loggedInUser) {
     return <Redirect to={"/auth/unauthorized"} />;
   }
@@ -54,9 +60,9 @@ const RequestsView = (): JSX.Element => {
       <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
         <h2>{t("texts.requests.overview.headline")}</h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
-        <GoBackButton />
+        <GoBackButton clickHandler={handleGoBack} />
         {isFetchingMessages ? <WaitSpinner /> : <RequestsCollection />}
-        {amountOfRequests !== 0 && <GoBackButton />}
+        {amountOfRequests !== 0 && <GoBackButton clickHandler={handleGoBack} />}
       </div>
     </div>
   );
