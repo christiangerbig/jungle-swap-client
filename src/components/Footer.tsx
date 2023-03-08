@@ -8,14 +8,14 @@ const Footer = (): JSX.Element => {
   const year = currentTime.getFullYear();
 
   return (
-    <div className="has-background-image">
-      <footer>
+    <div className="footer-container">
+      <footer className="footer text-center">
         {t("texts.footer.copyright")} {year}{" "}
         <Link
           to={{ pathname: linkedInPath1 }}
           target="_blank"
           rel="noreferrer noopener"
-          className="is-link"
+          className="navigation-link"
         >
           {t("texts.footer.appAuthor1")}
         </Link>{" "}
@@ -24,7 +24,7 @@ const Footer = (): JSX.Element => {
           to={{ pathname: linkedInPath2 }}
           target="_blank"
           rel="noreferrer noopener"
-          className="is-link"
+          className="navigation-link"
         >
           {t("texts.footer.appAuthor2")}
         </Link>
