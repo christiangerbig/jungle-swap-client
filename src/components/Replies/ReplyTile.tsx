@@ -16,17 +16,16 @@ const ReplyThumbnail = ({
   return (
     <div className="card p-3 mt-4 ">
       <h4>
-        {t("texts.replies.replyTile.headline")} {name}
+        {t("texts.replies.replyTile.headline")} "{name}"
       </h4>
       <h5>
         {t("texts.replies.replyTile.subheadline")} {username}
       </h5>
       <div className="text-center">
-        <Link
-          to={`/replies/fetch/${_id}`}
-          className="btn is-width-medium form-control is-link"
-        >
-          {t("link.details")}
+        <Link to={`/replies/fetch/${_id}`} className="navigation-link">
+          <button className="[ button--width-medium ] [ btn form-control ]">
+            {t("link.details")}
+          </button>
         </Link>
       </div>
     </div>

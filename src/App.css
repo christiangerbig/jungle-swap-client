@@ -353,6 +353,13 @@ footer {
   height: 22rem;
 }
 
+.text-field {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 0.1rem;
+}
+
 .is-warning {
   color: #ffcf60;
 }
@@ -579,13 +586,6 @@ footer {
   .title-header h2 {
     margin-left: -2.8125rem;
   }
-}
-
-.text-field {
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  padding: 0.1rem;
 }
 
 .loading-wait-spinner {
