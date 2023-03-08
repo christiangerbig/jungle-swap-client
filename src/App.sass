@@ -56,9 +56,23 @@ footer
     letter-spacing: -0.0625rem
     color: $dark-green
 
-.button-go-back
+.button
+  &--width-small
+    width: 18%
+    @media (max-width: 1024px)
+      width: 21%
+    @media only screen and (max-width: 768px)
+      width: 35%
+    @media (min-width: 320px) and (max-width: 480px)
+      width: 40%
+    @media (max-width: 1024px)
+      width: 21%
   &--width-medium 
     width: 30%
+    @media (max-width: 1024px) 
+      width: 35%
+    @media (max-width: 768px) 
+      width: 50%
 
 .select-language
   color: $royal-blue

@@ -8,7 +8,7 @@ const GoBackButton = (): JSX.Element => {
   return (
     <div className="text-right pr-2">
       <button
-        className="btn btn-sm button-go-back--width-medium mt-4 form-control"
+        className="[ button--width-medium ] [ btn btn-sm mt-4 form-control ]"
         onClick={(): void => {
           goToHome();
         }}

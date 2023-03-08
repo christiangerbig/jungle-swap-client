@@ -13,7 +13,7 @@ const ErrorMessage = ({
 
   return (
     <>
-      <span className="text-danger font-weight-bold d-block">
+      <span className="d-block text-danger font-weight-bold">
         {outputFunction(message)}
       </span>
     </>

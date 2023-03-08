@@ -47,8 +47,48 @@ footer {
   color: #204d2c;
 }
 
-.button-go-back--width-medium {
+.button--width-small {
+  width: 18%;
+}
+
+@media (max-width: 1024px) {
+  .button--width-small {
+    width: 21%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .button--width-small {
+    width: 35%;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .button--width-small {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .button--width-small {
+    width: 21%;
+  }
+}
+
+.button--width-medium {
   width: 30%;
+}
+
+@media (max-width: 1024px) {
+  .button--width-medium {
+    width: 35%;
+  }
+}
+
+@media (max-width: 768px) {
+  .button--width-medium {
+    width: 50%;
+  }
 }
 
 .select-language {
