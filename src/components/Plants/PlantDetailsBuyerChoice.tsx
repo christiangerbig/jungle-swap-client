@@ -6,29 +6,39 @@ const PlantDetailsBuyerItems = (): JSX.Element => {
 
   return (
     <div>
-      <Link to="/plants/checkout" className="is-link">
+      <Link to="/plants/checkout" className="navigation-link">
         <button
           className={`
-            btn
-            btn-sm
-            form-control
-            is-width-medium
-            mx-2
-            mb-2
+            [ 
+              button--width-medium 
+            ]
+            [ 
+              btn
+              btn-sm
+              form-control
+              px-4
+              mx-2
+              mb-2 
+            ]          
           `}
         >
           {t("button.buy")}
         </button>
       </Link>
-      <Link to="/messages/create" className="is-link">
+      <Link to="/messages/create" className="navigation-link">
         <button
           className={`
-            btn
-            btn-sm
-            form-control
-            is-width-medium
-            mx-2
-            mb-2
+            [ 
+              button--width-medium 
+            ]
+            [ 
+              btn
+              btn-sm
+              form-control
+              px-4
+              mx-2
+              mb-2 
+            ]   
           `}
         >
           {t("button.swap")}

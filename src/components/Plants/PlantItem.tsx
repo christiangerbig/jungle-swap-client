@@ -6,7 +6,7 @@ interface PlantItemProps {
 const PlantItem = ({ keyword, description }: PlantItemProps): JSX.Element => {
   return (
     <div className="ml-2 mt-2">
-      <span className="is-text-bold">{keyword}</span> {description}
+      <span className="font-weight-bold">{keyword}</span> {description}
     </div>
   );
 };

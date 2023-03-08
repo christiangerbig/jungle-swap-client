@@ -40,10 +40,10 @@ const PlantsCollection = (): JSX.Element => {
         )}
       </div>
       {numberOfVisibleEntries < filteredPlants.length && (
-        <div className="is-text-align-center">
+        <div className="text-center">
           <button
             type="button"
-            className="btn btn-sm is-width-medium form-control"
+            className="[ button--width-medium ] [ btn btn-sm form-control px-4 ]"
             onClick={handleClickButton}
           >
             {t("button.more")}

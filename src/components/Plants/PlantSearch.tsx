@@ -80,14 +80,14 @@ const PlantSearch = (): JSX.Element => {
 
   return (
     <div className="mb-4">
-      <hr className="horizontal-rule" />
-      <h4>{t("texts.home.searchPlant.headline")}</h4>
-      <div className="search-container">
+      <hr className="horizontal-ruler pb-5" />
+      <h4 className="mb-4">{t("texts.home.searchPlant.headline")}</h4>
+      <div className="[ plant-search ] [ d-flex flex-row ]">
         <input
           type="text"
           placeholder={t("texts.home.searchPlant.namePlaceholder")}
           value={query}
-          className="search-field form-control"
+          className="plant-search__field form-control"
           onChange={({
             target: { value },
           }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -103,7 +103,7 @@ const PlantSearch = (): JSX.Element => {
             setSelectedOptions(options);
           }}
           disableSearch={true}
-          className="location-filter form-control p-0 is-no-border"
+          className="[ location-filter location-filter--no-border ] [ form-control p-0 ] "
         />
       </div>
     </div>

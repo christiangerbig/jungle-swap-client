@@ -13,23 +13,22 @@ const PlantThumbnail = ({
 
   return (
     <div className="col mb-5">
-      <div className="card card-medium-width text-center h-100">
+      <div className="card text-center h-100">
         <img
           src={imageUrl}
           loading="lazy"
           alt={name}
-          className="card-img-top is-image-size-large"
+          className="[ image image--size-large ] [ card-img-top ]"
         />
         <div className="card-body mb-5">
           <h5>{name}</h5>
           <p>
             {price} {t("texts.plants.plantThumbnail.currency")}
           </p>
-          <Link
-            className="btn form-control is-width-medium is-link"
-            to={`/plants/fetch/${_id}`}
-          >
-            {t("link.details")}
+          <Link to={`/plants/fetch/${_id}`} className="navigation-link">
+            <button className="[ button--width-medium ] [ btn form-control px-3 ]">
+              {t("link.details")}
+            </button>
           </Link>
         </div>
       </div>

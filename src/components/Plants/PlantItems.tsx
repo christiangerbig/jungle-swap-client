@@ -25,12 +25,12 @@ const PlantItems = ({
 
   return (
     <div className="col">
-      <div className="card is-card-width-large">
+      <div className="[ thumbnail-card--width-large ] [ card ]">
         <img
           src={imageUrl}
           loading="lazy"
           alt={name}
-          className="card-img-top is-image-size-large"
+          className="[ thumbnail-card--width-large ] [ card-img-top ]"
         />
         <PlantItem
           keyword={t("texts.plants.plantDetails.name")}
@@ -49,13 +49,13 @@ const PlantItems = ({
           description={location}
         />
         <div className="ml-2 mt-2">
-          <span className="is-text-bold"></span>{" "}
+          <span className="font-weight-bold"></span>{" "}
         </div>
         <PlantItem
           keyword={t("texts.plants.plantDetails.price")}
           description={`${price} ${t("texts.plants.plantDetails.currency")}`}
         />
-        <div className="ml-2 mt-2 col justify-content-center">
+        <div className="col justify-content-center ml-2 mt-2">
           <div className="row-2 justify-content-center">
             <div className="card-body text-right pt-0">
               <PlantDetailsUserChoice

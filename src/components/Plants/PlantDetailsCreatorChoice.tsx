@@ -45,15 +45,20 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
 
   return (
     <div className="p-0">
-      <Link to={"/plants/update"} className="is-link">
+      <Link to={"/plants/update"} className="navigation-link">
         <button
           className={`
-            btn
-            btn-sm
-            form-control
-            is-width-medium
-            mx-2
-            mb-2
+            [ 
+              button--width-medium 
+            ]
+            [ 
+              btn
+              btn-sm
+              form-control
+              px-4
+              mx-2
+              mb-2 
+            ]   
           `}
         >
           {t("button.update")}
@@ -62,12 +67,17 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
       <button
         disabled={buttonState}
         className={`
-          btn
-          btn-sm
-          form-control
-          is-width-medium
-          mx-2
-          mb-2
+          [ 
+            button--width-medium 
+          ]
+          [ 
+            btn
+            btn-sm
+            form-control
+            px-4
+            mx-2
+            mb-2 
+          ]    
         `}
         onClick={handleDeletePlant}
       >
