@@ -99,9 +99,14 @@ const NavBar = (): JSX.Element => {
 
   return (
     <div>
-      <Navbar variant="dark" expand="lg" fixed="top" className="pl-5">
+      <Navbar
+        variant="dark"
+        expand="lg"
+        fixed="top"
+        className="navigation-bar pl-5"
+      >
         <Navbar.Brand>
-          <Link to="/" className="is-link" onClick={scrollToTop}>
+          <Link to="/" className="navigation-link" onClick={scrollToTop}>
             {t("link.jungleSwap")}
           </Link>
         </Navbar.Brand>
@@ -112,7 +117,7 @@ const NavBar = (): JSX.Element => {
           <Nav className="mr-auto">
             <Link
               to="/"
-              className="p-2 is-link"
+              className="navigation-link p-2"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
@@ -123,7 +128,7 @@ const NavBar = (): JSX.Element => {
             <Link
               to="/"
               title={tooltipItemSearch()}
-              className="p-2 is-link"
+              className="navigation-link p-2"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
