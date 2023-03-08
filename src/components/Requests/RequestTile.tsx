@@ -22,11 +22,10 @@ const RequestTile = ({
         {t("texts.requests.requestTile.subheadline")} {username}
       </h5>
       <div className="text-center">
-        <Link
-          to={`/requests/fetch/${_id}`}
-          className="btn is-width-medium form-control is-link"
-        >
-          {t("link.details")}
+        <Link to={`/requests/fetch/${_id}`} className="navigation-link">
+          <button className="[ button--width-medium ] [ btn form-control ]">
+            {t("link.details")}
+          </button>
         </Link>
       </div>
     </div>
