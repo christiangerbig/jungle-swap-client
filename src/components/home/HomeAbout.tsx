@@ -6,33 +6,28 @@ const HomeAbout = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="about centered container">
+    <div className="[ home-about ] [ centered container pt-5 ]">
       <div className="row">
-        <div className="col-sm-6 col-md-5 col-lg-6">
+        <div className="[ home-about__image ] [ col-sm-6 col-md-6 col-lg-6 ]">
           <img
             src={plantsImage}
             loading="eager"
             alt="plants"
-            className="is-background-image"
+            className="home-about__image--size-full"
           />
         </div>
         <br />
-        <div
-          className={`
-            about
-            col-sm-6
-            col-md-5
-            col-lg-6
-            px-5
-            is-no-overflow
-          `}
-        >
+        <div className="col-sm-6 col-md-6 col-lg-6 px-5">
           <article>
             <header>
-              <h4>{t("texts.home.about.headline")}</h4>
-              <h5>{t("texts.home.about.subheadline")}</h5>
+              <h4 className="home-about__headline">
+                {t("texts.home.about.headline")}
+              </h4>
+              <h5 className="home-about__subheadline">
+                {t("texts.home.about.subheadline")}
+              </h5>
             </header>
-            <p>
+            <p className="home-about__paragraph">
               {t("texts.home.about.paragraph.line1")}
               <br />
               {t("texts.home.about.paragraph.line2")}
@@ -45,12 +40,14 @@ const HomeAbout = (): JSX.Element => {
               <br />
               {t("texts.home.about.paragraph.line6")}
             </p>
-            <img
-              src={plantPotIcon}
-              loading="lazy"
-              alt="plant pot"
-              className="is-icon"
-            />
+            <div className="home-about__icon">
+              <img
+                src={plantPotIcon}
+                loading="lazy"
+                alt="plant pot"
+                className="home-about__icon--size-full"
+              />
+            </div>
           </article>
         </div>
       </div>
