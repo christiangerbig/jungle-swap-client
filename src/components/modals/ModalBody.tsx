@@ -33,13 +33,28 @@ const ModalBody = ({
   return (
     <div
       ref={divElementRef}
-      className="modal-body"
+      className={`
+        modal-body
+        fixed-top
+        w-100
+        h-100
+        d-flex
+        justify-content-center
+        align-items-center
+        flex-col
+      `}
       onClick={handleClickOutside}
     >
-      <div className="modal-body__box">
-        <h1 className="modal-body__box__headline">{headline}</h1>
-        <h2 className="modal-body__box__subheadline">{subheadline}</h2>
-        <h3 className="modal-body__box__text">{text}</h3>
+      <div className="[ modal-body__box ] [ text-center ]">
+        <h1 className="[ modal-body__box__headline ] [ mt-3 mb-4 ]">
+          {headline}
+        </h1>
+        <h2 className="[ modal-body__box__subheadline ] [ mb-5 ]">
+          {subheadline}
+        </h2>
+        <h3 className="[ modal-body__box__text ] [ text-uppercase mb-5 ]">
+          {text}
+        </h3>
         {isClose && (
           <button
             className="[ button--width-small ] [ btn form-control mt-4 mb-3 ]"
