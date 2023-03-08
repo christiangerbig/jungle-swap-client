@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&family=Source+Sans+Pro:wght@200;300&display=swap");
+/* Base */
 html,
 body {
   background-color: #fbf8ef;
-  /* Height and width fallback for older browsers. */
   width: 100%;
   height: 100%;
-  /* Set the height to match that of the viewport. */
   height: 100vh;
-  /* Remove any browser-default margins. */
   margin: 0;
 }
 
@@ -23,6 +21,25 @@ footer {
 }
 
 /* Custom classes */
+.navigation-link {
+  color: #415dff;
+}
+
+.navigation-link:hover {
+  text-decoration: none;
+  color: #204d2c;
+}
+
+.navigation-link--width-medium {
+  width: 30%;
+}
+
+@media (max-width: 1024px) {
+  .navigation-link--width-medium {
+    width: 35%;
+  }
+}
+
 .plants-created-view__headline {
   font-family: "Noto Serif", serif;
   font-size: 3.75rem;
@@ -545,8 +562,19 @@ footer {
   color: #4fa764;
 }
 
-.is-hidden {
+.result-message--hidden {
   display: none;
+}
+
+.payment-checkout-form {
+  margin-bottom: 5rem;
+}
+
+.payment-checkout-form__headline {
+  font-family: "Noto Serif", serif;
+  font-size: 3.75rem;
+  letter-spacing: -0.0625rem;
+  color: #204d2c;
 }
 
 .card-button:disabled {

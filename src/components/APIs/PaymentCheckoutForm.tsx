@@ -101,11 +101,13 @@ const PaymentCheckoutForm = (): JSX.Element => {
     );
 
   const messageVisibility = (): string =>
-    isSucceeded ? "result-message text-center" : "is-hidden";
+    isSucceeded ? "result-message text-center" : "result-message--hidden";
 
   return (
     <div className="container col-md-9 col-sm-12">
-      <h2 className="mb-4 text-break">{name}</h2>
+      <h2 className="[ payment-checkout-form__headline ] [ text-break mb-4 ]">
+        {name}
+      </h2>
       <h3 className="mb-4">
         {t("texts.plants.checkout.form.price")} {price}{" "}
         {t("texts.plants.checkout.form.currency")}
@@ -126,7 +128,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
             type="submit"
             id="submit"
             disabled={isProcessing || isDisabled || isSucceeded}
-            className="btn btn-sm mt-5 mb-4 card-button"
+            className="btn btn-sm card-button mt-5 mb-4"
           >
             <span id="button-text">{processingState()}</span>
           </button>
@@ -145,14 +147,14 @@ const PaymentCheckoutForm = (): JSX.Element => {
             onClick={(): void => {
               dispatch(scrollToPlants());
             }}
-            className="is-link"
+            className="navigation-link"
           >
             <button className="btn btn-sm form-control">
               {t("button.goBack")}
             </button>
           </Link>
         ) : (
-          <Link to={`/plants/fetch/${_id}`} className="is-link">
+          <Link to={`/plants/fetch/${_id}`} className="navigation-link">
             <button className="btn btn-sm form-control pl-3 pr-3">
               {t("button.goBack")}
             </button>

@@ -13,20 +13,16 @@ $background-image-path1: "./images/JungleSwap_Header.png"
 $background-image-path2: "./images/JungleSwap_Lost.jpg"
 $fixed-background-image-path: "./images/JungleSwap_Header.png"
 
+/* Base */
 
 html, 
 body 
   background-color: $floral-white
-
-  /* Height and width fallback for older browsers. */
   width: 100%
   height: 100%
-
-  /* Set the height to match that of the viewport. */
   height: 100vh
-
-  /* Remove any browser-default margins. */
   margin: 0
+
 
 nav 
   background-color: $transparent-floral-white1
@@ -39,6 +35,18 @@ footer
 
 
 /* Custom classes */
+
+.navigation-link
+  color: $royal-blue
+  &:hover 
+    text-decoration: none
+    color: $dark-green
+  &--width-medium 
+    width: 30%
+    @media (max-width: 1024px) 
+      width: 35%
+
+
 
 .plants-created-view
   &__headline
@@ -460,9 +468,18 @@ footer
   font-weight: 600
   text-align: center
   color: rgb(79, 167, 100)
+  &--hidden
+    display: none
 
-.is-hidden 
-  display: none
+.payment-checkout-form
+  margin-bottom: 5rem
+  &__headline
+    font:
+      family: "Noto Serif", serif
+      size: 3.75rem
+    letter-spacing: -0.0625rem
+    color: $dark-green
+
 
 .card-button
   &:disabled 
