@@ -81,6 +81,15 @@ body
       background-color: $floral-white
 
 
+.home
+  height: 50rem
+  background:
+    image: url($fixed-background-image-path)
+    size: cover
+    repeat: no-repeat
+    attachment: fixed
+
+
 .home-title
   height: 50rem
   &__headline
@@ -454,31 +463,8 @@ body
   p 
     font-weight: 700
 
-.title-header 
-  height: 50rem
-  h2 
-    font:
-      family: "Noto Serif", serif
-      size: 3.75rem
-    letter-spacing: 0.0625rem
-    text-align: center
-    color: $floral-white
-    padding: 0.9375rem
-  h5
-    font:
-      family: "Source Sans Pro", sans-serif
-      weight: 600
-    letter-spacing: 0.25rem
-    text-transform: uppercase
-    color: $floral-white
-@media only screen and (max-width: 768px) 
-  .title-header
-    h2 
-      font-size: 2.5rem
-@media (max-width: 480px) 
-  .title-header
-    h2
-      margin-left: -2.8125rem
+
+
 
 
 .loading-wait-spinner
@@ -621,6 +607,11 @@ body
     padding:
       top: 3.125rem
       bottom: 0
+
+
+
+
+
 
 /* Bootstrap classes */
 

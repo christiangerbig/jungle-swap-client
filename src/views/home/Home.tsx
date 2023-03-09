@@ -40,7 +40,7 @@ const Home = (): JSX.Element => {
         ref={(titleSection: HTMLElement): void => {
           (elementRef.current[0] as HTMLElement | null) = titleSection;
         }}
-        className="text-center pt-5 pb-5 title-header has-fixed-background-image"
+        className="[ home ] [ text-center pt-5 pb-5 ]"
       >
         <HomeTitle />
       </section>

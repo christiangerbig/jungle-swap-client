@@ -104,6 +104,14 @@ body {
   background-color: #fbf8ef;
 }
 
+.home {
+  height: 50rem;
+  background-image: url("./images/JungleSwap_Header.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .home-title {
   height: 50rem;
 }
@@ -612,39 +620,6 @@ body {
 
 .about p {
   font-weight: 700;
-}
-
-.title-header {
-  height: 50rem;
-}
-
-.title-header h2 {
-  font-family: "Noto Serif", serif;
-  font-size: 3.75rem;
-  letter-spacing: 0.0625rem;
-  text-align: center;
-  color: #fbf8ef;
-  padding: 0.9375rem;
-}
-
-.title-header h5 {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.25rem;
-  text-transform: uppercase;
-  color: #fbf8ef;
-}
-
-@media only screen and (max-width: 768px) {
-  .title-header h2 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .title-header h2 {
-    margin-left: -2.8125rem;
-  }
 }
 
 .loading-wait-spinner {
