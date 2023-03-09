@@ -74,11 +74,11 @@ const RequestUpdateForm = (): JSX.Element => {
 
   return (
     <div className="container row mt-5 ">
-      <div className="mt-2 col-11 col-md-5 offset-1 offset-md-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-2">
         <h2 className="mt-5 mb-4">
           {t("texts.requests.updateRequest.form.headline")}
         </h2>
-        <div className="card is-card-width-medium mb-5">
+        <div className="thumbnail-card--width-medium card mb-5">
           <div className="card-body">
             <p>{request}</p>
             <textarea
@@ -88,7 +88,7 @@ const RequestUpdateForm = (): JSX.Element => {
               )}
               cols={31}
               rows={6}
-              className="mb-4 form-control is-width-full"
+              className="form-control w-100 mb-4"
               onChange={(
                 event: React.ChangeEvent<HTMLTextAreaElement>
               ): void => {
@@ -99,10 +99,22 @@ const RequestUpdateForm = (): JSX.Element => {
               message={errorMessage}
               outputFunction={convertErrorMessage}
             />
-            <div className="row justify-content-end px-3">
+            <div className="text-right px-3">
               <button
                 disabled={buttonState}
-                className="btn btn-sm is-width-medium form-control mx-2 mb-2"
+                className={`
+                  [
+                    button--width-medium
+                  ]
+                  [
+                    btn 
+                    btn-sm 
+                    form-control 
+                    px-4
+                    mr-0
+                    mb-2
+                  ]                
+                `}
                 onClick={(): void => {
                   handleUpdateMessage(message);
                 }}

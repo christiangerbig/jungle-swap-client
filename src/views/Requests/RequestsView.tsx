@@ -57,7 +57,7 @@ const RequestsView = (): JSX.Element => {
 
   return (
     <div className="container row mt-5">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
         <h2>{t("texts.requests.overview.headline")}</h2>
         <h3 className="mb-4"> [{amountOfRequests}] </h3>
         <GoBackButton clickHandler={handleGoBack} />

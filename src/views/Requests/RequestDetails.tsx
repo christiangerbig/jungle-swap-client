@@ -75,28 +75,55 @@ const RequestDetails = (): JSX.Element => {
 
   return (
     <div className="container row mt-5 ">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
         <h2 className="mb-5">
           {t("texts.requests.requestDetails.headline")} {name}
         </h2>
         <h5>
           {t("texts.requests.requestDetails.subheadline")} {username}
         </h5>
-        <p className="text-field p-3 mb-4">{request}</p>
+        <p className="[ text-field ] [ p-3 mb-4 ]">{request}</p>
         <Reply
           headline={t("texts.requests.requestDetails.yourReply")}
           text={reply}
         />
         <div className="text-right px-3">
           {!reply && (
-            <Link to={`/messages/update/${_id}`} className="is-link">
-              <button className="btn btn-sm mx-2 is-width-medium form-control mb-1">
+            <Link to={`/messages/update/${_id}`} className="navigation-link">
+              <button
+                className={`
+                  [ 
+                    button--width-medium 
+                  ] 
+                  [ 
+                    btn 
+                    btn-sm 
+                    form-control 
+                    px-4 
+                    mx-2 
+                    mb-1 
+                  ]
+                `}
+              >
                 {t("button.reply")}
               </button>
             </Link>
           )}
           <button
-            className="btn btn-sm mx-2 is-width-medium form-control mb-1"
+            className={`
+              [ 
+                button--width-medium 
+              ] 
+              [ 
+                btn 
+                btn-sm 
+                form-control 
+                px-4
+                ml-2 
+                mr-0 
+                mb-1 
+              ]
+            `}
             onClick={(): void => {
               handleChangeMessageState(message);
             }}

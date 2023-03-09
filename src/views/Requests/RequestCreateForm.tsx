@@ -80,15 +80,15 @@ const RequestCreateForm = (): JSX.Element => {
 
   return (
     <div className="container row mt-5">
-      <div className="mt-5 col-11 col-md-5 offset-1 offset-md-5">
+      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
         <h2 className="mb-4">
           {t("texts.requests.createRequest.form.headline")}
         </h2>
         <h3 className="mb-4">
-          {t("texts.requests.createRequest.form.subheadline")} {name}
+          {t("texts.requests.createRequest.form.subheadline")} "{name}"
         </h3>
         <form
-          className="pl-0 form-style"
+          className="form-style pl-0"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleCreateMessageForRequest(event, plant);
           }}
@@ -98,7 +98,7 @@ const RequestCreateForm = (): JSX.Element => {
               name="request"
               cols={35}
               rows={7}
-              className="mb-4 form-control is-width-full"
+              className="form-control w-100 mb-4"
             />
           </div>
           <ErrorMessage
@@ -109,7 +109,7 @@ const RequestCreateForm = (): JSX.Element => {
             <button
               type="submit"
               disabled={buttonState}
-              className="btn btn-sm mx-2 form-control is-width-medium"
+              className="[ button--width-medium ] [ btn btn-sm form-control px-4 mr-0 ]"
             >
               {t("button.send")}
             </button>
