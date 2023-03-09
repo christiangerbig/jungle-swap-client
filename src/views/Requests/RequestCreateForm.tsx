@@ -88,7 +88,7 @@ const RequestCreateForm = (): JSX.Element => {
           {t("texts.requests.createRequest.form.subheadline")} "{name}"
         </h3>
         <form
-          className="form-style pl-0"
+          className="request-create-form pl-0"
           onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
             handleCreateMessageForRequest(event, plant);
           }}
@@ -109,7 +109,19 @@ const RequestCreateForm = (): JSX.Element => {
             <button
               type="submit"
               disabled={buttonState}
-              className="[ button--width-medium ] [ btn btn-sm form-control px-4 mr-0 ]"
+              className={`
+                [ 
+                  button--width-medium 
+                ] 
+                [ 
+                  btn 
+                  btn-sm 
+                  form-control 
+                  px-4 
+                  mr-0 
+                  mb-4 
+                ]
+              `}
             >
               {t("button.send")}
             </button>

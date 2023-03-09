@@ -96,7 +96,19 @@ const SignIn = (): JSX.Element => {
           <button
             type="submit"
             formNoValidate
-            className="[ button--width-medium ] [ btn btn-sm form-control px-4 mt-4 ]"
+            className={`
+              [ 
+                button--width-medium 
+              ] 
+              [ 
+                btn 
+                btn-sm 
+                form-control 
+                px-4 
+                mt-4 
+                ml-0 
+              ]
+            `}
           >
             {t("button.signIn")}
           </button>

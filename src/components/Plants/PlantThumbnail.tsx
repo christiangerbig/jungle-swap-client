@@ -13,7 +13,7 @@ const PlantThumbnail = ({
 
   return (
     <div className="col mb-5">
-      <div className="card text-center h-100">
+      <div className="thumbnail-card--width-large card text-center h-100">
         <img
           src={imageUrl}
           loading="lazy"

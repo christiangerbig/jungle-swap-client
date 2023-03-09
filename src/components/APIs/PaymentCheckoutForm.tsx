@@ -98,7 +98,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
 
   const processingState = (): JSX.Element | string =>
     isProcessing ? (
-      <div id="spinner" className="spinner is-text-bold" />
+      <div id="spinner" className="spinner font-weight-bold" />
     ) : (
       t("texts.plants.checkout.form.payNow")
     );
@@ -121,7 +121,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
       </h3>
       <form
         id="payment-form"
-        className="form-style mt-5"
+        className="payment-checkout-form mt-5"
         onSubmit={handleSubmitPayment}
       >
         <CardElement

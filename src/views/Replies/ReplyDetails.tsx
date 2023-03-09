@@ -34,11 +34,11 @@ const ReplyDetails = (): JSX.Element => {
   const { _id, seller, plant, request, reply } = message as Message;
 
   useEffect(() => {
-    // protectRoute((): void => {
-    fetchMessage(messageId, (): void => {
-      scrollToTop();
+    protectRoute((): void => {
+      fetchMessage(messageId, (): void => {
+        scrollToTop();
+      });
     });
-    // });
   }, []);
 
   const buttonState = useMemo(

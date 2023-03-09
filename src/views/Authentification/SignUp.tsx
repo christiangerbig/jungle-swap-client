@@ -117,14 +117,14 @@ const SignUp = (): JSX.Element => {
                 btn-sm
                 form-control
                 px-4
-                mx-2
+                ml-0
                 mt-4
               ]
             `}
           >
             {t("button.signUp")}
           </button>
-          <p className="is-padding-top">
+          <p className="pt-1">
             {t("texts.authentification.signUp.alreadyAccountCreated")}
           </p>
           <div className="text-right">
@@ -140,7 +140,7 @@ const SignUp = (): JSX.Element => {
                   form-control
                   px-4
                   mt-0
-                  mx-2
+                  mr-0
                 ]
                 `}
               >
