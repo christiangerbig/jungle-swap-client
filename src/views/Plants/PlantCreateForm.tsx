@@ -178,7 +178,7 @@ const PlantCreateForm = (): JSX.Element => {
                   btn-sm
                   form-control
                   px-4
-                  mx-2
+                  mr-0
                   mb-2
                 ]
               `}

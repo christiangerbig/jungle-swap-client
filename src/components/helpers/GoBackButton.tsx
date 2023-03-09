@@ -9,9 +9,9 @@ const GoBackButton = ({ clickHandler }: GoBackButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="text-right pr-2">
+    <div className="text-right">
       <button
-        className="[ button--width-medium ] [ btn btn-sm px-4 mt-4 form-control ]"
+        className="[ button--width-medium ] [ btn btn-sm form-control px-4 mt-4 ]"
         onClick={clickHandler}
       >
         {t("button.goBack")}
