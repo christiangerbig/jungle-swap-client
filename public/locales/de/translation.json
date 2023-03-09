@@ -62,6 +62,12 @@
       "placeholder": "Sprache",
       "english": "Englisch",
       "german": "Deutsch"
+    },
+    "location": {
+      "title": "Ort auswählen",
+      "sun": "Sonne",
+      "shade": "Schatten",
+      "sunAndShade": "Sonne und Schatten"
     }
   },
 

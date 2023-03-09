@@ -26,20 +26,20 @@ const PlantDetails = (): JSX.Element => {
   const { creator } = plant as Plant;
 
   useEffect(() => {
-    // protectRoute((): void => {
-    fetchPlant(plantId, (): void => {
-      scrollToTop();
+    protectRoute((): void => {
+      fetchPlant(plantId, (): void => {
+        scrollToTop();
+      });
     });
-    // });
   }, []);
 
-  // if (!loggedInUser) {
-  //   return <Redirect to={"/auth/sign-up"} />;
-  // }
+  if (!loggedInUser) {
+    return <Redirect to={"/auth/sign-up"} />;
+  }
 
   return (
-    <div className="container mt-5 row row-md-10 offset-md-4">
-      <div className="mt-4 mb-3 pt-4 container">
+    <div className="container row row-md-10 offset-md-4 mt-5">
+      <div className="container pt-4 mt-4 mb-3">
         <h2>{t("texts.plants.plantDetails.headline")}</h2>
       </div>
       {isFetchingPlant || !creator ? (

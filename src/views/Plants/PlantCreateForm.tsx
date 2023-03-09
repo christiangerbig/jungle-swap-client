@@ -89,9 +89,9 @@ const PlantCreateForm = (): JSX.Element => {
   }
 
   return (
-    <div className="container row mt-5 fullscreen">
-      <div className="mt-5 col-12 col-md-6 offset-md-4">
-        <h2 className="mb-5 text-left">
+    <div className="container row mt-5">
+      <div className="col-12 col-md-6 offset-md-4 mt-5">
+        <h2 className="text-left mb-5">
           {t("texts.plants.createPlant.form.headline")}
         </h2>
         <form className="form-style" onSubmit={handleUploadPlantImage}>
@@ -103,7 +103,7 @@ const PlantCreateForm = (): JSX.Element => {
             id="enterName"
             name="name"
             placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
-            className="mb-4 form-control is-width-full"
+            className="form-control w-100 mb-4"
           />
           <label htmlFor="enterDescription">
             {t("texts.plants.createPlant.form.description")}
@@ -113,7 +113,7 @@ const PlantCreateForm = (): JSX.Element => {
             id="enterDescription"
             name="description"
             placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
-            className="mb-4 form-control is-width-full"
+            className="form-control w-100 mb-4"
           />
           <label htmlFor="enterSize">
             {t("texts.plants.createPlant.form.size")}
@@ -124,7 +124,7 @@ const PlantCreateForm = (): JSX.Element => {
             name="size"
             placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             min="1"
-            className="mb-4 form-control is-width-full"
+            className="form-control w-100 mb-4"
           />
           <label htmlFor="enterLocation">
             {t("texts.plants.createPlant.form.location")}
@@ -132,7 +132,7 @@ const PlantCreateForm = (): JSX.Element => {
           <select
             id="enterLocation"
             name="location"
-            className="mb-4 form-control p-2"
+            className="form-control p-2 mb-4"
           >
             <option>{t("select.location.title")}</option>
             <option value="sun">{t("select.location.sun")}</option>
@@ -150,7 +150,7 @@ const PlantCreateForm = (): JSX.Element => {
             name="price"
             placeholder={t("texts.plants.createPlant.form.enterPlaceholder")}
             min="1"
-            className="mb-4 form-control is-width-full"
+            className="form-control w-100 mb-4"
           />
           <label htmlFor="enterImage">
             {t("texts.plants.createPlant.form.image")}
@@ -159,7 +159,7 @@ const PlantCreateForm = (): JSX.Element => {
             type="file"
             id="enterImage"
             name="plantImage"
-            className="mb-4 form-control is-width-full"
+            className="form-control w-100 mb-4"
           />
           <ErrorMessage
             message={errorMessage}
@@ -170,12 +170,17 @@ const PlantCreateForm = (): JSX.Element => {
               type="submit"
               disabled={buttonState}
               className={`
-                btn
-                btn-sm
-                form-control
-                is-width-medium
-                mx-2
-                mb-2
+                [
+                  button--width-medium
+                ]
+                [
+                  btn
+                  btn-sm
+                  form-control
+                  px-4
+                  mx-2
+                  mb-2
+                ]
               `}
             >
               {t("button.create")}

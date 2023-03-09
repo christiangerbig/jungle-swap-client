@@ -118,11 +118,11 @@ const PlantUpdateForm = (): JSX.Element => {
 
   return (
     <div className="container row mt-5 ">
-      <div className="mt-2 col-12 col-md-6 offset-md-6">
-        <h2 className="mt-5 mb-4 text-left">
+      <div className="col-12 col-md-6 offset-md-6 mt-2">
+        <h2 className="text-left mt-5 mb-4 ">
           {t("texts.plants.updatePlant.form.headline")}
         </h2>
-        <div className="card is-card-width-large mb-5">
+        <div className="[ thumbnail-card--width-large ] [ card mb-5 ]">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
           ) : (
@@ -130,7 +130,7 @@ const PlantUpdateForm = (): JSX.Element => {
               src={imageUrl}
               loading="lazy"
               alt={name}
-              className="mb-2 is-image-size-medium"
+              className="[ image image--size-medium ] [ mb-2 ]"
             />
           )}
           <div className="card-body">
@@ -142,7 +142,7 @@ const PlantUpdateForm = (): JSX.Element => {
               id="updateName"
               name="name"
               value={name}
-              className="mb-4 form-control"
+              className="form-control mb-4"
               onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
@@ -155,7 +155,7 @@ const PlantUpdateForm = (): JSX.Element => {
               id="updateDescription"
               name="description"
               value={description}
-              className="mb-4 form-control"
+              className="form-control mb-4"
               onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
@@ -169,7 +169,7 @@ const PlantUpdateForm = (): JSX.Element => {
               name="size"
               value={size}
               min="1"
-              className="mb-4 form-control"
+              className="form-control mb-4"
               onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
@@ -181,7 +181,7 @@ const PlantUpdateForm = (): JSX.Element => {
               ref={selectElementRef}
               id="updateLocation"
               name="location"
-              className="mb-4 form-control px-2"
+              className="form-control px-2 mb-4"
               onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
@@ -201,7 +201,7 @@ const PlantUpdateForm = (): JSX.Element => {
               name="price"
               value={price}
               min="1"
-              className="mb-4 form-control"
+              className="form-control mb-4"
               onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantEntryChange(event, plant);
               }}
@@ -213,7 +213,7 @@ const PlantUpdateForm = (): JSX.Element => {
               type="file"
               id="updateImage"
               name="plantImage"
-              className="mb-4 form-control"
+              className="form-control mb-4"
               onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 handlePlantImageChange(event, plant);
               }}
@@ -222,12 +222,17 @@ const PlantUpdateForm = (): JSX.Element => {
               <button
                 disabled={buttonState}
                 className={`
-                  btn
-                  btn-sm
-                  form-control
-                  is-width-medium
-                  mx-2
-                  mb-2
+                  [
+                    button--width-medium
+                  ]
+                  [
+                    btn
+                    btn-sm
+                    form-control
+                    px-4
+                    mr-0
+                    mb-2
+                  ]
                 `}
                 onClick={handleUpdatePlant}
               >
