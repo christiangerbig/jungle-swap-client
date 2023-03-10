@@ -52,7 +52,7 @@
       "search": "Nach einem Ort suchen",
       "selectAll": "Alle Orte auswählen",
       "selectAllFiltered": "Alle (gefilterten) Orte auswählen",
-      "selectSomeItems": "Wähle einen Ort aus...",
+      "selectSomeItems": "Ort wählen...",
       "create": "Erstellen"
     }
   },
@@ -94,7 +94,7 @@
       },
       "searchPlant": {
         "headline": "Suche nach einer Pflanze",
-        "namePlaceholder": "Gib einen Namen ein"
+        "namePlaceholder": "Name"
       }
     },
     "authentification": {

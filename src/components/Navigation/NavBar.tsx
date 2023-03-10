@@ -103,7 +103,7 @@ const NavBar = (): JSX.Element => {
         variant="dark"
         expand="lg"
         fixed="top"
-        className="navigation-bar pl-5"
+        className="[ navigation-bar ] [ px-5 ]"
       >
         <Navbar.Brand>
           <Link to="/" className="navigation-link" onClick={scrollToTop}>
@@ -117,7 +117,7 @@ const NavBar = (): JSX.Element => {
           <Nav className="mr-auto">
             <Link
               to="/"
-              className="navigation-link p-2"
+              className="[ navigation-link ] [ p-2 ]"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
@@ -128,7 +128,7 @@ const NavBar = (): JSX.Element => {
             <Link
               to="/"
               title={tooltipItemSearch()}
-              className="navigation-link p-2"
+              className="[ navigation-link ] [ p-2 ]"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}

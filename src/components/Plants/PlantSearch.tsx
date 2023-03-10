@@ -80,7 +80,7 @@ const PlantSearch = (): JSX.Element => {
 
   return (
     <div className="mb-4">
-      <hr className="horizontal-ruler pb-5" />
+      <hr className="[ horizontal-ruler ] [ pb-5 ]" />
       <h4 className="mb-4">{t("texts.home.searchPlant.headline")}</h4>
       <div className="[ plant-search ] [ d-flex flex-row ]">
         <input
@@ -103,7 +103,7 @@ const PlantSearch = (): JSX.Element => {
             setSelectedOptions(options);
           }}
           disableSearch={true}
-          className="[ location-filter location-filter--no-border ] [ form-control p-0 ] "
+          className="[ location-filter location-filter--no-border ] [ form-control p-0 ml-4  ] "
         />
       </div>
     </div>

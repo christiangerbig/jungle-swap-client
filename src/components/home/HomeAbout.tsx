@@ -6,14 +6,14 @@ const HomeAbout = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <div className="[ home-about ] [ centered container pt-5 ]">
+    <div className="[ home-about ] [ container pt-5 ]">
       <div className="row">
         <div className="[ home-about__image ] [ col-sm-6 col-md-6 col-lg-6 ]">
           <img
             src={plantsImage}
             loading="eager"
             alt="plants"
-            className="home-about__image--size-full"
+            className="w-100 h-100"
           />
         </div>
         <br />
@@ -45,7 +45,7 @@ const HomeAbout = (): JSX.Element => {
                 src={plantPotIcon}
                 loading="lazy"
                 alt="plant pot"
-                className="home-about__icon--size-full"
+                className="w-100 h-100"
               />
             </div>
           </article>

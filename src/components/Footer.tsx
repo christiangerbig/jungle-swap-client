@@ -9,7 +9,7 @@ const Footer = (): JSX.Element => {
 
   return (
     <div className="footer-container">
-      <footer className="footer text-center">
+      <footer className="[ footer ] [ text-center ]">
         {t("texts.footer.copyright")} {year}{" "}
         <Link
           to={{ pathname: linkedInPath1 }}

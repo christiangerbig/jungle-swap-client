@@ -11,7 +11,7 @@ const PlantsCockpit = (): JSX.Element => {
 
   return (
     <div className="container mt-5">
-      <div className="mt-5 mb-3">
+      <div>
         <h2>{t("texts.home.allPlants.headline")}</h2>
       </div>
       <PlantSearch />

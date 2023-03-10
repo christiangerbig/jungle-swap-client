@@ -94,7 +94,7 @@
       },
       "searchPlant": {
         "headline": "Search a plant",
-        "namePlaceholder": "Enter name"
+        "namePlaceholder": "Name"
       }
     },
     "authentification": {

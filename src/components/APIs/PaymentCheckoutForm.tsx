@@ -121,7 +121,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
       </h3>
       <form
         id="payment-form"
-        className="payment-checkout-form mt-5"
+        className="[ payment-checkout-form ] [ mt-5 ]"
         onSubmit={handleSubmitPayment}
       >
         <CardElement

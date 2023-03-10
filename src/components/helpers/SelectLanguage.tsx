@@ -13,7 +13,7 @@ const SelectLanguage = (): JSX.Element => {
     <div className="select-language">
       <FontAwesomeIcon icon={faLanguage} />
       <select
-        className="select-language__select form-select"
+        className="[ select-language__select ] [ form-select ]"
         onChange={handleSelectLanguage}
       >
         <option value="" className="select-language__select__option">
