@@ -21,7 +21,7 @@ import KommunicateChat from "./components/apis/KommunicateChat";
 import PlantsCreatedView from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.min.css";
+import "./App.css";
 
 const App = (): JSX.Element => {
   return (
