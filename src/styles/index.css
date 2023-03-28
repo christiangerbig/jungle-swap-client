@@ -32,13 +32,6 @@
   margin-bottom: 2.5rem;
 }
 
-.card-body h5 {
-  font-family: "Noto Serif", serif;
-  font-size: 1.5625rem;
-  font-weight: 900;
-  text-align: center;
-}
-
 #card-element {
   background-color: white;
   border: none;
@@ -393,6 +386,13 @@ body {
 
 .horizontal-ruler {
   width: 80%;
+}
+
+.plant-thumbnail__body-headline {
+  font-family: "Noto Serif", serif;
+  font-size: 1.5625rem;
+  font-weight: 900;
+  text-align: center;
 }
 
 .select-language {

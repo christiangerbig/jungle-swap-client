@@ -93,7 +93,7 @@
         "headline": "Plants"
       },
       "searchPlant": {
-        "headline": "Search a plant",
+        "headline": "Start search...",
         "namePlaceholder": "Name"
       }
     },
