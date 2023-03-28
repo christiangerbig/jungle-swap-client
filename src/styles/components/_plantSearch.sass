@@ -1,0 +1,19 @@
+.plant-search
+  @media (max-width: 480px)
+    flex-direction: column
+  &__field
+    width: 14rem
+    @media (max-width: 480px)
+      width: 8rem
+  &__location-filter
+    width: 14rem
+    margin-left: 2rem
+    @media (max-width: 768px)
+      width: auto
+    @media (max-width: 480px)
+      margin-left: 0
+    &--no-border > *
+      border: none !important
+
+.horizontal-ruler
+  width: 80%

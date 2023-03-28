@@ -87,7 +87,7 @@ const PlantSearch = (): JSX.Element => {
           type="text"
           placeholder={t("texts.home.searchPlant.namePlaceholder")}
           value={query}
-          className="plant-search__field form-control"
+          className="[ plant-search__field ] [ form-control ]"
           onChange={({
             target: { value },
           }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -103,7 +103,7 @@ const PlantSearch = (): JSX.Element => {
             setSelectedOptions(options);
           }}
           disableSearch={true}
-          className="[ location-filter location-filter--no-border ] [ form-control p-0 ml-4  ] "
+          className="[ plant-search__location-filter plant-search__location-filter--no-border ] [ form-control p-0 ml-4  ] "
         />
       </div>
     </div>

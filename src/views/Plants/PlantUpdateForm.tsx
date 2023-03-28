@@ -122,7 +122,7 @@ const PlantUpdateForm = (): JSX.Element => {
         <h2 className="text-left mt-5 mb-4 ">
           {t("texts.plants.updatePlant.form.headline")}
         </h2>
-        <div className="[ thumbnail-card--width-large ] [ card mb-5 ]">
+        <div className="[ thumbnail-card thumbnail-card--width-large ] [ card mb-5 ]">
           {isUploadingPlantImage || isDeletingPlantImage || isUpdatingPlant ? (
             <WaitSpinner />
           ) : (

@@ -1,5 +1,5 @@
 import { User } from "../../app/typeDefinitions";
-import NavAuthentificationItems from "./NavAuthentificationItems";
+import NavAuthItems from "./NavAuthItems";
 import NavUserItems from "./NavUserItems";
 
 interface NavAdditionalItemsProps {
@@ -10,7 +10,7 @@ const NavAdditionalItems = ({ user }: NavAdditionalItemsProps): JSX.Element => {
   if (user) {
     return <NavUserItems />;
   }
-  return <NavAuthentificationItems />;
+  return <NavAuthItems />;
 };
 
 export default NavAdditionalItems;

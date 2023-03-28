@@ -1,0 +1,39 @@
+@import "../base/variables"
+
+.home-title
+  height: 50rem
+  &__headline
+    font:
+      family: "Noto Serif", serif
+      size: 3.75rem
+    @media only screen and (max-width: 768px) 
+      font-size: 2.5rem
+    @media (max-width: 480px) 
+      margin-left: -2.8125rem
+    letter-spacing: 0.0625rem
+    text-align: center
+    color: $floral-white
+    padding: 0.9375rem
+  &__subheadline
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 0.25rem
+    text-transform: uppercase
+    color: $floral-white
+  &__link
+    background-color: $floral-white
+    color: $royal-blue
+    font: 
+      family: "Noto Serif", serif
+      size: 1.8rem
+      style: italic
+      weight: bold 700
+    letter-spacing: 0.1rem
+    padding: 0.5rem 2.6rem
+    @media only screen and (max-width: 768px) 
+      font-size: 0.9375rem
+      padding: 0.5rem
+    &:hover 
+      color: $dark-green
+      text-decoration: none

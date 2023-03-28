@@ -8,14 +8,14 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { User } from "../typeDefinitions";
 
-interface AuthentificationMethods {
+interface AuthMethods {
   signIn: Function;
   signUp: Function;
   logOut: Function;
   updateUserRequestsReplies: Function;
 }
 
-export const useAuthentification = (): AuthentificationMethods => {
+export const useAuthentification = (): AuthMethods => {
   const dispatch = useAppDispatch();
 
   return {

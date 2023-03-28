@@ -1,0 +1,39 @@
+@import "../base/variables"
+
+.home-about
+  background-color: $gold
+  color: $dark-green
+  &__image
+    width: 30rem
+    object-fit: cover
+    @media only screen and (max-width: 768px) 
+      width: 21rem
+  &__headline
+    font: 
+      family: "Noto Serif", serif
+      size: 1.5625rem
+  &__subheadline
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 0.25rem
+    text-transform: uppercase
+    padding-bottom: 3.125rem
+  &__paragraph
+    font-weight: 700
+  &__icon
+    width: 15rem
+    @media (max-width: 1024px)
+      width: 13rem
+    @media (max-width: 768px)
+      width: 11rem
+    @media (max-width: 375px)
+      width: 10rem
+    object-fit: cover
+    margin-left: 3.5rem
+    @media (max-width: 1024px)
+      margin-left: 2.5rem
+    @media (max-width: 768px) 
+      margin-left: 0
+    @media (max-width: 375px) 
+      margin-left: 2rem

@@ -1,0 +1,27 @@
+@import "../base/variables"
+
+.modal-body
+  background-color: rgba(0, 0, 0, 0.4)
+  z-index: 1040
+  @media (min-width: 320px) and (max-width: 480px)
+    width: 80%
+  &__box
+    width: 60%
+    background-color: $floral-white
+    padding: 3rem 2rem 2rem 2rem
+    border: 1px solid $black
+    &__headline
+      font:
+        family: "Noto Serif", serif
+        size: 2.5rem
+      letter-spacing: 0.0625rem
+    &__subheadline
+      font:
+        family: "Noto Serif", serif
+        size: 2rem
+      letter-spacing: 0.0625rem
+    &__text
+      font:
+        family: "Source Sans Pro", sans-serif
+        weight: 600
+      letter-spacing: 0.25rem

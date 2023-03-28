@@ -97,7 +97,7 @@
         "namePlaceholder": "Name"
       }
     },
-    "authentification": {
+    "auth": {
       "signIn": {
         "headline": "Anmelden",
         "email": "Email-Adresse",
@@ -227,7 +227,7 @@
   },
 
   "errorTexts": {
-    "authentification": {
+    "auth": {
       "unauthorized": "Unerlaubter Benutzer",
       "signUp": {
         "form": {
