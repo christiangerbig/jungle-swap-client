@@ -1,17 +1,12 @@
+@import"../base/breakpoints"
+
 .button
   &--width-small
-    width: 18%
-    @media (max-width: 1024px)
-      width: 21%
-    @media only screen and (max-width: 768px)
-      width: 35%
-    @media (min-width: 320px) and (max-width: 480px)
-      width: 40%
-    @media (max-width: 1024px)
-      width: 21%
-  &--width-medium
-    width: auto
-    @media (max-width: 1024px) 
-      width: 35%
-    @media (max-width: 768px) 
-      width: 50%
+    @include respond-to("desktop-large")
+      width: auto
+    @include respond-to("desktop-small")
+      width: 24%
+    @include respond-to("tablet")
+      width: 30%
+    @include respond-to("mobile")
+      width: auto

@@ -23,7 +23,7 @@ const RequestTile = ({
       </h5>
       <div className="text-center">
         <Link to={`/requests/fetch/${_id}`} className="navigation-link">
-          <button className="[ button--width-medium ] [ btn form-control ]">
+          <button className="[ button--width-small ] [ btn form-control ]">
             {t("link.details")}
           </button>
         </Link>

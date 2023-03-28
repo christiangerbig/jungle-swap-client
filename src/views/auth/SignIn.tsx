@@ -96,7 +96,7 @@ const SignIn = (): JSX.Element => {
             formNoValidate
             className={`
               [ 
-                button--width-medium 
+                button--width-small 
               ] 
               [ 
                 btn 

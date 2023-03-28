@@ -32,7 +32,7 @@ const NotFound = (): JSX.Element => {
           {t("texts.notFound.subheadline2")}
         </h3>
         <Link to={"/"} className="navigation-link">
-          <button className="[ button--width-medium ] [ btn btn-sm form-control px-3 ]">
+          <button className="[ button--width-small ] [ btn btn-sm form-control px-3 ]">
             {t("button.takeMeHome")}
           </button>
         </Link>

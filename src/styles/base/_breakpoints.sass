@@ -1,0 +1,23 @@
+@import "variables"
+
+@mixin respond-to($breakpoint)
+  @if $breakpoint == "mobile"
+    @media (min-width: $breakpoint-mobile-min) and (max-width: $breakpoint-mobile-max)
+      @content
+
+  @else if $breakpoint == "tablet"
+    @media (max-width: $breakpoint-tablet)
+      @content
+
+  @else if $breakpoint == "desktop-small"
+    @media (max-width: $breakpoint-desktop-small)
+      @content
+
+  @else if $breakpoint == "desktop-large"
+    @media (min-width: $breakpoint-desktop-small)
+      @content
+
+  @else
+    @media (max-width: $breakpoint)
+      @content
+

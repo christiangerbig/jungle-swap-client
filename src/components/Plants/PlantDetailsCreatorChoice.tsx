@@ -49,7 +49,7 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
         <button
           className={`
             [ 
-              button--width-medium 
+              button--width-small 
             ]
             [ 
               btn
@@ -68,7 +68,7 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
         disabled={buttonState}
         className={`
           [ 
-            button--width-medium 
+            button--width-small 
           ]
           [ 
             btn

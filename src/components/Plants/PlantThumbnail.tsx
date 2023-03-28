@@ -26,7 +26,7 @@ const PlantThumbnail = ({
             {price} {t("texts.plants.plantThumbnail.currency")}
           </p>
           <Link to={`/plants/fetch/${_id}`} className="navigation-link">
-            <button className="[ button--width-medium ] [ btn form-control px-3 ]">
+            <button className="[ button--width-small ] [ btn form-control px-3 ]">
               {t("link.details")}
             </button>
           </Link>

@@ -93,7 +93,7 @@ const RequestDetails = (): JSX.Element => {
               <button
                 className={`
                   [ 
-                    button--width-medium 
+                    button--width-small 
                   ] 
                   [ 
                     btn 
@@ -112,7 +112,7 @@ const RequestDetails = (): JSX.Element => {
           <button
             className={`
               [ 
-                button--width-medium 
+                button--width-small 
               ] 
               [ 
                 btn 

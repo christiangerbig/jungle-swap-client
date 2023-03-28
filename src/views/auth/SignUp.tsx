@@ -108,7 +108,7 @@ const SignUp = (): JSX.Element => {
             formNoValidate
             className={`
               [
-                button--width-medium
+                button--width-small
               ]
               [
                 btn
@@ -128,7 +128,7 @@ const SignUp = (): JSX.Element => {
               <button
                 className={`
                 [
-                  button--width-medium
+                  button--width-small
                 ]
                 [
                   btn

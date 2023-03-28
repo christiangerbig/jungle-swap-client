@@ -1,9 +1,10 @@
 @import "../base/variables"
+@import "../base/breakpoints"
 
 .modal-body
   background-color: rgba(0, 0, 0, 0.4)
   z-index: 1040
-  @media (min-width: 320px) and (max-width: 480px)
+  @include respond-to("mobile")
     width: 80%
   &__box
     width: 60%
