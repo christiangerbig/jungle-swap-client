@@ -32,57 +32,6 @@
   margin-bottom: 2.5rem;
 }
 
-#card-element {
-  background-color: white;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
-}
-
-.result-message {
-  font-weight: 600;
-  text-align: center;
-  color: rgb(79, 167, 100);
-}
-.result-message--hidden {
-  display: none;
-}
-
-.payment-checkout-form {
-  background-color: rgb(251, 248, 239);
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-.payment-checkout-form__headline {
-  font-family: "Noto Serif", serif;
-  font-size: 3.75rem;
-  letter-spacing: -0.0625rem;
-  color: rgb(32, 77, 44);
-}
-
-.card-button:disabled {
-  opacity: 0.5;
-  cursor: default;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
-}
-
-.card-error {
-  text-align: center;
-  color: rgb(238, 63, 20);
-}
-
-.spinner {
-  color: rgb(255, 71, 74);
-  margin: 0 auto;
-}
-.spinner:after {
-  border: none;
-  border-radius: 6px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
-}
-
 .button--width-small {
   width: 18%;
 }
@@ -141,6 +90,57 @@ body {
 }
 .image--size-large {
   height: 22rem;
+}
+
+#card-element {
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
+}
+
+.result-message {
+  font-weight: 600;
+  text-align: center;
+  color: rgb(79, 167, 100);
+}
+.result-message--hidden {
+  display: none;
+}
+
+.payment-checkout-form {
+  background-color: rgb(251, 248, 239);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.payment-checkout-form__headline {
+  font-family: "Noto Serif", serif;
+  font-size: 3.75rem;
+  letter-spacing: -0.0625rem;
+  color: rgb(32, 77, 44);
+}
+
+.card-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
+}
+
+.card-error {
+  text-align: center;
+  color: rgb(238, 63, 20);
+}
+
+.spinner {
+  color: rgb(255, 71, 74);
+  margin: 0 auto;
+}
+.spinner:after {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164);
 }
 
 .text-field {
