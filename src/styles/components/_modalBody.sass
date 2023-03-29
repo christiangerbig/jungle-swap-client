@@ -4,10 +4,12 @@
 .modal-body
   background-color: rgba(0, 0, 0, 0.4)
   z-index: 1040
-  @include respond-to("mobile")
-    width: 80%
   &__box
     width: 60%
+    @include respond-to("tablet")
+      width: 70%
+    @include respond-to("mobile")
+      width: 80%
     background-color: $floral-white
     padding: 3rem 2rem 2rem 2rem
     border: 1px solid $black
