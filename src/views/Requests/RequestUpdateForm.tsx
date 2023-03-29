@@ -104,6 +104,7 @@ const RequestUpdateForm = (): JSX.Element => {
                 disabled={buttonState}
                 className={`
                   [
+                    button
                     button--width-small
                   ]
                   [

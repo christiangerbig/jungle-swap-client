@@ -10,6 +10,7 @@ const PlantDetailsBuyerItems = (): JSX.Element => {
         <button
           className={`
             [ 
+              button 
               button--width-small 
             ]
             [ 
@@ -29,6 +30,7 @@ const PlantDetailsBuyerItems = (): JSX.Element => {
         <button
           className={`
             [ 
+              button 
               button--width-small 
             ]
             [ 

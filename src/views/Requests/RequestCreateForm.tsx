@@ -111,6 +111,7 @@ const RequestCreateForm = (): JSX.Element => {
               disabled={buttonState}
               className={`
                 [ 
+                  button
                   button--width-small 
                 ] 
                 [ 

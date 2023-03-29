@@ -23,7 +23,7 @@ const ReplyThumbnail = ({
       </h5>
       <div className="text-center">
         <Link to={`/replies/fetch/${_id}`} className="navigation-link">
-          <button className="[ button--width-small ] [ btn form-control ]">
+          <button className="[ button button--width-small ] [ btn form-control ]">
             {t("link.details")}
           </button>
         </Link>

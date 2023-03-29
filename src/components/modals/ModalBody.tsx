@@ -34,14 +34,16 @@ const ModalBody = ({
     <div
       ref={divElementRef}
       className={`
-        modal-body
-        fixed-top
-        w-100
-        h-100
-        d-flex
-        justify-content-center
-        align-items-center
-        flex-col
+        [ modal-body ]
+        [ 
+          fixed-top
+          w-100
+          h-100
+          d-flex
+          justify-content-center
+          align-items-center
+          flex-col
+        ]
       `}
       onClick={handleClickOutside}
     >
@@ -57,7 +59,18 @@ const ModalBody = ({
         </h3>
         {isClose && (
           <button
-            className="[ button--width-small ] [ btn form-control mt-4 mb-3 ]"
+            className={`
+              [ 
+                button 
+                button--width-small 
+              ] 
+              [ 
+                btn 
+                form-control 
+                mt-4 
+                mb-3 
+              ]
+            `}
             onClick={handleCloseModal}
           >
             {t("button.proceed")}
