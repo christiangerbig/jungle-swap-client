@@ -125,6 +125,9 @@ const NavBar = (): JSX.Element => {
               {t("link.allPlants")}
             </Link>
             <NavAdditionalItems user={loggedInUser} />
+            <Link to="/faq" className="[ nav-bar__nav-link ] [ p-2 ]">
+              {t("link.faq")}
+            </Link>
             <Link
               to="/"
               title={tooltipItemSearch()}

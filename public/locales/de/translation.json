@@ -10,6 +10,7 @@
     "tryIt": "Probier es!",
     "signIn": "Anmelden",
     "signUp": "Registrieren",
+    "faq": "FAQ",
     "details": "Details",
     "tooltipps": {
       "newRequest": "neue Anfrage",
@@ -199,6 +200,27 @@
       "replyTile": {
         "headline": "Antwort für",
         "subheadline": "von"
+      }
+    },
+    "faq": {
+      "overview": {
+        "headline": "FAQs"
+      },
+      "item1": {
+        "header": "Muss ich meine Planzen tauschen?",
+        "body": "Der Hauptgedanke von Jungle Swap ist es Planzen zu zauschen, sie können aber auch mit einer Kreditkarte bezahlt werden."
+      },
+      "item2": {
+        "header": "Muss ich meine Planzen tauschen?",
+        "body": "Der Hauptgedanke von Jungle Swap ist es Planzen zu zauschen, sie können aber auch mit einer Kreditkarte bezahlt werden."
+      },
+      "item3": {
+        "header": "Muss ich meine Planzen tauschen?",
+        "body": "Der Hauptgedanke von Jungle Swap ist es Planzen zu zauschen, sie können aber auch mit einer Kreditkarte bezahlt werden."
+      },
+      "item4": {
+        "header": "Muss ich meine Planzen tauschen?",
+        "body": "Der Hauptgedanke von Jungle Swap ist es Planzen zu zauschen, sie können aber auch mit einer Kreditkarte bezahlt werden."
       }
     },
     "notFound": {

@@ -1,4 +1,5 @@
 import { Route, Switch, withRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/navigation/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/home/Home";
@@ -20,7 +21,7 @@ import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import PlantsCreatedView from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
-import "bootstrap/dist/css/bootstrap.min.css";
+import FaqView from "./views/faq/FaqView";
 
 const App = (): JSX.Element => {
   return (
@@ -81,6 +82,14 @@ const App = (): JSX.Element => {
         {/* Replies */}
         <Route path="/replies/fetch-all">
           <RepliesView />
+        </Route>
+        <Route path="/replies/fetch/:messageId">
+          <ReplyDetails />
+        </Route>
+
+        {/* FAQ */}
+        <Route path="/faq">
+          <FaqView />
         </Route>
         <Route path="/replies/fetch/:messageId">
           <ReplyDetails />

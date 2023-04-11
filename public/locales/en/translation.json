@@ -10,6 +10,7 @@
     "tryIt": "Try it!",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "faq": "FAQ",
     "details": "Details",
     "tooltipps": {
       "newRequest": "new request",
@@ -199,6 +200,27 @@
       "replyTile": {
         "headline": "Reply for",
         "subheadline": "by"
+      }
+    },
+    "faq": {
+      "overview": {
+        "headline": "FAQs"
+      },
+      "item1": {
+        "header": "Do I have to swap my plant?",
+        "body": "The main concept of Jungle Swap is to swap plants, but you can also buy plants with you credit card"
+      },
+      "item2": {
+        "header": "Do I have to swap my plant?",
+        "body": "The main concept of Jungle Swap is to swap plants, but you can also buy plants with you credit card"
+      },
+      "item3": {
+        "header": "Do I have to swap my plant?",
+        "body": "The main concept of Jungle Swap is to swap plants, but you can also buy plants with you credit card"
+      },
+      "item4": {
+        "header": "Do I have to swap my plant?",
+        "body": "The main concept of Jungle Swap is to swap plants, but you can also buy plants with you credit card"
       }
     },
     "notFound": {
