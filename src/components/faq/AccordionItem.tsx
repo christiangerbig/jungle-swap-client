@@ -20,10 +20,6 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
     }
   }, [isBodyVisible]);
 
-  const handleClickButton = () => {
-    setIsBodyVisible(!isBodyVisible);
-  };
-
   const setHeaderActive = useMemo(
     (): string => (isBodyVisible ? "accordion-item__header--is-active" : ""),
     [isBodyVisible]
@@ -34,6 +30,10 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
       isBodyVisible ? "accordion-item__header__imagebox__image--is-active" : "",
     [isBodyVisible]
   );
+
+  const handleClickButton = () => {
+    setIsBodyVisible(!isBodyVisible);
+  };
 
   return (
     <div className="accordion-item">
