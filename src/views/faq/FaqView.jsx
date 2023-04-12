@@ -7,11 +7,11 @@ const FaqView = () => {
   const faqData = useFaqData();
 
   return (
-    <div className="container row mt-5 mx-auto">
-      <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
-        <h2>{t("texts.faq.overview.headline")}</h2>
+    <div className="container row my-5">
+      <div className="col-12 col-md-6 offset-md-4 mt-5">
+        <h2 className="text-left mb-5">{t("texts.faq.overview.headline")}</h2>
       </div>
-      <div>
+      <div className="col-12 col-md-6 offset-md-4">
         <Accordion data={faqData} />
       </div>
     </div>

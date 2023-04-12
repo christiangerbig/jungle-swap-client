@@ -7,7 +7,7 @@ interface AccordionProps {
 
 const Accordion = ({ data }: AccordionProps): JSX.Element => {
   return (
-    <div className="container my-5 w-100">
+    <div className="mb-5">
       {data.map(({ headerText, bodyText }) => (
         <AccordionItem header={headerText} body={bodyText} />
       ))}
