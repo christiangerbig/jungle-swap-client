@@ -7,7 +7,7 @@ const Unauthorized = (): JSX.Element => {
     <div
       className={`
         [
-          unauthorized-container 
+          unauthorized
         ]
         [
           position-absolute 
@@ -21,13 +21,13 @@ const Unauthorized = (): JSX.Element => {
       `}
     >
       <div>
-        <h1 className="unauthorized-container__headline">
+        <h1 className="unauthorized__headline">
           {t("texts.unauthorized.headline")}
         </h1>
-        <h2 className="[ unauthorized-container__subheadline1 ] [ mb-4 ]">
+        <h2 className="[ unauthorized__subheadline1 ] [ mb-4 ]">
           {t("texts.unauthorized.subheadline1")}
         </h2>
-        <h3 className="[ unauthorized-container__subheadline2 ] [ text-uppercase ]">
+        <h3 className="[ unauthorized__subheadline2 ] [ text-uppercase ]">
           {t("texts.unauthorized.subheadline2")}
         </h3>
       </div>
