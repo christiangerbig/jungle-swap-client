@@ -12,11 +12,11 @@ const ErrorModal = ({ message }: ErrorModalProps): JSX.Element | null => {
     switch (message) {
       // Authentification
       case "Error while creating user":
-        return t("errorTexts.authentification.signUp.errorWhileCreatingUser");
+        return t("errorTexts.auth.signUp.errorWhileCreatingUser");
       case "User does not exist":
-        return t("errorTexts.authentification.signIn.userUnknown");
+        return t("errorTexts.auth.signIn.userUnknown");
       case "Could not update user":
-        return t("errorTexts.authentification.logOut.noUserUpdate");
+        return t("errorTexts.auth.logOut.noUserUpdate");
       // Plants
       case "Create plant failed":
         return t("errorTexts.plants.createPlantFailed");

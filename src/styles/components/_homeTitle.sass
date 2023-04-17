@@ -1,0 +1,40 @@
+@import "../base/variables"
+@import "../base/breakpoints"
+
+.home-title
+  height: 50rem
+  &__headline
+    color: $floral-white
+    font:
+      family: "Noto Serif", serif
+      size: 3.75rem
+    @include respond-to("tablet")
+      font-size: 2.5rem
+    letter-spacing: 0.0625rem
+    text-align: center
+    padding: 0.9375rem
+    @include respond-to("mobile")
+      margin-left: -2.8125rem
+  &__subheadline
+    color: $floral-white
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 0.25rem
+    text-transform: uppercase
+  &__link
+    background-color: $floral-white
+    color: $royal-blue
+    font: 
+      family: "Noto Serif", serif
+      size: 1.8rem
+      style: italic
+      weight: bold 700
+    letter-spacing: 0.1rem
+    padding: 0.5rem 2.6rem
+    @include respond-to("tablet")
+      font-size: 0.9375rem
+      padding: 0.5rem
+    &:hover 
+      color: $dark-green
+      text-decoration: none

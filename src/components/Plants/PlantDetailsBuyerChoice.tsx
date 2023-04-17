@@ -10,7 +10,8 @@ const PlantDetailsBuyerItems = (): JSX.Element => {
         <button
           className={`
             [ 
-              button--width-medium 
+              button 
+              button--width-small 
             ]
             [ 
               btn
@@ -29,7 +30,8 @@ const PlantDetailsBuyerItems = (): JSX.Element => {
         <button
           className={`
             [ 
-              button--width-medium 
+              button 
+              button--width-small 
             ]
             [ 
               btn

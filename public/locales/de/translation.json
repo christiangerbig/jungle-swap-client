@@ -10,6 +10,7 @@
     "tryIt": "Probier es!",
     "signIn": "Anmelden",
     "signUp": "Registrieren",
+    "faq": "FAQ",
     "details": "Details",
     "tooltipps": {
       "newRequest": "neue Anfrage",
@@ -93,11 +94,11 @@
         "headline": "Pflanzen"
       },
       "searchPlant": {
-        "headline": "Suche nach einer Pflanze",
+        "headline": "Starte eine Suche...",
         "namePlaceholder": "Name"
       }
     },
-    "authentification": {
+    "auth": {
       "signIn": {
         "headline": "Anmelden",
         "email": "Email-Adresse",
@@ -201,6 +202,27 @@
         "subheadline": "von"
       }
     },
+    "faq": {
+      "overview": {
+        "headline": "FAQs"
+      },
+      "item1": {
+        "header": "Muss ich meine Pflanze tauschen?",
+        "body": "Das Konzept von JungleSwap ist es Pflanzen zu tauschen. Das Hauptkonzept von Jungle Swap besteht darin, Pflanzen zu tauschen, aber Sie können Pflanzen auch mit Ihrer Kreditkarte kaufen."
+      },
+      "item2": {
+        "header": "Wie kann ich mich mit einem Mitglied in Verbindung setzen, um eine Pflanze zu tauschen oder zu kaufen?",
+        "body": "Mit einem internen Meldesystem."
+      },
+      "item3": {
+        "header": "Was kann ich von der Pflanze hochladen, die ich tauschen oder verkaufen möchte?",
+        "body": "Ein Bild und eine Beschreibung mit dem Preis. Das ist alles."
+      },
+      "item4": {
+        "header": "Fallen für mich als Verkäufer Gebühren an?",
+        "body": "Nein, Gebühren für den Verkäufer sind noch nicht geplant."
+      }
+    },
     "notFound": {
       "headline": "Oh-oh!",
       "subheadline1": "Wir glauben du hast dich im Dschungel verirrt!",
@@ -227,7 +249,7 @@
   },
 
   "errorTexts": {
-    "authentification": {
+    "auth": {
       "unauthorized": "Unerlaubter Benutzer",
       "signUp": {
         "form": {

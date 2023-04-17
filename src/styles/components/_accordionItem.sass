@@ -1,0 +1,28 @@
+@import"../base/variables"
+
+.accordion-item
+  color: black
+  &__header
+    &--is-active 
+      color: $dark-green
+    &__button 
+      background-color: inherit
+      color: inherit
+      font-family: inherit
+      &:hover 
+        cursor: pointer
+    &__text 
+      font-size: 1.2rem
+    &__imagebox 
+      width: 1rem
+      height: 1rem
+      &__image 
+        rotate: 0
+        will-change: rotate
+        transition: rotate 0.4s ease
+        &--is-active 
+          fill: $dark-green
+          rotate: 180deg
+  &__body 
+    height: 0
+    transition: height 1s

@@ -1,0 +1,12 @@
+@import"../base/breakpoints"
+
+.button
+  &--width-small
+    @include respond-to("desktop-large")
+      width: auto
+    @include respond-to("desktop-small")
+      width: 24%
+    @include respond-to("tablet")
+      width: 30%
+    @include respond-to("mobile")
+      width: auto

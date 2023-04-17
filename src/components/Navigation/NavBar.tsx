@@ -103,10 +103,10 @@ const NavBar = (): JSX.Element => {
         variant="dark"
         expand="lg"
         fixed="top"
-        className="[ navigation-bar ] [ px-5 ]"
+        className="[ nav-bar ] [ px-5 ]"
       >
         <Navbar.Brand>
-          <Link to="/" className="navigation-link" onClick={scrollToTop}>
+          <Link to="/" className="nav-bar__nav-link" onClick={scrollToTop}>
             {t("link.jungleSwap")}
           </Link>
         </Navbar.Brand>
@@ -117,7 +117,7 @@ const NavBar = (): JSX.Element => {
           <Nav className="mr-auto">
             <Link
               to="/"
-              className="[ navigation-link ] [ p-2 ]"
+              className="[ nav-bar__nav-link ] [ p-2 ]"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}
@@ -125,10 +125,13 @@ const NavBar = (): JSX.Element => {
               {t("link.allPlants")}
             </Link>
             <NavAdditionalItems user={loggedInUser} />
+            <Link to="/faq" className="[ nav-bar__nav-link ] [ p-2 ]">
+              {t("link.faq")}
+            </Link>
             <Link
               to="/"
               title={tooltipItemSearch()}
-              className="[ navigation-link ] [ p-2 ]"
+              className="[ nav-bar__nav-link ] [ p-2 ]"
               onClick={(): void => {
                 dispatch(scrollToPlants());
               }}

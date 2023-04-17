@@ -25,12 +25,12 @@ const PlantItems = ({
 
   return (
     <div className="col">
-      <div className="[ thumbnail-card--width-large ] [ card ]">
+      <div className="[ thumbnail-card thumbnail-card--width-large ] [ card ]">
         <img
           src={imageUrl}
           loading="lazy"
           alt={name}
-          className="[ thumbnail-card--width-large ] [ card-img-top ]"
+          className="[ thumbnail-card thumbnail-card--width-large ] [ card-img-top ]"
         />
         <PlantItem
           keyword={t("texts.plants.plantDetails.name")}

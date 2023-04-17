@@ -59,3 +59,8 @@ export interface MessageCounters {
   amountOfRequests?: number;
   amountOfReplies?: number;
 }
+
+export interface AccordionItemData {
+  headerText: string;
+  bodyText: string;
+}

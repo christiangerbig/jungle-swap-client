@@ -1,0 +1,38 @@
+@import "../base/variables"
+@import "../base/breakpoints"
+
+.home-about
+  background-color: $gold
+  color: $dark-green
+  &__image
+    width: 30rem
+    object-fit: cover
+    @include respond-to("tablet")
+      width: 21rem
+  &__headline
+    font: 
+      family: "Noto Serif", serif
+      size: 1.5625rem
+  &__subheadline
+    font:
+      family: "Source Sans Pro", sans-serif
+      weight: 600
+    letter-spacing: 0.25rem
+    text-transform: uppercase
+    padding-bottom: 3.125rem
+  &__paragraph
+    font-weight: 700
+  &__icon
+    object-fit: cover
+    @include respond-to("desktop-large")
+      width: 15rem
+      margin-left: 3.5rem
+    @include respond-to("desktop-small")
+      width: 12rem
+      margin-left: 2.5rem
+    @include respond-to("tablet")
+      width: 10rem
+      margin-left: 0
+    @include respond-to("mobile")
+      width: 9rem
+      margin-left: 2rem

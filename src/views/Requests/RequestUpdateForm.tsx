@@ -78,7 +78,7 @@ const RequestUpdateForm = (): JSX.Element => {
         <h2 className="mt-5 mb-4">
           {t("texts.requests.updateRequest.form.headline")}
         </h2>
-        <div className="thumbnail-card--width-medium card mb-5">
+        <div className="[ thumbnail-card thumbnail-card--width-small ] [ card mb-5 ]">
           <div className="card-body">
             <p>{request}</p>
             <textarea
@@ -104,7 +104,8 @@ const RequestUpdateForm = (): JSX.Element => {
                 disabled={buttonState}
                 className={`
                   [
-                    button--width-medium
+                    button
+                    button--width-small
                   ]
                   [
                     btn 

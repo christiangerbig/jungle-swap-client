@@ -26,16 +26,22 @@ const NavUserItems = (): JSX.Element => {
 
   return (
     <>
-      <Link to="/plants/my-own" className="[ navigation-link ] [ p-2 ]">
+      <Link
+        to="/plants/my-own"
+        className="[ nav-user-items__nav-link ] [ p-2 ]"
+      >
         {t("link.myPlants")}
       </Link>
-      <Link to="/plants/create" className="[ navigation-link ] [ p-2 ]">
+      <Link
+        to="/plants/create"
+        className="[ nav-user-items__nav-link ] [ p-2 ]"
+      >
         {t("link.createPlant")}
       </Link>
       <Link
         to="/requests/fetch-all"
         title={tooltipItemRequests()}
-        className="[ navigation-link ] [ p-2 ]"
+        className="[ nav-user-items__nav-link ] [ p-2 ]"
       >
         {isNewRequest && <FontAwesomeIcon icon={faBell} />}
         {t("link.requests")}
@@ -43,7 +49,7 @@ const NavUserItems = (): JSX.Element => {
       <Link
         to="/replies/fetch-all"
         title={tooltipItemReplies()}
-        className="[ navigation-link ] [ p-2 ]"
+        className="[ nav-user-items__nav-link ] [ p-2 ]"
       >
         {isNewReply && <FontAwesomeIcon icon={faBell} />}
         {t("link.replies")}
@@ -51,7 +57,7 @@ const NavUserItems = (): JSX.Element => {
       <Link
         to="/auth/log-out"
         title={tooltipItemLogOut()}
-        className="[ navigation-link ] [ p-2 ]"
+        className="[ nav-user-items__nav-link ] [ p-2 ]"
       >
         {t("link.logOut")}
       </Link>

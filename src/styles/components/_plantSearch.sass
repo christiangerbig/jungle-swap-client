@@ -1,0 +1,21 @@
+@import "../base/breakpoints"
+
+.plant-search
+  @include respond-to("mobile")
+    flex-direction: column
+  &__field
+    width: 14rem
+    @include respond-to("mobile")
+      width: 8rem
+  &__location-filter
+    width: 14rem
+    margin-left: 2rem
+    @include respond-to("tablet")
+      width: auto
+    @include respond-to("mobile")
+      margin-left: 0
+    &--no-border > *
+      border: none !important
+
+.horizontal-ruler
+  width: 80%

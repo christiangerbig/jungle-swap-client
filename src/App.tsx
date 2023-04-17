@@ -1,10 +1,11 @@
 import { Route, Switch, withRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/navigation/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/home/Home";
-import SignUp from "./views/authentification/SignUp";
-import SignIn from "./views/authentification/SignIn";
-import LogOut from "./components/authentification/LogOut";
+import SignUp from "./views/auth/SignUp";
+import SignIn from "./views/auth/SignIn";
+import LogOut from "./components/auth/LogOut";
 import PlantCreateForm from "./views/plants/PlantCreateForm";
 import PlantDetails from "./views/plants/PlantDetails";
 import PlantUpdateForm from "./views/plants/PlantUpdateForm";
@@ -15,13 +16,12 @@ import RequestCreateForm from "./views/requests/RequestCreateForm";
 import RequestDetails from "./views/requests/RequestDetails";
 import ReplyDetails from "./views/replies/ReplyDetails";
 import RequestUpdateForm from "./views/requests/RequestUpdateForm";
-import Unauthorized from "./views/authentification/Unauthorized";
+import Unauthorized from "./views/auth/Unauthorized";
 import NotFound from "./views/errors/NotFound";
 import KommunicateChat from "./components/apis/KommunicateChat";
 import PlantsCreatedView from "./views/plants/PlantsCreatedView";
 import Modals from "./components/modals/Modals";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import FaqView from "./views/faq/FaqView";
 
 const App = (): JSX.Element => {
   return (
@@ -82,6 +82,14 @@ const App = (): JSX.Element => {
         {/* Replies */}
         <Route path="/replies/fetch-all">
           <RepliesView />
+        </Route>
+        <Route path="/replies/fetch/:messageId">
+          <ReplyDetails />
+        </Route>
+
+        {/* FAQ */}
+        <Route path="/faq">
+          <FaqView />
         </Route>
         <Route path="/replies/fetch/:messageId">
           <ReplyDetails />

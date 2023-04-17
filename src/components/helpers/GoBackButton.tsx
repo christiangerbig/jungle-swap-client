@@ -11,7 +11,18 @@ const GoBackButton = ({ clickHandler }: GoBackButtonProps): JSX.Element => {
   return (
     <div className="text-right">
       <button
-        className="[ button--width-medium ] [ btn btn-sm form-control px-4 mt-4 ]"
+        className={`
+          [ 
+            button 
+            button--width-small 
+          ] 
+          [ 
+            btn 
+            btn-sm 
+            form-control 
+            px-4 mt-4 
+          ]
+        `}
         onClick={clickHandler}
       >
         {t("button.goBack")}

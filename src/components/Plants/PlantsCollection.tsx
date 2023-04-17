@@ -43,7 +43,18 @@ const PlantsCollection = (): JSX.Element => {
         <div className="text-center">
           <button
             type="button"
-            className="[ button--width-medium ] [ btn btn-sm form-control px-4 ]"
+            className={`
+              [ 
+                button 
+                button--width-small 
+              ] 
+              [ 
+                btn 
+                btn-sm 
+                form-control 
+                px-4 
+              ]
+            `}
             onClick={handleClickButton}
           >
             {t("button.more")}

@@ -72,10 +72,9 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 - LogOut
 - ModalBody
 - PlantsCreatedCollection
-- NavAuthentificationItems
 - NavBar
 - NavLoggedInUserItems
-- NavAuthentificationItems
+- NavAuthItems
 - NavUserItems
 - OfflineModal
 - PlantDetailsBuyerItems
@@ -148,10 +147,10 @@ With this app you can upload your indoor plant offshoots to swap for another pla
 ## Custom hooks
 
 - useAuthentification()
-- useHandleMessage()
-- useHandlePayment()
-- useHandlePlant()
-- useHandlePlantImage()
+- useMessage()
+- usePayment()
+- usePlant()
+- usePlantImage()
 - useIntervalCounter()
 - useNavigation()
 - useOnlineStatus()

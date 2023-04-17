@@ -48,13 +48,13 @@ const SignIn = (): JSX.Element => {
   const convertErrorMessage = (errorMessage: string): string => {
     switch (errorMessage) {
       case "Form: Email missing":
-        return t("errorTexts.authentification.signIn.form.emailMissing");
+        return t("errorTexts.auth.signIn.form.emailMissing");
       case "Form: Password missing":
-        return t("errorTexts.authentification.signIn.form.passwordMissing");
+        return t("errorTexts.auth.signIn.form.passwordMissing");
       case "Form: Email format invalid":
-        return t("errorTexts.authentification.signIn.form.emailFormatInvalid");
+        return t("errorTexts.auth.signIn.form.emailFormatInvalid");
       case "Form: Passwords don't match":
-        return t("errorTexts.authentification.signIn.form.noMatchPasswords");
+        return t("errorTexts.auth.signIn.form.noMatchPasswords");
       default:
         return t("errorTexts.general");
     }
@@ -63,29 +63,27 @@ const SignIn = (): JSX.Element => {
   return (
     <div className="container row mt-5">
       <div className="col-11 col-md-5 offset-1 offset-md-5 mt-5">
-        <h2 className="mb-5">{t("texts.authentification.signIn.headline")}</h2>
+        <h2 className="mb-5">{t("texts.auth.signIn.headline")}</h2>
         <form className="form-style" onSubmit={handleSignIn}>
           <div className="form-group">
-            <label htmlFor="InputEmail">
-              {t("texts.authentification.signIn.email")}
-            </label>
+            <label htmlFor="InputEmail">{t("texts.auth.signIn.email")}</label>
             <input
               type="email"
               id="InputEmail"
               name="email"
-              placeholder={t("texts.authentification.signIn.enterPlaceholder")}
+              placeholder={t("texts.auth.signIn.enterPlaceholder")}
               className="form-control w-100"
             />
           </div>
           <div className="form-group">
             <label htmlFor="InputPassword">
-              {t("texts.authentification.signIn.password")}
+              {t("texts.auth.signIn.password")}
             </label>
             <input
               type="password"
               id="InputPassword"
               name="password"
-              placeholder={t("texts.authentification.signIn.enterPlaceholder")}
+              placeholder={t("texts.auth.signIn.enterPlaceholder")}
               className="form-control w-100"
             />
           </div>
@@ -98,7 +96,7 @@ const SignIn = (): JSX.Element => {
             formNoValidate
             className={`
               [ 
-                button--width-medium 
+                button--width-small 
               ] 
               [ 
                 btn 

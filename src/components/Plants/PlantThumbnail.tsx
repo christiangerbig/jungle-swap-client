@@ -21,12 +21,12 @@ const PlantThumbnail = ({
           className="[ image image--size-large ] [ card-img-top ]"
         />
         <div className="card-body mb-5">
-          <h5>{name}</h5>
+          <h5 className="plant-thumbnail__body-headline">{name}</h5>
           <p>
             {price} {t("texts.plants.plantThumbnail.currency")}
           </p>
           <Link to={`/plants/fetch/${_id}`} className="navigation-link">
-            <button className="[ button--width-medium ] [ btn form-control px-3 ]">
+            <button className="[ button--width-small ] [ btn form-control px-3 ]">
               {t("link.details")}
             </button>
           </Link>

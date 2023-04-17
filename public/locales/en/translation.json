@@ -10,6 +10,7 @@
     "tryIt": "Try it!",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "faq": "FAQ",
     "details": "Details",
     "tooltipps": {
       "newRequest": "new request",
@@ -93,11 +94,11 @@
         "headline": "Plants"
       },
       "searchPlant": {
-        "headline": "Search a plant",
+        "headline": "Start search...",
         "namePlaceholder": "Name"
       }
     },
-    "authentification": {
+    "auth": {
       "signIn": {
         "headline": "Sign In",
         "email": "Email address",
@@ -201,6 +202,27 @@
         "subheadline": "by"
       }
     },
+    "faq": {
+      "overview": {
+        "headline": "FAQs"
+      },
+      "item1": {
+        "header": "Do I have to swap my plant?",
+        "body": "The main concept of Jungle Swap is to swap plants, but you can also buy plants with you credit card."
+      },
+      "item2": {
+        "header": "How can I get in touch with a member to swap or buy a plant?",
+        "body": "With an internal message system."
+      },
+      "item3": {
+        "header": "What can I upload of the plant I will swap or sell?",
+        "body": "A picture and a description with the price. That's all."
+      },
+      "item4": {
+        "header": "Are there any fees for me as seller?",
+        "body": "No, fees for the seller a not planned yet"
+      }
+    },
     "notFound": {
       "headline": "Oh-oh!",
       "subheadline1": "We think you got lost in the jungle!",
@@ -227,7 +249,7 @@
   },
 
   "errorTexts": {
-    "authentification": {
+    "auth": {
       "unauthorized": "Unauthorized user",
       "signUp": {
         "form": {

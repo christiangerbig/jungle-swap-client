@@ -1,0 +1,30 @@
+@import "../base/variables"
+@import "../base/breakpoints"
+
+.modal-body
+  background-color: rgba(0, 0, 0, 0.4)
+  z-index: 1040
+  &__box
+    width: 60%
+    @include respond-to("tablet")
+      width: 70%
+    @include respond-to("mobile")
+      width: 80%
+    background-color: $floral-white
+    padding: 3rem 2rem 2rem 2rem
+    border: 1px solid $black
+    &__headline
+      font:
+        family: "Noto Serif", serif
+        size: 2.5rem
+      letter-spacing: 0.0625rem
+    &__subheadline
+      font:
+        family: "Noto Serif", serif
+        size: 2rem
+      letter-spacing: 0.0625rem
+    &__text
+      font:
+        family: "Source Sans Pro", sans-serif
+        weight: 600
+      letter-spacing: 0.25rem

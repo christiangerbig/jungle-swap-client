@@ -1,0 +1,14 @@
+@import "../base/variables"
+@import "../base/breakpoints"
+
+.nav-bar
+  background-color: $floral-white-transparent1
+  &__nav-link
+    color: $royal-blue
+    &:hover 
+      text-decoration: none
+      color: $dark-green
+    &--width-small 
+      width: 30%
+      @include respond-to("desktop-small")
+        width: 35%

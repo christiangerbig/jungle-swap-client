@@ -1,0 +1,46 @@
+@import "variables"
+
+#card-element 
+  background-color: white
+  border: none
+  border-radius: 3px
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
+
+.result-message 
+  font-weight: 600
+  text-align: center
+  color: rgb(79, 167, 100)
+  &--hidden
+    display: none
+
+.payment-checkout-form
+  background-color: $floral-white
+  padding: 1rem
+  margin-bottom: 1rem
+  &__headline
+    font:
+      family: "Noto Serif", serif
+      size: 3.75rem
+    letter-spacing: -0.0625rem
+    color: $dark-green
+
+.card-button
+  &:disabled 
+    opacity: 0.5
+    cursor: default
+    border: none
+    border-radius: 3px
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
+
+.card-error 
+  text-align: center
+  color: rgb(238, 63, 20)
+
+.spinner
+  color: $tomato
+  margin: 0 auto
+  &:after 
+    border: none
+    border-radius: 6px
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.164)
+
