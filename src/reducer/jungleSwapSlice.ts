@@ -62,6 +62,9 @@ interface InitialState {
   titleSectionHeight: number;
   aboutSectionHeight: number;
 
+  // ----- Language handling -----
+  isLanguageChange: boolean;
+
   // ----- Error handling -----
   errorMessage: ErrorMessage;
 }
@@ -124,6 +127,9 @@ const initialState: InitialState = {
   // ----- Pages handling -----
   titleSectionHeight: 0,
   aboutSectionHeight: 0,
+
+  // ----- Language handling -----
+  isLanguageChange: false,
 
   // ----- Error handling -----
   errorMessage: null,
@@ -656,6 +662,11 @@ export const jungleSwapSlice = createSlice({
       scroll.scrollTo(state.titleSectionHeight + state.aboutSectionHeight);
     },
 
+    // ----- Language handling -----
+    setIsLanguageChange: (state, { payload }: PayloadAction<boolean>) => {
+      state.isLanguageChange = payload;
+    },
+
     // ----- Error handling -----
     setErrorMessage: (state, { payload }: PayloadAction<ErrorMessage>) => {
       state.errorMessage = payload;
@@ -826,6 +837,10 @@ const selectors = {
     jungleSwap: { aboutSectionHeight },
   }: RootState) => aboutSectionHeight,
 
+  // ----- Language handling -----
+  selectIsLanguageChange: ({ jungleSwap: { isLanguageChange } }: RootState) =>
+    isLanguageChange,
+
   // ----- Error handling -----
   selectErrorMessage: ({ jungleSwap: { errorMessage } }: RootState) =>
     errorMessage,
@@ -892,6 +907,9 @@ export const {
   scrollToAbout,
   scrollToPlants,
 
+  // ----- Language handling -----
+  setIsLanguageChange,
+
   // ----- Error handling -----
   setErrorMessage,
 } = jungleSwapSlice.actions;
@@ -943,6 +961,9 @@ export const {
   // ----- Pages handling -----
   selectTitleSectionHeight,
   selectAboutSectionHeight,
+
+  // ----- Language handling -----
+  selectIsLanguageChange,
 
   // ----- Error handling -----
   selectErrorMessage,

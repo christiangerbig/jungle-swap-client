@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useAppSelector } from "../../app/hooks";
+import { selectIsLanguageChange } from "../../reducer/jungleSwapSlice";
 
 interface AccordionItemProps {
   header: String;
@@ -6,6 +8,7 @@ interface AccordionItemProps {
 }
 
 const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
+  const isLanguageChange = useAppSelector(selectIsLanguageChange);
   const [isBodyVisible, setIsBodyVisible] = useState<boolean>(false);
   const divBodyRef = useRef<HTMLDivElement>(null);
 
@@ -19,6 +22,14 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
       accordionItemBody && (accordionItemBody.style.height = "0");
     }
   }, [isBodyVisible]);
+
+  useEffect(() => {
+    const accordionItemBody = divBodyRef.current;
+    if (isBodyVisible) {
+      accordionItemBody &&
+        (accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`);
+    }
+  }, [isLanguageChange]);
 
   const headerState = useMemo(
     (): string => (isBodyVisible ? "accordion-item__header--is-active" : ""),
@@ -87,10 +98,7 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
       >
         <div className="pb-1">
           <div className="px-1 py-1">
-            <p>
-              {body}
-              <br />
-            </p>
+            <p>{body}</p>
           </div>
         </div>
       </div>

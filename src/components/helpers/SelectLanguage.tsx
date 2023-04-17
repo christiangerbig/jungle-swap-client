@@ -1,12 +1,20 @@
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  selectIsLanguageChange,
+  setIsLanguageChange,
+} from "../../reducer/jungleSwapSlice";
 
 const SelectLanguage = (): JSX.Element => {
+  const isLanguageChange = useAppSelector(selectIsLanguageChange);
+  const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation();
 
   const handleSelectLanguage = ({ target: { value } }: any): void => {
     i18n.changeLanguage(value);
+    dispatch(setIsLanguageChange(!isLanguageChange));
   };
 
   return (
