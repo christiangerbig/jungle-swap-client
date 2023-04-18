@@ -15,22 +15,21 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
   useEffect((): void => {
     const accordionItemBody = divBodyRef.current;
 
-    if (isBodyVisible) {
-      accordionItemBody &&
-        (accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`);
-    } else {
-      accordionItemBody && (accordionItemBody.style.height = "0");
+    if (accordionItemBody) {
+      if (isBodyVisible) {
+        accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`;
+      } else {
+        accordionItemBody.style.height = "0";
+      }
     }
   }, [isBodyVisible]);
 
   useEffect((): void => {
     const accordionItemBody = divBodyRef.current;
 
-    if (isBodyVisible) {
-      if (accordionItemBody) {
-        accordionItemBody.style.height = "auto";
-        accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`;
-      }
+    if (isBodyVisible && accordionItemBody) {
+      accordionItemBody.style.height = "auto";
+      accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`;
     }
   }, [isLanguageChange]);
 
