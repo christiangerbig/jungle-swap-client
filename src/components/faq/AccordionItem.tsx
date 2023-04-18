@@ -12,7 +12,7 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
   const [isBodyVisible, setIsBodyVisible] = useState<boolean>(false);
   const divBodyRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useEffect((): void => {
     const accordionItemBody = divBodyRef.current;
 
     if (isBodyVisible) {
@@ -23,11 +23,14 @@ const AccordionItem = ({ header, body }: AccordionItemProps): JSX.Element => {
     }
   }, [isBodyVisible]);
 
-  useEffect(() => {
+  useEffect((): void => {
     const accordionItemBody = divBodyRef.current;
+
     if (isBodyVisible) {
-      accordionItemBody &&
-        (accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`);
+      if (accordionItemBody) {
+        accordionItemBody.style.height = "auto";
+        accordionItemBody.style.height = `${accordionItemBody.scrollHeight}px`;
+      }
     }
   }, [isLanguageChange]);
 

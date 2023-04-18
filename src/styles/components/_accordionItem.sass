@@ -19,10 +19,11 @@
       &__image 
         rotate: 0
         will-change: rotate
-        transition: rotate 0.4s ease
+        transition: rotate 0.5s ease
         &--is-active 
           fill: $dark-green
           rotate: 180deg
   &__body 
     height: 0
-    transition: height 1s
+    will-change: height
+    transition: height 0.4s ease
