@@ -7,7 +7,7 @@ import {
 import { Plant } from "../typeDefinitions";
 
 interface PaymentMethods {
-  initializePayment: Function;
+  initializePayment: (plant: Plant) => void;
 }
 
 export const usePayment = (): PaymentMethods => {

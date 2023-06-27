@@ -9,46 +9,50 @@ import {
 import { User } from "../typeDefinitions";
 
 interface AuthMethods {
-  signIn: Function;
-  signUp: Function;
-  logOut: Function;
-  updateUserRequestsReplies: Function;
+  signIn: (user: User, callback: () => void) => void;
+  signUp: (newUser: User, callback: () => void) => void;
+  logOut: (loggedInUser: User, callback: () => void) => void;
+  updateUserRequestsReplies: (
+    loggedInUser: User,
+    amountOfRequests: number,
+    amountOfReplies: number
+  ) => User;
 }
 
 export const useAuthentification = (): AuthMethods => {
   const dispatch = useAppDispatch();
 
   return {
-    signIn: (user: User, callbackFunction: Function): void => {
+    signIn: (user: User, callback: () => void): void => {
       dispatch(signIn(user))
         .unwrap()
         .then((user: User): void => {
           dispatch(setLoggedInUser(user));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    signUp: (newUser: User, callbackFunction: Function): void => {
+    signUp: (newUser: User, callback: () => void): void => {
       dispatch(signUp(newUser))
         .unwrap()
         .then((user: User): void => {
           dispatch(setLoggedInUser(user));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    logOut: (loggedInUser: User, callbackFunction: Function): void => {
+    logOut: (loggedInUser: User, callback: () => void): void => {
       dispatch(logOut(loggedInUser))
         .unwrap()
         .then((): void => {
           dispatch(setLoggedInUser(null));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));

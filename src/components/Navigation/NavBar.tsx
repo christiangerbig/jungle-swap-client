@@ -24,7 +24,7 @@ import {
 } from "../../reducer/jungleSwapSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Message } from "../../app/typeDefinitions";
+import { Message, User } from "../../app/typeDefinitions";
 import NavAdditionalItems from "./NavAdditionalItems";
 import SelectLanguage from "../helpers/SelectLanguage";
 
@@ -83,8 +83,8 @@ const NavBar = (): JSX.Element => {
   useEffect(() => {
     const checkNewRequestsReplies = (): void => {
       fetchCheck((messages: Message[]): void => {
-        checkNewRequests(loggedInUser, messages, amountOfRequests);
-        checkNewReplies(loggedInUser, messages, amountOfReplies);
+        checkNewRequests(loggedInUser as User, messages, amountOfRequests);
+        checkNewReplies(loggedInUser as User, messages, amountOfReplies);
       });
     };
 

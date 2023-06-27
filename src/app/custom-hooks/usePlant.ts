@@ -21,12 +21,16 @@ import {
 import { Plant, PlantId, UploadImageData } from "../typeDefinitions";
 
 interface PlantMethods {
-  createPlant: Function;
-  fetchPlant: Function;
-  fetchPlants: Function;
-  updatePlant: Function;
-  deletePlant: Function;
-  searchPlant: Function;
+  createPlant: (
+    plant: any,
+    uploadImageData: UploadImageData,
+    callback: () => void
+  ) => void;
+  fetchPlant: (plantId: PlantId, callback: () => void) => void;
+  fetchPlants: (callback?: () => void) => void;
+  updatePlant: (plant: Plant, callback: () => void) => void;
+  deletePlant: (plantId: PlantId, callback: () => void) => void;
+  searchPlant: (query: string) => void;
 }
 
 export const usePlant = (): PlantMethods => {
@@ -36,7 +40,7 @@ export const usePlant = (): PlantMethods => {
     createPlant: (
       { name, description, size, location, price }: any,
       { imageUrl, imagePublicId }: UploadImageData,
-      callbackFunction: Function
+      callback: () => void
     ): void => {
       const newPlant: Plant = {
         name: name.value,
@@ -52,34 +56,34 @@ export const usePlant = (): PlantMethods => {
         .unwrap()
         .then((plant: Plant): void => {
           dispatch(addPlant(plant));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    fetchPlant: (plantId: PlantId, callbackFunction: Function): void => {
+    fetchPlant: (plantId: PlantId, callback: () => void): void => {
       dispatch(setIsFetchingPlant(true));
       dispatch(fetchPlant(plantId))
         .unwrap()
         .then((plant: Plant): void => {
           dispatch(setPlant(plant));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    fetchPlants: (callbackFunction?: Function): void => {
+    fetchPlants: (callback?: () => void): void => {
       dispatch(setIsFetchingPlants(true));
       dispatch(fetchAllPlants())
         .unwrap()
         .then((plants: Plant[]): void => {
           dispatch(setPlants(plants));
-          if (typeof callbackFunction !== "undefined") {
-            callbackFunction();
+          if (typeof callback !== "undefined") {
+            callback();
           }
         })
         .catch((rejectedValue: any): void => {
@@ -98,7 +102,7 @@ export const usePlant = (): PlantMethods => {
         location,
         price,
       }: Plant,
-      callbackFunction: Function
+      callback: () => void
     ): void => {
       const updatedPlant: Plant = {
         name,
@@ -114,20 +118,20 @@ export const usePlant = (): PlantMethods => {
         .unwrap()
         .then((updatedPlant): void => {
           dispatch(setPlantChanges(updatedPlant));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    deletePlant: (plantId: PlantId, callbackFunction: Function): void => {
+    deletePlant: (plantId: PlantId, callback: () => void): void => {
       dispatch(setIsDeletingPlant(true));
       dispatch(deletePlant(plantId))
         .unwrap()
         .then((): void => {
           dispatch(removePlant(plantId));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));

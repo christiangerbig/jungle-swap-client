@@ -9,20 +9,26 @@ import {
 import { DestroyImageData, UploadImageData } from "../typeDefinitions";
 
 interface PlantImageMethods {
-  createImage: Function;
-  deleteImage: Function;
+  createImage: (
+    uploadForm: any,
+    callback: (uploadImageData: UploadImageData) => void
+  ) => void;
+  deleteImage: (destroyImageData: DestroyImageData) => void;
 }
 
 export const usePlantImage = (): PlantImageMethods => {
   const dispatch = useAppDispatch();
 
   return {
-    createImage: (uploadForm: any, callbackFunction: Function): void => {
+    createImage: (
+      uploadForm: any,
+      callback: (uploadImageData: UploadImageData) => void
+    ): void => {
       dispatch(setIsUploadingPlantImage(true));
       dispatch(uploadPlantImage(uploadForm))
         .unwrap()
         .then((uploadImageData: UploadImageData): void => {
-          callbackFunction(uploadImageData);
+          callback(uploadImageData);
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));

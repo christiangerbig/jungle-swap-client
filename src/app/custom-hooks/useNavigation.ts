@@ -2,9 +2,9 @@ import { useHistory } from "react-router";
 import { animateScroll as scroll } from "react-scroll";
 
 interface NavigationMethods {
-  goToHome: Function;
-  goToRequests: Function;
-  goToReplies: Function;
+  goToHome: () => void;
+  goToRequests: () => void;
+  goToReplies: () => void;
 }
 
 export const useNavigation = (): NavigationMethods => {

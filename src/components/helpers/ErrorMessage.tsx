@@ -1,6 +1,6 @@
 interface ErrorMessageProps {
   message: string | null;
-  outputFunction: Function;
+  outputFunction: (message: string) => string;
 }
 
 const ErrorMessage = ({

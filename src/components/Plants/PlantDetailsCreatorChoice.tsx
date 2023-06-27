@@ -12,7 +12,7 @@ import {
   selectMessages,
   selectPlant,
 } from "../../reducer/jungleSwapSlice";
-import { Plant } from "../../app/typeDefinitions";
+import { Plant, PlantId } from "../../app/typeDefinitions";
 
 const PlantDetailsCreatorChoice = (): JSX.Element => {
   const plant = useAppSelector(selectPlant);
@@ -36,9 +36,9 @@ const PlantDetailsCreatorChoice = (): JSX.Element => {
   );
 
   const handleDeletePlant = (): void => {
-    deleteRemainingMessages(messages, _id);
+    deleteRemainingMessages(messages, _id as PlantId);
     deleteImage({ imagePublicId });
-    deletePlant(_id, (): void => {
+    deletePlant(_id as PlantId, (): void => {
       goBack();
     });
   };

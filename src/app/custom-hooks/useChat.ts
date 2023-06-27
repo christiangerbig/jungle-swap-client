@@ -1,5 +1,5 @@
 interface ChatMethods {
-  createLauncherIcon: Function;
+  createLauncherIcon: (htmlDocument: Document, method: any) => void;
 }
 
 interface KommunicateSettings {

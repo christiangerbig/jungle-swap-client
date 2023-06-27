@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { usePayment } from "../../app/custom-hooks/usePayment";
@@ -45,7 +45,7 @@ const PaymentCheckoutForm = (): JSX.Element => {
   const { initializePayment } = usePayment();
   const { t } = useTranslation();
   const { goToHome } = useNavigation();
-  const { _id, name, price } = plant as Plant;
+  const { name, price } = plant as Plant;
   const cardStyle: CardStyle = {
     style: {
       base: {

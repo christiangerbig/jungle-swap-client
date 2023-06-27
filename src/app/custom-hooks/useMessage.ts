@@ -24,96 +24,101 @@ import {
 import { Message, MessageId, Plant, PlantId, User } from "../typeDefinitions";
 
 interface MessageMethods {
-  createMessage: Function;
-  fetchMessage: Function;
-  fetchMessages: Function;
-  fetchCheck: Function;
-  updateMessage: Function;
-  deleteMessage: Function;
-  deleteRemainingMessages: Function;
-  checkNewRequests: Function;
-  checkNewReplies: Function;
+  createMessage: (newMessage: Message, callback: () => void) => void;
+  fetchMessage: (messageId: MessageId, callback: () => void) => void;
+  fetchMessages: (callback: () => void) => void;
+  fetchCheck: (callback: (messages: Message[]) => void) => void;
+  updateMessage: (updatedMessage: Message, callback: () => void) => void;
+  deleteMessage: (messageId: MessageId, callback: () => void) => void;
+  deleteRemainingMessages: (messages: Message[], plantId: PlantId) => void;
+  checkNewRequests: (
+    user: User,
+    messages: Message[],
+    amountOfRequests: number
+  ) => void;
+  checkNewReplies: (
+    user: User,
+    messages: Message[],
+    amountOfReplies: number
+  ) => void;
 }
 
 export const useMessage = (): MessageMethods => {
   const dispatch = useAppDispatch();
 
   return {
-    createMessage: (newMessage: Message, callbackFunction: Function): void => {
+    createMessage: (newMessage: Message, callback: () => void): void => {
       dispatch(setIsCreatingMessage(true));
       dispatch(createMessage(newMessage))
         .unwrap()
         .then((message: Message): void => {
           dispatch(addMessage(message));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    fetchMessage: (messageId: MessageId, callbackFunction: Function): void => {
+    fetchMessage: (messageId: MessageId, callback: () => void): void => {
       dispatch(setIsFetchingMessage(true));
       dispatch(fetchMessage(messageId))
         .unwrap()
         .then((message: Message): void => {
           dispatch(setMessage(message));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    fetchMessages: (callbackFunction: Function): void => {
+    fetchMessages: (callback: () => void): void => {
       dispatch(setIsFetchingMessages(true));
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages: Message[]): void => {
           dispatch(setMessages(messages));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    fetchCheck: (callbackFunction: Function): void => {
+    fetchCheck: (callback: (messages: Message[]) => void): void => {
       dispatch(fetchAllMessages())
         .unwrap()
         .then((messages: Message[]): void => {
           dispatch(setMessages(messages));
-          callbackFunction(messages);
+          callback(messages);
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    updateMessage: (
-      updatedMessage: Message,
-      callbackFunction: Function
-    ): void => {
+    updateMessage: (updatedMessage: Message, callback: () => void): void => {
       const { _id } = updatedMessage;
       dispatch(setIsUpdatingMessage(true));
       dispatch(updateMessage({ messageId: _id as MessageId, updatedMessage }))
         .unwrap()
         .then((message: Message): void => {
           dispatch(setMessageChanges(message));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
         });
     },
 
-    deleteMessage: (messageId: MessageId, callbackFunction: Function): void => {
+    deleteMessage: (messageId: MessageId, callback: () => void): void => {
       dispatch(setIsDeletingMessage(true));
       dispatch(deleteMessage(messageId))
         .unwrap()
         .then((): void => {
           dispatch(removeMessage(messageId));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           dispatch(setErrorMessage(rejectedValue.message));
@@ -137,7 +142,7 @@ export const useMessage = (): MessageMethods => {
     },
 
     checkNewRequests: (
-      { _id }: { _id: string },
+      { _id }: User,
       messages: Message[],
       amountOfRequests: number
     ): void => {
@@ -166,7 +171,7 @@ export const useMessage = (): MessageMethods => {
     },
 
     checkNewReplies: (
-      { _id }: { _id: string },
+      { _id }: User,
       messages: Message[],
       amountOfReplies: number
     ): void => {

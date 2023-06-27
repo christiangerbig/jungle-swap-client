@@ -7,19 +7,19 @@ import {
 import { User } from "../../app/typeDefinitions";
 
 interface RoutingMethods {
-  protectRoute: Function;
+  protectRoute: (callback: () => void) => void;
 }
 
 export const useRouting = (): RoutingMethods => {
   const dispatch = useAppDispatch();
 
   return {
-    protectRoute: (callbackFunction: Function): void => {
+    protectRoute: (callback: () => void): void => {
       dispatch(checkUserLoggedIn())
         .unwrap()
         .then((user: User): void => {
           dispatch(setLoggedInUser(user));
-          callbackFunction();
+          callback();
         })
         .catch((rejectedValue: any): void => {
           if (rejectedValue.message !== "Unauthorized user") {

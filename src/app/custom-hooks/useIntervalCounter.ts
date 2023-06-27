@@ -2,7 +2,7 @@ import { useAppDispatch } from "../hooks";
 import { setDelayCounter, setIntervalId } from "../../reducer/jungleSwapSlice";
 
 interface IntervalCounterMethods {
-  stopCounter: Function;
+  stopCounter: (intervalId: NodeJS.Timeout) => void;
 }
 
 export const useIntervalCounter = (): IntervalCounterMethods => {
